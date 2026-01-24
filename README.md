@@ -1,0 +1,2 @@
+# skills
+Agent Skills Registry
