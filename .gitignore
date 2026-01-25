@@ -137,3 +137,111 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# OS / Editor
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+*.tmp
+.vscode/
+.idea/
+.fleet/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+.cache/
+pip-wheel-metadata/
+pip-log.txt
+pip-delete-this-directory.txt
+*.egg-info/
+.eggs/
+*.egg
+dist/
+build/
+venv/
+.venv/
+env/
+.envrc
+
+# Ruby
+*.gem
+*.rbc
+.bundle/
+vendor/bundle/
+.ruby-version
+.ruby-gemset
+
+# Java / JVM
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.gradle/
+**/target/
+hs_err_pid*
+.idea/
+
+# Go
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work.sum
+vendor/
+
+# Rust
+target/
+**/*.rs.bk
+Cargo.lock
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# PHP / Composer
+vendor/
+composer.lock
+
+# Elixir
+_build/
+deps/
+erl_crash.dump
+
+# Swift / Xcode
+DerivedData/
+*.xcworkspace
+*.xcuserdata
+*.xcodeproj/project.xcworkspace/
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+
+# Logs (generic)
+*.log
