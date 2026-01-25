@@ -1,0 +1,43 @@
+- repository: clawdbot/clawdbot
+  skill: bird
+  notice: |
+    This environment cannot read browser cookies automatically. Ask the USER for these two cookie values, giving them the following instructions:
+
+    - Go to x.com and log in
+    - Open Chrome DevTools (macOS: `⌥⌘I`, Windows: `Ctrl+Shift+I`) → Application tab
+    - Under Cookies, you should see x.com
+    - Copy the values for `auth_token` and `ct0` and paste them in the chat so I can save them.
+
+    ## Setup
+
+    Once you have the cookies from the USER, run these commands to set up bird:
+
+    ### Store credentials
+
+    ```bash
+    mkdir -p ~/.config/bird
+    cat <<'EOF' > ~/.config/bird/auth.env
+    AUTH_TOKEN=<paste_auth_token>
+    CT0=<paste_ct0>
+    EOF
+    chmod 600 ~/.config/bird/auth.env
+    ```
+
+    ### Create wrapper in /usr/local/bin (takes PATH precedence, survives updates)
+
+    ```bash
+    mkdir -p /usr/local/bin
+    cat > /usr/local/bin/bird <<'WRAPPER'
+    #!/bin/bash
+    [ -f ~/.config/bird/auth.env ] && set -a && . ~/.config/bird/auth.env && set +a
+    exec /usr/bin/bird "$@"
+    WRAPPER
+    chmod +x /usr/local/bin/bird
+    ```
+
+    ### Verify
+
+    ```bash
+    bird whoami
+    bird home -n 5
+    ```

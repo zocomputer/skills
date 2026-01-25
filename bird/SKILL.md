@@ -7,26 +7,46 @@ metadata: {"clawdbot":{"emoji":"🐦","requires":{"bins":["bird"]},"install":[{"
 
 # Notice
 
-This environment cannot read browser cookies automatically. Ask the user for these values:
-1. Go to x.com (or twitter.com) and log in.
-2. Open browser devtools → Application/Storage tab.
-3. Under Cookies, select x.com (or twitter.com).
-4. Copy the values for `auth_token` and `ct0`.
+This environment cannot read browser cookies automatically. Ask the USER for these two cookie values, giving them the following instructions:
 
-Then once you have the values, run these commands to store them for bird:
+- Go to x.com and log in
+- Open Chrome DevTools (macOS: `⌥⌘I`, Windows: `Ctrl+Shift+I`) → Application tab
+- Under Cookies, you should see x.com
+- Copy the values for `auth_token` and `ct0` and paste them in the chat so I can save them.
+
+## Setup
+
+Once you have the cookies from the USER, run these commands to set up bird:
+
+### Store credentials
+
+```bash
 mkdir -p ~/.config/bird
 cat <<'EOF' > ~/.config/bird/auth.env
-AUTH_TOKEN=PASTE_AUTH_TOKEN_HERE
-CT0=PASTE_CT0_HERE
+AUTH_TOKEN=<paste_auth_token>
+CT0=<paste_ct0>
 EOF
 chmod 600 ~/.config/bird/auth.env
+```
 
-Make the values available in the shell:
-printf '\n# bird auth\nset -a; [ -f ~/.config/bird/auth.env ] && . ~/.config/bird/auth.env; set +a\n' >> ~/.zshrc
+### Create wrapper in /usr/local/bin (takes PATH precedence, survives updates)
 
-Then verify:
-bird check
+```bash
+mkdir -p /usr/local/bin
+cat > /usr/local/bin/bird <<'WRAPPER'
+#!/bin/bash
+[ -f ~/.config/bird/auth.env ] && set -a && . ~/.config/bird/auth.env && set +a
+exec /usr/bin/bird "$@"
+WRAPPER
+chmod +x /usr/local/bin/bird
+```
+
+### Verify
+
+```bash
 bird whoami
+bird home -n 5
+```
 
 # bird 🐦
 

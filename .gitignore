@@ -245,3 +245,6 @@ DerivedData/
 
 # Logs (generic)
 *.log
+
+# Installed skill outputs
+Skills/

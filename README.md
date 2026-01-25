@@ -35,7 +35,7 @@ bun manifest
 The manifest includes a top-level `tarball_url` plus each skill's `path` (directory name). Clients can install a skill by extracting just that directory from the tarball:
 
 ```bash
-slug="google-calendar"; dest="Skills"; mkdir -p "$dest" && curl -L "$(jq -r '.tarball_url' manifest.json)" | tar -xz -C "$dest" --strip-components=1 "$(jq -r '.archive_root' manifest.json)/$slug"
+slug="bird"; dest="Skills"; manifest_url="https://raw.githubusercontent.com/zocomputer/skills/main/manifest.json"; mkdir -p "$dest" && tarball_url="$(curl -fsSL "$manifest_url" | jq -r '.tarball_url')" && archive_root="$(curl -fsSL "$manifest_url" | jq -r '.archive_root')" && curl -L "$tarball_url" | tar -xz -C "$dest" --strip-components=1 "$archive_root/$slug"
 ```
 
 Notes:
