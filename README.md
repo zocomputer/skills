@@ -32,12 +32,14 @@ Generate `manifest.json` with each skill's name, description, and relative path,
 bun manifest
 ```
 
-The manifest includes a top-level `tarball_url` plus each skill's `path` (directory name). Clients can install a skill by extracting just that directory from the tarball:
+The manifest includes a top-level `tarball_url` plus each skill's `slug` (directory name), `name`, `description`, and `path`. 
+
+## Installing a skill
+
+Installing a skill with slug:
 
 ```bash
 slug="bird"; dest="Skills"; manifest_url="https://raw.githubusercontent.com/zocomputer/skills/main/manifest.json"; mkdir -p "$dest" && tarball_url="$(curl -fsSL "$manifest_url" | jq -r '.tarball_url')" && archive_root="$(curl -fsSL "$manifest_url" | jq -r '.archive_root')" && curl -L "$tarball_url" | tar -xz -C "$dest" --strip-components=1 "$archive_root/$slug"
 ```
 
-Notes:
-- The tarball URL downloads the entire repository archive. The `tar` command extracts only the requested skill directory.
-- `archive_root` is the tarball root folder created by GitHub: `<repo>-<branch>`.
+> Gets repo tarball in temp dir, extracts the skill directory. `archive_root` is the tarball root folder created by GitHub: `<repo>-<branch>`.

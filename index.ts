@@ -339,6 +339,7 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
 };
 
 type SkillInfo = {
+  slug: string;
   name: string;
   description: string;
   path: string;
@@ -477,7 +478,9 @@ const writeManifest = async () => {
       continue;
     }
     const relPath = toDisplayPath(skillDir);
+    const slug = path.basename(skillDir);
     skills.push({
+      slug,
       name: info.name,
       description: info.description,
       path: relPath,
