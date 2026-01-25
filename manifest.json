@@ -13,6 +13,15 @@
       "path": "pdf-to-markdown"
     },
     {
+      "name": "Marketing Psychology & Mental Models",
+      "description": "When the user wants to apply psychological principles, mental models, or behavioral science to marketing. Also use when the user mentions 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,' 'behavioral science,' 'why people buy,' 'decision-making,' or 'consumer behavior.' This skill provides 70+ mental models organized for marketing application.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "marketing-psychology",
+      "path": "marketing-psychology"
+    },
+    {
       "name": "X (Twitter)",
       "description": "Let Zo use your X (Twitter) account",
       "homepage": "https://bird.fast",
@@ -63,6 +72,16 @@
       "path": "text-commute-info"
     },
     {
+      "name": "Create Animated Videos (Remotion)",
+      "description": "Best practices for Remotion - Video creation in React",
+      "metadata": {
+        "author": "Remotion-dev",
+        "tags": "remotion, video, react, animation, composition"
+      },
+      "slug": "remotion-best-practices",
+      "path": "remotion-best-practices"
+    },
+    {
       "name": "Blog Watcher",
       "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
       "homepage": "https://github.com/Hyaxia/blogwatcher",
@@ -93,6 +112,15 @@
       "path": "blogwatcher"
     },
     {
+      "name": "SEO Expert",
+      "description": "When the user wants to audit, review, or diagnose SEO issues on their site. Also use when the user mentions \"SEO audit,\" \"technical SEO,\" \"why am I not ranking,\" \"SEO issues,\" \"on-page SEO,\" \"meta tags review,\" or \"SEO health check.\" For building pages at scale to target keywords, see programmatic-seo. For adding structured data, see schema-markup.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "seo-audit",
+      "path": "seo-audit"
+    },
+    {
       "name": "Set up n8n workflow automation",
       "description": "Sets up n8n workflow automation tool so you can create automated workflows between different apps and services",
       "metadata": {
@@ -101,6 +129,25 @@
       },
       "slug": "n8n-setup",
       "path": "n8n-setup"
+    },
+    {
+      "name": "Copywriting Expert",
+      "description": "When the user wants to write, rewrite, or improve marketing copy for any page — including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says \"write copy for,\" \"improve this copy,\" \"rewrite this page,\" \"marketing copy,\" \"headline help,\" or \"CTA copy.\" For email copy, see email-sequence. For popup copy, see popup-cro.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "copywriting",
+      "path": "copywriting"
+    },
+    {
+      "name": "Font & Color Theme Builder",
+      "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "theme-factory",
+      "path": "theme-factory"
     },
     {
       "name": "Set up hashcards spaced repetition system",
@@ -133,6 +180,47 @@
       "path": "portfolio-site"
     },
     {
+      "name": "Create Memes",
+      "description": "Generate memes using the memegen.link API. Use when users request memes, want to add humor to content, or need visual aids for social media. Supports 100+ popular templates with custom text and styling.",
+      "metadata": {
+        "author": "Softaworks"
+      },
+      "slug": "meme-factory",
+      "path": "meme-factory"
+    },
+    {
+      "name": "Social Content Expert",
+      "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' or 'viral content.' This skill covers content creation, repurposing, and platform-specific strategies.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "social-content",
+      "path": "social-content"
+    },
+    {
+      "name": "Use LinkedIn",
+      "description": "A bird-like LinkedIn CLI for searching profiles, checking messages, and summarizing your feed using session cookies.",
+      "homepage": "https://github.com/clawdbot/linkedin-cli",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "💼",
+          "requires": {
+            "bins": [
+              "python3"
+            ],
+            "env": [
+              "LINKEDIN_LI_AT",
+              "LINKEDIN_JSESSIONID"
+            ]
+          }
+        }
+      },
+      "slug": "linkedin-cli",
+      "path": "linkedin-cli"
+    },
+    {
       "name": "Generate QR code with optional image",
       "description": "Generates a QR code from any URL, and optionally overlays a custom image in the center",
       "metadata": {
@@ -153,6 +241,15 @@
       "path": "personal-genomics-analysis"
     },
     {
+      "name": "Copy Editing Expert",
+      "description": "When the user wants to edit, review, or improve existing marketing copy. Also use when the user mentions 'edit this copy,' 'review my copy,' 'copy feedback,' 'proofread,' 'polish this,' 'make this better,' or 'copy sweep.' This skill provides a systematic approach to editing marketing copy through multiple focused passes.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "copy-editing",
+      "path": "copy-editing"
+    },
+    {
       "name": "Enrich CSV with AI-generated columns",
       "description": "Adds new columns to your spreadsheet by generating information for each row",
       "metadata": {
@@ -163,6 +260,16 @@
       "path": "enrich-csv"
     },
     {
+      "name": "Process PDF Files",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale.",
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "pdf",
+      "path": "pdf"
+    },
+    {
       "name": "Extract Text from Images (OCR)",
       "description": "Extract text from images, scanned documents, and PDFs using OCR",
       "metadata": {
@@ -171,6 +278,16 @@
       },
       "slug": "extract-text-from-image",
       "path": "extract-text-from-image"
+    },
+    {
+      "name": "Generate Algorithmic Art",
+      "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "algorithmic-art",
+      "path": "algorithmic-art"
     },
     {
       "name": "Video Frames (FFmpeg)",
@@ -185,7 +302,18 @@
             "bins": [
               "ffmpeg"
             ]
-          }
+          },
+          "install": [
+            {
+              "id": "brew",
+              "kind": "brew",
+              "formula": "ffmpeg",
+              "bins": [
+                "ffmpeg"
+              ],
+              "label": "Install ffmpeg (brew)"
+            }
+          ]
         }
       },
       "slug": "video-frames",
@@ -232,6 +360,49 @@
       "path": "eightctl"
     },
     {
+      "name": "Google Workspace (gog)",
+      "description": "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs",
+      "homepage": "https://gogcli.sh",
+      "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/; see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "🎮",
+          "requires": {
+            "bins": [
+              "gog"
+            ]
+          },
+          "install": [
+            {
+              "id": "brew",
+              "kind": "brew",
+              "formula": "steipete/tap/gogcli",
+              "bins": [
+                "gog"
+              ],
+              "label": "Install gog (brew)"
+            }
+          ]
+        }
+      },
+      "slug": "gog",
+      "path": "gog"
+    },
+    {
+      "name": "Use Notion",
+      "description": "Work with Notion using your own Notion API key (free)",
+      "homepage": "https://developers.notion.com",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "📝"
+        }
+      },
+      "slug": "notion",
+      "path": "notion"
+    },
+    {
       "name": "Resize Images",
       "description": "Resize images to specific dimensions or percentages",
       "metadata": {
@@ -273,6 +444,15 @@
       "path": "daily-news-digest"
     },
     {
+      "name": "Create 3Blue1Brown Videos (Manim)",
+      "description": "Trigger when: (1) User wants to create an educational/explainer video, (2) User has a vague concept they want visualized, (3) User mentions \"3b1b style\" or \"explain like 3Blue1Brown\", (4) User wants to plan a Manim video or animation sequence, (5) User asks to \"compose\" or \"plan\" a math/science visualization.\n\nTransforms vague video ideas into detailed scene-by-scene plans (scenes.md). Conducts research, asks clarifying questions about audience/scope/focus, and outputs comprehensive scene specifications ready for implementation with ManimCE or ManimGL.\n\nUse this BEFORE writing any Manim code. This skill plans the video; use manimce-best-practices or manimgl-best-practices for implementation.\n",
+      "metadata": {
+        "author": "Adithya-s-k"
+      },
+      "slug": "manim-composer",
+      "path": "manim-composer"
+    },
+    {
       "name": "Create Spotify playlist from Pitchfork Best New Tracks",
       "description": "Finds the latest songs from Pitchfork's Best New Tracks and creates a Spotify playlist for you",
       "metadata": {
@@ -281,6 +461,15 @@
       },
       "slug": "pitchfork-best-tracks",
       "path": "pitchfork-best-tracks"
+    },
+    {
+      "name": "Create or edit Skills",
+      "description": "Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.",
+      "metadata": {
+        "author": "Clawdbot"
+      },
+      "slug": "skill-creator",
+      "path": "skill-creator"
     },
     {
       "name": "Automate something",
@@ -320,6 +509,15 @@
       },
       "slug": "research-topic",
       "path": "research-topic"
+    },
+    {
+      "name": "Brainstorming Expert",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "metadata": {
+        "author": "Obra"
+      },
+      "slug": "brainstorming",
+      "path": "brainstorming"
     },
     {
       "name": "Create a site",
@@ -382,6 +580,20 @@
       "path": "create-slidedeck"
     },
     {
+      "name": "Read Reddit Content",
+      "description": "Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API.",
+      "metadata": {
+        "author": "Resciencelab"
+      },
+      "triggers": [
+        "reddit",
+        "subreddit",
+        "r/"
+      ],
+      "slug": "reddit",
+      "path": "reddit"
+    },
+    {
       "name": "Texting positive affirmations daily",
       "description": "Send yourself a daily text message with a randomly selected or rotating positive affirmation.",
       "metadata": {
@@ -392,6 +604,16 @@
       "path": "daily-affirmations"
     },
     {
+      "name": "Create Animated GIFs for Slack",
+      "description": "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a GIF of X doing Y for Slack.\"",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "slack-gif-creator",
+      "path": "slack-gif-creator"
+    },
+    {
       "name": "Organize my files",
       "description": "Organizes your scattered files into logical folders by project, type, and purpose",
       "metadata": {
@@ -400,6 +622,28 @@
       },
       "slug": "organize-workspace",
       "path": "organize-workspace"
+    },
+    {
+      "name": "Control tmux sessions",
+      "description": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "🧵",
+          "os": [
+            "darwin",
+            "linux"
+          ],
+          "requires": {
+            "bins": [
+              "tmux"
+            ]
+          }
+        }
+      },
+      "slug": "tmux",
+      "path": "tmux"
     },
     {
       "name": "Weekly meeting reminder",
@@ -432,6 +676,15 @@
       "path": "for-each-line"
     },
     {
+      "name": "Stripe Best Practices",
+      "description": "Best practices for building a Stripe integrations",
+      "metadata": {
+        "author": "Stripe"
+      },
+      "slug": "stripe-best-practices",
+      "path": "stripe-best-practices"
+    },
+    {
       "name": "Plant Care Plan",
       "description": "Creates a comprehensive care guide for your specific plant",
       "metadata": {
@@ -461,6 +714,29 @@
       "path": "weather"
     },
     {
+      "name": "Use Trello",
+      "description": "Work with Trello using your own Trello API key (free)",
+      "homepage": "https://developer.atlassian.com/cloud/trello/rest/",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "📋",
+          "requires": {
+            "bins": [
+              "jq"
+            ],
+            "env": [
+              "TRELLO_API_KEY",
+              "TRELLO_TOKEN"
+            ]
+          }
+        }
+      },
+      "slug": "trello",
+      "path": "trello"
+    },
+    {
       "name": "Create a blog",
       "description": "Build a blog or newsletter to share your thoughts.",
       "metadata": {
@@ -479,6 +755,36 @@
       },
       "slug": "generate-pdf",
       "path": "generate-pdf"
+    },
+    {
+      "name": "Use WhatsApp",
+      "description": "Send WhatsApp messages or search/sync history (not for normal chats)",
+      "homepage": "https://wacli.sh",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "📱",
+          "requires": {
+            "bins": [
+              "wacli"
+            ]
+          },
+          "install": [
+            {
+              "id": "go",
+              "kind": "go",
+              "module": "github.com/steipete/wacli/cmd/wacli@latest",
+              "bins": [
+                "wacli"
+              ],
+              "label": "Install wacli (go)"
+            }
+          ]
+        }
+      },
+      "slug": "wacli",
+      "path": "wacli"
     },
     {
       "name": "Set up code-server (VS Code in browser)",

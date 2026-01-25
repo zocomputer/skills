@@ -34,9 +34,19 @@ Access Google Calendar and Gmail directly using your own OAuth credentials — n
 ### Step 2: Enable the APIs
 
 1. Go to [APIs & Services > Library](https://console.cloud.google.com/apis/library)
-2. Search for and enable:
+2. Search for and enable (required for Gmail/Calendar/Drive/Docs/Sheets/Contacts):
    - **Google Calendar API**
    - **Gmail API**
+   - **Google Drive API**
+   - **People API** (Contacts)
+   - **Google Docs API**
+   - **Google Sheets API**
+3. Optional (only if you plan to use these features):
+   - **Google Tasks API**
+   - **Google Chat API** (Workspace only)
+   - **Google Classroom API** (Education/Workspace)
+   - **Cloud Identity API** (Groups, Workspace)
+   - **Google Keep API** (Workspace; requires service account + delegation)
 
 ### Step 3: Configure OAuth Consent Screen
 
@@ -85,6 +95,9 @@ Once connected, Zo can access your Google Calendar and Gmail directly. Examples:
 
 - "What's on my calendar today?" (uses direct Google Calendar API)
 - "Read my recent emails" (uses direct Gmail API)
+
+These credentials are stored in `/home/.z/google-oauth/` and can be reused by other skills
+like `gog` by pointing `gog auth credentials` at `client_secret.json`.
 
 ## Files
 

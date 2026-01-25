@@ -18,6 +18,7 @@ Query your calendar and find free time using your direct Google OAuth connection
 ## Prerequisites
 
 Set up the `google-direct-oauth` skill first. You should have valid tokens at `/home/.z/google-oauth/token.json`.
+These credentials can also be reused by `gog` if you install that external skill.
 
 ## Usage
 

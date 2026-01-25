@@ -1,3 +1,81 @@
+- repository: remotion-dev/skills
+  skill: remotion-best-practices
+  name: Create Animated Videos (Remotion)
+- repository: resciencelab/opc-skills
+  skill: reddit
+  name: Read Reddit Content
+- repository: obra/superpowers
+  skill: brainstorming
+  name: Brainstorming Expert
+- repository: coreyhaines31/marketingskills
+  skill: seo-audit
+  name: SEO Expert
+- repository: coreyhaines31/marketingskills
+  skill: copywriting
+  name: Copywriting Expert
+- repository: coreyhaines31/marketingskills
+  skill: marketing-psychology
+  name: Marketing Psychology & Mental Models
+- repository: coreyhaines31/marketingskills
+  skill: social-content
+  name: Social Content Expert
+- repository: coreyhaines31/marketingskills
+  skill: copy-editing
+  name: Copy Editing Expert
+- repository: anthropics/skills
+  skill: pdf
+  name: Process PDF Files
+- repository: anthropics/skills
+  skill: slack-gif-creator
+  name: Create Animated GIFs for Slack
+- repository: adithya-s-k/manim_skill
+  skill: manim-composer
+  name: Create 3Blue1Brown Videos (Manim)
+- repository: stripe/ai
+  skill: stripe-best-practices
+  name: Stripe Best Practices
+- repository: anthropics/skills
+  skill: pptx
+  name: Process PPTX Files
+- repository: anthropics/skills
+  skill: algorithmic-art
+  name: Generate Algorithmic Art
+- repository: anthropics/skills
+  skill: xlsx
+  name: Process XLSX Files
+- repository: anthropics/skills
+  skill: docx
+  name: Process DOCX Files
+- repository: anthropics/skills
+  skill: theme-factory
+  name: Font & Color Theme Builder
+- repository: softaworks/agent-toolkit
+  skill: meme-factory
+  name: Create Memes
+- repository: clawdbot/skills
+  skill: linkedin-cli
+  name: Use LinkedIn
+- repository: clawdbot/clawdbot
+  skill: tmux
+  name: Control tmux sessions
+- repository: clawdbot/clawdbot
+  skill: skill-creator
+  name: Create or edit Skills
+- repository: clawdbot/clawdbot
+  skill: wacli
+  name: Use WhatsApp
+  description: Send WhatsApp messages or search/sync history (not for normal chats)
+- repository: clawdbot/skills
+  skill: lastfm
+  name: Access Last.fm data using an API key (free)
+- repository: clawdbot/clawdbot
+  skill: trello
+  name: Use Trello
+  description: Work with Trello using your own Trello API key (free)
+- repository: clawdbot/clawdbot
+  skill: notion
+  name: Use Notion
+  description: Work with Notion using your own Notion API key (free)
 - repository: clawdbot/clawdbot
   skill: mcporter
   name: Use MCP Server
@@ -73,3 +151,21 @@
     bird whoami
     bird home -n 5
     ```
+- repository: clawdbot/clawdbot
+  skill: gog
+  name: Google Workspace (gog)
+  description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs
+  compatibility: Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
+  notice: |
+    This skill can reuse OAuth credentials from `google-direct-oauth` at `/home/.z/google-oauth/`.
+    Use these steps to avoid creating a second OAuth app:
+
+    ### Setup (reuse existing OAuth app)
+    1. Ensure `google-direct-oauth` is already set up.
+    2. Run:
+       - `gog auth credentials /home/.z/google-oauth/client_secret.json`
+       - `gog auth add you@gmail.com --services gmail,calendar,drive,contacts,docs,sheets`
+    3. Verify:
+       - `gog auth list`
+
+    IMPORTANT: If you generate a new OAuth app here, it may replace or invalidate existing tokens.

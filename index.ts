@@ -386,6 +386,9 @@ const normalizeClawdbotInstall = (data: Record<string, unknown>) => {
   if (!Array.isArray(install)) {
     return { data, changed: false };
   }
+  if (install.length <= 1) {
+    return { data, changed: false };
+  }
   const filtered = install.filter((entry) => {
     if (!entry || typeof entry !== "object") {
       return true;
@@ -571,6 +574,9 @@ const getRepositoryOwner = (repository: string) => {
   if (!owner) {
     return "";
   }
+  if (owner.toLowerCase() === "anthropics") {
+    return "Anthropic";
+  }
   return owner.charAt(0).toUpperCase() + owner.slice(1);
 };
 
@@ -683,6 +689,7 @@ const syncExternalSkills = async () => {
   }
 
   let failures = 0;
+  const failedSources: string[] = [];
   for (const source of sources) {
     console.log(`Installing ${source.repository}...`);
     const args = [
@@ -708,6 +715,8 @@ const syncExternalSkills = async () => {
     const exitCode = await proc.exited;
     if (exitCode !== 0) {
       failures += 1;
+      const slug = resolveTargetSlug(source);
+      failedSources.push(slug ? `${slug} (${source.repository})` : source.repository);
     }
     if (exitCode === 0) {
       const targetSlug = resolveTargetSlug(source);
@@ -755,6 +764,12 @@ const syncExternalSkills = async () => {
 
   if (failures > 0) {
     console.log(`Failed to install ${failures} external skill source(s).`);
+    if (failedSources.length > 0) {
+      console.log("Failed slugs:");
+      for (const failed of failedSources) {
+        console.log(`- ${failed}`);
+      }
+    }
     return 1;
   }
 

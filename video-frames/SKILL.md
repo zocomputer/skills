@@ -5,7 +5,7 @@ homepage: https://ffmpeg.org
 compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
-  clawdbot: {"emoji":"🎞️","requires":{"bins":["ffmpeg"]}}
+  clawdbot: {"emoji":"🎞️","requires":{"bins":["ffmpeg"]},"install":[{"id":"brew","kind":"brew","formula":"ffmpeg","bins":["ffmpeg"],"label":"Install ffmpeg (brew)"}]}
 ---
 
 # Video Frames (ffmpeg)
