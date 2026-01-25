@@ -1,6 +1,21 @@
 - repository: clawdbot/clawdbot
+  skill: mcporter
+  name: Use MCP Server
+  description: Work with MCP servers directly
+- repository: clawdbot/clawdbot
+  skill: blogwatcher
+  name: Blog Watcher
+- repository: clawdbot/clawdbot
+  skill: eightctl
+  name: EightSleep Pod Control
+- repository: clawdbot/clawdbot
+  skill: github
+  name: GitHub
+- repository: clawdbot/clawdbot
+  skill: video-frames
+  name: Video Frames (FFmpeg)
+- repository: clawdbot/clawdbot
   skill: weather
-  slug: weather
   name: Weather
   description: Get the current weather for any location
 - repository: clawdbot/clawdbot

@@ -63,6 +63,36 @@
       "path": "text-commute-info"
     },
     {
+      "name": "Blog Watcher",
+      "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
+      "homepage": "https://github.com/Hyaxia/blogwatcher",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "📰",
+          "requires": {
+            "bins": [
+              "blogwatcher"
+            ]
+          },
+          "install": [
+            {
+              "id": "go",
+              "kind": "go",
+              "module": "github.com/Hyaxia/blogwatcher/cmd/blogwatcher@latest",
+              "bins": [
+                "blogwatcher"
+              ],
+              "label": "Install blogwatcher (go)"
+            }
+          ]
+        }
+      },
+      "slug": "blogwatcher",
+      "path": "blogwatcher"
+    },
+    {
       "name": "Set up n8n workflow automation",
       "description": "Sets up n8n workflow automation tool so you can create automated workflows between different apps and services",
       "metadata": {
@@ -143,6 +173,25 @@
       "path": "extract-text-from-image"
     },
     {
+      "name": "Video Frames (FFmpeg)",
+      "description": "Extract frames or short clips from videos using ffmpeg.",
+      "homepage": "https://ffmpeg.org",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "🎞️",
+          "requires": {
+            "bins": [
+              "ffmpeg"
+            ]
+          }
+        }
+      },
+      "slug": "video-frames",
+      "path": "video-frames"
+    },
+    {
       "name": "Daily Linear digest",
       "description": "Creates an automation to email you a summary of your Linear activity from the previous day",
       "metadata": {
@@ -151,6 +200,36 @@
       },
       "slug": "daily-linear-digest",
       "path": "daily-linear-digest"
+    },
+    {
+      "name": "EightSleep Pod Control",
+      "description": "Control Eight Sleep pods (status, temperature, alarms, schedules).",
+      "homepage": "https://eightctl.sh",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "🎛️",
+          "requires": {
+            "bins": [
+              "eightctl"
+            ]
+          },
+          "install": [
+            {
+              "id": "go",
+              "kind": "go",
+              "module": "github.com/steipete/eightctl/cmd/eightctl@latest",
+              "bins": [
+                "eightctl"
+              ],
+              "label": "Install eightctl (go)"
+            }
+          ]
+        }
+      },
+      "slug": "eightctl",
+      "path": "eightctl"
     },
     {
       "name": "Resize Images",
@@ -224,6 +303,15 @@
       "path": "syllabus-reminders"
     },
     {
+      "name": "GitHub",
+      "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
+      "metadata": {
+        "author": "Clawdbot"
+      },
+      "slug": "github",
+      "path": "github"
+    },
+    {
       "name": "Research a topic",
       "description": "Use Zo to research any topic comprehensively and write a report.",
       "metadata": {
@@ -242,6 +330,36 @@
       },
       "slug": "create-site",
       "path": "create-site"
+    },
+    {
+      "name": "Use MCP Server",
+      "description": "Work with MCP servers directly",
+      "homepage": "http://mcporter.dev",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "📦",
+          "requires": {
+            "bins": [
+              "mcporter"
+            ]
+          },
+          "install": [
+            {
+              "id": "node",
+              "kind": "node",
+              "package": "mcporter",
+              "bins": [
+                "mcporter"
+              ],
+              "label": "Install mcporter (node)"
+            }
+          ]
+        }
+      },
+      "slug": "mcporter",
+      "path": "mcporter"
     },
     {
       "name": "Remove Photo Metadata",
