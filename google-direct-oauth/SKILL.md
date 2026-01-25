@@ -5,9 +5,10 @@ description: |
   using your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps 
   tokens warm. Use this when you want direct API access to Google services without relying on 
   external OAuth providers.
-metadata:
-  author: zo
+  
 compatibility: Requires a Google Cloud Console account (free). Works on any Zo Computer.
+metadata:
+  author: Zo
 ---
 
 # Google Direct OAuth

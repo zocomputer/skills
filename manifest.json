@@ -3,6 +3,16 @@
   "archive_root": "skills-main",
   "skills": [
     {
+      "name": "Convert PDF to Markdown",
+      "description": "Convert PDF files to Markdown format",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📄"
+      },
+      "slug": "pdf-to-markdown",
+      "path": "pdf-to-markdown"
+    },
+    {
       "name": "X (Twitter)",
       "description": "Let Zo use your X (Twitter) account",
       "homepage": "https://bird.fast",
@@ -33,24 +43,414 @@
       "path": "twitter"
     },
     {
+      "name": "Convert EPUB to Markdown",
+      "description": "Convert EPUB ebooks to Markdown format",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📚"
+      },
+      "slug": "epub-to-markdown",
+      "path": "epub-to-markdown"
+    },
+    {
+      "name": "Text commute travel time and route",
+      "description": "Gets your commute time and route options, then texts you the details",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🚏"
+      },
+      "slug": "text-commute-info",
+      "path": "text-commute-info"
+    },
+    {
+      "name": "Set up n8n workflow automation",
+      "description": "Sets up n8n workflow automation tool so you can create automated workflows between different apps and services",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔗"
+      },
+      "slug": "n8n-setup",
+      "path": "n8n-setup"
+    },
+    {
+      "name": "Set up hashcards spaced repetition system",
+      "description": "Sets up a spaced repetition flashcard system that you can access through your web browser to study and memorize information",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📇"
+      },
+      "slug": "hashcards-setup",
+      "path": "hashcards-setup"
+    },
+    {
+      "name": "Set up Grafana for log visualization",
+      "description": "Sets up a visual dashboard to explore and analyze your system logs and data",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📈"
+      },
+      "slug": "grafana-setup",
+      "path": "grafana-setup"
+    },
+    {
+      "name": "Create a portfolio site",
+      "description": "Build a personal portfolio to showcase your work and resume.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🎨"
+      },
+      "slug": "portfolio-site",
+      "path": "portfolio-site"
+    },
+    {
+      "name": "Generate QR code with optional image",
+      "description": "Generates a QR code from any URL, and optionally overlays a custom image in the center",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📱"
+      },
+      "slug": "generate-custom-qr-code",
+      "path": "generate-custom-qr-code"
+    },
+    {
+      "name": "Genome Analysis",
+      "description": "Analyzes your 23andMe genetic data to identify health risks, drug sensitivities, ancestry, and traits, then generates a personalized report",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🧬"
+      },
+      "slug": "personal-genomics-analysis",
+      "path": "personal-genomics-analysis"
+    },
+    {
+      "name": "Enrich CSV with AI-generated columns",
+      "description": "Adds new columns to your spreadsheet by generating information for each row",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📊"
+      },
+      "slug": "enrich-csv",
+      "path": "enrich-csv"
+    },
+    {
+      "name": "Extract Text from Images (OCR)",
+      "description": "Extract text from images, scanned documents, and PDFs using OCR",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔍"
+      },
+      "slug": "extract-text-from-image",
+      "path": "extract-text-from-image"
+    },
+    {
+      "name": "Daily Linear digest",
+      "description": "Creates an automation to email you a summary of your Linear activity from the previous day",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📋"
+      },
+      "slug": "daily-linear-digest",
+      "path": "daily-linear-digest"
+    },
+    {
+      "name": "Resize Images",
+      "description": "Resize images to specific dimensions or percentages",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🖼️"
+      },
+      "slug": "resize-image",
+      "path": "resize-image"
+    },
+    {
       "name": "google-calendar",
       "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
-      "metadata": {
-        "author": "zo"
-      },
       "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/",
+      "metadata": {
+        "author": "Zo"
+      },
       "slug": "google-calendar",
       "path": "google-calendar"
     },
     {
+      "name": "Summarize Hacker News front page",
+      "description": "Picks the most interesting articles from Hacker News, reads them, and emails you a summary",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔶"
+      },
+      "slug": "summarize-hacker-news",
+      "path": "summarize-hacker-news"
+    },
+    {
+      "name": "Daily news digest",
+      "description": "Fetch the latest headlines on a topic you care about and email it to you every morning.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📰"
+      },
+      "slug": "daily-news-digest",
+      "path": "daily-news-digest"
+    },
+    {
+      "name": "Create Spotify playlist from Pitchfork Best New Tracks",
+      "description": "Finds the latest songs from Pitchfork's Best New Tracks and creates a Spotify playlist for you",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🎵"
+      },
+      "slug": "pitchfork-best-tracks",
+      "path": "pitchfork-best-tracks"
+    },
+    {
+      "name": "Automate something",
+      "description": "Create an automation with a Zo Agent task",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "⚙️"
+      },
+      "slug": "automate-something",
+      "path": "automate-something"
+    },
+    {
+      "name": "Create syllabus reminders",
+      "description": "Reads your syllabus, finds all due dates, and sets up text reminders and calendar events so you never miss an assignment",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔖"
+      },
+      "slug": "syllabus-reminders",
+      "path": "syllabus-reminders"
+    },
+    {
+      "name": "Research a topic",
+      "description": "Use Zo to research any topic comprehensively and write a report.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔬"
+      },
+      "slug": "research-topic",
+      "path": "research-topic"
+    },
+    {
+      "name": "Create a site",
+      "description": "Create a site hosted on your Zo server. Private by default, publish with a click.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "⚡"
+      },
+      "slug": "create-site",
+      "path": "create-site"
+    },
+    {
+      "name": "Remove Photo Metadata",
+      "description": "Strip all metadata from images for privacy",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔒"
+      },
+      "slug": "remove-photo-metadata",
+      "path": "remove-photo-metadata"
+    },
+    {
+      "name": "Create a slide deck",
+      "description": "Turn any reference material into a polished, visually cohesive slide deck.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🎞️"
+      },
+      "slug": "create-slidedeck",
+      "path": "create-slidedeck"
+    },
+    {
+      "name": "Texting positive affirmations daily",
+      "description": "Send yourself a daily text message with a randomly selected or rotating positive affirmation.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "✨"
+      },
+      "slug": "daily-affirmations",
+      "path": "daily-affirmations"
+    },
+    {
+      "name": "Organize my files",
+      "description": "Organizes your scattered files into logical folders by project, type, and purpose",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🗂️"
+      },
+      "slug": "organize-workspace",
+      "path": "organize-workspace"
+    },
+    {
+      "name": "Weekly meeting reminder",
+      "description": "Get an email every Sunday evening listing your meetings for the coming week.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🗓️"
+      },
+      "slug": "weekly-meeting-reminder",
+      "path": "weekly-meeting-reminder"
+    },
+    {
+      "name": "Plan code changes",
+      "description": "Plan out code changes using a plan file.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🧑🏻‍💻"
+      },
+      "slug": "plan-code-changes",
+      "path": "plan-code-changes"
+    },
+    {
+      "name": "Process file line-by-line with script",
+      "description": "Processes every line of a file one by one, transforming or extracting information from each line",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔄"
+      },
+      "slug": "for-each-line",
+      "path": "for-each-line"
+    },
+    {
+      "name": "Plant Care Plan",
+      "description": "Creates a comprehensive care guide for your specific plant",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🪴"
+      },
+      "slug": "plant-care-plan",
+      "path": "plant-care-plan"
+    },
+    {
+      "name": "Create a blog",
+      "description": "Build a blog or newsletter to share your thoughts.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📝"
+      },
+      "slug": "blog-site",
+      "path": "blog-site"
+    },
+    {
+      "name": "Generate PDF from Markdown",
+      "description": "Convert Markdown files to PDF format with professional formatting",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📑"
+      },
+      "slug": "generate-pdf",
+      "path": "generate-pdf"
+    },
+    {
+      "name": "Set up code-server (VS Code in browser)",
+      "description": "Sets up VS Code in your web browser so you can write and edit code from anywhere",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "💻"
+      },
+      "slug": "code-server-setup",
+      "path": "code-server-setup"
+    },
+    {
+      "name": "Set up daily video studio with Remotion",
+      "description": "Sets up a system that automatically creates educational videos every day on a schedule",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🎥"
+      },
+      "slug": "daily-video",
+      "path": "daily-video"
+    },
+    {
+      "name": "Create a guestbook",
+      "description": "Build an interactive guestbook where visitors can leave messages.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📖"
+      },
+      "slug": "guestbook-site",
+      "path": "guestbook-site"
+    },
+    {
+      "name": "Find meetings with attendees",
+      "description": "Shows you all the people you've met with recently, organized by meeting",
+      "metadata": {
+        "author": "Zo"
+      },
+      "slug": "meeting-list",
+      "path": "meeting-list"
+    },
+    {
+      "name": "Text summary of important emails",
+      "description": "Finds your most important emails from the past 2 days and texts you a summary with suggested follow-ups",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📧"
+      },
+      "slug": "important-email-digest",
+      "path": "important-email-digest"
+    },
+    {
+      "name": "Set up SSH server for remote access",
+      "description": "Sets up secure remote access to your Zo Computer so you can connect from anywhere",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔐"
+      },
+      "slug": "setup-sshd",
+      "path": "setup-sshd"
+    },
+    {
+      "name": "Generate flashcards from a webpage or document",
+      "description": "Converts webpages, articles, or documents into study flashcards that you can review with spaced repetition",
+      "compatibility": "Requires hashcards-setup skill with flashcards at /home/workspace/flashcards/",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📇"
+      },
+      "slug": "add-flashcards",
+      "path": "add-flashcards"
+    },
+    {
+      "name": "Create ideal dating profile",
+      "description": "Creates an ideal dating profile by writing your bio and choosing the best photos in the right order",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "💌"
+      },
+      "slug": "dating-profile",
+      "path": "dating-profile"
+    },
+    {
+      "name": "Set up automated receipt processing system",
+      "description": "Automatically scans receipts you drop in a folder, extracts the details, and saves them to a searchable database",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🧾"
+      },
+      "slug": "setup-receipt-tracker",
+      "path": "setup-receipt-tracker"
+    },
+    {
       "name": "google-direct-oauth",
       "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.\n",
-      "metadata": {
-        "author": "zo"
-      },
       "compatibility": "Requires a Google Cloud Console account (free). Works on any Zo Computer.",
+      "metadata": {
+        "author": "Zo"
+      },
       "slug": "google-direct-oauth",
       "path": "google-direct-oauth"
+    },
+    {
+      "name": "Find recent Craigslist missed connections",
+      "description": "Finds recent missed connections posts from Craigslist and gives you the highlights",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "💕"
+      },
+      "slug": "find-missed-connections",
+      "path": "find-missed-connections"
     }
   ]
 }
