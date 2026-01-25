@@ -3,18 +3,8 @@
   "archive_root": "skills-main",
   "skills": [
     {
-      "name": "google-calendar",
-      "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
-      "metadata": {
-        "author": "zo"
-      },
-      "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/",
-      "slug": "google-calendar",
-      "path": "google-calendar"
-    },
-    {
-      "name": "bird",
-      "description": "X/Twitter CLI for reading, searching, posting, and engagement via cookies.",
+      "name": "X (Twitter)",
+      "description": "Let Zo use your X (Twitter) account",
       "homepage": "https://bird.fast",
       "compatibility": "see metadata.clawdbot.requires",
       "metadata": {
@@ -39,8 +29,18 @@
           ]
         }
       },
-      "slug": "bird",
-      "path": "bird"
+      "slug": "twitter",
+      "path": "twitter"
+    },
+    {
+      "name": "google-calendar",
+      "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
+      "metadata": {
+        "author": "zo"
+      },
+      "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/",
+      "slug": "google-calendar",
+      "path": "google-calendar"
     },
     {
       "name": "google-direct-oauth",
