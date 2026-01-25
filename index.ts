@@ -546,8 +546,12 @@ const applyFrontmatterOverrides = async (
   if (!parsed) {
     return;
   }
+  const { slug: _slug, ...frontmatterOverrides } = overrides;
+  if (Object.keys(frontmatterOverrides).length === 0) {
+    return;
+  }
   const updatedData = { ...parsed.data };
-  for (const [key, value] of Object.entries(overrides)) {
+  for (const [key, value] of Object.entries(frontmatterOverrides)) {
     const existing = updatedData[key];
     if (isPlainObject(value) && isPlainObject(existing)) {
       updatedData[key] = {
@@ -567,9 +571,19 @@ const getRepositoryOwner = (repository: string) => repository.split("/")[0] ?? "
 const resolveSkillSlug = (source: ExternalSkill) =>
   source.skill ?? source.repository.split("/").pop() ?? "";
 
-const copySkillIntoRepo = async (slug: string) => {
-  const canonicalPath = path.join(CANONICAL_SKILLS_DIR, slug);
-  const targetPath = path.join(ROOT_DIR, slug);
+const resolveTargetSlug = (source: ExternalSkill) => {
+  const override = source.overrides?.slug;
+  if (typeof override === "string" && override.trim()) {
+    return override.trim();
+  }
+  return resolveSkillSlug(source);
+};
+
+const copySkillIntoRepo = async (source: ExternalSkill) => {
+  const canonicalSlug = resolveSkillSlug(source);
+  const targetSlug = resolveTargetSlug(source);
+  const canonicalPath = path.join(CANONICAL_SKILLS_DIR, canonicalSlug);
+  const targetPath = path.join(ROOT_DIR, targetSlug);
   await rm(targetPath, { recursive: true, force: true });
   await cp(canonicalPath, targetPath, { recursive: true });
   return targetPath;
@@ -690,15 +704,15 @@ const syncExternalSkills = async () => {
       failures += 1;
     }
     if (exitCode === 0) {
-      const slug = resolveSkillSlug(source);
-      if (!slug) {
+      const targetSlug = resolveTargetSlug(source);
+      if (!targetSlug) {
         continue;
       }
       let targetPath: string;
       try {
-        targetPath = await copySkillIntoRepo(slug);
+        targetPath = await copySkillIntoRepo(source);
       } catch {
-        console.log(`Unable to copy ${slug} into repo root.`);
+        console.log(`Unable to copy ${targetSlug} into repo root.`);
         continue;
       }
       const skillFile = path.join(targetPath, "SKILL.md");

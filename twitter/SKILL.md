@@ -1,6 +1,6 @@
 ---
-name: bird
-description: X/Twitter CLI for reading, searching, posting, and engagement via cookies.
+name: X (Twitter)
+description: Let Zo use your X (Twitter) account
 homepage: https://bird.fast
 compatibility: see metadata.clawdbot.requires
 metadata:

@@ -1,5 +1,8 @@
 - repository: clawdbot/clawdbot
   skill: bird
+  slug: twitter
+  name: X (Twitter)
+  description: Let Zo use your X (Twitter) account
   notice: |
     This environment cannot read browser cookies automatically. Ask the USER for these two cookie values, giving them the following instructions:
 
