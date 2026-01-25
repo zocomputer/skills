@@ -80,7 +80,8 @@ const extractFrontmatterFields = (frontmatter: string) => {
     fields[currentKey] = value.trim();
   };
 
-  for (const line of lines) {
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i];
     if (blockType) {
       if (line.trim() === "") {
         blockLines.push("");
@@ -104,6 +105,27 @@ const extractFrontmatterFields = (frontmatter: string) => {
     if (line.trim() === "" || line.trim().startsWith("#")) {
       continue;
     }
+    if (line.trim() === "metadata:") {
+      let j = i + 1;
+      for (; j < lines.length; j += 1) {
+        const metaLine = lines[j];
+        if (metaLine.trim() === "") {
+          continue;
+        }
+        const indent = metaLine.match(/^\s*/)?.[0].length ?? 0;
+        if (indent === 0) {
+          break;
+        }
+        const metaMatch = metaLine.match(/^\s+([a-zA-Z0-9_-]+):\s*(.*)$/);
+        if (metaMatch) {
+          const [, metaKey, metaValue] = metaMatch;
+          fields[`metadata.${metaKey}`] = metaValue.trim();
+        }
+      }
+      i = j - 1;
+      continue;
+    }
+
     const match = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
     if (!match) {
       continue;
@@ -174,6 +196,7 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
   const fields = extractFrontmatterFields(frontmatter);
   const name = fields.name ?? "";
   const description = fields.description ?? "";
+  const author = fields["metadata.author"] ?? "";
 
   if (!name) {
     issues.push({
@@ -214,6 +237,13 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
         message: "Field 'description' exceeds 1024 characters.",
       });
     }
+  }
+
+  if (!author) {
+    issues.push({
+      skillPath: toDisplayPath(skillFile),
+      message: "Missing required 'metadata.author' field in frontmatter.",
+    });
   }
 
   return issues;
