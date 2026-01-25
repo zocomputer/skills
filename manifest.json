@@ -18,7 +18,7 @@
       "homepage": "https://bird.fast",
       "compatibility": "see metadata.clawdbot.requires",
       "metadata": {
-        "author": "clawdbot",
+        "author": "Clawdbot",
         "clawdbot": {
           "emoji": "🐦",
           "requires": {
@@ -322,6 +322,25 @@
       },
       "slug": "plant-care-plan",
       "path": "plant-care-plan"
+    },
+    {
+      "name": "Weather",
+      "description": "Get the current weather for any location",
+      "homepage": "https://wttr.in/:help",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "🌤️",
+          "requires": {
+            "bins": [
+              "curl"
+            ]
+          }
+        }
+      },
+      "slug": "weather",
+      "path": "weather"
     },
     {
       "name": "Create a blog",

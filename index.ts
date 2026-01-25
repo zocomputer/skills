@@ -566,7 +566,13 @@ const applyFrontmatterOverrides = async (
   await writeFile(skillFile, updated);
 };
 
-const getRepositoryOwner = (repository: string) => repository.split("/")[0] ?? "";
+const getRepositoryOwner = (repository: string) => {
+  const owner = repository.split("/")[0]?.trim() ?? "";
+  if (!owner) {
+    return "";
+  }
+  return owner.charAt(0).toUpperCase() + owner.slice(1);
+};
 
 const resolveSkillSlug = (source: ExternalSkill) =>
   source.skill ?? source.repository.split("/").pop() ?? "";

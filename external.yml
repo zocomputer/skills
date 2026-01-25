@@ -1,4 +1,9 @@
 - repository: clawdbot/clawdbot
+  skill: weather
+  slug: weather
+  name: Weather
+  description: Get the current weather for any location
+- repository: clawdbot/clawdbot
   skill: bird
   slug: twitter
   name: X (Twitter)
