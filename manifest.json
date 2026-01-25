@@ -5,7 +5,7 @@
     {
       "slug": "google-calendar",
       "name": "google-calendar",
-      "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".",
+      "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
       "path": "google-calendar"
     },
     {
@@ -17,7 +17,7 @@
     {
       "slug": "google-direct-oauth",
       "name": "google-direct-oauth",
-      "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.",
+      "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.\n",
       "path": "google-direct-oauth"
     }
   ]

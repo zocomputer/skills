@@ -1,5 +1,6 @@
 import { cp, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
+import matter from "gray-matter";
 
 type Issue = {
   skillPath: string;
@@ -7,6 +8,11 @@ type Issue = {
 };
 
 const ROOT_DIR = process.cwd();
+const INSTALL_AGENT = "codex";
+const CANONICAL_SKILLS_DIR = path.join(ROOT_DIR, ".agents", "skills");
+const AGENTS_DIR = path.join(ROOT_DIR, ".agents");
+const CODEX_DIR = path.join(ROOT_DIR, ".codex");
+// Skip non-skill dirs and any gitignored folders during validation.
 const NON_SKILL_DIRS = new Set([
   ".git",
   ".github",
@@ -30,6 +36,14 @@ const isDirectory = async (targetPath: string) => {
   }
 };
 
+const isGitIgnored = (targetPath: string) => {
+  const result = Bun.spawnSync(["git", "check-ignore", "-q", targetPath], {
+    stdout: "ignore",
+    stderr: "ignore",
+  });
+  return result.exitCode === 0;
+};
+
 const loadSkillDirectories = async () => {
   const skillDirs: string[] = [];
   const entries = await readdir(ROOT_DIR, { withFileTypes: true });
@@ -40,17 +54,58 @@ const loadSkillDirectories = async () => {
     if (NON_SKILL_DIRS.has(entry.name)) {
       continue;
     }
-    skillDirs.push(path.join(ROOT_DIR, entry.name));
+    const fullPath = path.join(ROOT_DIR, entry.name);
+    if (isGitIgnored(fullPath)) {
+      continue;
+    }
+    skillDirs.push(fullPath);
   }
   return skillDirs;
 };
 
+// External sources live in external.yml (repository + optional skill + notice).
 const EXTERNAL_CONFIG = path.join(ROOT_DIR, "external.yml");
 
 type ExternalSkill = {
   repository: string;
   skill?: string;
   notice?: string;
+};
+
+const parseBlockScalar = (
+  lines: string[],
+  startIndex: number,
+  baseIndent: number,
+  fold: boolean,
+) => {
+  const collected: string[] = [];
+  let contentIndent: number | null = null;
+  let i = startIndex;
+  for (; i < lines.length; i += 1) {
+    const line = lines[i];
+    if (line.trim() === "") {
+      collected.push("");
+      continue;
+    }
+    const indent = line.match(/^\s*/)?.[0].length ?? 0;
+    if (indent <= baseIndent) {
+      break;
+    }
+    if (contentIndent === null) {
+      contentIndent = indent;
+    }
+    if (indent < contentIndent) {
+      break;
+    }
+    collected.push(line.slice(contentIndent));
+  }
+  const value = fold
+    ? collected
+        .map((noteLine) => noteLine.trim())
+        .filter(Boolean)
+        .join(" ")
+    : collected.join("\n");
+  return { value: value.trim(), endIndex: i - 1 };
 };
 
 const parseExternalConfig = (content: string) => {
@@ -67,7 +122,8 @@ const parseExternalConfig = (content: string) => {
 
   for (let i = 0; i < lines.length; i += 1) {
     const line = lines[i];
-    if (line.trim() === "" || line.trim().startsWith("#")) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) {
       continue;
     }
     const repoMatch = line.match(/^\s*-\s*repository:\s*(.+)$/);
@@ -76,165 +132,138 @@ const parseExternalConfig = (content: string) => {
       current = { repository: repoMatch[1].trim() };
       continue;
     }
+    if (!current) {
+      continue;
+    }
     const skillMatch = line.match(/^\s+skill:\s*(.+)$/);
-    if (skillMatch && current) {
+    if (skillMatch) {
       current.skill = skillMatch[1].trim();
       continue;
     }
     const noticeMatch = line.match(/^\s+notice:\s*(.*)$/);
-    if (noticeMatch && current) {
-      const noticeValue = noticeMatch[1].trim();
-      if (noticeValue === "|" || noticeValue === ">") {
-        const baseIndent = line.match(/^\s*/)?.[0].length ?? 0;
-        const noticeLines: string[] = [];
-        let contentIndent: number | null = null;
-        let j = i + 1;
-        for (; j < lines.length; j += 1) {
-          const nextLine = lines[j];
-          if (nextLine.trim() === "") {
-            noticeLines.push("");
-            continue;
-          }
-          const indent = nextLine.match(/^\s*/)?.[0].length ?? 0;
-          if (indent <= baseIndent) {
-            break;
-          }
-          if (contentIndent === null) {
-            contentIndent = indent;
-          }
-          if (indent < contentIndent) {
-            break;
-          }
-          noticeLines.push(nextLine.slice(contentIndent));
-        }
-        const rawNotice =
-          noticeValue === ">"
-            ? noticeLines
-                .map((noticeLine) => noticeLine.trim())
-                .filter(Boolean)
-                .join(" ")
-            : noticeLines.join("\n");
-        current.notice = rawNotice.trim();
-        i = j - 1;
-        continue;
-      }
-      if (noticeValue) {
-        current.notice = noticeValue;
-      }
+    if (!noticeMatch) {
       continue;
     }
+    const noticeValue = noticeMatch[1].trim();
+    if (!noticeValue) {
+      continue;
+    }
+    if (noticeValue === "|" || noticeValue === ">") {
+      const baseIndent = line.match(/^\s*/)?.[0].length ?? 0;
+      const { value, endIndex } = parseBlockScalar(
+        lines,
+        i + 1,
+        baseIndent,
+        noticeValue === ">",
+      );
+      if (value) {
+        current.notice = value;
+      }
+      i = endIndex;
+      continue;
+    }
+    current.notice = noticeValue;
   }
 
   pushCurrent();
   return sources;
 };
 
-const parseFrontmatter = (content: string) => {
-  const lines = content.split(/\r?\n/);
-  if (lines[0] !== "---") {
-    return { frontmatter: "", body: content, issue: "Missing frontmatter start '---'." };
-  }
-  const endIndex = lines.slice(1).indexOf("---");
-  if (endIndex === -1) {
-    return { frontmatter: "", body: content, issue: "Missing frontmatter end '---'." };
-  }
-  const frontmatterLines = lines.slice(1, endIndex + 1);
-  const body = lines.slice(endIndex + 2).join("\n");
+const hasFrontmatter = (content: string) => content.trimStart().startsWith("---");
+
+// Use gray-matter for parsing, but serialize ourselves to keep metadata deterministic.
+const parseSkillFile = (content: string) => {
+  const parsed = matter(content);
   return {
-    frontmatter: frontmatterLines.join("\n"),
-    body,
-    issue: null as string | null,
+    data: parsed.data as Record<string, unknown>,
+    body: parsed.content,
   };
 };
 
-const extractFrontmatterFields = (frontmatter: string) => {
-  const fields: Record<string, string> = {};
-  const lines = frontmatter.split(/\r?\n/);
-  let currentKey: string | null = null;
-  let blockType: "|" | ">" | null = null;
-  let blockIndent: number | null = null;
-  let blockLines: string[] = [];
-
-  const commitBlock = () => {
-    if (!currentKey) return;
-    const raw = blockLines.join("\n");
-    const value =
-      blockType === ">"
-        ? raw
-            .split("\n")
-            .map((line) => line.trim())
-            .filter(Boolean)
-            .join(" ")
-        : raw;
-    fields[currentKey] = value.trim();
-  };
-
-  for (let i = 0; i < lines.length; i += 1) {
-    const line = lines[i];
-    if (blockType) {
-      if (line.trim() === "") {
-        blockLines.push("");
-        continue;
-      }
-      const indent = line.match(/^\s*/)?.[0].length ?? 0;
-      if (blockIndent === null) {
-        blockIndent = indent;
-      }
-      if (indent >= blockIndent) {
-        blockLines.push(line.slice(blockIndent));
-        continue;
-      }
-      commitBlock();
-      currentKey = null;
-      blockType = null;
-      blockIndent = null;
-      blockLines = [];
-    }
-
-    if (line.trim() === "" || line.trim().startsWith("#")) {
-      continue;
-    }
-    if (line.trim() === "metadata:") {
-      let j = i + 1;
-      for (; j < lines.length; j += 1) {
-        const metaLine = lines[j];
-        if (metaLine.trim() === "") {
-          continue;
-        }
-        const indent = metaLine.match(/^\s*/)?.[0].length ?? 0;
-        if (indent === 0) {
-          break;
-        }
-        const metaMatch = metaLine.match(/^\s+([a-zA-Z0-9_-]+):\s*(.*)$/);
-        if (metaMatch) {
-          const [, metaKey, metaValue] = metaMatch;
-          fields[`metadata.${metaKey}`] = metaValue.trim();
-        }
-      }
-      i = j - 1;
-      continue;
-    }
-
-    const match = line.match(/^([a-zA-Z0-9_-]+):\s*(.*)$/);
-    if (!match) {
-      continue;
-    }
-    const [, key, value] = match;
-    if (value === "|" || value === ">") {
-      currentKey = key;
-      blockType = value as "|" | ">";
-      blockIndent = null;
-      blockLines = [];
-      continue;
-    }
-    fields[key] = value.trim();
+const readSkillFile = async (skillFile: string) => {
+  const content = await readFile(skillFile, "utf8");
+  if (!hasFrontmatter(content)) {
+    return null;
   }
+  return parseSkillFile(content);
+};
 
-  if (blockType && currentKey) {
-    commitBlock();
+const serializeFrontmatterValue = (value: unknown) => {
+  if (typeof value === "string") {
+    if (value.includes("\n")) {
+      const lines = value.split("\n").map((line) => `  ${line}`);
+      return `|\n${lines.join("\n")}`;
+    }
+    return value;
   }
+  if (value === null || value === undefined) {
+    return "";
+  }
+  if (typeof value === "object") {
+    return JSON.stringify(value);
+  }
+  return String(value);
+};
 
-  return fields;
+// Metadata is a YAML block with JSON-serialized nested values.
+const serializeMetadataBlock = (value: unknown) => {
+  if (!value || typeof value !== "object") {
+    return serializeFrontmatterValue(value);
+  }
+  const entries = Object.entries(value as Record<string, unknown>).sort(([a], [b]) =>
+    a.localeCompare(b),
+  );
+  const lines = ["metadata:"];
+  for (const [key, metaValue] of entries) {
+    if (metaValue === undefined) {
+      continue;
+    }
+    if (metaValue !== null && typeof metaValue === "object") {
+      lines.push(`  ${key}: ${JSON.stringify(metaValue)}`);
+    } else {
+      lines.push(`  ${key}: ${serializeFrontmatterValue(metaValue)}`);
+    }
+  }
+  return lines.join("\n");
+};
+
+// Frontmatter order is stable; metadata keys are alphabetized.
+const serializeSkillFile = (data: Record<string, unknown>, body: string) => {
+  const preferredOrder = [
+    "name",
+    "description",
+    "homepage",
+    "license",
+    "compatibility",
+    "allowed-tools",
+    "metadata",
+  ];
+  const keys = Object.keys(data);
+  const orderedKeys = [
+    ...preferredOrder.filter((key) => keys.includes(key)),
+    ...keys.filter((key) => !preferredOrder.includes(key)).sort(),
+  ];
+  const lines = ["---"];
+  for (const key of orderedKeys) {
+    const value = data[key];
+    if (value === undefined) {
+      continue;
+    }
+    if (key === "metadata") {
+      const serialized = serializeMetadataBlock(value);
+      if (serialized.startsWith("metadata:")) {
+        lines.push(serialized);
+      } else {
+        lines.push(`metadata: ${serialized}`);
+      }
+      continue;
+    }
+    const serialized = serializeFrontmatterValue(value);
+    lines.push(`${key}: ${serialized}`);
+  }
+  lines.push("---");
+  const trimmedBody = body.replace(/^\s+/, "");
+  return `${lines.join("\n")}\n\n${trimmedBody}`;
 };
 
 const validateSkill = async (skillDir: string): Promise<Issue[]> => {
@@ -276,16 +305,22 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
     return issues;
   }
 
-  const { frontmatter, issue } = parseFrontmatter(content);
-  if (issue) {
-    issues.push({ skillPath: toDisplayPath(skillFile), message: issue });
+  if (!hasFrontmatter(content)) {
+    issues.push({
+      skillPath: toDisplayPath(skillFile),
+      message: "Missing frontmatter start '---'.",
+    });
     return issues;
   }
 
-  const fields = extractFrontmatterFields(frontmatter);
-  const name = fields.name ?? "";
-  const description = fields.description ?? "";
-  const author = fields["metadata.author"] ?? "";
+  const { data } = parseSkillFile(content);
+  const name = typeof data.name === "string" ? data.name : "";
+  const description = typeof data.description === "string" ? data.description : "";
+  const metadata = data.metadata;
+  const author =
+    metadata && typeof metadata === "object" && "author" in metadata
+      ? String((metadata as Record<string, unknown>).author ?? "")
+      : "";
 
   if (!name) {
     issues.push({
@@ -363,6 +398,7 @@ const parseGitHubRepo = (remoteUrl: string) => {
   return null;
 };
 
+// Manifest points to repo tarball + archive root to enable tar extraction.
 const resolveGitHubArchive = () => {
   const remote = Bun.spawnSync(["git", "remote", "get-url", "origin"], {
     stdout: "pipe",
@@ -391,14 +427,13 @@ const resolveGitHubArchive = () => {
 const loadSkillInfo = async (skillDir: string) => {
   const skillFile = path.join(skillDir, "SKILL.md");
   try {
-    const content = await readFile(skillFile, "utf8");
-    const { frontmatter, issue } = parseFrontmatter(content);
-    if (issue) {
+    const parsed = await readSkillFile(skillFile);
+    if (!parsed) {
       return null;
     }
-    const fields = extractFrontmatterFields(frontmatter);
-    const name = fields.name ?? "";
-    const description = fields.description ?? "";
+    const { data } = parsed;
+    const name = typeof data.name === "string" ? data.name : "";
+    const description = typeof data.description === "string" ? data.description : "";
     if (!name || !description) {
       return null;
     }
@@ -421,20 +456,55 @@ const upsertNoticeSection = async (skillFile: string, notice: string) => {
   if (!normalized) {
     return;
   }
-  const noticeSection = `# Notice\n\n${normalized}\n`;
-  let content = await readFile(skillFile, "utf8");
-  const sectionRegex = /^(# Notice[\s\S]*?)\n(?=# )/m;
-  if (sectionRegex.test(content)) {
-    content = content.replace(sectionRegex, `${noticeSection.trimEnd()}\n`);
-  } else {
-    const insertAt = content.indexOf("# ");
-    if (insertAt === -1) {
-      content = `${noticeSection}\n${content.trimStart()}`;
-    } else {
-      content = `${content.slice(0, insertAt)}${noticeSection}\n${content.slice(insertAt)}`;
-    }
+  const parsed = await readSkillFile(skillFile);
+  if (!parsed) {
+    return;
   }
-  await writeFile(skillFile, content);
+  const noticeSection = `# Notice\n\n${normalized}\n`;
+  const sectionRegex = /^(# Notice[\s\S]*?)\n(?=# )/m;
+  let body = parsed.body.trimStart();
+  if (sectionRegex.test(body)) {
+    body = body.replace(sectionRegex, `${noticeSection.trimEnd()}\n`);
+  } else {
+    body = `${noticeSection}\n${body}`;
+  }
+  const updated = serializeSkillFile(parsed.data, body);
+  await writeFile(skillFile, updated);
+};
+
+const ensureMetadataAuthor = async (skillFile: string, author: string) => {
+  const parsed = await readSkillFile(skillFile);
+  if (!parsed) {
+    return;
+  }
+  const metadata = parsed.data.metadata;
+  if (metadata && typeof metadata === "object" && "author" in metadata) {
+    return;
+  }
+  const updatedMetadata =
+    metadata && typeof metadata === "object" ? { ...metadata } : {};
+  (updatedMetadata as Record<string, unknown>).author = author;
+  parsed.data.metadata = updatedMetadata;
+  const updated = serializeSkillFile(parsed.data, parsed.body);
+  await writeFile(skillFile, updated);
+};
+
+const getRepositoryOwner = (repository: string) => repository.split("/")[0] ?? "";
+
+const resolveSkillSlug = (source: ExternalSkill) =>
+  source.skill ?? source.repository.split("/").pop() ?? "";
+
+const copySkillIntoRepo = async (slug: string) => {
+  const canonicalPath = path.join(CANONICAL_SKILLS_DIR, slug);
+  const targetPath = path.join(ROOT_DIR, slug);
+  await rm(targetPath, { recursive: true, force: true });
+  await cp(canonicalPath, targetPath, { recursive: true });
+  return targetPath;
+};
+
+const cleanupAgentDirs = async () => {
+  await rm(AGENTS_DIR, { recursive: true, force: true });
+  await rm(CODEX_DIR, { recursive: true, force: true });
 };
 
 const validateAllSkills = async () => {
@@ -525,12 +595,11 @@ const syncExternalSkills = async () => {
     console.log(`Installing ${source.repository}...`);
     const args = [
       "npx",
-      "--yes",
       "add-skill",
       source.repository,
       "--yes",
       "--agent",
-      "codex",
+      INSTALL_AGENT,
     ];
     if (source.skill) {
       args.push("--skill", source.skill);
@@ -549,29 +618,34 @@ const syncExternalSkills = async () => {
       failures += 1;
     }
     if (exitCode === 0) {
-      const repoName = source.skill ?? source.repository.split("/").pop();
-      if (!repoName) {
+      const slug = resolveSkillSlug(source);
+      if (!slug) {
         continue;
       }
-      const canonicalPath = path.join(ROOT_DIR, ".agents", "skills", repoName);
-      const targetPath = path.join(ROOT_DIR, repoName);
+      let targetPath: string;
       try {
-        await rm(targetPath, { recursive: true, force: true });
-        await cp(canonicalPath, targetPath, { recursive: true });
+        targetPath = await copySkillIntoRepo(slug);
       } catch {
-        console.log(`Unable to copy ${repoName} into repo root.`);
+        console.log(`Unable to copy ${slug} into repo root.`);
         continue;
+      }
+      const skillFile = path.join(targetPath, "SKILL.md");
+      const author = getRepositoryOwner(source.repository);
+      if (author) {
+        try {
+          await ensureMetadataAuthor(skillFile, author);
+        } catch {
+          console.log(`Unable to set metadata.author for ${source.repository}.`);
+        }
       }
       if (source.notice) {
-        const skillFile = path.join(targetPath, "SKILL.md");
         try {
           await upsertNoticeSection(skillFile, source.notice);
         } catch {
           console.log(`Unable to insert notice for ${source.repository}.`);
         }
       }
-      await rm(path.join(ROOT_DIR, ".agents"), { recursive: true, force: true });
-      await rm(path.join(ROOT_DIR, ".codex"), { recursive: true, force: true });
+      await cleanupAgentDirs();
     }
   }
 
@@ -587,7 +661,6 @@ const syncExternalSkills = async () => {
 const main = async () => {
   const [command] = process.argv.slice(2);
   if (!command) {
-    console.log("Hello world");
     return;
   }
   if (command === "validate") {
