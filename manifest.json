@@ -1,17 +1,21 @@
-[
-  {
-    "name": "google-calendar",
-    "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".",
-    "path": "https://raw.githubusercontent.com/zocomputer/skills/main/google-calendar/SKILL.md"
-  },
-  {
-    "name": "bird",
-    "description": "X/Twitter CLI for reading, searching, and posting via cookies or Sweetistics.",
-    "path": "https://raw.githubusercontent.com/zocomputer/skills/main/bird/SKILL.md"
-  },
-  {
-    "name": "google-direct-oauth",
-    "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.",
-    "path": "https://raw.githubusercontent.com/zocomputer/skills/main/google-direct-oauth/SKILL.md"
-  }
-]
+{
+  "tarball_url": "https://codeload.github.com/zocomputer/skills/tar.gz/refs/heads/main",
+  "archive_root": "skills-main",
+  "skills": [
+    {
+      "name": "google-calendar",
+      "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".",
+      "path": "google-calendar"
+    },
+    {
+      "name": "bird",
+      "description": "X/Twitter CLI for reading, searching, and posting via cookies or Sweetistics.",
+      "path": "bird"
+    },
+    {
+      "name": "google-direct-oauth",
+      "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.",
+      "path": "google-direct-oauth"
+    }
+  ]
+}

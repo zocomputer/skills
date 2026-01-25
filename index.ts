@@ -1,4 +1,4 @@
-import { readdir, readFile, stat, writeFile } from "node:fs/promises";
+import { cp, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 type Issue = {
@@ -10,7 +10,10 @@ const ROOT_DIR = process.cwd();
 const NON_SKILL_DIRS = new Set([
   ".git",
   ".github",
+  ".agents",
+  ".codex",
   ".clawdhub",
+  ".skills",
   "node_modules",
 ]);
 const ALLOWED_SKILL_DIRS = new Set(["assets", "references", "scripts"]);
@@ -42,43 +45,88 @@ const loadSkillDirectories = async () => {
   return skillDirs;
 };
 
-const CLAWDHUB_CONFIG = path.join(ROOT_DIR, "clawdhub.yml");
+const EXTERNAL_CONFIG = path.join(ROOT_DIR, "external.yml");
 
-const parseClawdhubConfig = (content: string) => {
-  const slugs: string[] = [];
+type ExternalSkill = {
+  repository: string;
+  skill?: string;
+  notice?: string;
+};
+
+const parseExternalConfig = (content: string) => {
+  const sources: ExternalSkill[] = [];
   const lines = content.split(/\r?\n/);
-  const skillsIndex = lines.findIndex((line) => line.trim() === "skills:");
+  let current: ExternalSkill | null = null;
 
-  if (skillsIndex >= 0) {
-    const baseIndent = lines[skillsIndex].match(/^\s*/)?.[0].length ?? 0;
-    for (let i = skillsIndex + 1; i < lines.length; i += 1) {
-      const line = lines[i];
-      if (line.trim() === "" || line.trim().startsWith("#")) {
-        continue;
-      }
-      const indent = line.match(/^\s*/)?.[0].length ?? 0;
-      if (indent <= baseIndent) {
-        break;
-      }
-      const match = line.match(/^\s*-\s*(.+)$/);
-      if (match) {
-        slugs.push(match[1].trim());
-      }
+  const pushCurrent = () => {
+    if (current?.repository) {
+      sources.push(current);
     }
-    return slugs.filter(Boolean);
-  }
+    current = null;
+  };
 
-  for (const line of lines) {
+  for (let i = 0; i < lines.length; i += 1) {
+    const line = lines[i];
     if (line.trim() === "" || line.trim().startsWith("#")) {
       continue;
     }
-    const match = line.match(/^\s*-\s*(.+)$/);
-    if (match) {
-      slugs.push(match[1].trim());
+    const repoMatch = line.match(/^\s*-\s*repository:\s*(.+)$/);
+    if (repoMatch) {
+      pushCurrent();
+      current = { repository: repoMatch[1].trim() };
+      continue;
+    }
+    const skillMatch = line.match(/^\s+skill:\s*(.+)$/);
+    if (skillMatch && current) {
+      current.skill = skillMatch[1].trim();
+      continue;
+    }
+    const noticeMatch = line.match(/^\s+notice:\s*(.*)$/);
+    if (noticeMatch && current) {
+      const noticeValue = noticeMatch[1].trim();
+      if (noticeValue === "|" || noticeValue === ">") {
+        const baseIndent = line.match(/^\s*/)?.[0].length ?? 0;
+        const noticeLines: string[] = [];
+        let contentIndent: number | null = null;
+        let j = i + 1;
+        for (; j < lines.length; j += 1) {
+          const nextLine = lines[j];
+          if (nextLine.trim() === "") {
+            noticeLines.push("");
+            continue;
+          }
+          const indent = nextLine.match(/^\s*/)?.[0].length ?? 0;
+          if (indent <= baseIndent) {
+            break;
+          }
+          if (contentIndent === null) {
+            contentIndent = indent;
+          }
+          if (indent < contentIndent) {
+            break;
+          }
+          noticeLines.push(nextLine.slice(contentIndent));
+        }
+        const rawNotice =
+          noticeValue === ">"
+            ? noticeLines
+                .map((noticeLine) => noticeLine.trim())
+                .filter(Boolean)
+                .join(" ")
+            : noticeLines.join("\n");
+        current.notice = rawNotice.trim();
+        i = j - 1;
+        continue;
+      }
+      if (noticeValue) {
+        current.notice = noticeValue;
+      }
+      continue;
     }
   }
 
-  return slugs.filter(Boolean);
+  pushCurrent();
+  return sources;
 };
 
 const parseFrontmatter = (content: string) => {
@@ -296,6 +344,12 @@ type SkillInfo = {
   path: string;
 };
 
+type SkillManifest = {
+  tarball_url: string;
+  archive_root: string;
+  skills: SkillInfo[];
+};
+
 const parseGitHubRepo = (remoteUrl: string) => {
   const httpsMatch = remoteUrl.match(/github\.com\/([^/]+)\/([^/.]+)(?:\.git)?$/);
   if (httpsMatch) {
@@ -308,7 +362,7 @@ const parseGitHubRepo = (remoteUrl: string) => {
   return null;
 };
 
-const resolveGitHubBase = () => {
+const resolveGitHubArchive = () => {
   const remote = Bun.spawnSync(["git", "remote", "get-url", "origin"], {
     stdout: "pipe",
     stderr: "ignore",
@@ -320,15 +374,16 @@ const resolveGitHubBase = () => {
     stderr: "ignore",
   });
   const ref = branch.success ? branch.stdout.toString().trim() : "main";
+  const safeRef = ref.replaceAll("/", "-");
   if (!repo) {
     return {
-      base: "https://raw.githubusercontent.com/zocomputer/skills",
-      ref,
+      tarball_url: `https://codeload.github.com/zocomputer/skills/tar.gz/refs/heads/${ref}`,
+      archive_root: `skills-${safeRef}`,
     };
   }
   return {
-    base: `https://raw.githubusercontent.com/${repo.owner}/${repo.repo}`,
-    ref,
+    tarball_url: `https://codeload.github.com/${repo.owner}/${repo.repo}/tar.gz/refs/heads/${ref}`,
+    archive_root: `${repo.repo}-${safeRef}`,
   };
 };
 
@@ -350,6 +405,35 @@ const loadSkillInfo = async (skillDir: string) => {
   } catch {
     return null;
   }
+};
+
+const normalizeNotice = (notice: string) => {
+  let normalized = notice.trim();
+  if (normalized.toLowerCase().startsWith("# notice")) {
+    normalized = normalized.replace(/^# notice\s*/i, "").trim();
+  }
+  return normalized;
+};
+
+const upsertNoticeSection = async (skillFile: string, notice: string) => {
+  const normalized = normalizeNotice(notice);
+  if (!normalized) {
+    return;
+  }
+  const noticeSection = `# Notice\n\n${normalized}\n`;
+  let content = await readFile(skillFile, "utf8");
+  const sectionRegex = /^(# Notice[\s\S]*?)\n(?=# )/m;
+  if (sectionRegex.test(content)) {
+    content = content.replace(sectionRegex, `${noticeSection.trimEnd()}\n`);
+  } else {
+    const insertAt = content.indexOf("# ");
+    if (insertAt === -1) {
+      content = `${noticeSection}\n${content.trimStart()}`;
+    } else {
+      content = `${content.slice(0, insertAt)}${noticeSection}\n${content.slice(insertAt)}`;
+    }
+  }
+  await writeFile(skillFile, content);
 };
 
 const validateAllSkills = async () => {
@@ -384,8 +468,8 @@ const writeManifest = async () => {
     return 1;
   }
 
-  const { base, ref } = resolveGitHubBase();
-  const manifest: SkillInfo[] = [];
+  const { tarball_url, archive_root } = resolveGitHubArchive();
+  const skills: SkillInfo[] = [];
 
   for (const skillDir of skillDirs) {
     const info = await loadSkillInfo(skillDir);
@@ -393,58 +477,66 @@ const writeManifest = async () => {
       continue;
     }
     const relPath = toDisplayPath(skillDir);
-    manifest.push({
+    skills.push({
       name: info.name,
       description: info.description,
-      path: `${base}/${ref}/${relPath}`,
+      path: relPath,
     });
   }
+
+  const manifest: SkillManifest = {
+    tarball_url,
+    archive_root,
+    skills,
+  };
 
   await writeFile(
     path.join(ROOT_DIR, "manifest.json"),
     `${JSON.stringify(manifest, null, 2)}\n`,
   );
 
-  console.log(`Wrote manifest.json with ${manifest.length} skill(s).`);
+  console.log(`Wrote manifest.json with ${skills.length} skill(s).`);
   return 0;
 };
 
-const syncClawdhubSkills = async () => {
+// Sync external skills via add-skill CLI non-interactively.
+// We install into Codex (.agents/skills) to avoid TTY prompts, then copy the
+// canonical skill into the repo root and clean up agent dirs.
+const syncExternalSkills = async () => {
   let config: string;
   try {
-    config = await readFile(CLAWDHUB_CONFIG, "utf8");
+    config = await readFile(EXTERNAL_CONFIG, "utf8");
   } catch {
-    console.log("No clawdhub.yml found. Nothing to sync.");
+    console.log("No external.yml found. Nothing to sync.");
     return 0;
   }
 
-  const slugs = parseClawdhubConfig(config);
-  if (slugs.length === 0) {
-    console.log("No Clawdhub skills listed in clawdhub.yml.");
+  const sources = parseExternalConfig(config);
+  if (sources.length === 0) {
+    console.log("No external skills listed in external.yml.");
     return 0;
   }
 
   let failures = 0;
-  for (const slug of slugs) {
-    console.log(`Installing ${slug}...`);
+  for (const source of sources) {
+    console.log(`Installing ${source.repository}...`);
+    const args = [
+      "npx",
+      "--yes",
+      "add-skill",
+      source.repository,
+      "--yes",
+      "--agent",
+      "codex",
+    ];
+    if (source.skill) {
+      args.push("--skill", source.skill);
+    }
     const proc = Bun.spawn(
-      [
-        "npx",
-        "--yes",
-        "-p",
-        "clawdhub@latest",
-        "-p",
-        "undici",
-        "clawdhub",
-        "install",
-        slug,
-        "--workdir",
-        ROOT_DIR,
-        "--dir",
-        ".",
-        "--no-input",
-      ],
+      args,
       {
+        cwd: ROOT_DIR,
+        stdin: "inherit",
         stdout: "inherit",
         stderr: "inherit",
       },
@@ -453,14 +545,39 @@ const syncClawdhubSkills = async () => {
     if (exitCode !== 0) {
       failures += 1;
     }
+    if (exitCode === 0) {
+      const repoName = source.skill ?? source.repository.split("/").pop();
+      if (!repoName) {
+        continue;
+      }
+      const canonicalPath = path.join(ROOT_DIR, ".agents", "skills", repoName);
+      const targetPath = path.join(ROOT_DIR, repoName);
+      try {
+        await rm(targetPath, { recursive: true, force: true });
+        await cp(canonicalPath, targetPath, { recursive: true });
+      } catch {
+        console.log(`Unable to copy ${repoName} into repo root.`);
+        continue;
+      }
+      if (source.notice) {
+        const skillFile = path.join(targetPath, "SKILL.md");
+        try {
+          await upsertNoticeSection(skillFile, source.notice);
+        } catch {
+          console.log(`Unable to insert notice for ${source.repository}.`);
+        }
+      }
+      await rm(path.join(ROOT_DIR, ".agents"), { recursive: true, force: true });
+      await rm(path.join(ROOT_DIR, ".codex"), { recursive: true, force: true });
+    }
   }
 
   if (failures > 0) {
-    console.log(`Failed to install ${failures} skill(s).`);
+    console.log(`Failed to install ${failures} external skill source(s).`);
     return 1;
   }
 
-  console.log(`Installed ${slugs.length} skill(s) from Clawdhub.`);
+  console.log(`Installed ${sources.length} external skill source(s).`);
   return 0;
 };
 
@@ -476,7 +593,7 @@ const main = async () => {
     return;
   }
   if (command === "sync") {
-    const exitCode = await syncClawdhubSkills();
+    const exitCode = await syncExternalSkills();
     process.exitCode = exitCode;
     return;
   }
