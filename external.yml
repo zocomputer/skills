@@ -12,36 +12,39 @@
 
     Once you have the cookies from the USER, run these commands to set up bird:
 
-    ### Install bird (npm)
+    ### 1. Install bird (npm)
 
     ```bash
     npm install -g @steipete/bird
     ```
 
-    ### Store credentials
+    ### 2. Store credentials
 
     ```bash
     mkdir -p ~/.config/bird
-    cat <<'EOF' > ~/.config/bird/auth.env
+    cat > ~/.config/bird/auth.env <<'EOF'
     AUTH_TOKEN=<user_provided_auth_token>
     CT0=<user_provided_ct0>
     EOF
     chmod 600 ~/.config/bird/auth.env
     ```
 
-    ### Auto-load credentials (wrapper in npm bin)
+    ### 3. Create wrapper to auto-load credentials
+
+    The npm install creates a symlink at `/usr/bin/bird`. Create a wrapper at `/usr/local/bin/bird` (which takes precedence in PATH) that sources the credentials:
 
     ```bash
-    BIRD_BIN="$(npm bin -g)/bird"
-    cat > "$BIRD_BIN" <<'WRAPPER'
+    cat > /usr/local/bin/bird <<'EOF'
     #!/bin/bash
-    [ -f ~/.config/bird/auth.env ] && set -a && . ~/.config/bird/auth.env && set +a
-    exec node "$(dirname "$0")/../lib/node_modules/@steipete/bird/dist/cli.js" "$@"
-    WRAPPER
-    chmod +x "$BIRD_BIN"
+    set -a
+    [ -f ~/.config/bird/auth.env ] && . ~/.config/bird/auth.env
+    set +a
+    exec /usr/bin/bird "$@"
+    EOF
+    chmod +x /usr/local/bin/bird
     ```
 
-    ### Verify
+    ### 4. Verify
 
     ```bash
     bird whoami
