@@ -5,8 +5,7 @@ description: |
   set up first. Ask Zo things like "what's on my calendar today", "find free time tomorrow", 
   "show my week", or "when am I free on Friday between 10am and 4pm".
 metadata:
-  author: kousun12
-  version: "1.0"
+  author: zo
 compatibility: Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
 ---
 

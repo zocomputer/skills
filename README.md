@@ -6,9 +6,7 @@ Agent Skills Registry for [Zo Computer](https://zo.computer)
 
 Inside Zo, you can browse the skills in this registry and install them.
 
-## Manual skill installation command
-
-Choose a skill by slug (directory name), then run:
+To install a skill manually, run:
 
 ```bash
 slug="bird"; dest="Skills"; manifest_url="https://raw.githubusercontent.com/zocomputer/skills/main/manifest.json"; mkdir -p "$dest" && tarball_url="$(curl -fsSL "$manifest_url" | jq -r '.tarball_url')" && archive_root="$(curl -fsSL "$manifest_url" | jq -r '.archive_root')" && curl -L "$tarball_url" | tar -xz -C "$dest" --strip-components=1 "$archive_root/$slug"

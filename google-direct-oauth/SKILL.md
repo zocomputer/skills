@@ -6,8 +6,7 @@ description: |
   tokens warm. Use this when you want direct API access to Google services without relying on 
   external OAuth providers.
 metadata:
-  author: kousun12
-  version: "1.0"
+  author: zo
 compatibility: Requires a Google Cloud Console account (free). Works on any Zo Computer.
 ---
 

@@ -1,6 +1,7 @@
 import { cp, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
+import { parse as parseYaml } from "yaml";
 
 type Issue = {
   skillPath: string;
@@ -70,102 +71,50 @@ type ExternalSkill = {
   repository: string;
   skill?: string;
   notice?: string;
-};
-
-const parseBlockScalar = (
-  lines: string[],
-  startIndex: number,
-  baseIndent: number,
-  fold: boolean,
-) => {
-  const collected: string[] = [];
-  let contentIndent: number | null = null;
-  let i = startIndex;
-  for (; i < lines.length; i += 1) {
-    const line = lines[i];
-    if (line.trim() === "") {
-      collected.push("");
-      continue;
-    }
-    const indent = line.match(/^\s*/)?.[0].length ?? 0;
-    if (indent <= baseIndent) {
-      break;
-    }
-    if (contentIndent === null) {
-      contentIndent = indent;
-    }
-    if (indent < contentIndent) {
-      break;
-    }
-    collected.push(line.slice(contentIndent));
-  }
-  const value = fold
-    ? collected
-        .map((noteLine) => noteLine.trim())
-        .filter(Boolean)
-        .join(" ")
-    : collected.join("\n");
-  return { value: value.trim(), endIndex: i - 1 };
+  overrides?: Record<string, unknown>;
 };
 
 const parseExternalConfig = (content: string) => {
-  const sources: ExternalSkill[] = [];
-  const lines = content.split(/\r?\n/);
-  let current: ExternalSkill | null = null;
-
-  const pushCurrent = () => {
-    if (current?.repository) {
-      sources.push(current);
-    }
-    current = null;
-  };
-
-  for (let i = 0; i < lines.length; i += 1) {
-    const line = lines[i];
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) {
-      continue;
-    }
-    const repoMatch = line.match(/^\s*-\s*repository:\s*(.+)$/);
-    if (repoMatch) {
-      pushCurrent();
-      current = { repository: repoMatch[1].trim() };
-      continue;
-    }
-    if (!current) {
-      continue;
-    }
-    const skillMatch = line.match(/^\s+skill:\s*(.+)$/);
-    if (skillMatch) {
-      current.skill = skillMatch[1].trim();
-      continue;
-    }
-    const noticeMatch = line.match(/^\s+notice:\s*(.*)$/);
-    if (!noticeMatch) {
-      continue;
-    }
-    const noticeValue = noticeMatch[1].trim();
-    if (!noticeValue) {
-      continue;
-    }
-    if (noticeValue === "|" || noticeValue === ">") {
-      const baseIndent = line.match(/^\s*/)?.[0].length ?? 0;
-      const { value, endIndex } = parseBlockScalar(
-        lines,
-        i + 1,
-        baseIndent,
-        noticeValue === ">",
-      );
-      if (value) {
-        current.notice = value;
-      }
-      i = endIndex;
-      continue;
-    }
-    current.notice = noticeValue;
+  let parsed: unknown;
+  try {
+    parsed = parseYaml(content);
+  } catch {
+    return [];
   }
-
-  pushCurrent();
+  if (!Array.isArray(parsed)) {
+    return [];
+  }
+  const sources: ExternalSkill[] = [];
+  for (const entry of parsed) {
+    if (!entry || typeof entry !== "object") {
+      continue;
+    }
+    const record = entry as Record<string, unknown>;
+    const repository = typeof record.repository === "string" ? record.repository.trim() : "";
+    if (!repository) {
+      continue;
+    }
+    const skill = typeof record.skill === "string" ? record.skill.trim() : undefined;
+    const notice = typeof record.notice === "string" ? record.notice : undefined;
+    const overrides: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(record)) {
+      if (key === "repository" || key === "skill" || key === "notice") {
+        continue;
+      }
+      overrides[key] = value;
+    }
+    const source: ExternalSkill = { repository };
+    if (skill) {
+      source.skill = skill;
+    }
+    if (notice) {
+      source.notice = notice;
+    }
+    if (Object.keys(overrides).length > 0) {
+      source.overrides = overrides;
+    }
+    sources.push(source);
+  }
   return sources;
 };
 
@@ -375,10 +324,8 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
 
 type SkillInfo = {
   slug: string;
-  name: string;
-  description: string;
   path: string;
-};
+} & Record<string, unknown>;
 
 type SkillManifest = {
   tarball_url: string;
@@ -396,6 +343,66 @@ const parseGitHubRepo = (remoteUrl: string) => {
     return { owner: sshMatch[1], repo: sshMatch[2] };
   }
   return null;
+};
+
+const appendCompatibilityNote = (current: unknown, note: string) => {
+  if (typeof current !== "string" || !current.trim()) {
+    return note;
+  }
+  if (current.includes(note)) {
+    return current;
+  }
+  return `${current}; ${note}`;
+};
+
+const inferCompatibilityNote = (data: Record<string, unknown>) => {
+  const metadata = data.metadata;
+  if (!metadata || typeof metadata !== "object") {
+    return undefined;
+  }
+  const clawdbot = (metadata as Record<string, unknown>).clawdbot;
+  if (!clawdbot || typeof clawdbot !== "object") {
+    return undefined;
+  }
+  const requires = (clawdbot as Record<string, unknown>).requires;
+  if (!requires || typeof requires !== "object") {
+    return undefined;
+  }
+  return "see metadata.clawdbot.requires";
+};
+
+const normalizeClawdbotInstall = (data: Record<string, unknown>) => {
+  const metadata = data.metadata;
+  if (!metadata || typeof metadata !== "object") {
+    return { data, changed: false };
+  }
+  const metadataRecord = metadata as Record<string, unknown>;
+  const clawdbot = metadataRecord.clawdbot;
+  if (!clawdbot || typeof clawdbot !== "object") {
+    return { data, changed: false };
+  }
+  const clawdbotRecord = clawdbot as Record<string, unknown>;
+  const install = clawdbotRecord.install;
+  if (!Array.isArray(install)) {
+    return { data, changed: false };
+  }
+  const filtered = install.filter((entry) => {
+    if (!entry || typeof entry !== "object") {
+      return true;
+    }
+    return (entry as Record<string, unknown>).kind !== "brew";
+  });
+  if (filtered.length === install.length) {
+    return { data, changed: false };
+  }
+  const updatedClawdbot = { ...clawdbotRecord };
+  if (filtered.length > 0) {
+    updatedClawdbot.install = filtered;
+  } else {
+    delete updatedClawdbot.install;
+  }
+  const updatedMetadata = { ...metadataRecord, clawdbot: updatedClawdbot };
+  return { data: { ...data, metadata: updatedMetadata }, changed: true };
 };
 
 // Manifest points to repo tarball + archive root to enable tar extraction.
@@ -437,7 +444,15 @@ const loadSkillInfo = async (skillDir: string) => {
     if (!name || !description) {
       return null;
     }
-    return { name, description };
+    let normalized = normalizeClawdbotInstall(data).data;
+    const note = inferCompatibilityNote(normalized);
+    if (note) {
+      normalized = {
+        ...normalized,
+        compatibility: appendCompatibilityNote(normalized.compatibility, note),
+      };
+    }
+    return normalized;
   } catch {
     return null;
   }
@@ -486,6 +501,64 @@ const ensureMetadataAuthor = async (skillFile: string, author: string) => {
   (updatedMetadata as Record<string, unknown>).author = author;
   parsed.data.metadata = updatedMetadata;
   const updated = serializeSkillFile(parsed.data, parsed.body);
+  await writeFile(skillFile, updated);
+};
+
+const ensureCompatibility = async (skillFile: string) => {
+  const parsed = await readSkillFile(skillFile);
+  if (!parsed) {
+    return;
+  }
+  let updatedData = parsed.data;
+  let changed = false;
+  // Append a compatibility hint when clawdbot declares requirements.
+  const note = inferCompatibilityNote(parsed.data);
+  if (note) {
+    const merged = appendCompatibilityNote(updatedData.compatibility, note);
+    if (merged !== updatedData.compatibility) {
+      updatedData = { ...updatedData, compatibility: merged };
+      changed = true;
+    }
+  }
+  const normalized = normalizeClawdbotInstall(updatedData);
+  if (normalized.changed) {
+    updatedData = normalized.data;
+    changed = true;
+  }
+  if (!changed) {
+    return;
+  }
+  const updated = serializeSkillFile(updatedData, parsed.body);
+  await writeFile(skillFile, updated);
+};
+
+const isPlainObject = (value: unknown) =>
+  value !== null && typeof value === "object" && !Array.isArray(value);
+
+const applyFrontmatterOverrides = async (
+  skillFile: string,
+  overrides: Record<string, unknown>,
+) => {
+  if (!overrides || Object.keys(overrides).length === 0) {
+    return;
+  }
+  const parsed = await readSkillFile(skillFile);
+  if (!parsed) {
+    return;
+  }
+  const updatedData = { ...parsed.data };
+  for (const [key, value] of Object.entries(overrides)) {
+    const existing = updatedData[key];
+    if (isPlainObject(value) && isPlainObject(existing)) {
+      updatedData[key] = {
+        ...(existing as Record<string, unknown>),
+        ...(value as Record<string, unknown>),
+      };
+    } else {
+      updatedData[key] = value;
+    }
+  }
+  const updated = serializeSkillFile(updatedData, parsed.body);
   await writeFile(skillFile, updated);
 };
 
@@ -550,9 +623,8 @@ const writeManifest = async () => {
     const relPath = toDisplayPath(skillDir);
     const slug = path.basename(skillDir);
     skills.push({
+      ...info,
       slug,
-      name: info.name,
-      description: info.description,
       path: relPath,
     });
   }
@@ -643,6 +715,18 @@ const syncExternalSkills = async () => {
           await upsertNoticeSection(skillFile, source.notice);
         } catch {
           console.log(`Unable to insert notice for ${source.repository}.`);
+        }
+      }
+      try {
+        await ensureCompatibility(skillFile);
+      } catch {
+        console.log(`Unable to infer compatibility for ${source.repository}.`);
+      }
+      if (source.overrides) {
+        try {
+          await applyFrontmatterOverrides(skillFile, source.overrides);
+        } catch {
+          console.log(`Unable to apply overrides for ${source.repository}.`);
         }
       }
       await cleanupAgentDirs();

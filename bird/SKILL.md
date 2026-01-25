@@ -2,9 +2,10 @@
 name: bird
 description: X/Twitter CLI for reading, searching, posting, and engagement via cookies.
 homepage: https://bird.fast
+compatibility: see metadata.clawdbot.requires
 metadata:
   author: clawdbot
-  clawdbot: {"emoji":"🐦","requires":{"bins":["bird"]},"install":[{"id":"brew","kind":"brew","formula":"steipete/tap/bird","bins":["bird"],"label":"Install bird (brew)","os":["darwin"]},{"id":"npm","kind":"node","package":"@steipete/bird","bins":["bird"],"label":"Install bird (npm)"}]}
+  clawdbot: {"emoji":"🐦","requires":{"bins":["bird"]},"install":[{"id":"npm","kind":"node","package":"@steipete/bird","bins":["bird"],"label":"Install bird (npm)"}]}
 ---
 
 # Notice
@@ -20,27 +21,33 @@ This environment cannot read browser cookies automatically. Ask the USER for the
 
 Once you have the cookies from the USER, run these commands to set up bird:
 
+### Install bird (npm)
+
+```bash
+npm install -g @steipete/bird
+```
+
 ### Store credentials
 
 ```bash
 mkdir -p ~/.config/bird
 cat <<'EOF' > ~/.config/bird/auth.env
-AUTH_TOKEN=<paste_auth_token>
-CT0=<paste_ct0>
+AUTH_TOKEN=<user_provided_auth_token>
+CT0=<user_provided_ct0>
 EOF
 chmod 600 ~/.config/bird/auth.env
 ```
 
-### Create wrapper in /usr/local/bin (takes PATH precedence, survives updates)
+### Auto-load credentials (wrapper in npm bin)
 
 ```bash
-mkdir -p /usr/local/bin
-cat > /usr/local/bin/bird <<'WRAPPER'
+BIRD_BIN="$(npm bin -g)/bird"
+cat > "$BIRD_BIN" <<'WRAPPER'
 #!/bin/bash
 [ -f ~/.config/bird/auth.env ] && set -a && . ~/.config/bird/auth.env && set +a
-exec /usr/bin/bird "$@"
+exec node "$(dirname "$0")/../lib/node_modules/@steipete/bird/dist/cli.js" "$@"
 WRAPPER
-chmod +x /usr/local/bin/bird
+chmod +x "$BIRD_BIN"
 ```
 
 ### Verify

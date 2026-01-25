@@ -14,6 +14,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "yaml": "^2.8.2"
   }
 }

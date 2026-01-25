@@ -3,21 +3,65 @@
   "archive_root": "skills-main",
   "skills": [
     {
-      "slug": "google-calendar",
       "name": "google-calendar",
       "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
+      "metadata": {
+        "author": "zo"
+      },
+      "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/",
+      "slug": "google-calendar",
       "path": "google-calendar"
     },
     {
-      "slug": "bird",
       "name": "bird",
       "description": "X/Twitter CLI for reading, searching, posting, and engagement via cookies.",
+      "homepage": "https://bird.fast",
+      "compatibility": "homebrew must be installed",
+      "metadata": {
+        "author": "clawdbot",
+        "clawdbot": {
+          "emoji": "🐦",
+          "requires": {
+            "bins": [
+              "bird"
+            ]
+          },
+          "install": [
+            {
+              "id": "brew",
+              "kind": "brew",
+              "formula": "steipete/tap/bird",
+              "bins": [
+                "bird"
+              ],
+              "label": "Install bird (brew)",
+              "os": [
+                "darwin"
+              ]
+            },
+            {
+              "id": "npm",
+              "kind": "node",
+              "package": "@steipete/bird",
+              "bins": [
+                "bird"
+              ],
+              "label": "Install bird (npm)"
+            }
+          ]
+        }
+      },
+      "slug": "bird",
       "path": "bird"
     },
     {
-      "slug": "google-direct-oauth",
       "name": "google-direct-oauth",
       "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.\n",
+      "metadata": {
+        "author": "zo"
+      },
+      "compatibility": "Requires a Google Cloud Console account (free). Works on any Zo Computer.",
+      "slug": "google-direct-oauth",
       "path": "google-direct-oauth"
     }
   ]
