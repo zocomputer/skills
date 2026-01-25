@@ -167,7 +167,8 @@
       "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
       "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/",
       "metadata": {
-        "author": "Zo"
+        "author": "Zo",
+        "emoji": "🅖"
       },
       "slug": "google-calendar",
       "path": "google-calendar"
@@ -437,7 +438,8 @@
       "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.\n",
       "compatibility": "Requires a Google Cloud Console account (free). Works on any Zo Computer.",
       "metadata": {
-        "author": "Zo"
+        "author": "Zo",
+        "emoji": "🅖"
       },
       "slug": "google-direct-oauth",
       "path": "google-direct-oauth"

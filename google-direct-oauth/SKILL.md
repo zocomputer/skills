@@ -9,6 +9,7 @@ description: |
 compatibility: Requires a Google Cloud Console account (free). Works on any Zo Computer.
 metadata:
   author: Zo
+  emoji: 🅖
 ---
 
 # Google Direct OAuth

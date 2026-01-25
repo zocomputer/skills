@@ -8,6 +8,7 @@ description: |
 compatibility: Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
 metadata:
   author: Zo
+  emoji: 🅖
 ---
 
 # Google Calendar Skill
