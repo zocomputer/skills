@@ -1,0 +1,14 @@
+{
+  "name": "skills",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "validate": "bun run index.ts validate"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
