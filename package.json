@@ -3,7 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "validate": "bun run index.ts validate"
+    "validate": "bun run index.ts validate",
+    "sync": "bun run index.ts sync",
+    "manifest": "bun run index.ts manifest"
   },
   "devDependencies": {
     "@types/bun": "latest"

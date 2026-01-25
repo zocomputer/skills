@@ -1,4 +1,4 @@
-import { readdir, readFile, stat } from "node:fs/promises";
+import { readdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 type Issue = {
@@ -7,7 +7,12 @@ type Issue = {
 };
 
 const ROOT_DIR = process.cwd();
-const SKILL_COLLECTIONS = ["Official", "Community"];
+const NON_SKILL_DIRS = new Set([
+  ".git",
+  ".github",
+  ".clawdhub",
+  "node_modules",
+]);
 const ALLOWED_SKILL_DIRS = new Set(["assets", "references", "scripts"]);
 
 const NAME_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -24,20 +29,56 @@ const isDirectory = async (targetPath: string) => {
 
 const loadSkillDirectories = async () => {
   const skillDirs: string[] = [];
-  for (const collection of SKILL_COLLECTIONS) {
-    const collectionPath = path.join(ROOT_DIR, collection);
-    if (!(await isDirectory(collectionPath))) {
+  const entries = await readdir(ROOT_DIR, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
       continue;
     }
-    const entries = await readdir(collectionPath, { withFileTypes: true });
-    for (const entry of entries) {
-      if (!entry.isDirectory()) {
-        continue;
-      }
-      skillDirs.push(path.join(collectionPath, entry.name));
+    if (NON_SKILL_DIRS.has(entry.name)) {
+      continue;
     }
+    skillDirs.push(path.join(ROOT_DIR, entry.name));
   }
   return skillDirs;
+};
+
+const CLAWDHUB_CONFIG = path.join(ROOT_DIR, "clawdhub.yml");
+
+const parseClawdhubConfig = (content: string) => {
+  const slugs: string[] = [];
+  const lines = content.split(/\r?\n/);
+  const skillsIndex = lines.findIndex((line) => line.trim() === "skills:");
+
+  if (skillsIndex >= 0) {
+    const baseIndent = lines[skillsIndex].match(/^\s*/)?.[0].length ?? 0;
+    for (let i = skillsIndex + 1; i < lines.length; i += 1) {
+      const line = lines[i];
+      if (line.trim() === "" || line.trim().startsWith("#")) {
+        continue;
+      }
+      const indent = line.match(/^\s*/)?.[0].length ?? 0;
+      if (indent <= baseIndent) {
+        break;
+      }
+      const match = line.match(/^\s*-\s*(.+)$/);
+      if (match) {
+        slugs.push(match[1].trim());
+      }
+    }
+    return slugs.filter(Boolean);
+  }
+
+  for (const line of lines) {
+    if (line.trim() === "" || line.trim().startsWith("#")) {
+      continue;
+    }
+    const match = line.match(/^\s*-\s*(.+)$/);
+    if (match) {
+      slugs.push(match[1].trim());
+    }
+  }
+
+  return slugs.filter(Boolean);
 };
 
 const parseFrontmatter = (content: string) => {
@@ -249,10 +290,72 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
   return issues;
 };
 
+type SkillInfo = {
+  name: string;
+  description: string;
+  path: string;
+};
+
+const parseGitHubRepo = (remoteUrl: string) => {
+  const httpsMatch = remoteUrl.match(/github\.com\/([^/]+)\/([^/.]+)(?:\.git)?$/);
+  if (httpsMatch) {
+    return { owner: httpsMatch[1], repo: httpsMatch[2] };
+  }
+  const sshMatch = remoteUrl.match(/git@github\.com:([^/]+)\/([^/.]+)(?:\.git)?$/);
+  if (sshMatch) {
+    return { owner: sshMatch[1], repo: sshMatch[2] };
+  }
+  return null;
+};
+
+const resolveGitHubBase = () => {
+  const remote = Bun.spawnSync(["git", "remote", "get-url", "origin"], {
+    stdout: "pipe",
+    stderr: "ignore",
+  });
+  const remoteUrl = remote.success ? remote.stdout.toString().trim() : "";
+  const repo = remoteUrl ? parseGitHubRepo(remoteUrl) : null;
+  const branch = Bun.spawnSync(["git", "rev-parse", "--abbrev-ref", "HEAD"], {
+    stdout: "pipe",
+    stderr: "ignore",
+  });
+  const ref = branch.success ? branch.stdout.toString().trim() : "main";
+  if (!repo) {
+    return {
+      base: "https://raw.githubusercontent.com/zocomputer/skills",
+      ref,
+    };
+  }
+  return {
+    base: `https://raw.githubusercontent.com/${repo.owner}/${repo.repo}`,
+    ref,
+  };
+};
+
+const loadSkillInfo = async (skillDir: string) => {
+  const skillFile = path.join(skillDir, "SKILL.md");
+  try {
+    const content = await readFile(skillFile, "utf8");
+    const { frontmatter, issue } = parseFrontmatter(content);
+    if (issue) {
+      return null;
+    }
+    const fields = extractFrontmatterFields(frontmatter);
+    const name = fields.name ?? "";
+    const description = fields.description ?? "";
+    if (!name || !description) {
+      return null;
+    }
+    return { name, description };
+  } catch {
+    return null;
+  }
+};
+
 const validateAllSkills = async () => {
   const skillDirs = await loadSkillDirectories();
   if (skillDirs.length === 0) {
-    console.log("No skills found under Official/ or Community/.");
+    console.log("No skills found at the repository root.");
     return 0;
   }
 
@@ -274,6 +377,93 @@ const validateAllSkills = async () => {
   return 1;
 };
 
+const writeManifest = async () => {
+  const skillDirs = await loadSkillDirectories();
+  if (skillDirs.length === 0) {
+    console.log("No skills found at the repository root.");
+    return 1;
+  }
+
+  const { base, ref } = resolveGitHubBase();
+  const manifest: SkillInfo[] = [];
+
+  for (const skillDir of skillDirs) {
+    const info = await loadSkillInfo(skillDir);
+    if (!info) {
+      continue;
+    }
+    const relPath = toDisplayPath(skillDir);
+    manifest.push({
+      name: info.name,
+      description: info.description,
+      path: `${base}/${ref}/${relPath}`,
+    });
+  }
+
+  await writeFile(
+    path.join(ROOT_DIR, "manifest.json"),
+    `${JSON.stringify(manifest, null, 2)}\n`,
+  );
+
+  console.log(`Wrote manifest.json with ${manifest.length} skill(s).`);
+  return 0;
+};
+
+const syncClawdhubSkills = async () => {
+  let config: string;
+  try {
+    config = await readFile(CLAWDHUB_CONFIG, "utf8");
+  } catch {
+    console.log("No clawdhub.yml found. Nothing to sync.");
+    return 0;
+  }
+
+  const slugs = parseClawdhubConfig(config);
+  if (slugs.length === 0) {
+    console.log("No Clawdhub skills listed in clawdhub.yml.");
+    return 0;
+  }
+
+  let failures = 0;
+  for (const slug of slugs) {
+    console.log(`Installing ${slug}...`);
+    const proc = Bun.spawn(
+      [
+        "npx",
+        "--yes",
+        "-p",
+        "clawdhub@latest",
+        "-p",
+        "undici",
+        "clawdhub",
+        "install",
+        slug,
+        "--workdir",
+        ROOT_DIR,
+        "--dir",
+        ".",
+        "--no-input",
+      ],
+      {
+        stdout: "inherit",
+        stderr: "inherit",
+      },
+    );
+    const exitCode = await proc.exited;
+    if (exitCode !== 0) {
+      failures += 1;
+    }
+  }
+
+  if (failures > 0) {
+    console.log(`Failed to install ${failures} skill(s).`);
+    return 1;
+  }
+
+  console.log(`Installed ${slugs.length} skill(s) from Clawdhub.`);
+  return 0;
+};
+
 const main = async () => {
   const [command] = process.argv.slice(2);
   if (!command) {
@@ -282,6 +472,16 @@ const main = async () => {
   }
   if (command === "validate") {
     const exitCode = await validateAllSkills();
+    process.exitCode = exitCode;
+    return;
+  }
+  if (command === "sync") {
+    const exitCode = await syncClawdhubSkills();
+    process.exitCode = exitCode;
+    return;
+  }
+  if (command === "manifest") {
+    const exitCode = await writeManifest();
     process.exitCode = exitCode;
     return;
   }
