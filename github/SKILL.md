@@ -1,8 +1,10 @@
 ---
 name: GitHub
 description: Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.
+compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
+  clawdbot: {"emoji":"🐙","requires":{"bins":["gh"]},"install":[{"id":"apt","kind":"apt","package":"gh","bins":["gh"],"label":"Install GitHub CLI (apt)"}]}
 ---
 
 # GitHub Skill

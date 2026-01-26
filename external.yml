@@ -1,101 +1,3 @@
-- repository: remotion-dev/skills
-  skill: remotion-best-practices
-  name: Create Animated Videos (Remotion)
-- repository: resciencelab/opc-skills
-  skill: reddit
-  name: Read Reddit Content
-- repository: obra/superpowers
-  skill: brainstorming
-  name: Brainstorming Expert
-- repository: coreyhaines31/marketingskills
-  skill: seo-audit
-  name: SEO Expert
-- repository: coreyhaines31/marketingskills
-  skill: copywriting
-  name: Copywriting Expert
-- repository: coreyhaines31/marketingskills
-  skill: marketing-psychology
-  name: Marketing Psychology & Mental Models
-- repository: coreyhaines31/marketingskills
-  skill: social-content
-  name: Social Content Expert
-- repository: coreyhaines31/marketingskills
-  skill: copy-editing
-  name: Copy Editing Expert
-- repository: anthropics/skills
-  skill: pdf
-  name: Process PDF Files
-- repository: anthropics/skills
-  skill: slack-gif-creator
-  name: Create Animated GIFs for Slack
-- repository: adithya-s-k/manim_skill
-  skill: manim-composer
-  name: Create 3Blue1Brown Videos (Manim)
-- repository: stripe/ai
-  skill: stripe-best-practices
-  name: Stripe Best Practices
-- repository: anthropics/skills
-  skill: pptx
-  name: Process PPTX Files
-- repository: anthropics/skills
-  skill: algorithmic-art
-  name: Generate Algorithmic Art
-- repository: anthropics/skills
-  skill: xlsx
-  name: Process XLSX Files
-- repository: anthropics/skills
-  skill: docx
-  name: Process DOCX Files
-- repository: anthropics/skills
-  skill: theme-factory
-  name: Font & Color Theme Builder
-- repository: softaworks/agent-toolkit
-  skill: meme-factory
-  name: Create Memes
-- repository: clawdbot/skills
-  skill: linkedin-cli
-  name: Use LinkedIn
-- repository: clawdbot/clawdbot
-  skill: tmux
-  name: Control tmux sessions
-- repository: clawdbot/clawdbot
-  skill: skill-creator
-  name: Create or edit Skills
-- repository: clawdbot/clawdbot
-  skill: wacli
-  name: Use WhatsApp
-  description: Send WhatsApp messages or search/sync history (not for normal chats)
-- repository: clawdbot/skills
-  skill: lastfm
-  name: Access Last.fm data using an API key (free)
-- repository: clawdbot/clawdbot
-  skill: trello
-  name: Use Trello
-  description: Work with Trello using your own Trello API key (free)
-- repository: clawdbot/clawdbot
-  skill: notion
-  name: Use Notion
-  description: Work with Notion using your own Notion API key (free)
-- repository: clawdbot/clawdbot
-  skill: mcporter
-  name: Use MCP Server
-  description: Work with MCP servers directly
-- repository: clawdbot/clawdbot
-  skill: blogwatcher
-  name: Blog Watcher
-- repository: clawdbot/clawdbot
-  skill: eightctl
-  name: EightSleep Pod Control
-- repository: clawdbot/clawdbot
-  skill: github
-  name: GitHub
-- repository: clawdbot/clawdbot
-  skill: video-frames
-  name: Video Frames (FFmpeg)
-- repository: clawdbot/clawdbot
-  skill: weather
-  name: Weather
-  description: Get the current weather for any location
 - repository: clawdbot/clawdbot
   skill: bird
   slug: twitter
@@ -169,3 +71,186 @@
        - `gog auth list`
 
     IMPORTANT: If you generate a new OAuth app here, it may replace or invalidate existing tokens.
+- repository: clawdbot/clawdbot
+  skill: mcporter
+  name: Use MCP Server
+  description: Work with MCP servers directly
+- repository: clawdbot/clawdbot
+  skill: notion
+  name: Use Notion
+  description: Work with Notion using your own Notion API key (free)
+- repository: clawdbot/clawdbot
+  skill: trello
+  name: Use Trello
+  description: Work with Trello using your own Trello API key (free)
+- repository: clawdbot/clawdbot
+  skill: wacli
+  name: Use WhatsApp
+  description: Send WhatsApp messages or search/sync history (not for normal chats)
+- repository: clawdbot/clawdbot
+  skill: weather
+  name: Weather
+  description: Get the current weather for any location
+- repository: clawdbot/clawdbot
+  skill: blogwatcher
+  name: Blog Watcher
+- repository: clawdbot/clawdbot
+  skill: eightctl
+  name: EightSleep Pod Control
+- repository: clawdbot/clawdbot
+  skill: github
+  name: GitHub
+- repository: clawdbot/clawdbot
+  skill: tmux
+  name: Control tmux sessions
+- repository: clawdbot/clawdbot
+  skill: video-frames
+  name: Video Frames (FFmpeg)
+- repository: clawdbot/skills
+  skill: just-fucking-cancel
+  name: Help me cancel my subscriptions
+- repository: clawdbot/skills
+  skill: lastfm
+  name: Access Last.fm data using an API key (free)
+- repository: clawdbot/skills
+  skill: linkedin-cli
+  name: Use LinkedIn
+- repository: clawdbot/skills
+  skill: shorten
+  name: Shorten URLs
+- repository: clawdbot/skills
+  skill: snow-report
+  name: Fetch snow conditions for any ski resort
+- repository: clawdbot/skills
+  skill: yahoo-finance
+  name: Use Yahoo Finance
+- repository: adithya-s-k/manim_skill
+  skill: manim-composer
+  name: Create 3Blue1Brown Videos (Manim)
+- repository: obra/superpowers
+  skill: brainstorming
+  name: Brainstorming Expert
+- repository: remotion-dev/skills
+  skill: remotion-best-practices
+  name: Create Animated Videos (Remotion)
+- repository: resciencelab/opc-skills
+  skill: reddit
+  name: Read Reddit Content
+- repository: softaworks/agent-toolkit
+  skill: meme-factory
+  name: Create Memes
+- repository: stripe/ai
+  skill: stripe-best-practices
+  name: Stripe Best Practices
+- repository: cloudai-x/threejs-skills
+  skill: threejs-animation
+- repository: cloudai-x/threejs-skills
+  skill: threejs-fundamentals
+- repository: cloudai-x/threejs-skills
+  skill: threejs-geometry
+- repository: cloudai-x/threejs-skills
+  skill: threejs-interaction
+- repository: cloudai-x/threejs-skills
+  skill: threejs-lighting
+- repository: cloudai-x/threejs-skills
+  skill: threejs-loaders
+- repository: cloudai-x/threejs-skills
+  skill: threejs-materials
+- repository: cloudai-x/threejs-skills
+  skill: threejs-postprocessing
+- repository: cloudai-x/threejs-skills
+  skill: threejs-shaders
+- repository: cloudai-x/threejs-skills
+  skill: threejs-textures
+- repository: anthropics/skills
+  skill: algorithmic-art
+  name: Generate Algorithmic Art
+- repository: anthropics/skills
+  skill: docx
+  name: Process DOCX Files
+- repository: anthropics/skills
+  skill: pdf
+  name: Process PDF Files
+- repository: anthropics/skills
+  skill: pptx
+  name: Process PPTX Files
+- repository: anthropics/skills
+  skill: slack-gif-creator
+  name: Create Animated GIFs for Slack
+- repository: anthropics/skills
+  skill: theme-factory
+  name: Font & Color Theme Builder
+- repository: anthropics/skills
+  skill: xlsx
+  name: Process XLSX Files
+- repository: anthropics/skills
+  skill: brand-guidelines
+- repository: anthropics/skills
+  skill: canvas-design
+- repository: anthropics/skills
+  skill: doc-coauthoring
+- repository: anthropics/skills
+  skill: frontend-design
+- repository: anthropics/skills
+  skill: internal-comms
+- repository: anthropics/skills
+  skill: mcp-builder
+- repository: anthropics/skills
+  skill: skill-creator
+- repository: anthropics/skills
+  skill: template-skill
+- repository: anthropics/skills
+  skill: web-artifacts-builder
+- repository: anthropics/skills
+  skill: webapp-testing
+- repository: coreyhaines31/marketingskills
+  skill: copy-editing
+  name: Copy Editing Expert
+- repository: coreyhaines31/marketingskills
+  skill: copywriting
+  name: Copywriting Expert
+- repository: coreyhaines31/marketingskills
+  skill: marketing-psychology
+  name: Marketing Psychology & Mental Models
+- repository: coreyhaines31/marketingskills
+  skill: seo-audit
+  name: SEO Expert
+- repository: coreyhaines31/marketingskills
+  skill: social-content
+  name: Social Content Expert
+- repository: coreyhaines31/marketingskills
+  skill: ab-test-setup
+- repository: coreyhaines31/marketingskills
+  skill: analytics-tracking
+- repository: coreyhaines31/marketingskills
+  skill: competitor-alternatives
+- repository: coreyhaines31/marketingskills
+  skill: email-sequence
+- repository: coreyhaines31/marketingskills
+  skill: form-cro
+- repository: coreyhaines31/marketingskills
+  skill: free-tool-strategy
+- repository: coreyhaines31/marketingskills
+  skill: launch-strategy
+- repository: coreyhaines31/marketingskills
+  skill: marketing-ideas
+- repository: coreyhaines31/marketingskills
+  skill: onboarding-cro
+- repository: coreyhaines31/marketingskills
+  skill: page-cro
+- repository: coreyhaines31/marketingskills
+  skill: paid-ads
+- repository: coreyhaines31/marketingskills
+  skill: paywall-upgrade-cro
+- repository: coreyhaines31/marketingskills
+  skill: popup-cro
+- repository: coreyhaines31/marketingskills
+  skill: pricing-strategy
+- repository: coreyhaines31/marketingskills
+  skill: programmatic-seo
+- repository: coreyhaines31/marketingskills
+  skill: referral-program
+- repository: coreyhaines31/marketingskills
+  skill: schema-markup
+- repository: coreyhaines31/marketingskills
+  skill: signup-flow-cro

@@ -22,6 +22,15 @@
       "path": "marketing-psychology"
     },
     {
+      "name": "programmatic-seo",
+      "description": "When the user wants to create SEO-driven pages at scale using templates and data. Also use when the user mentions \"programmatic SEO,\" \"template pages,\" \"pages at scale,\" \"directory pages,\" \"location pages,\" \"[keyword] + [city] pages,\" \"comparison pages,\" \"integration pages,\" or \"building many pages for SEO.\" For auditing existing SEO issues, see seo-audit.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "programmatic-seo",
+      "path": "programmatic-seo"
+    },
+    {
       "name": "X (Twitter)",
       "description": "Let Zo use your X (Twitter) account",
       "homepage": "https://bird.fast",
@@ -80,6 +89,15 @@
       },
       "slug": "remotion-best-practices",
       "path": "remotion-best-practices"
+    },
+    {
+      "name": "template-skill",
+      "description": "Replace with description of the skill and when Claude should use it.",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "template-skill",
+      "path": "template-skill"
     },
     {
       "name": "Blog Watcher",
@@ -150,6 +168,15 @@
       "path": "theme-factory"
     },
     {
+      "name": "launch-strategy",
+      "description": "When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,' or 'product update.' This skill covers phased launches, channel strategy, and ongoing launch momentum.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "launch-strategy",
+      "path": "launch-strategy"
+    },
+    {
       "name": "Set up hashcards spaced repetition system",
       "description": "Sets up a spaced repetition flashcard system that you can access through your web browser to study and memorize information",
       "metadata": {
@@ -158,6 +185,33 @@
       },
       "slug": "hashcards-setup",
       "path": "hashcards-setup"
+    },
+    {
+      "name": "threejs-shaders",
+      "description": "Three.js shaders - GLSL, ShaderMaterial, uniforms, custom effects. Use when creating custom visual effects, modifying vertices, writing fragment shaders, or extending built-in materials.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-shaders",
+      "path": "threejs-shaders"
+    },
+    {
+      "name": "Access Last.fm data using an API key (free)",
+      "description": "Access Last.fm listening history, music stats, and discovery. Query recent tracks, top artists/albums/tracks, loved tracks, similar artists, and global charts.",
+      "metadata": {
+        "author": "Clawdbot"
+      },
+      "slug": "lastfm",
+      "path": "lastfm"
+    },
+    {
+      "name": "threejs-lighting",
+      "description": "Three.js lighting - light types, shadows, environment lighting. Use when adding lights, configuring shadows, setting up IBL, or optimizing lighting performance.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-lighting",
+      "path": "threejs-lighting"
     },
     {
       "name": "Set up Grafana for log visualization",
@@ -189,6 +243,33 @@
       "path": "meme-factory"
     },
     {
+      "name": "doc-coauthoring",
+      "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "doc-coauthoring",
+      "path": "doc-coauthoring"
+    },
+    {
+      "name": "threejs-geometry",
+      "description": "Three.js geometry creation - built-in shapes, BufferGeometry, custom geometry, instancing. Use when creating 3D shapes, working with vertices, building custom meshes, or optimizing with instanced rendering.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-geometry",
+      "path": "threejs-geometry"
+    },
+    {
+      "name": "threejs-interaction",
+      "description": "Three.js interaction - raycasting, controls, mouse/touch input, object selection. Use when handling user input, implementing click detection, adding camera controls, or creating interactive 3D experiences.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-interaction",
+      "path": "threejs-interaction"
+    },
+    {
       "name": "Social Content Expert",
       "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' or 'viral content.' This skill covers content creation, repurposing, and platform-specific strategies.",
       "metadata": {
@@ -196,6 +277,15 @@
       },
       "slug": "social-content",
       "path": "social-content"
+    },
+    {
+      "name": "threejs-postprocessing",
+      "description": "Three.js post-processing - EffectComposer, bloom, DOF, screen effects. Use when adding visual effects, color grading, blur, glow, or creating custom screen-space shaders.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-postprocessing",
+      "path": "threejs-postprocessing"
     },
     {
       "name": "Use LinkedIn",
@@ -290,6 +380,15 @@
       "path": "algorithmic-art"
     },
     {
+      "name": "marketing-ideas",
+      "description": "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' or 'ideas to grow.' This skill provides 140 proven marketing approaches organized by category.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "marketing-ideas",
+      "path": "marketing-ideas"
+    },
+    {
       "name": "Video Frames (FFmpeg)",
       "description": "Extract frames or short clips from videos using ffmpeg.",
       "homepage": "https://ffmpeg.org",
@@ -330,6 +429,15 @@
       "path": "daily-linear-digest"
     },
     {
+      "name": "threejs-loaders",
+      "description": "Three.js asset loading - GLTF, textures, images, models, async patterns. Use when loading 3D models, textures, HDR environments, or managing loading progress.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-loaders",
+      "path": "threejs-loaders"
+    },
+    {
       "name": "EightSleep Pod Control",
       "description": "Control Eight Sleep pods (status, temperature, alarms, schedules).",
       "homepage": "https://eightctl.sh",
@@ -358,6 +466,24 @@
       },
       "slug": "eightctl",
       "path": "eightctl"
+    },
+    {
+      "name": "pricing-strategy",
+      "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' or 'monetization.' This skill covers pricing research, tier structure, and packaging strategy.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "pricing-strategy",
+      "path": "pricing-strategy"
+    },
+    {
+      "name": "free-tool-strategy",
+      "description": "When the user wants to plan, evaluate, or build a free tool for marketing purposes — lead generation, SEO value, or brand awareness. Also use when the user mentions \"engineering as marketing,\" \"free tool,\" \"marketing tool,\" \"calculator,\" \"generator,\" \"interactive tool,\" \"lead gen tool,\" \"build a tool for leads,\" or \"free resource.\" This skill bridges engineering and marketing — useful for founders and technical marketers.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "free-tool-strategy",
+      "path": "free-tool-strategy"
     },
     {
       "name": "Google Workspace (gog)",
@@ -393,10 +519,17 @@
       "name": "Use Notion",
       "description": "Work with Notion using your own Notion API key (free)",
       "homepage": "https://developers.notion.com",
+      "compatibility": "see metadata.clawdbot.requires",
       "metadata": {
         "author": "Clawdbot",
         "clawdbot": {
-          "emoji": "📝"
+          "emoji": "📝",
+          "requires": {
+            "env": [
+              "NOTION_API_KEY"
+            ]
+          },
+          "primaryEnv": "NOTION_API_KEY"
         }
       },
       "slug": "notion",
@@ -453,6 +586,15 @@
       "path": "manim-composer"
     },
     {
+      "name": "analytics-tracking",
+      "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" or \"tracking plan.\" For A/B test measurement, see ab-test-setup.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "analytics-tracking",
+      "path": "analytics-tracking"
+    },
+    {
       "name": "Create Spotify playlist from Pitchfork Best New Tracks",
       "description": "Finds the latest songs from Pitchfork's Best New Tracks and creates a Spotify playlist for you",
       "metadata": {
@@ -463,10 +605,57 @@
       "path": "pitchfork-best-tracks"
     },
     {
-      "name": "Create or edit Skills",
-      "description": "Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets.",
+      "name": "paid-ads",
+      "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ad copy,' 'ad creative,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' or 'audience targeting.' This skill covers campaign strategy, ad creation, audience targeting, and optimization.",
       "metadata": {
-        "author": "Clawdbot"
+        "author": "Coreyhaines31"
+      },
+      "slug": "paid-ads",
+      "path": "paid-ads"
+    },
+    {
+      "name": "form-cro",
+      "description": "When the user wants to optimize any form that is NOT signup/registration — including lead capture forms, contact forms, demo request forms, application forms, survey forms, or checkout forms. Also use when the user mentions \"form optimization,\" \"lead form conversions,\" \"form friction,\" \"form fields,\" \"form completion rate,\" or \"contact form.\" For signup/registration forms, see signup-flow-cro. For popups containing forms, see popup-cro.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "form-cro",
+      "path": "form-cro"
+    },
+    {
+      "name": "threejs-animation",
+      "description": "Three.js animation - keyframe animation, skeletal animation, morph targets, animation mixing. Use when animating objects, playing GLTF animations, creating procedural motion, or blending animations.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-animation",
+      "path": "threejs-animation"
+    },
+    {
+      "name": "internal-comms",
+      "description": "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use. Claude should use this skill whenever asked to write some sort of internal communications (status reports, leadership updates, 3P updates, company newsletters, FAQs, incident reports, project updates, etc.).",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "internal-comms",
+      "path": "internal-comms"
+    },
+    {
+      "name": "page-cro",
+      "description": "When the user wants to optimize, improve, or increase conversions on any marketing page — including homepage, landing pages, pricing pages, feature pages, or blog posts. Also use when the user says \"CRO,\" \"conversion rate optimization,\" \"this page isn't converting,\" \"improve conversions,\" or \"why isn't this page working.\" For signup/registration flows, see signup-flow-cro. For post-signup activation, see onboarding-cro. For forms outside of signup, see form-cro. For popups/modals, see popup-cro.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "page-cro",
+      "path": "page-cro"
+    },
+    {
+      "name": "skill-creator",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
       },
       "slug": "skill-creator",
       "path": "skill-creator"
@@ -482,6 +671,16 @@
       "path": "automate-something"
     },
     {
+      "name": "canvas-design",
+      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "canvas-design",
+      "path": "canvas-design"
+    },
+    {
       "name": "Create syllabus reminders",
       "description": "Reads your syllabus, finds all due dates, and sets up text reminders and calendar events so you never miss an assignment",
       "metadata": {
@@ -494,11 +693,40 @@
     {
       "name": "GitHub",
       "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
+      "compatibility": "see metadata.clawdbot.requires",
       "metadata": {
-        "author": "Clawdbot"
+        "author": "Clawdbot",
+        "clawdbot": {
+          "emoji": "🐙",
+          "requires": {
+            "bins": [
+              "gh"
+            ]
+          },
+          "install": [
+            {
+              "id": "apt",
+              "kind": "apt",
+              "package": "gh",
+              "bins": [
+                "gh"
+              ],
+              "label": "Install GitHub CLI (apt)"
+            }
+          ]
+        }
       },
       "slug": "github",
       "path": "github"
+    },
+    {
+      "name": "signup-flow-cro",
+      "description": "When the user wants to optimize signup, registration, account creation, or trial activation flows. Also use when the user mentions \"signup conversions,\" \"registration friction,\" \"signup form optimization,\" \"free trial signup,\" \"reduce signup dropoff,\" or \"account creation flow.\" For post-signup onboarding, see onboarding-cro. For lead capture forms (not account creation), see form-cro.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "signup-flow-cro",
+      "path": "signup-flow-cro"
     },
     {
       "name": "Research a topic",
@@ -666,6 +894,35 @@
       "path": "plan-code-changes"
     },
     {
+      "name": "threejs-fundamentals",
+      "description": "Three.js scene setup, cameras, renderer, Object3D hierarchy, coordinate systems. Use when setting up 3D scenes, creating cameras, configuring renderers, managing object hierarchies, or working with transforms.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-fundamentals",
+      "path": "threejs-fundamentals"
+    },
+    {
+      "name": "Help me cancel my subscriptions",
+      "description": "Analyze bank transaction CSVs to find recurring charges, categorize subscriptions, and cancel what you don't need. Use when user says \"cancel subscriptions\", \"audit subscriptions\", \"find recurring charges\", or \"what am I paying for\". Supports Apple Card, Chase, Mint, and generic CSV formats. Outputs interactive HTML audit with copy-to-cancel workflow.",
+      "metadata": {
+        "author": "Clawdbot"
+      },
+      "attribution": "Originally created by rohunvora (https://github.com/rohunvora/just-fucking-cancel)",
+      "slug": "just-fucking-cancel",
+      "path": "just-fucking-cancel"
+    },
+    {
+      "name": "webapp-testing",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "webapp-testing",
+      "path": "webapp-testing"
+    },
+    {
       "name": "Process file line-by-line with script",
       "description": "Processes every line of a file one by one, transforming or extracting information from each line",
       "metadata": {
@@ -695,6 +952,15 @@
       "path": "plant-care-plan"
     },
     {
+      "name": "onboarding-cro",
+      "description": "When the user wants to optimize post-signup onboarding, user activation, first-run experience, or time-to-value. Also use when the user mentions \"onboarding flow,\" \"activation rate,\" \"user activation,\" \"first-run experience,\" \"empty states,\" \"onboarding checklist,\" \"aha moment,\" or \"new user experience.\" For signup/registration optimization, see signup-flow-cro. For ongoing email sequences, see email-sequence.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "onboarding-cro",
+      "path": "onboarding-cro"
+    },
+    {
       "name": "Weather",
       "description": "Get the current weather for any location",
       "homepage": "https://wttr.in/:help",
@@ -712,6 +978,43 @@
       },
       "slug": "weather",
       "path": "weather"
+    },
+    {
+      "name": "Shorten URLs",
+      "description": "Shorten URLs using is.gd (no auth required). Returns a permanent short link.",
+      "metadata": {
+        "author": "Clawdbot"
+      },
+      "slug": "shorten",
+      "path": "shorten"
+    },
+    {
+      "name": "paywall-upgrade-cro",
+      "description": "When the user wants to create or optimize in-app paywalls, upgrade screens, upsell modals, or feature gates. Also use when the user mentions \"paywall,\" \"upgrade screen,\" \"upgrade modal,\" \"upsell,\" \"feature gate,\" \"convert free to paid,\" \"freemium conversion,\" \"trial expiration screen,\" \"limit reached screen,\" \"plan upgrade prompt,\" or \"in-app pricing.\" Distinct from public pricing pages (see page-cro) — this skill focuses on in-product upgrade moments where the user has already experienced value.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "paywall-upgrade-cro",
+      "path": "paywall-upgrade-cro"
+    },
+    {
+      "name": "frontend-design",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "frontend-design",
+      "path": "frontend-design"
+    },
+    {
+      "name": "schema-markup",
+      "description": "When the user wants to add, fix, or optimize schema markup and structured data on their site. Also use when the user mentions \"schema markup,\" \"structured data,\" \"JSON-LD,\" \"rich snippets,\" \"schema.org,\" \"FAQ schema,\" \"product schema,\" \"review schema,\" or \"breadcrumb schema.\" For broader SEO issues, see seo-audit.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "schema-markup",
+      "path": "schema-markup"
     },
     {
       "name": "Use Trello",
@@ -755,6 +1058,15 @@
       },
       "slug": "generate-pdf",
       "path": "generate-pdf"
+    },
+    {
+      "name": "popup-cro",
+      "description": "When the user wants to create or optimize popups, modals, overlays, slide-ins, or banners for conversion purposes. Also use when the user mentions \"exit intent,\" \"popup conversions,\" \"modal optimization,\" \"lead capture popup,\" \"email popup,\" \"announcement banner,\" or \"overlay.\" For forms outside of popups, see form-cro. For general page conversion optimization, see page-cro.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "popup-cro",
+      "path": "popup-cro"
     },
     {
       "name": "Use WhatsApp",
@@ -807,6 +1119,15 @@
       "path": "daily-video"
     },
     {
+      "name": "threejs-textures",
+      "description": "Three.js textures - texture types, UV mapping, environment maps, texture settings. Use when working with images, UV coordinates, cubemaps, HDR environments, or texture optimization.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-textures",
+      "path": "threejs-textures"
+    },
+    {
       "name": "Create a guestbook",
       "description": "Build an interactive guestbook where visitors can leave messages.",
       "metadata": {
@@ -815,6 +1136,16 @@
       },
       "slug": "guestbook-site",
       "path": "guestbook-site"
+    },
+    {
+      "name": "mcp-builder",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "mcp-builder",
+      "path": "mcp-builder"
     },
     {
       "name": "Find meetings with attendees",
@@ -834,6 +1165,15 @@
       },
       "slug": "important-email-digest",
       "path": "important-email-digest"
+    },
+    {
+      "name": "email-sequence",
+      "description": "When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions \"email sequence,\" \"drip campaign,\" \"nurture sequence,\" \"onboarding emails,\" \"welcome sequence,\" \"re-engagement emails,\" \"email automation,\" or \"lifecycle emails.\" For in-app onboarding, see onboarding-cro.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "email-sequence",
+      "path": "email-sequence"
     },
     {
       "name": "Set up SSH server for remote access",
@@ -877,6 +1217,16 @@
       "path": "setup-receipt-tracker"
     },
     {
+      "name": "brand-guidelines",
+      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "brand-guidelines",
+      "path": "brand-guidelines"
+    },
+    {
       "name": "google-direct-oauth",
       "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.\n",
       "compatibility": "Requires a Google Cloud Console account (free). Works on any Zo Computer.",
@@ -888,6 +1238,42 @@
       "path": "google-direct-oauth"
     },
     {
+      "name": "Fetch snow conditions for any ski resort",
+      "description": "Get snow conditions, forecasts, and ski reports for any mountain resort worldwide. Use when asked about snow, powder, ski conditions, or mountain weather. Supports 1000+ resorts via OpenSnow. Users can set favorite mountains for quick access. Supports SnowTick 4-letter codes (JHMR, TARG, MMTH) for quick lookups.",
+      "metadata": {
+        "author": "Clawdbot"
+      },
+      "slug": "snow-report",
+      "path": "snow-report"
+    },
+    {
+      "name": "ab-test-setup",
+      "description": "When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions \"A/B test,\" \"split test,\" \"experiment,\" \"test this change,\" \"variant copy,\" \"multivariate test,\" or \"hypothesis.\" For tracking implementation, see analytics-tracking.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "ab-test-setup",
+      "path": "ab-test-setup"
+    },
+    {
+      "name": "threejs-materials",
+      "description": "Three.js materials - PBR, basic, phong, shader materials, material properties. Use when styling meshes, working with textures, creating custom shaders, or optimizing material performance.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-materials",
+      "path": "threejs-materials"
+    },
+    {
+      "name": "referral-program",
+      "description": "When the user wants to create, optimize, or analyze a referral program, affiliate program, or word-of-mouth strategy. Also use when the user mentions 'referral,' 'affiliate,' 'ambassador,' 'word of mouth,' 'viral loop,' 'refer a friend,' or 'partner program.' This skill covers program design, incentive structure, and growth optimization.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "referral-program",
+      "path": "referral-program"
+    },
+    {
       "name": "Find recent Craigslist missed connections",
       "description": "Finds recent missed connections posts from Craigslist and gives you the highlights",
       "metadata": {
@@ -896,6 +1282,25 @@
       },
       "slug": "find-missed-connections",
       "path": "find-missed-connections"
+    },
+    {
+      "name": "web-artifacts-builder",
+      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "web-artifacts-builder",
+      "path": "web-artifacts-builder"
+    },
+    {
+      "name": "Use Yahoo Finance",
+      "description": "Get stock prices, quotes, fundamentals, earnings, options, dividends, and analyst ratings using Yahoo Finance. Uses yfinance library - no API key required.",
+      "metadata": {
+        "author": "Clawdbot"
+      },
+      "slug": "yahoo-finance",
+      "path": "yahoo-finance"
     }
   ]
 }

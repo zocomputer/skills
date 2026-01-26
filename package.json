@@ -5,7 +5,9 @@
   "scripts": {
     "validate": "bun run index.ts validate",
     "sync": "bun run index.ts sync",
-    "manifest": "bun run index.ts manifest"
+    "manifest": "bun run index.ts manifest",
+    "grab": "bun run index.ts grab",
+    "organize": "bun run index.ts organize"
   },
   "devDependencies": {
     "@types/bun": "latest"

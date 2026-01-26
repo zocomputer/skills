@@ -2,9 +2,10 @@
 name: Use Notion
 description: Work with Notion using your own Notion API key (free)
 homepage: https://developers.notion.com
+compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
-  clawdbot: {"emoji":"📝"}
+  clawdbot: {"emoji":"📝","requires":{"env":["NOTION_API_KEY"]},"primaryEnv":"NOTION_API_KEY"}
 ---
 
 # notion

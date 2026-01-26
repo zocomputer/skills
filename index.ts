@@ -1,7 +1,8 @@
-import { cp, readdir, readFile, rm, stat, writeFile } from "node:fs/promises";
+import { cp, mkdtemp, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import matter from "gray-matter";
-import { parse as parseYaml } from "yaml";
+import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 
 type Issue = {
   skillPath: string;
@@ -10,9 +11,6 @@ type Issue = {
 
 const ROOT_DIR = process.cwd();
 const INSTALL_AGENT = "codex";
-const CANONICAL_SKILLS_DIR = path.join(ROOT_DIR, ".agents", "skills");
-const AGENTS_DIR = path.join(ROOT_DIR, ".agents");
-const CODEX_DIR = path.join(ROOT_DIR, ".codex");
 // Skip non-skill dirs and any gitignored folders during validation.
 const NON_SKILL_DIRS = new Set([
   ".git",
@@ -116,6 +114,237 @@ const parseExternalConfig = (content: string) => {
     sources.push(source);
   }
   return sources;
+};
+
+const countExternalMetadataFields = (entry: Record<string, unknown>) => {
+  let count = 0;
+  for (const key of Object.keys(entry)) {
+    if (key === "repository" || key === "skill") {
+      continue;
+    }
+    if (entry[key] !== undefined) {
+      count += 1;
+    }
+  }
+  return count;
+};
+
+const resolveRecordSlug = (entry: Record<string, unknown>) => {
+  const overrideSlug = typeof entry.slug === "string" ? entry.slug.trim() : "";
+  if (overrideSlug) {
+    return overrideSlug;
+  }
+  const skill = typeof entry.skill === "string" ? entry.skill.trim() : "";
+  if (skill) {
+    return skill;
+  }
+  const repository = typeof entry.repository === "string" ? entry.repository : "";
+  return repository.split("/").pop() ?? "";
+};
+
+const escapeTableValue = (value: string) => value.replace(/\|/g, "\\|");
+
+const normalizeTableText = (value: string) => value.replace(/\s+/g, " ").trim();
+
+const resolveRecordDescription = (
+  entry: Record<string, unknown>,
+  manifestDescriptions: Map<string, string>,
+) => {
+  const slug = resolveRecordSlug(entry);
+  if (slug && manifestDescriptions.has(slug)) {
+    return escapeTableValue(normalizeTableText(manifestDescriptions.get(slug) ?? ""));
+  }
+  if (typeof entry.description === "string" && entry.description.trim()) {
+    return escapeTableValue(normalizeTableText(entry.description));
+  }
+  if (typeof entry.name === "string" && entry.name.trim()) {
+    return escapeTableValue(normalizeTableText(entry.name));
+  }
+  return "";
+};
+
+const SKILLS_TABLE_START = "<!-- skills-table-start -->";
+const SKILLS_TABLE_END = "<!-- skills-table-end -->";
+
+const getRepoHttpUrl = () => {
+  const remote = Bun.spawnSync(["git", "remote", "get-url", "origin"], {
+    stdout: "pipe",
+    stderr: "ignore",
+  });
+  const remoteUrl = remote.success ? remote.stdout.toString().trim() : "";
+  const repo = remoteUrl ? parseGitHubRepo(remoteUrl) : null;
+  if (!repo) {
+    return "https://github.com/zocomputer/skills";
+  }
+  return `https://github.com/${repo.owner}/${repo.repo}`;
+};
+
+const getRepoRef = () => {
+  const branch = Bun.spawnSync(["git", "rev-parse", "--abbrev-ref", "HEAD"], {
+    stdout: "pipe",
+    stderr: "ignore",
+  });
+  return branch.success ? branch.stdout.toString().trim() : "main";
+};
+
+const buildSkillsTable = (
+  entries: Record<string, unknown>[],
+  manifestDescriptions: Map<string, string>,
+) => {
+  const lines = [
+    "| Skill | Description |",
+    "| --- | --- |",
+  ];
+  const repoUrl = getRepoHttpUrl();
+  const ref = getRepoRef();
+  for (const entry of entries) {
+    const slug = resolveRecordSlug(entry);
+    if (!slug) {
+      continue;
+    }
+    const description = resolveRecordDescription(entry, manifestDescriptions);
+    const link = `${repoUrl}/blob/${ref}/${slug}/SKILL.md`;
+    lines.push(`| [${slug}](${link}) | ${description} |`);
+  }
+  lines.push("");
+  return lines.join("\n");
+};
+
+const upsertSkillsTableInReadme = async (table: string) => {
+  const readmePath = path.join(ROOT_DIR, "README.md");
+  let readme = "";
+  try {
+    readme = await readFile(readmePath, "utf8");
+  } catch {
+    console.log("Unable to read README.md.");
+    return;
+  }
+
+  const tableBlock = `${SKILLS_TABLE_START}\n${table}\n${SKILLS_TABLE_END}`;
+  const markerRegex = new RegExp(
+    `${SKILLS_TABLE_START}[\\s\\S]*?${SKILLS_TABLE_END}`,
+    "m",
+  );
+  if (markerRegex.test(readme)) {
+    const updated = readme.replace(markerRegex, tableBlock);
+    await writeFile(readmePath, updated);
+    return;
+  }
+
+  const section = `## Skills\n\n${tableBlock}\n\n`;
+  const contributingIndex = readme.indexOf("# Contributing");
+  if (contributingIndex !== -1) {
+    const updated =
+      readme.slice(0, contributingIndex) + section + readme.slice(contributingIndex);
+    await writeFile(readmePath, updated);
+    return;
+  }
+
+  await writeFile(readmePath, `${readme.trimEnd()}\n\n${section}`);
+};
+
+const loadManifestDescriptions = async () => {
+  const manifestPath = path.join(ROOT_DIR, "manifest.json");
+  let raw = "";
+  try {
+    raw = await readFile(manifestPath, "utf8");
+  } catch {
+    console.log("manifest.json not found; using external.yml metadata for descriptions.");
+    return new Map<string, string>();
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as SkillManifest;
+    const descriptions = new Map<string, string>();
+    for (const skill of parsed.skills ?? []) {
+      if (skill && typeof skill.slug === "string" && typeof skill.description === "string") {
+        descriptions.set(skill.slug, skill.description.trim());
+      }
+    }
+    return descriptions;
+  } catch {
+    console.log("Unable to parse manifest.json; using external.yml metadata for descriptions.");
+    return new Map<string, string>();
+  }
+};
+
+const organizeExternalConfig = async () => {
+  let config: string;
+  try {
+    config = await readFile(EXTERNAL_CONFIG, "utf8");
+  } catch {
+    console.log("No external.yml found. Nothing to organize.");
+    return 0;
+  }
+
+  let parsed: unknown;
+  try {
+    parsed = parseYaml(config);
+  } catch {
+    console.log("Unable to parse external.yml.");
+    return 1;
+  }
+  if (!Array.isArray(parsed)) {
+    console.log("external.yml must be a list.");
+    return 1;
+  }
+
+  const entries = parsed.filter((entry) => entry && typeof entry === "object");
+  const grouped = new Map<string, Record<string, unknown>[]>();
+  const repoOrder: string[] = [];
+  for (const entry of entries) {
+    const record = entry as Record<string, unknown>;
+    const repository = typeof record.repository === "string" ? record.repository : "";
+    if (!repository) {
+      continue;
+    }
+    if (!grouped.has(repository)) {
+      grouped.set(repository, []);
+      repoOrder.push(repository);
+    }
+    grouped.get(repository)?.push(record);
+  }
+
+  const preferredRepoOrder = ["clawdbot/clawdbot", "clawdbot/skills"];
+  const preferredRepos = new Set(preferredRepoOrder);
+  const orderedRepos = preferredRepoOrder
+    .filter((repo) => repoOrder.includes(repo))
+    .concat(
+      repoOrder
+        .filter((repo) => !preferredRepos.has(repo))
+        .sort((a, b) => {
+          const sizeA = grouped.get(a)?.length ?? 0;
+          const sizeB = grouped.get(b)?.length ?? 0;
+          if (sizeA !== sizeB) {
+            return sizeA - sizeB;
+          }
+          return a.localeCompare(b);
+        }),
+    );
+
+  const organized: Record<string, unknown>[] = [];
+  for (const repository of orderedRepos) {
+    const group = grouped.get(repository) ?? [];
+    group.sort((a, b) => {
+      const countA = countExternalMetadataFields(a);
+      const countB = countExternalMetadataFields(b);
+      if (countA !== countB) {
+        return countB - countA;
+      }
+      const skillA = typeof a.skill === "string" ? a.skill : "";
+      const skillB = typeof b.skill === "string" ? b.skill : "";
+      return skillA.localeCompare(skillB);
+    });
+    organized.push(...group);
+  }
+
+  const output = stringifyYaml(organized, { lineWidth: 0 });
+  await writeFile(EXTERNAL_CONFIG, output);
+  const manifestDescriptions = await loadManifestDescriptions();
+  const table = buildSkillsTable(organized, manifestDescriptions);
+  await upsertSkillsTableInReadme(table);
+  console.log(`Organized ${organized.length} external skill entries.`);
+  return 0;
 };
 
 const hasFrontmatter = (content: string) => content.trimStart().startsWith("---");
@@ -591,19 +820,14 @@ const resolveTargetSlug = (source: ExternalSkill) => {
   return resolveSkillSlug(source);
 };
 
-const copySkillIntoRepo = async (source: ExternalSkill) => {
+const copySkillIntoRepo = async (source: ExternalSkill, canonicalSkillsDir: string) => {
   const canonicalSlug = resolveSkillSlug(source);
   const targetSlug = resolveTargetSlug(source);
-  const canonicalPath = path.join(CANONICAL_SKILLS_DIR, canonicalSlug);
+  const canonicalPath = path.join(canonicalSkillsDir, canonicalSlug);
   const targetPath = path.join(ROOT_DIR, targetSlug);
   await rm(targetPath, { recursive: true, force: true });
   await cp(canonicalPath, targetPath, { recursive: true });
   return targetPath;
-};
-
-const cleanupAgentDirs = async () => {
-  await rm(AGENTS_DIR, { recursive: true, force: true });
-  await rm(CODEX_DIR, { recursive: true, force: true });
 };
 
 const validateAllSkills = async () => {
@@ -673,7 +897,267 @@ const writeManifest = async () => {
 // Sync external skills via add-skill CLI non-interactively.
 // We install into Codex (.agents/skills) to avoid TTY prompts, then copy the
 // canonical skill into the repo root and clean up agent dirs.
-const syncExternalSkills = async () => {
+const createSyncWorkspace = async () => mkdtemp(path.join(tmpdir(), "skills-sync-"));
+
+const readStream = async (stream: ReadableStream<Uint8Array> | null | undefined) => {
+  if (!stream) {
+    return "";
+  }
+  return new Response(stream).text();
+};
+
+const stripAnsi = (value: string) =>
+  value.replace(
+    /[\u001B\u009B][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
+    "",
+  );
+
+const trimFailureOutput = (output: string) => {
+  const trimmed = output.trim();
+  if (!trimmed) {
+    return "";
+  }
+  const lines = trimmed.split("\n");
+  const tail = lines.slice(-12);
+  return tail.join("\n");
+};
+
+const runAddSkill = async (source: ExternalSkill, workdir: string) => {
+  const args = [
+    "npx",
+    "add-skill",
+    source.repository,
+    "--yes",
+    "--agent",
+    INSTALL_AGENT,
+  ];
+  if (source.skill) {
+    args.push("--skill", source.skill);
+  }
+  const proc = Bun.spawn(args, {
+    cwd: workdir,
+    stdin: "inherit",
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const [stdout, stderr, exitCode] = await Promise.all([
+    readStream(proc.stdout),
+    readStream(proc.stderr),
+    proc.exited,
+  ]);
+  return { exitCode, stdout, stderr };
+};
+
+type SyncResult = {
+  source: ExternalSkill;
+  ok: boolean;
+  message?: string;
+};
+
+const syncExternalSource = async (source: ExternalSkill): Promise<SyncResult> => {
+  const workdir = await createSyncWorkspace();
+  try {
+    console.log(`Installing ${source.repository}...`);
+    const { exitCode, stdout, stderr } = await runAddSkill(source, workdir);
+    if (exitCode !== 0) {
+      const combined = [stderr, stdout].filter(Boolean).join("\n");
+      const reason = trimFailureOutput(combined);
+      return {
+        source,
+        ok: false,
+        message: reason || "Install failed.",
+      };
+    }
+
+    const canonicalSkillsDir = path.join(workdir, ".agents", "skills");
+    const targetSlug = resolveTargetSlug(source);
+    if (!targetSlug) {
+      return { source, ok: false, message: "Missing target slug." };
+    }
+
+    let targetPath: string;
+    try {
+      targetPath = await copySkillIntoRepo(source, canonicalSkillsDir);
+    } catch {
+      return { source, ok: false, message: `Unable to copy ${targetSlug} into repo root.` };
+    }
+
+    const skillFile = path.join(targetPath, "SKILL.md");
+    const author = getRepositoryOwner(source.repository);
+    if (author) {
+      try {
+        await ensureMetadataAuthor(skillFile, author);
+      } catch {
+        console.log(`Unable to set metadata.author for ${source.repository}.`);
+      }
+    }
+    if (source.notice) {
+      try {
+        await upsertNoticeSection(skillFile, source.notice);
+      } catch {
+        console.log(`Unable to insert notice for ${source.repository}.`);
+      }
+    }
+    try {
+      await ensureCompatibility(skillFile);
+    } catch {
+      // Compatibility is optional; skip if we cannot infer.
+    }
+    if (source.overrides) {
+      try {
+        await applyFrontmatterOverrides(skillFile, source.overrides);
+      } catch {
+        console.log(`Unable to apply overrides for ${source.repository}.`);
+      }
+    }
+
+    return { source, ok: true };
+  } catch {
+    return { source, ok: false, message: "Unexpected sync error." };
+  } finally {
+    await rm(workdir, { recursive: true, force: true });
+  }
+};
+
+const reportSyncResults = (results: SyncResult[], total: number) => {
+  const failures = results.filter((result) => !result.ok);
+  if (failures.length > 0) {
+    console.log(`Failed to install ${failures.length} external skill source(s).`);
+    console.log("Failed slugs:");
+    for (const failed of failures) {
+      const slug = resolveTargetSlug(failed.source);
+      console.log(`- ${slug ? `${slug} (${failed.source.repository})` : failed.source.repository}`);
+      if (failed.message) {
+        const lines = failed.message.split("\n");
+        for (const line of lines) {
+          console.log(`  ${line}`);
+        }
+      }
+    }
+    return 1;
+  }
+  console.log(`Installed ${total} external skill source(s).`);
+  return 0;
+};
+
+const escapeRegex = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const SLUG_BLOCKLIST = new Set(["opengraph-image", "favicon", "icon", "apple-icon"]);
+
+const extractSkillSlugs = (repository: string, text: string) => {
+  const slugs = new Set<string>();
+  const cleaned = stripAnsi(text);
+  const headingRegex = /###\s+([a-z0-9-]+)/g;
+  let match: RegExpExecArray | null;
+  while ((match = headingRegex.exec(cleaned)) !== null) {
+    const slug = match[1];
+    if (!SLUG_BLOCKLIST.has(slug)) {
+      slugs.add(slug);
+    }
+  }
+  const repoPath = escapeRegex(repository);
+  const linkRegex = new RegExp(`${repoPath}/([a-z0-9-]+)\\b`, "g");
+  while ((match = linkRegex.exec(cleaned)) !== null) {
+    const slug = match[1];
+    if (!SLUG_BLOCKLIST.has(slug)) {
+      slugs.add(slug);
+    }
+  }
+  return Array.from(slugs);
+};
+
+const runSkillsListFromRepo = async (repository: string) => {
+  const args = ["npx", "-y", "skills@1.1.0", "add", repository, "--list"];
+  const proc = Bun.spawn(args, {
+    cwd: ROOT_DIR,
+    stdin: "ignore",
+    stdout: "pipe",
+    stderr: "pipe",
+  });
+  const [stdout, stderr, exitCode] = await Promise.all([
+    readStream(proc.stdout),
+    readStream(proc.stderr),
+    proc.exited,
+  ]);
+  if (exitCode !== 0) {
+    const combined = [stderr, stdout].filter(Boolean).join("\n");
+    const reason = trimFailureOutput(combined);
+    console.log(`Unable to list skills for ${repository}.`);
+    if (reason) {
+      console.log(reason);
+    }
+    return [];
+  }
+  return extractSkillSlugs(repository, [stdout, stderr].filter(Boolean).join("\n"));
+};
+
+const fetchSkillSlugsFromRepo = async (repository: string) => {
+  const target = `https://skills.sh/${repository}`;
+  let text = "";
+  try {
+    const response = await fetch(target);
+    if (!response.ok) {
+      console.log(`Unable to fetch ${target} (status ${response.status}).`);
+      return await runSkillsListFromRepo(repository);
+    }
+    text = await response.text();
+  } catch {
+    console.log(`Unable to fetch ${target}.`);
+    return await runSkillsListFromRepo(repository);
+  }
+  const slugs = extractSkillSlugs(repository, text);
+  if (slugs.length === 0) {
+    return await runSkillsListFromRepo(repository);
+  }
+  return slugs;
+};
+
+const appendExternalSkills = async (repository: string, slugs: string[]) => {
+  if (slugs.length === 0) {
+    console.log(`No skills found for ${repository}.`);
+    return 0;
+  }
+  let config: string;
+  try {
+    config = await readFile(EXTERNAL_CONFIG, "utf8");
+  } catch {
+    config = "";
+  }
+  const existingEntries = parseExternalConfig(config);
+  const existingKeys = new Set(
+    existingEntries
+      .filter((entry) => entry.repository === repository && entry.skill)
+      .map((entry) => `${entry.repository}::${entry.skill}`),
+  );
+  const newLines: string[] = [];
+  for (const slug of slugs) {
+    const key = `${repository}::${slug}`;
+    if (existingKeys.has(key)) {
+      continue;
+    }
+    newLines.push(`- repository: ${repository}`, `  skill: ${slug}`);
+  }
+  if (newLines.length === 0) {
+    console.log(`No new skills to add for ${repository}.`);
+    return 0;
+  }
+  const separator = config.trimEnd() ? "\n" : "";
+  const updated = `${config.trimEnd()}${separator}${newLines.join("\n")}\n`;
+  await writeFile(EXTERNAL_CONFIG, updated);
+  console.log(`Added ${newLines.length / 2} skill(s) from ${repository}.`);
+  return 0;
+};
+
+const grabExternalSkillsFromRepo = async (repository: string) => {
+  if (!repository) {
+    console.log("Missing repository (example: bun grab anthropics/skills).");
+    return 1;
+  }
+  const slugs = await fetchSkillSlugsFromRepo(repository);
+  return appendExternalSkills(repository, slugs);
+};
+
+const syncExternalSkillsAll = async () => {
   let config: string;
   try {
     config = await readFile(EXTERNAL_CONFIG, "utf8");
@@ -688,97 +1172,155 @@ const syncExternalSkills = async () => {
     return 0;
   }
 
-  let failures = 0;
-  const failedSources: string[] = [];
-  for (const source of sources) {
-    console.log(`Installing ${source.repository}...`);
-    const args = [
-      "npx",
-      "add-skill",
-      source.repository,
-      "--yes",
-      "--agent",
-      INSTALL_AGENT,
-    ];
-    if (source.skill) {
-      args.push("--skill", source.skill);
+  const settled = await Promise.allSettled(sources.map((source) => syncExternalSource(source)));
+  const results: SyncResult[] = settled.map((entry, index) => {
+    if (entry.status === "fulfilled") {
+      return entry.value;
     }
-    const proc = Bun.spawn(
-      args,
-      {
-        cwd: ROOT_DIR,
-        stdin: "inherit",
-        stdout: "inherit",
-        stderr: "inherit",
-      },
-    );
-    const exitCode = await proc.exited;
-    if (exitCode !== 0) {
-      failures += 1;
-      const slug = resolveTargetSlug(source);
-      failedSources.push(slug ? `${slug} (${source.repository})` : source.repository);
-    }
-    if (exitCode === 0) {
-      const targetSlug = resolveTargetSlug(source);
-      if (!targetSlug) {
-        continue;
-      }
-      let targetPath: string;
-      try {
-        targetPath = await copySkillIntoRepo(source);
-      } catch {
-        console.log(`Unable to copy ${targetSlug} into repo root.`);
-        continue;
-      }
-      const skillFile = path.join(targetPath, "SKILL.md");
-      const author = getRepositoryOwner(source.repository);
-      if (author) {
-        try {
-          await ensureMetadataAuthor(skillFile, author);
-        } catch {
-          console.log(`Unable to set metadata.author for ${source.repository}.`);
-        }
-      }
-      if (source.notice) {
-        try {
-          await upsertNoticeSection(skillFile, source.notice);
-        } catch {
-          console.log(`Unable to insert notice for ${source.repository}.`);
-        }
-      }
-      try {
-        await ensureCompatibility(skillFile);
-      } catch {
-        console.log(`Unable to infer compatibility for ${source.repository}.`);
-      }
-      if (source.overrides) {
-        try {
-          await applyFrontmatterOverrides(skillFile, source.overrides);
-        } catch {
-          console.log(`Unable to apply overrides for ${source.repository}.`);
-        }
-      }
-      await cleanupAgentDirs();
-    }
+    return { source: sources[index], ok: false, message: "Sync threw an error." };
+  });
+  return reportSyncResults(results, sources.length);
+};
+
+const syncExternalSkillLatest = async () => {
+  let config: string;
+  try {
+    config = await readFile(EXTERNAL_CONFIG, "utf8");
+  } catch {
+    console.log("No external.yml found. Nothing to sync.");
+    return 0;
   }
 
-  if (failures > 0) {
-    console.log(`Failed to install ${failures} external skill source(s).`);
-    if (failedSources.length > 0) {
-      console.log("Failed slugs:");
-      for (const failed of failedSources) {
-        console.log(`- ${failed}`);
-      }
-    }
+  const sources = parseExternalConfig(config);
+  if (sources.length === 0) {
+    console.log("No external skills listed in external.yml.");
+    return 0;
+  }
+
+  const latest = sources[0];
+  const result = await syncExternalSource(latest);
+  return reportSyncResults([result], 1);
+};
+
+const syncExternalSkillBySlug = async (slug: string) => {
+  let config: string;
+  try {
+    config = await readFile(EXTERNAL_CONFIG, "utf8");
+  } catch {
+    console.log("No external.yml found. Nothing to sync.");
+    return 0;
+  }
+
+  const sources = parseExternalConfig(config);
+  if (sources.length === 0) {
+    console.log("No external skills listed in external.yml.");
+    return 0;
+  }
+
+  const target = sources.find((source) => resolveTargetSlug(source) === slug);
+  if (!target) {
+    console.log(`No external skill found with slug '${slug}'.`);
     return 1;
   }
 
-  console.log(`Installed ${sources.length} external skill source(s).`);
+  const result = await syncExternalSource(target);
+  return reportSyncResults([result], 1);
+};
+
+const syncExternalMetadata = async () => {
+  let config: string;
+  try {
+    config = await readFile(EXTERNAL_CONFIG, "utf8");
+  } catch {
+    console.log("No external.yml found. Nothing to sync.");
+    return 0;
+  }
+
+  const sources = parseExternalConfig(config);
+  if (sources.length === 0) {
+    console.log("No external skills listed in external.yml.");
+    return 0;
+  }
+
+  let updated = 0;
+  let missing = 0;
+  for (const source of sources) {
+    const targetSlug = resolveTargetSlug(source);
+    if (!targetSlug) {
+      continue;
+    }
+    const targetPath = path.join(ROOT_DIR, targetSlug);
+    if (!(await isDirectory(targetPath))) {
+      missing += 1;
+      continue;
+    }
+    const skillFile = path.join(targetPath, "SKILL.md");
+    const author = getRepositoryOwner(source.repository);
+    if (author) {
+      try {
+        await ensureMetadataAuthor(skillFile, author);
+      } catch {
+        console.log(`Unable to set metadata.author for ${source.repository}.`);
+      }
+    }
+    if (source.notice) {
+      try {
+        await upsertNoticeSection(skillFile, source.notice);
+      } catch {
+        console.log(`Unable to insert notice for ${source.repository}.`);
+      }
+    }
+    try {
+      await ensureCompatibility(skillFile);
+    } catch {
+      // Compatibility is optional; skip if we cannot infer.
+    }
+    if (source.overrides) {
+      try {
+        await applyFrontmatterOverrides(skillFile, source.overrides);
+      } catch {
+        console.log(`Unable to apply overrides for ${source.repository}.`);
+      }
+    }
+    updated += 1;
+  }
+
+  if (missing > 0) {
+    console.log(`Skipped ${missing} skill(s) missing from the repo.`);
+  }
+  console.log(`Synced metadata for ${updated} skill(s).`);
   return 0;
 };
 
+const syncExternalSkillsByRepository = async (repository: string) => {
+  let config: string;
+  try {
+    config = await readFile(EXTERNAL_CONFIG, "utf8");
+  } catch {
+    console.log("No external.yml found. Nothing to sync.");
+    return 0;
+  }
+
+  const sources = parseExternalConfig(config).filter(
+    (source) => source.repository === repository,
+  );
+  if (sources.length === 0) {
+    console.log(`No external skills found for ${repository}.`);
+    return 0;
+  }
+
+  const settled = await Promise.allSettled(sources.map((source) => syncExternalSource(source)));
+  const results: SyncResult[] = settled.map((entry, index) => {
+    if (entry.status === "fulfilled") {
+      return entry.value;
+    }
+    return { source: sources[index], ok: false, message: "Sync threw an error." };
+  });
+  return reportSyncResults(results, sources.length);
+};
+
 const main = async () => {
-  const [command] = process.argv.slice(2);
+  const [command, subcommand] = process.argv.slice(2);
   if (!command) {
     return;
   }
@@ -788,7 +1330,26 @@ const main = async () => {
     return;
   }
   if (command === "sync") {
-    const exitCode = await syncExternalSkills();
+    const exitCode =
+      subcommand === "metadata"
+        ? await syncExternalMetadata()
+        : subcommand === "all"
+        ? await syncExternalSkillsAll()
+        : subcommand?.includes("/")
+          ? await syncExternalSkillsByRepository(subcommand)
+          : subcommand
+            ? await syncExternalSkillBySlug(subcommand)
+            : await syncExternalSkillLatest();
+    process.exitCode = exitCode;
+    return;
+  }
+  if (command === "grab") {
+    const exitCode = await grabExternalSkillsFromRepo(subcommand ?? "");
+    process.exitCode = exitCode;
+    return;
+  }
+  if (command === "organize") {
+    const exitCode = await organizeExternalConfig();
     process.exitCode = exitCode;
     return;
   }
