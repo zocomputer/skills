@@ -2,9 +2,7 @@
 
 Agent Skills Registry for [Zo Computer](https://zo.computer)
 
-# Usage
-
-Inside Zo, you can browse the skills in this registry and install them.
+Inside Zo, you can browse all the skills in this registry and install them for your agent to use.
 
 ## Skills
 
@@ -111,7 +109,8 @@ slug="bird"; dest="Skills"; manifest_url="https://raw.githubusercontent.com/zoco
 ## External Skills
 
 - External skills are defined in `external.yml` and pulled from [skills.sh](https://skills.sh/docs/cli)
-- Add a `notice` field (optional) to prefix SKILL.md with Zo-specific instructions
+- `bun sync` treats `external.yml` as a transformation layer: it installs skills from the source repo, then applies any overrides before copying into this registry
+- Use `notice` to prepend a “Notice” section to the synced `SKILL.md` (Zo-specific setup or constraints)
 - Run `bun grab <owner/repo>` to scrape skills.sh and append new skills to `external.yml`
 - Run `bun sync` to sync the newest entry in `external.yml` (preferred contributor flow)
 - Run `bun sync <slug>` to sync a specific external skill by slug
