@@ -1,58 +1,4 @@
 - repository: clawdbot/clawdbot
-  skill: bird
-  slug: twitter
-  description: Let Zo use your X (Twitter) account
-  notice: |
-    This environment cannot read browser cookies automatically. Ask the USER for these two cookie values, giving them the following instructions:
-
-    - Go to x.com and log in
-    - Open Chrome DevTools (macOS: `⌥⌘I`, Windows: `Ctrl+Shift+I`) → Application tab
-    - Under Cookies, you should see x.com
-    - Copy the values for `auth_token` and `ct0` and paste them in the chat so I can save them.
-
-    ## Setup
-
-    Once you have the cookies from the USER, run these commands to set up bird:
-
-    ### 1. Install bird (npm)
-
-    ```bash
-    npm install -g @steipete/bird
-    ```
-
-    ### 2. Store credentials
-
-    ```bash
-    mkdir -p ~/.config/bird
-    cat > ~/.config/bird/auth.env <<'EOF'
-    AUTH_TOKEN=<user_provided_auth_token>
-    CT0=<user_provided_ct0>
-    EOF
-    chmod 600 ~/.config/bird/auth.env
-    ```
-
-    ### 3. Create wrapper to auto-load credentials
-
-    The npm install creates a symlink at `/usr/bin/bird`. Create a wrapper at `/usr/local/bin/bird` (which takes precedence in PATH) that sources the credentials:
-
-    ```bash
-    cat > /usr/local/bin/bird <<'EOF'
-    #!/bin/bash
-    set -a
-    [ -f ~/.config/bird/auth.env ] && . ~/.config/bird/auth.env
-    set +a
-    exec /usr/bin/bird "$@"
-    EOF
-    chmod +x /usr/local/bin/bird
-    ```
-
-    ### 4. Verify
-
-    ```bash
-    bird whoami
-    bird home -n 5
-    ```
-- repository: clawdbot/clawdbot
   skill: gog
   description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs
   compatibility: Requires zo-google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
@@ -70,14 +16,12 @@
 
     IMPORTANT: If you generate a new OAuth app here, it may replace or invalidate existing tokens.
 - repository: clawdbot/clawdbot
-  skill: mcporter
-  description: Work with MCP servers directly
-- repository: clawdbot/clawdbot
   skill: trello
   description: Work with Trello using your own Trello API key (free)
   notice: On Zo, your agent is called Zo (not Clawdbot).
 - repository: clawdbot/clawdbot
-  skill: eightctl
+  skill: mcporter
+  description: Work with MCP servers directly
 - repository: clawdbot/clawdbot
   skill: notion
   description: Work with Notion using your own Notion API key (free)
@@ -91,6 +35,8 @@
   description: Get the current weather for any location
 - repository: clawdbot/clawdbot
   skill: blogwatcher
+- repository: clawdbot/clawdbot
+  skill: eightctl
 - repository: clawdbot/clawdbot
   skill: github
 - repository: clawdbot/clawdbot
@@ -106,8 +52,6 @@
     On Zo, the script lives at `/home/workspace/Skills/shorten/shorten.sh`.
 - repository: clawdbot/skills
   skill: just-fucking-cancel
-- repository: clawdbot/skills
-  skill: linkedin-cli
 - repository: clawdbot/skills
   skill: snow-report
 - repository: clawdbot/skills
