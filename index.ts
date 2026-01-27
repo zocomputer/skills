@@ -25,6 +25,8 @@ const INSTALL_AGENT = "codex";
 const ZO_DIR = "Zo";
 const EXTERNAL_DIR = "External";
 const OFFICIAL_DIR = "Official";
+const CONNECTIONS_DIR = "Connections";
+const OFFICIAL_CATEGORIES = new Set([OFFICIAL_DIR, CONNECTIONS_DIR]);
 const OFFICIAL_PREFIX = "zo-";
 // Skip non-skill dirs and any gitignored folders during validation.
 const NON_SKILL_DIRS = new Set([
@@ -338,39 +340,41 @@ const ensureMetadataCategoryForAllSkills = async () => {
 };
 
 const ensureOfficialSlugPrefixForAllSkills = async () => {
-  const officialRoot = path.join(ROOT_DIR, OFFICIAL_DIR);
-  if (!(await isDirectory(officialRoot))) {
-    return 0;
-  }
-  const entries = await readdir(officialRoot, { withFileTypes: true });
   let moved = 0;
-  for (const entry of entries) {
-    if (!entry.isDirectory()) {
+  for (const category of OFFICIAL_CATEGORIES) {
+    const officialRoot = path.join(ROOT_DIR, category);
+    if (!(await isDirectory(officialRoot))) {
       continue;
     }
-    const currentPath = path.join(officialRoot, entry.name);
-    if (isGitIgnored(currentPath)) {
-      continue;
-    }
-    if (!(await isSkillDirectory(currentPath))) {
-      continue;
-    }
-    if (entry.name.startsWith(OFFICIAL_PREFIX)) {
-      continue;
-    }
-    const targetSlug = `${OFFICIAL_PREFIX}${entry.name}`;
-    const targetPath = path.join(officialRoot, targetSlug);
-    try {
-      if (await isDirectory(targetPath)) {
-        console.log(
-          `Unable to rename ${entry.name} to ${targetSlug} (target exists).`,
-        );
+    const entries = await readdir(officialRoot, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory()) {
         continue;
       }
-      await rename(currentPath, targetPath);
-      moved += 1;
-    } catch {
-      console.log(`Unable to rename ${entry.name} to ${targetSlug}.`);
+      const currentPath = path.join(officialRoot, entry.name);
+      if (isGitIgnored(currentPath)) {
+        continue;
+      }
+      if (!(await isSkillDirectory(currentPath))) {
+        continue;
+      }
+      if (entry.name.startsWith(OFFICIAL_PREFIX)) {
+        continue;
+      }
+      const targetSlug = `${OFFICIAL_PREFIX}${entry.name}`;
+      const targetPath = path.join(officialRoot, targetSlug);
+      try {
+        if (await isDirectory(targetPath)) {
+          console.log(
+            `Unable to rename ${entry.name} to ${targetSlug} (target exists).`,
+          );
+          continue;
+        }
+        await rename(currentPath, targetPath);
+        moved += 1;
+      } catch {
+        console.log(`Unable to rename ${entry.name} to ${targetSlug}.`);
+      }
     }
   }
   return moved;
@@ -384,7 +388,7 @@ const ensureSkillNameSlugForAllSkills = async () => {
     const slug = path.basename(skillDir);
     const parentCategory = path.basename(path.dirname(skillDir));
     const expectedName =
-      parentCategory === OFFICIAL_DIR && slug.startsWith(OFFICIAL_PREFIX)
+      OFFICIAL_CATEGORIES.has(parentCategory) && slug.startsWith(OFFICIAL_PREFIX)
         ? slug.slice(OFFICIAL_PREFIX.length)
         : slug;
     try {
@@ -871,14 +875,14 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
       });
     }
     const expectedName =
-      parentCategory === OFFICIAL_DIR && skillName.startsWith(OFFICIAL_PREFIX)
+      OFFICIAL_CATEGORIES.has(parentCategory) && skillName.startsWith(OFFICIAL_PREFIX)
         ? skillName.slice(OFFICIAL_PREFIX.length)
         : skillName;
     if (name !== expectedName) {
       issues.push({
         skillPath: toDisplayPath(skillFile),
         message:
-          parentCategory === OFFICIAL_DIR
+          OFFICIAL_CATEGORIES.has(parentCategory)
             ? "Field 'name' must match the parent directory name without the 'zo-' prefix."
             : "Field 'name' must match the parent directory name.",
         level: "error",
@@ -910,7 +914,7 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
     });
   }
 
-  if (parentCategory === OFFICIAL_DIR && !skillName.startsWith(OFFICIAL_PREFIX)) {
+  if (OFFICIAL_CATEGORIES.has(parentCategory) && !skillName.startsWith(OFFICIAL_PREFIX)) {
     issues.push({
       skillPath: toDisplayPath(skillDir),
       message: `Official skill directories must start with '${OFFICIAL_PREFIX}'.`,
