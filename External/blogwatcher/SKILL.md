@@ -1,5 +1,5 @@
 ---
-name: Blog Watcher
+name: blogwatcher
 description: Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.
 homepage: https://github.com/Hyaxia/blogwatcher
 compatibility: see metadata.clawdbot.requires
@@ -7,6 +7,7 @@ metadata:
   author: Clawdbot
   category: External
   clawdbot: {"emoji":"📰","requires":{"bins":["blogwatcher"]},"install":[{"id":"go","kind":"go","module":"github.com/Hyaxia/blogwatcher/cmd/blogwatcher@latest","bins":["blogwatcher"],"label":"Install blogwatcher (go)"}]}
+  display-name: Blog Watcher
 ---
 
 # blogwatcher

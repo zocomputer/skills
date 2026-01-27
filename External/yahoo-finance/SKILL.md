@@ -1,9 +1,10 @@
 ---
-name: Use Yahoo Finance
+name: yahoo-finance
 description: Get stock prices, quotes, fundamentals, earnings, options, dividends, and analyst ratings using Yahoo Finance. Uses yfinance library - no API key required.
 metadata:
   author: Clawdbot
   category: External
+  display-name: Use Yahoo Finance
 ---
 
 # Yahoo Finance CLI

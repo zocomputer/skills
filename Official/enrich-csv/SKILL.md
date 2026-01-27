@@ -1,9 +1,10 @@
 ---
-name: Enrich CSV with AI-generated columns
+name: enrich-csv
 description: Adds new columns to your spreadsheet by generating information for each row
 metadata:
   author: Zo
   category: Official
+  display-name: Enrich CSV with AI-generated columns
   emoji: 📊
 ---
 

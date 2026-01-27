@@ -1,9 +1,10 @@
 ---
-name: Read Reddit Content
+name: reddit
 description: Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API.
 metadata:
   author: Resciencelab
   category: External
+  display-name: Read Reddit Content
 triggers: ["reddit","subreddit","r/"]
 ---
 

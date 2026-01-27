@@ -1,5 +1,5 @@
 ---
-name: Create 3Blue1Brown Videos (Manim)
+name: manim-composer
 description: |
   Trigger when: (1) User wants to create an educational/explainer video, (2) User has a vague concept they want visualized, (3) User mentions "3b1b style" or "explain like 3Blue1Brown", (4) User wants to plan a Manim video or animation sequence, (5) User asks to "compose" or "plan" a math/science visualization.
   
@@ -10,6 +10,7 @@ description: |
 metadata:
   author: Adithya-s-k
   category: External
+  display-name: Create 3Blue1Brown Videos (Manim)
 ---
 
 ## Workflow

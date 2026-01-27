@@ -1,9 +1,10 @@
 ---
-name: Genome Analysis
+name: personal-genomics-analysis
 description: Analyzes your 23andMe genetic data to identify health risks, drug sensitivities, ancestry, and traits, then generates a personalized report
 metadata:
   author: rob.zo.computer
   category: Community
+  display-name: Genome Analysis
   emoji: 🧬
 ---
 

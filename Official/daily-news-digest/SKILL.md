@@ -1,9 +1,10 @@
 ---
-name: Daily news digest
+name: daily-news-digest
 description: Fetch the latest headlines on a topic you care about and email it to you every morning.
 metadata:
   author: Zo
   category: Official
+  display-name: Daily news digest
   emoji: 📰
 ---
 

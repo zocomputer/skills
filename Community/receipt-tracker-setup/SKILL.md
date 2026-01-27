@@ -1,9 +1,10 @@
 ---
-name: Set up automated receipt processing system
+name: receipt-tracker-setup
 description: Automatically scans receipts you drop in a folder, extracts the details, and saves them to a searchable database
 metadata:
   author: rob.zo.computer
   category: Community
+  display-name: Set up automated receipt processing system
   emoji: 🧾
 ---
 

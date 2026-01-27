@@ -1,9 +1,10 @@
 ---
-name: Set up n8n workflow automation
+name: n8n-setup
 description: Sets up n8n workflow automation tool so you can create automated workflows between different apps and services
 metadata:
   author: Zo
   category: Official
+  display-name: Set up n8n workflow automation
   emoji: 🔗
 ---
 

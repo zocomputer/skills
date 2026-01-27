@@ -1,9 +1,10 @@
 ---
-name: Plan code changes
+name: plan-code-changes
 description: Plan out code changes using a plan file.
 metadata:
   author: 0.zo.computer
   category: Community
+  display-name: Plan code changes
   emoji: 🧑🏻‍💻
 ---
 

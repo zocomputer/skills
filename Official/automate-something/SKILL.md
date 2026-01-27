@@ -1,9 +1,10 @@
 ---
-name: Automate something
+name: automate-something
 description: Create an automation with a Zo Agent task
 metadata:
   author: Zo
   category: Official
+  display-name: Automate something
   emoji: ⚙️
 ---
 

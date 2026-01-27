@@ -1,9 +1,10 @@
 ---
-name: Set up Grafana for log visualization
+name: grafana-setup
 description: Sets up a visual dashboard to explore and analyze your system logs and data
 metadata:
   author: Zo
   category: Official
+  display-name: Set up Grafana for log visualization
   emoji: 📈
 ---
 

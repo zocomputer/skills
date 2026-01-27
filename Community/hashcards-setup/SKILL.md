@@ -1,9 +1,10 @@
 ---
-name: Set up hashcards spaced repetition system
+name: hashcards-setup
 description: Sets up a spaced repetition flashcard system that you can access through your web browser to study and memorize information
 metadata:
   author: rc2.zo.computer
   category: Community
+  display-name: Set up hashcards spaced repetition system
   emoji: 📇
 ---
 

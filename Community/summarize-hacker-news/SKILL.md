@@ -1,9 +1,10 @@
 ---
-name: Summarize Hacker News front page
+name: summarize-hacker-news
 description: Picks the most interesting articles from Hacker News, reads them, and emails you a summary
 metadata:
   author: 0.zo.computer
   category: Community
+  display-name: Summarize Hacker News front page
   emoji: 🔶
 ---
 

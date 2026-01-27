@@ -1,9 +1,10 @@
 ---
-name: Create a blog
+name: blog-site
 description: Build a blog or newsletter to share your thoughts.
 metadata:
   author: Zo
   category: Official
+  display-name: Create a blog
   emoji: 📝
 ---
 

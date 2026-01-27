@@ -1,5 +1,5 @@
 ---
-name: Use Trello
+name: trello
 description: Work with Trello using your own Trello API key (free)
 homepage: https://developer.atlassian.com/cloud/trello/rest/
 compatibility: see metadata.clawdbot.requires
@@ -7,6 +7,7 @@ metadata:
   author: Clawdbot
   category: External
   clawdbot: {"emoji":"📋","requires":{"bins":["jq"],"env":["TRELLO_API_KEY","TRELLO_TOKEN"]}}
+  display-name: Use Trello
 ---
 
 # Notice

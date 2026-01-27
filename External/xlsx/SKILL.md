@@ -1,8 +1,9 @@
 ---
-name: Process XLSX Files
+name: xlsx
 metadata:
   author: Anthropic
   category: External
+  display-name: Process XLSX Files
 ---
 
 ---

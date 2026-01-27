@@ -1,9 +1,10 @@
 ---
-name: Remove Photo Metadata
+name: remove-photo-metadata
 description: Strip all metadata from images for privacy
 metadata:
   author: Zo
   category: Official
+  display-name: Remove Photo Metadata
   emoji: 🔒
 ---
 

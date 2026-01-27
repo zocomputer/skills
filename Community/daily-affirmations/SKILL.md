@@ -1,9 +1,10 @@
 ---
-name: Texting positive affirmations daily
+name: daily-affirmations
 description: Send yourself a daily text message with a randomly selected or rotating positive affirmation.
 metadata:
   author: Zo
   category: Community
+  display-name: Texting positive affirmations daily
   emoji: ✨
 ---
 

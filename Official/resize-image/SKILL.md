@@ -1,9 +1,10 @@
 ---
-name: Resize Images
+name: resize-image
 description: Resize images to specific dimensions or percentages
 metadata:
   author: Zo
   category: Official
+  display-name: Resize Images
   emoji: 🖼️
 ---
 

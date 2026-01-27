@@ -1,9 +1,10 @@
 ---
-name: Daily Linear digest
+name: daily-linear-digest
 description: Creates an automation to email you a summary of your Linear activity from the previous day
 metadata:
   author: Zo
   category: Official
+  display-name: Daily Linear digest
   emoji: 📋
 ---
 

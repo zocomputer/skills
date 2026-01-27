@@ -1,9 +1,10 @@
 ---
-name: Find meetings with attendees
+name: meeting-list
 description: Shows you all the people you've met with recently, organized by meeting
 metadata:
   author: Zo
   category: Official
+  display-name: Find meetings with attendees
 ---
 
 Retrieves Google Calendar events for a specified date range, and applying filters. Returns list of meetings with attendee list.

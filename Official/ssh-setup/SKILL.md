@@ -1,9 +1,10 @@
 ---
-name: Set up SSH server for remote access
+name: ssh-setup
 description: Sets up secure remote access to your Zo Computer so you can connect from anywhere
 metadata:
   author: Zo
   category: Official
+  display-name: Set up SSH server for remote access
   emoji: 🔐
 ---
 

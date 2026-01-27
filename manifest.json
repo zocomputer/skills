@@ -3,110 +3,120 @@
   "archive_root": "skills-main",
   "skills": [
     {
-      "name": "Convert PDF to Markdown",
+      "name": "pdf-to-markdown",
       "description": "Convert PDF files to Markdown format",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Convert PDF to Markdown",
         "emoji": "📄"
       },
       "slug": "pdf-to-markdown",
       "path": "Official/pdf-to-markdown"
     },
     {
-      "name": "Convert EPUB to Markdown",
+      "name": "epub-to-markdown",
       "description": "Convert EPUB ebooks to Markdown format",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Convert EPUB to Markdown",
         "emoji": "📚"
       },
       "slug": "epub-to-markdown",
       "path": "Official/epub-to-markdown"
     },
     {
-      "name": "Set up n8n workflow automation",
+      "name": "n8n-setup",
       "description": "Sets up n8n workflow automation tool so you can create automated workflows between different apps and services",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Set up n8n workflow automation",
         "emoji": "🔗"
       },
       "slug": "n8n-setup",
       "path": "Official/n8n-setup"
     },
     {
-      "name": "Set up Grafana for log visualization",
+      "name": "grafana-setup",
       "description": "Sets up a visual dashboard to explore and analyze your system logs and data",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Set up Grafana for log visualization",
         "emoji": "📈"
       },
       "slug": "grafana-setup",
       "path": "Official/grafana-setup"
     },
     {
-      "name": "Create a portfolio site",
+      "name": "portfolio-site",
       "description": "Build a personal portfolio to showcase your work and resume.",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Create a portfolio site",
         "emoji": "🎨"
       },
       "slug": "portfolio-site",
       "path": "Official/portfolio-site"
     },
     {
-      "name": "Generate QR code with optional image",
+      "name": "generate-custom-qr-code",
       "description": "Generates a QR code from any URL, and optionally overlays a custom image in the center",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Generate QR code with optional image",
         "emoji": "📱"
       },
       "slug": "generate-custom-qr-code",
       "path": "Official/generate-custom-qr-code"
     },
     {
-      "name": "Enrich CSV with AI-generated columns",
+      "name": "enrich-csv",
       "description": "Adds new columns to your spreadsheet by generating information for each row",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Enrich CSV with AI-generated columns",
         "emoji": "📊"
       },
       "slug": "enrich-csv",
       "path": "Official/enrich-csv"
     },
     {
-      "name": "Extract Text from Images (OCR)",
+      "name": "extract-text-from-image",
       "description": "Extract text from images, scanned documents, and PDFs using OCR",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Extract Text from Images (OCR)",
         "emoji": "🔍"
       },
       "slug": "extract-text-from-image",
       "path": "Official/extract-text-from-image"
     },
     {
-      "name": "Daily Linear digest",
+      "name": "daily-linear-digest",
       "description": "Creates an automation to email you a summary of your Linear activity from the previous day",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Daily Linear digest",
         "emoji": "📋"
       },
       "slug": "daily-linear-digest",
       "path": "Official/daily-linear-digest"
     },
     {
-      "name": "Resize Images",
+      "name": "resize-image",
       "description": "Resize images to specific dimensions or percentages",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Resize Images",
         "emoji": "🖼️"
       },
       "slug": "resize-image",
@@ -125,175 +135,191 @@
       "path": "Official/google-calendar"
     },
     {
-      "name": "Daily news digest",
+      "name": "daily-news-digest",
       "description": "Fetch the latest headlines on a topic you care about and email it to you every morning.",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Daily news digest",
         "emoji": "📰"
       },
       "slug": "daily-news-digest",
       "path": "Official/daily-news-digest"
     },
     {
-      "name": "Automate something",
+      "name": "automate-something",
       "description": "Create an automation with a Zo Agent task",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Automate something",
         "emoji": "⚙️"
       },
       "slug": "automate-something",
       "path": "Official/automate-something"
     },
     {
-      "name": "Research a topic",
+      "name": "research-topic",
       "description": "Use Zo to research any topic comprehensively and write a report.",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Research a topic",
         "emoji": "🔬"
       },
       "slug": "research-topic",
       "path": "Official/research-topic"
     },
     {
-      "name": "Create a site",
+      "name": "create-site",
       "description": "Create a site hosted on your Zo server. Private by default, publish with a click.",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Create a site",
         "emoji": "⚡"
       },
       "slug": "create-site",
       "path": "Official/create-site"
     },
     {
-      "name": "Remove Photo Metadata",
+      "name": "remove-photo-metadata",
       "description": "Strip all metadata from images for privacy",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Remove Photo Metadata",
         "emoji": "🔒"
       },
       "slug": "remove-photo-metadata",
       "path": "Official/remove-photo-metadata"
     },
     {
-      "name": "Set up SSH server for remote access",
+      "name": "ssh-setup",
       "description": "Sets up secure remote access to your Zo Computer so you can connect from anywhere",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Set up SSH server for remote access",
         "emoji": "🔐"
       },
       "slug": "ssh-setup",
       "path": "Official/ssh-setup"
     },
     {
-      "name": "Create a slide deck",
+      "name": "create-slidedeck",
       "description": "Turn any reference material into a polished, visually cohesive slide deck.",
       "metadata": {
         "author": "rob.zo.computer",
         "category": "Official",
+        "display-name": "Create a slide deck",
         "emoji": "🎞️"
       },
       "slug": "create-slidedeck",
       "path": "Official/create-slidedeck"
     },
     {
-      "name": "Organize my files",
+      "name": "organize-workspace",
       "description": "Organizes your scattered files into logical folders by project, type, and purpose",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Organize my files",
         "emoji": "🗂️"
       },
       "slug": "organize-workspace",
       "path": "Official/organize-workspace"
     },
     {
-      "name": "Weekly meeting reminder",
+      "name": "weekly-meeting-reminder",
       "description": "Get an email every Sunday evening listing your meetings for the coming week.",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Weekly meeting reminder",
         "emoji": "🗓️"
       },
       "slug": "weekly-meeting-reminder",
       "path": "Official/weekly-meeting-reminder"
     },
     {
-      "name": "Process file line-by-line with script",
+      "name": "for-each-line",
       "description": "Processes every line of a file one by one, transforming or extracting information from each line",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Process file line-by-line with script",
         "emoji": "🔄"
       },
       "slug": "for-each-line",
       "path": "Official/for-each-line"
     },
     {
-      "name": "Create a blog",
+      "name": "blog-site",
       "description": "Build a blog or newsletter to share your thoughts.",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Create a blog",
         "emoji": "📝"
       },
       "slug": "blog-site",
       "path": "Official/blog-site"
     },
     {
-      "name": "Generate PDF from Markdown",
+      "name": "generate-pdf",
       "description": "Convert Markdown files to PDF format with professional formatting",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Generate PDF from Markdown",
         "emoji": "📑"
       },
       "slug": "generate-pdf",
       "path": "Official/generate-pdf"
     },
     {
-      "name": "Set up code-server (VS Code in browser)",
+      "name": "code-server-setup",
       "description": "Sets up VS Code in your web browser so you can write and edit code from anywhere",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Set up code-server (VS Code in browser)",
         "emoji": "💻"
       },
       "slug": "code-server-setup",
       "path": "Official/code-server-setup"
     },
     {
-      "name": "Create a guestbook",
+      "name": "guestbook-site",
       "description": "Build an interactive guestbook where visitors can leave messages.",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Create a guestbook",
         "emoji": "📖"
       },
       "slug": "guestbook-site",
       "path": "Official/guestbook-site"
     },
     {
-      "name": "Find meetings with attendees",
+      "name": "meeting-list",
       "description": "Shows you all the people you've met with recently, organized by meeting",
       "metadata": {
         "author": "Zo",
-        "category": "Official"
+        "category": "Official",
+        "display-name": "Find meetings with attendees"
       },
       "slug": "meeting-list",
       "path": "Official/meeting-list"
     },
     {
-      "name": "Text summary of important emails",
+      "name": "important-email-digest",
       "description": "Finds your most important emails from the past 2 days and texts you a summary with suggested follow-ups",
       "metadata": {
         "author": "Zo",
         "category": "Official",
+        "display-name": "Text summary of important emails",
         "emoji": "📧"
       },
       "slug": "important-email-digest",
@@ -312,11 +338,12 @@
       "path": "Official/google-direct-oauth"
     },
     {
-      "name": "Marketing Psychology & Mental Models",
+      "name": "marketing-psychology",
       "description": "When the user wants to apply psychological principles, mental models, or behavioral science to marketing. Also use when the user mentions 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,' 'behavioral science,' 'why people buy,' 'decision-making,' or 'consumer behavior.' This skill provides 70+ mental models organized for marketing application.",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
+        "category": "External",
+        "display-name": "Marketing Psychology & Mental Models"
       },
       "slug": "marketing-psychology",
       "path": "External/marketing-psychology"
@@ -332,7 +359,7 @@
       "path": "External/programmatic-seo"
     },
     {
-      "name": "X (Twitter)",
+      "name": "twitter",
       "description": "Let Zo use your X (Twitter) account",
       "homepage": "https://bird.fast",
       "compatibility": "see metadata.clawdbot.requires",
@@ -357,17 +384,19 @@
               "label": "Install bird (npm)"
             }
           ]
-        }
+        },
+        "display-name": "X (Twitter)"
       },
       "slug": "twitter",
       "path": "External/twitter"
     },
     {
-      "name": "Create Animated Videos (Remotion)",
+      "name": "remotion-best-practices",
       "description": "Best practices for Remotion - Video creation in React",
       "metadata": {
         "author": "Remotion-dev",
         "category": "External",
+        "display-name": "Create Animated Videos (Remotion)",
         "tags": "remotion, video, react, animation, composition"
       },
       "slug": "remotion-best-practices",
@@ -384,7 +413,7 @@
       "path": "External/template-skill"
     },
     {
-      "name": "Blog Watcher",
+      "name": "blogwatcher",
       "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
       "homepage": "https://github.com/Hyaxia/blogwatcher",
       "compatibility": "see metadata.clawdbot.requires",
@@ -409,38 +438,42 @@
               "label": "Install blogwatcher (go)"
             }
           ]
-        }
+        },
+        "display-name": "Blog Watcher"
       },
       "slug": "blogwatcher",
       "path": "External/blogwatcher"
     },
     {
-      "name": "SEO Expert",
+      "name": "seo-audit",
       "description": "When the user wants to audit, review, or diagnose SEO issues on their site. Also use when the user mentions \"SEO audit,\" \"technical SEO,\" \"why am I not ranking,\" \"SEO issues,\" \"on-page SEO,\" \"meta tags review,\" or \"SEO health check.\" For building pages at scale to target keywords, see programmatic-seo. For adding structured data, see schema-markup.",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
+        "category": "External",
+        "display-name": "SEO Expert"
       },
       "slug": "seo-audit",
       "path": "External/seo-audit"
     },
     {
-      "name": "Copywriting Expert",
+      "name": "copywriting",
       "description": "When the user wants to write, rewrite, or improve marketing copy for any page — including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says \"write copy for,\" \"improve this copy,\" \"rewrite this page,\" \"marketing copy,\" \"headline help,\" or \"CTA copy.\" For email copy, see email-sequence. For popup copy, see popup-cro.",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
+        "category": "External",
+        "display-name": "Copywriting Expert"
       },
       "slug": "copywriting",
       "path": "External/copywriting"
     },
     {
-      "name": "Font & Color Theme Builder",
+      "name": "theme-factory",
       "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
       "license": "Complete terms in LICENSE.txt",
       "metadata": {
         "author": "Anthropic",
-        "category": "External"
+        "category": "External",
+        "display-name": "Font & Color Theme Builder"
       },
       "slug": "theme-factory",
       "path": "External/theme-factory"
@@ -466,11 +499,12 @@
       "path": "External/threejs-shaders"
     },
     {
-      "name": "Access Last.fm data using an API key (free)",
+      "name": "lastfm",
       "description": "Access Last.fm listening history, music stats, and discovery. Query recent tracks, top artists/albums/tracks, loved tracks, similar artists, and global charts.",
       "metadata": {
         "author": "Clawdbot",
-        "category": "External"
+        "category": "External",
+        "display-name": "Access Last.fm data using an API key (free)"
       },
       "slug": "lastfm",
       "path": "External/lastfm"
@@ -486,11 +520,12 @@
       "path": "External/threejs-lighting"
     },
     {
-      "name": "Create Memes",
+      "name": "meme-factory",
       "description": "Generate memes using the memegen.link API. Use when users request memes, want to add humor to content, or need visual aids for social media. Supports 100+ popular templates with custom text and styling.",
       "metadata": {
         "author": "Softaworks",
-        "category": "External"
+        "category": "External",
+        "display-name": "Create Memes"
       },
       "slug": "meme-factory",
       "path": "External/meme-factory"
@@ -526,11 +561,12 @@
       "path": "External/threejs-interaction"
     },
     {
-      "name": "Social Content Expert",
+      "name": "social-content",
       "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' or 'viral content.' This skill covers content creation, repurposing, and platform-specific strategies.",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
+        "category": "External",
+        "display-name": "Social Content Expert"
       },
       "slug": "social-content",
       "path": "External/social-content"
@@ -546,7 +582,7 @@
       "path": "External/threejs-postprocessing"
     },
     {
-      "name": "Use LinkedIn",
+      "name": "linkedin-cli",
       "description": "A bird-like LinkedIn CLI for searching profiles, checking messages, and summarizing your feed using session cookies.",
       "homepage": "https://github.com/clawdbot/linkedin-cli",
       "compatibility": "see metadata.clawdbot.requires",
@@ -564,7 +600,8 @@
               "LINKEDIN_JSESSIONID"
             ]
           }
-        }
+        },
+        "display-name": "Use LinkedIn"
       },
       "slug": "linkedin-cli",
       "path": "External/linkedin-cli"
@@ -580,33 +617,36 @@
       "path": "External/competitor-alternatives"
     },
     {
-      "name": "Copy Editing Expert",
+      "name": "copy-editing",
       "description": "When the user wants to edit, review, or improve existing marketing copy. Also use when the user mentions 'edit this copy,' 'review my copy,' 'copy feedback,' 'proofread,' 'polish this,' 'make this better,' or 'copy sweep.' This skill provides a systematic approach to editing marketing copy through multiple focused passes.",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
+        "category": "External",
+        "display-name": "Copy Editing Expert"
       },
       "slug": "copy-editing",
       "path": "External/copy-editing"
     },
     {
-      "name": "Process PDF Files",
+      "name": "pdf",
       "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale.",
       "license": "Proprietary. LICENSE.txt has complete terms",
       "metadata": {
         "author": "Anthropic",
-        "category": "External"
+        "category": "External",
+        "display-name": "Process PDF Files"
       },
       "slug": "pdf",
       "path": "External/pdf"
     },
     {
-      "name": "Generate Algorithmic Art",
+      "name": "algorithmic-art",
       "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
       "license": "Complete terms in LICENSE.txt",
       "metadata": {
         "author": "Anthropic",
-        "category": "External"
+        "category": "External",
+        "display-name": "Generate Algorithmic Art"
       },
       "slug": "algorithmic-art",
       "path": "External/algorithmic-art"
@@ -622,7 +662,7 @@
       "path": "External/marketing-ideas"
     },
     {
-      "name": "Video Frames (FFmpeg)",
+      "name": "video-frames",
       "description": "Extract frames or short clips from videos using ffmpeg.",
       "homepage": "https://ffmpeg.org",
       "compatibility": "see metadata.clawdbot.requires",
@@ -647,7 +687,8 @@
               "label": "Install ffmpeg (brew)"
             }
           ]
-        }
+        },
+        "display-name": "Video Frames (FFmpeg)"
       },
       "slug": "video-frames",
       "path": "External/video-frames"
@@ -663,7 +704,7 @@
       "path": "External/threejs-loaders"
     },
     {
-      "name": "EightSleep Pod Control",
+      "name": "eightctl",
       "description": "Control Eight Sleep pods (status, temperature, alarms, schedules).",
       "homepage": "https://eightctl.sh",
       "compatibility": "see metadata.clawdbot.requires",
@@ -688,7 +729,8 @@
               "label": "Install eightctl (go)"
             }
           ]
-        }
+        },
+        "display-name": "EightSleep Pod Control"
       },
       "slug": "eightctl",
       "path": "External/eightctl"
@@ -714,7 +756,7 @@
       "path": "External/free-tool-strategy"
     },
     {
-      "name": "Google Workspace Tool",
+      "name": "gog",
       "description": "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs",
       "homepage": "https://gogcli.sh",
       "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/; see metadata.clawdbot.requires",
@@ -739,13 +781,14 @@
               "label": "Install gog (brew)"
             }
           ]
-        }
+        },
+        "display-name": "Google Workspace Tool"
       },
       "slug": "gog",
       "path": "External/gog"
     },
     {
-      "name": "Use Notion",
+      "name": "notion",
       "description": "Work with Notion using your own Notion API key (free)",
       "homepage": "https://developers.notion.com",
       "compatibility": "see metadata.clawdbot.requires",
@@ -760,17 +803,19 @@
             ]
           },
           "primaryEnv": "NOTION_API_KEY"
-        }
+        },
+        "display-name": "Use Notion"
       },
       "slug": "notion",
       "path": "External/notion"
     },
     {
-      "name": "Create 3Blue1Brown Videos (Manim)",
+      "name": "manim-composer",
       "description": "Trigger when: (1) User wants to create an educational/explainer video, (2) User has a vague concept they want visualized, (3) User mentions \"3b1b style\" or \"explain like 3Blue1Brown\", (4) User wants to plan a Manim video or animation sequence, (5) User asks to \"compose\" or \"plan\" a math/science visualization.\n\nTransforms vague video ideas into detailed scene-by-scene plans (scenes.md). Conducts research, asks clarifying questions about audience/scope/focus, and outputs comprehensive scene specifications ready for implementation with ManimCE or ManimGL.\n\nUse this BEFORE writing any Manim code. This skill plans the video; use manimce-best-practices or manimgl-best-practices for implementation.\n",
       "metadata": {
         "author": "Adithya-s-k",
-        "category": "External"
+        "category": "External",
+        "display-name": "Create 3Blue1Brown Videos (Manim)"
       },
       "slug": "manim-composer",
       "path": "External/manim-composer"
@@ -859,7 +904,7 @@
       "path": "External/canvas-design"
     },
     {
-      "name": "GitHub",
+      "name": "github",
       "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
       "compatibility": "see metadata.clawdbot.requires",
       "metadata": {
@@ -883,7 +928,8 @@
               "label": "Install GitHub CLI (apt)"
             }
           ]
-        }
+        },
+        "display-name": "GitHub"
       },
       "slug": "github",
       "path": "External/github"
@@ -899,17 +945,18 @@
       "path": "External/signup-flow-cro"
     },
     {
-      "name": "Brainstorming Expert",
+      "name": "brainstorming",
       "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
       "metadata": {
         "author": "Obra",
-        "category": "External"
+        "category": "External",
+        "display-name": "Brainstorming Expert"
       },
       "slug": "brainstorming",
       "path": "External/brainstorming"
     },
     {
-      "name": "Use MCP Server",
+      "name": "mcporter",
       "description": "Work with MCP servers directly",
       "homepage": "http://mcporter.dev",
       "compatibility": "see metadata.clawdbot.requires",
@@ -934,17 +981,19 @@
               "label": "Install mcporter (node)"
             }
           ]
-        }
+        },
+        "display-name": "Use MCP Server"
       },
       "slug": "mcporter",
       "path": "External/mcporter"
     },
     {
-      "name": "Read Reddit Content",
+      "name": "reddit",
       "description": "Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API.",
       "metadata": {
         "author": "Resciencelab",
-        "category": "External"
+        "category": "External",
+        "display-name": "Read Reddit Content"
       },
       "triggers": [
         "reddit",
@@ -955,18 +1004,19 @@
       "path": "External/reddit"
     },
     {
-      "name": "Create Animated GIFs for Slack",
+      "name": "slack-gif-creator",
       "description": "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a GIF of X doing Y for Slack.\"",
       "license": "Complete terms in LICENSE.txt",
       "metadata": {
         "author": "Anthropic",
-        "category": "External"
+        "category": "External",
+        "display-name": "Create Animated GIFs for Slack"
       },
       "slug": "slack-gif-creator",
       "path": "External/slack-gif-creator"
     },
     {
-      "name": "Control tmux sessions",
+      "name": "tmux",
       "description": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.",
       "compatibility": "see metadata.clawdbot.requires",
       "metadata": {
@@ -983,7 +1033,8 @@
               "tmux"
             ]
           }
-        }
+        },
+        "display-name": "Control tmux sessions"
       },
       "slug": "tmux",
       "path": "External/tmux"
@@ -999,11 +1050,12 @@
       "path": "External/threejs-fundamentals"
     },
     {
-      "name": "Help me cancel my subscriptions",
+      "name": "just-fucking-cancel",
       "description": "Analyze bank transaction CSVs to find recurring charges, categorize subscriptions, and cancel what you don't need. Use when user says \"cancel subscriptions\", \"audit subscriptions\", \"find recurring charges\", or \"what am I paying for\". Supports Apple Card, Chase, Mint, and generic CSV formats. Outputs interactive HTML audit with copy-to-cancel workflow.",
       "metadata": {
         "author": "Clawdbot",
-        "category": "External"
+        "category": "External",
+        "display-name": "Help me cancel my subscriptions"
       },
       "attribution": "Originally created by rohunvora (https://github.com/rohunvora/just-fucking-cancel)",
       "slug": "just-fucking-cancel",
@@ -1021,11 +1073,12 @@
       "path": "External/webapp-testing"
     },
     {
-      "name": "Stripe Best Practices",
+      "name": "stripe-best-practices",
       "description": "Best practices for building a Stripe integrations",
       "metadata": {
         "author": "Stripe",
-        "category": "External"
+        "category": "External",
+        "display-name": "Stripe Best Practices"
       },
       "slug": "stripe-best-practices",
       "path": "External/stripe-best-practices"
@@ -1041,7 +1094,7 @@
       "path": "External/onboarding-cro"
     },
     {
-      "name": "Weather",
+      "name": "weather",
       "description": "Get the current weather for any location",
       "homepage": "https://wttr.in/:help",
       "compatibility": "see metadata.clawdbot.requires",
@@ -1055,17 +1108,19 @@
               "curl"
             ]
           }
-        }
+        },
+        "display-name": "Weather"
       },
       "slug": "weather",
       "path": "External/weather"
     },
     {
-      "name": "Shorten URLs",
+      "name": "shorten",
       "description": "Shorten URLs using is.gd (no auth required). Returns a permanent short link.",
       "metadata": {
         "author": "Clawdbot",
-        "category": "External"
+        "category": "External",
+        "display-name": "Shorten URLs"
       },
       "slug": "shorten",
       "path": "External/shorten"
@@ -1102,7 +1157,7 @@
       "path": "External/schema-markup"
     },
     {
-      "name": "Use Trello",
+      "name": "trello",
       "description": "Work with Trello using your own Trello API key (free)",
       "homepage": "https://developer.atlassian.com/cloud/trello/rest/",
       "compatibility": "see metadata.clawdbot.requires",
@@ -1120,7 +1175,8 @@
               "TRELLO_TOKEN"
             ]
           }
-        }
+        },
+        "display-name": "Use Trello"
       },
       "slug": "trello",
       "path": "External/trello"
@@ -1178,11 +1234,12 @@
       "path": "External/brand-guidelines"
     },
     {
-      "name": "Fetch snow conditions for any ski resort",
+      "name": "snow-report",
       "description": "Get snow conditions, forecasts, and ski reports for any mountain resort worldwide. Use when asked about snow, powder, ski conditions, or mountain weather. Supports 1000+ resorts via OpenSnow. Users can set favorite mountains for quick access. Supports SnowTick 4-letter codes (JHMR, TARG, MMTH) for quick lookups.",
       "metadata": {
         "author": "Clawdbot",
-        "category": "External"
+        "category": "External",
+        "display-name": "Fetch snow conditions for any ski resort"
       },
       "slug": "snow-report",
       "path": "External/snow-report"
@@ -1229,154 +1286,168 @@
       "path": "External/web-artifacts-builder"
     },
     {
-      "name": "Use Yahoo Finance",
+      "name": "yahoo-finance",
       "description": "Get stock prices, quotes, fundamentals, earnings, options, dividends, and analyst ratings using Yahoo Finance. Uses yfinance library - no API key required.",
       "metadata": {
         "author": "Clawdbot",
-        "category": "External"
+        "category": "External",
+        "display-name": "Use Yahoo Finance"
       },
       "slug": "yahoo-finance",
       "path": "External/yahoo-finance"
     },
     {
-      "name": "Text commute travel time and route",
+      "name": "text-commute-info",
       "description": "Gets your commute time and route options, then texts you the details",
       "metadata": {
         "author": "ian.zo.computer",
         "category": "Community",
+        "display-name": "Text commute travel time and route",
         "emoji": "🚏"
       },
       "slug": "text-commute-info",
       "path": "Community/text-commute-info"
     },
     {
-      "name": "Set up hashcards spaced repetition system",
+      "name": "hashcards-setup",
       "description": "Sets up a spaced repetition flashcard system that you can access through your web browser to study and memorize information",
       "metadata": {
         "author": "rc2.zo.computer",
         "category": "Community",
+        "display-name": "Set up hashcards spaced repetition system",
         "emoji": "📇"
       },
       "slug": "hashcards-setup",
       "path": "Community/hashcards-setup"
     },
     {
-      "name": "Genome Analysis",
+      "name": "personal-genomics-analysis",
       "description": "Analyzes your 23andMe genetic data to identify health risks, drug sensitivities, ancestry, and traits, then generates a personalized report",
       "metadata": {
         "author": "rob.zo.computer",
         "category": "Community",
+        "display-name": "Genome Analysis",
         "emoji": "🧬"
       },
       "slug": "personal-genomics-analysis",
       "path": "Community/personal-genomics-analysis"
     },
     {
-      "name": "Set up automated receipt processing system",
+      "name": "receipt-tracker-setup",
       "description": "Automatically scans receipts you drop in a folder, extracts the details, and saves them to a searchable database",
       "metadata": {
         "author": "rob.zo.computer",
         "category": "Community",
+        "display-name": "Set up automated receipt processing system",
         "emoji": "🧾"
       },
       "slug": "receipt-tracker-setup",
       "path": "Community/receipt-tracker-setup"
     },
     {
-      "name": "Summarize Hacker News front page",
+      "name": "summarize-hacker-news",
       "description": "Picks the most interesting articles from Hacker News, reads them, and emails you a summary",
       "metadata": {
         "author": "0.zo.computer",
         "category": "Community",
+        "display-name": "Summarize Hacker News front page",
         "emoji": "🔶"
       },
       "slug": "summarize-hacker-news",
       "path": "Community/summarize-hacker-news"
     },
     {
-      "name": "Create Spotify playlist from Pitchfork Best New Tracks",
+      "name": "pitchfork-best-tracks",
       "description": "Finds the latest songs from Pitchfork's Best New Tracks and creates a Spotify playlist for you",
       "metadata": {
         "author": "ian.zo.computer",
         "category": "Community",
+        "display-name": "Create Spotify playlist from Pitchfork Best New Tracks",
         "emoji": "🎵"
       },
       "slug": "pitchfork-best-tracks",
       "path": "Community/pitchfork-best-tracks"
     },
     {
-      "name": "Create syllabus reminders",
+      "name": "syllabus-reminders",
       "description": "Reads your syllabus, finds all due dates, and sets up text reminders and calendar events so you never miss an assignment",
       "metadata": {
         "author": "hatsunemiku.zo.computer",
         "category": "Community",
+        "display-name": "Create syllabus reminders",
         "emoji": "🔖"
       },
       "slug": "syllabus-reminders",
       "path": "Community/syllabus-reminders"
     },
     {
-      "name": "Texting positive affirmations daily",
+      "name": "daily-affirmations",
       "description": "Send yourself a daily text message with a randomly selected or rotating positive affirmation.",
       "metadata": {
         "author": "Zo",
         "category": "Community",
+        "display-name": "Texting positive affirmations daily",
         "emoji": "✨"
       },
       "slug": "daily-affirmations",
       "path": "Community/daily-affirmations"
     },
     {
-      "name": "Plan code changes",
+      "name": "plan-code-changes",
       "description": "Plan out code changes using a plan file.",
       "metadata": {
         "author": "0.zo.computer",
         "category": "Community",
+        "display-name": "Plan code changes",
         "emoji": "🧑🏻‍💻"
       },
       "slug": "plan-code-changes",
       "path": "Community/plan-code-changes"
     },
     {
-      "name": "Plant Care Plan",
+      "name": "plant-care-plan",
       "description": "Creates a comprehensive care guide for your specific plant",
       "metadata": {
         "author": "hatsunemiku.zo.computer",
         "category": "Community",
+        "display-name": "Plant Care Plan",
         "emoji": "🪴"
       },
       "slug": "plant-care-plan",
       "path": "Community/plant-care-plan"
     },
     {
-      "name": "Generate flashcards from a webpage or document",
+      "name": "add-flashcards",
       "description": "Converts webpages, articles, or documents into study flashcards that you can review with spaced repetition",
       "compatibility": "Requires hashcards-setup skill with flashcards at /home/workspace/flashcards/",
       "metadata": {
         "author": "rc2.zo.computer",
         "category": "Community",
+        "display-name": "Generate flashcards from a webpage or document",
         "emoji": "📇"
       },
       "slug": "add-flashcards",
       "path": "Community/add-flashcards"
     },
     {
-      "name": "Create ideal dating profile",
+      "name": "dating-profile",
       "description": "Creates an ideal dating profile by writing your bio and choosing the best photos in the right order",
       "metadata": {
         "author": "tiff.zo.computer",
         "category": "Community",
+        "display-name": "Create ideal dating profile",
         "emoji": "💌"
       },
       "slug": "dating-profile",
       "path": "Community/dating-profile"
     },
     {
-      "name": "Find recent Craigslist missed connections",
+      "name": "find-missed-connections",
       "description": "Finds recent missed connections posts from Craigslist and gives you the highlights",
       "metadata": {
         "author": "0.zo.computer",
         "category": "Community",
+        "display-name": "Find recent Craigslist missed connections",
         "emoji": "💕"
       },
       "slug": "find-missed-connections",

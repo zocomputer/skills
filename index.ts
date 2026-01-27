@@ -17,6 +17,7 @@ import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
 type Issue = {
   skillPath: string;
   message: string;
+  level: "error" | "warning";
 };
 
 const ROOT_DIR = process.cwd();
@@ -157,7 +158,7 @@ const parseExternalConfig = (content: string) => {
     const notice = typeof record.notice === "string" ? record.notice : undefined;
     const overrides: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(record)) {
-      if (key === "repository" || key === "skill" || key === "notice") {
+      if (key === "repository" || key === "skill" || key === "notice" || key === "name") {
         continue;
       }
       overrides[key] = value;
@@ -329,6 +330,46 @@ const ensureMetadataCategoryForAllSkills = async () => {
       updated += 1;
     } catch {
       console.log(`Unable to set metadata.category for ${skillDir}.`);
+    }
+  }
+  return updated;
+};
+
+const ensureSkillNameSlugForAllSkills = async () => {
+  const skillDirs = await loadSkillDirectories();
+  let updated = 0;
+  for (const skillDir of skillDirs) {
+    const skillFile = path.join(skillDir, "SKILL.md");
+    const slug = path.basename(skillDir);
+    try {
+      const parsed = await readSkillFile(skillFile);
+      if (!parsed) {
+        continue;
+      }
+      const currentName = typeof parsed.data.name === "string" ? parsed.data.name : "";
+      if (!currentName || currentName === slug) {
+        if (!currentName) {
+          parsed.data.name = slug;
+          const updatedFile = serializeSkillFile(parsed.data, parsed.body);
+          await writeFile(skillFile, updatedFile);
+          updated += 1;
+        }
+        continue;
+      }
+      const metadata =
+        parsed.data.metadata && typeof parsed.data.metadata === "object"
+          ? { ...(parsed.data.metadata as Record<string, unknown>) }
+          : {};
+      if (!("display-name" in metadata) || !metadata["display-name"]) {
+        metadata["display-name"] = currentName;
+      }
+      parsed.data.name = slug;
+      parsed.data.metadata = metadata;
+      const updatedFile = serializeSkillFile(parsed.data, parsed.body);
+      await writeFile(skillFile, updatedFile);
+      updated += 1;
+    } catch {
+      console.log(`Unable to normalize name for ${skillDir}.`);
     }
   }
   return updated;
@@ -566,7 +607,12 @@ const organizeExternalConfig = async () => {
       const skillB = typeof b.skill === "string" ? b.skill : "";
       return skillA.localeCompare(skillB);
     });
-    organized.push(...group);
+    organized.push(
+      ...group.map((record) => {
+        const { name: _name, ...rest } = record;
+        return rest;
+      }),
+    );
   }
 
   const output = stringifyYaml(organized, { lineWidth: 0 });
@@ -575,6 +621,7 @@ const organizeExternalConfig = async () => {
     organized.map((entry) => resolveRecordSlug(entry)).filter(Boolean),
   );
   const moved = await reorganizeSkillDirectories(externalSlugs);
+  const nameUpdates = await ensureSkillNameSlugForAllSkills();
   const categoryUpdates = await ensureMetadataCategoryForAllSkills();
   const manifestDescriptions = await loadManifestDescriptions();
   const manifestAuthors = await loadManifestAuthors();
@@ -583,6 +630,9 @@ const organizeExternalConfig = async () => {
   console.log(`Organized ${organized.length} external skill entries.`);
   if (moved > 0) {
     console.log(`Moved ${moved} skill(s) into category folders.`);
+  }
+  if (nameUpdates > 0) {
+    console.log(`Normalized name field for ${nameUpdates} skill(s).`);
   }
   if (categoryUpdates > 0) {
     console.log(`Updated metadata.category for ${categoryUpdates} skill(s).`);
@@ -690,6 +740,7 @@ const serializeSkillFile = (data: Record<string, unknown>, body: string) => {
 const validateSkill = async (skillDir: string): Promise<Issue[]> => {
   const issues: Issue[] = [];
   const skillName = path.basename(skillDir);
+  const parentCategory = path.basename(path.dirname(skillDir));
   const skillFile = path.join(skillDir, "SKILL.md");
 
   try {
@@ -703,6 +754,7 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
           skillPath: toDisplayPath(skillDir),
           message:
             "Only 'assets', 'references', or 'scripts' directories are allowed at the skill root.",
+          level: parentCategory === EXTERNAL_DIR ? "warning" : "error",
         });
         break;
       }
@@ -711,6 +763,7 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
     issues.push({
       skillPath: toDisplayPath(skillDir),
       message: "Unable to read skill directory contents.",
+      level: "error",
     });
     return issues;
   }
@@ -722,6 +775,7 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
     issues.push({
       skillPath: toDisplayPath(skillDir),
       message: "Missing SKILL.md file.",
+      level: "error",
     });
     return issues;
   }
@@ -730,6 +784,7 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
     issues.push({
       skillPath: toDisplayPath(skillFile),
       message: "Missing frontmatter start '---'.",
+      level: "error",
     });
     return issues;
   }
@@ -747,12 +802,14 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
     issues.push({
       skillPath: toDisplayPath(skillFile),
       message: "Missing required 'name' field in frontmatter.",
+      level: "error",
     });
   } else {
     if (name.length > 64) {
       issues.push({
         skillPath: toDisplayPath(skillFile),
         message: "Field 'name' exceeds 64 characters.",
+        level: "error",
       });
     }
     if (!NAME_PATTERN.test(name)) {
@@ -760,12 +817,14 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
         skillPath: toDisplayPath(skillFile),
         message:
           "Field 'name' must be lowercase alphanumeric with single hyphens only.",
+        level: "error",
       });
     }
     if (name !== skillName) {
       issues.push({
         skillPath: toDisplayPath(skillFile),
         message: "Field 'name' must match the parent directory name.",
+        level: "error",
       });
     }
   }
@@ -774,12 +833,14 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
     issues.push({
       skillPath: toDisplayPath(skillFile),
       message: "Missing required 'description' field in frontmatter.",
+      level: parentCategory === EXTERNAL_DIR ? "warning" : "error",
     });
   } else {
     if (description.length > 1024) {
       issues.push({
         skillPath: toDisplayPath(skillFile),
         message: "Field 'description' exceeds 1024 characters.",
+        level: "error",
       });
     }
   }
@@ -788,6 +849,7 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
     issues.push({
       skillPath: toDisplayPath(skillFile),
       message: "Missing required 'metadata.author' field in frontmatter.",
+      level: "error",
     });
   }
 
@@ -1164,11 +1226,21 @@ const validateAllSkills = async () => {
     return 0;
   }
 
+  const errors = allIssues.filter((issue) => issue.level === "error");
+  const warnings = allIssues.filter((issue) => issue.level === "warning");
   console.log(`Detected ${allIssues.length} issue(s):`);
   for (const issue of allIssues) {
-    console.log(`- ${issue.skillPath}: ${issue.message}`);
+    const prefix = issue.level === "warning" ? "Warning" : "Error";
+    console.log(`- ${prefix}: ${issue.skillPath}: ${issue.message}`);
   }
-  return 1;
+  if (warnings.length > 0) {
+    console.log(`Warnings: ${warnings.length}`);
+  }
+  if (errors.length > 0) {
+    console.log(`Errors: ${errors.length}`);
+    return 1;
+  }
+  return 0;
 };
 
 const writeManifest = async () => {
@@ -1325,6 +1397,32 @@ const syncExternalSource = async (source: ExternalSkill): Promise<SyncResult> =>
       } catch {
         console.log(`Unable to apply overrides for ${source.repository}.`);
       }
+    }
+    try {
+      const slug = path.basename(path.dirname(skillFile));
+      const parsed = await readSkillFile(skillFile);
+      if (parsed) {
+        const currentName = typeof parsed.data.name === "string" ? parsed.data.name : "";
+        if (currentName && currentName !== slug) {
+          const metadata =
+            parsed.data.metadata && typeof parsed.data.metadata === "object"
+              ? { ...(parsed.data.metadata as Record<string, unknown>) }
+              : {};
+          if (!("display-name" in metadata) || !metadata["display-name"]) {
+            metadata["display-name"] = currentName;
+          }
+          parsed.data.name = slug;
+          parsed.data.metadata = metadata;
+          const updatedFile = serializeSkillFile(parsed.data, parsed.body);
+          await writeFile(skillFile, updatedFile);
+        } else if (!currentName) {
+          parsed.data.name = slug;
+          const updatedFile = serializeSkillFile(parsed.data, parsed.body);
+          await writeFile(skillFile, updatedFile);
+        }
+      }
+    } catch {
+      console.log(`Unable to normalize name for ${source.repository}.`);
     }
     try {
       const categorySet = await getCategorySet();
@@ -1624,6 +1722,10 @@ const syncExternalMetadata = async () => {
   const categoryUpdates = await ensureMetadataCategoryForAllSkills();
   if (categoryUpdates > 0) {
     console.log(`Updated metadata.category for ${categoryUpdates} skill(s).`);
+  }
+  const nameUpdates = await ensureSkillNameSlugForAllSkills();
+  if (nameUpdates > 0) {
+    console.log(`Normalized name field for ${nameUpdates} skill(s).`);
   }
   return 0;
 };

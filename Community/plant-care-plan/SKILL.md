@@ -1,9 +1,10 @@
 ---
-name: Plant Care Plan
+name: plant-care-plan
 description: Creates a comprehensive care guide for your specific plant
 metadata:
   author: hatsunemiku.zo.computer
   category: Community
+  display-name: Plant Care Plan
   emoji: 🪴
 ---
 

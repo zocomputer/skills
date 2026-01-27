@@ -1,9 +1,10 @@
 ---
-name: Create a site
+name: create-site
 description: Create a site hosted on your Zo server. Private by default, publish with a click.
 metadata:
   author: Zo
   category: Official
+  display-name: Create a site
   emoji: ⚡
 ---
 

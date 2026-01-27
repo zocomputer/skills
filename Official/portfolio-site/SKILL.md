@@ -1,9 +1,10 @@
 ---
-name: Create a portfolio site
+name: portfolio-site
 description: Build a personal portfolio to showcase your work and resume.
 metadata:
   author: Zo
   category: Official
+  display-name: Create a portfolio site
   emoji: 🎨
 ---
 

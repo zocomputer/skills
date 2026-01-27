@@ -1,9 +1,10 @@
 ---
-name: Process file line-by-line with script
+name: for-each-line
 description: Processes every line of a file one by one, transforming or extracting information from each line
 metadata:
   author: Zo
   category: Official
+  display-name: Process file line-by-line with script
   emoji: 🔄
 ---
 

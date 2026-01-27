@@ -1,9 +1,10 @@
 ---
-name: Research a topic
+name: research-topic
 description: Use Zo to research any topic comprehensively and write a report.
 metadata:
   author: Zo
   category: Official
+  display-name: Research a topic
   emoji: 🔬
 ---
 

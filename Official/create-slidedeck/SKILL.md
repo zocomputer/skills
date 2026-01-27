@@ -1,9 +1,10 @@
 ---
-name: Create a slide deck
+name: create-slidedeck
 description: Turn any reference material into a polished, visually cohesive slide deck.
 metadata:
   author: rob.zo.computer
   category: Official
+  display-name: Create a slide deck
   emoji: 🎞️
 ---
 

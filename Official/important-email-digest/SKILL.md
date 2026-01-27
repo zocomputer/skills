@@ -1,9 +1,10 @@
 ---
-name: Text summary of important emails
+name: important-email-digest
 description: Finds your most important emails from the past 2 days and texts you a summary with suggested follow-ups
 metadata:
   author: Zo
   category: Official
+  display-name: Text summary of important emails
   emoji: 📧
 ---
 

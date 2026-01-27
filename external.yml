@@ -1,7 +1,6 @@
 - repository: clawdbot/clawdbot
   skill: bird
   slug: twitter
-  name: X (Twitter)
   description: Let Zo use your X (Twitter) account
   notice: |
     This environment cannot read browser cookies automatically. Ask the USER for these two cookie values, giving them the following instructions:
@@ -55,7 +54,6 @@
     ```
 - repository: clawdbot/clawdbot
   skill: gog
-  name: Google Workspace Tool
   description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs
   compatibility: Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
   notice: |
@@ -73,7 +71,6 @@
     IMPORTANT: If you generate a new OAuth app here, it may replace or invalidate existing tokens.
 - repository: clawdbot/clawdbot
   skill: mcporter
-  name: Use MCP Server
   description: Work with MCP servers directly
 - repository: clawdbot/clawdbot
   skill: trello
@@ -81,7 +78,6 @@
   notice: On Zo, your agent is called Zo (not Clawdbot).
 - repository: clawdbot/clawdbot
   skill: eightctl
-  name: EightSleep Pod Control
 - repository: clawdbot/clawdbot
   skill: notion
   description: Work with Notion using your own Notion API key (free)
@@ -118,12 +114,10 @@
   skill: yahoo-finance
 - repository: adithya-s-k/manim_skill
   skill: manim-composer
-  name: Create 3Blue1Brown Videos (Manim)
 - repository: obra/superpowers
   skill: brainstorming
 - repository: remotion-dev/skills
   skill: remotion-best-practices
-  name: Create Animated Videos (Remotion)
 - repository: resciencelab/opc-skills
   skill: reddit
 - repository: softaworks/agent-toolkit

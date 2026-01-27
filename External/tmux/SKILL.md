@@ -1,11 +1,12 @@
 ---
-name: Control tmux sessions
+name: tmux
 description: Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
 compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
   category: External
   clawdbot: {"emoji":"🧵","os":["darwin","linux"],"requires":{"bins":["tmux"]}}
+  display-name: Control tmux sessions
 ---
 
 # Notice

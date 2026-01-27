@@ -1,9 +1,10 @@
 ---
-name: Create a guestbook
+name: guestbook-site
 description: Build an interactive guestbook where visitors can leave messages.
 metadata:
   author: Zo
   category: Official
+  display-name: Create a guestbook
   emoji: 📖
 ---
 

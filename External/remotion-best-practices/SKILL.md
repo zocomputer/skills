@@ -1,9 +1,10 @@
 ---
-name: Create Animated Videos (Remotion)
+name: remotion-best-practices
 description: Best practices for Remotion - Video creation in React
 metadata:
   author: Remotion-dev
   category: External
+  display-name: Create Animated Videos (Remotion)
   tags: remotion, video, react, animation, composition
 ---
 

@@ -1,9 +1,10 @@
 ---
-name: Generate QR code with optional image
+name: generate-custom-qr-code
 description: Generates a QR code from any URL, and optionally overlays a custom image in the center
 metadata:
   author: Zo
   category: Official
+  display-name: Generate QR code with optional image
   emoji: 📱
 ---
 

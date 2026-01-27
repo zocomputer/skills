@@ -1,9 +1,10 @@
 ---
-name: Convert PDF to Markdown
+name: pdf-to-markdown
 description: Convert PDF files to Markdown format
 metadata:
   author: Zo
   category: Official
+  display-name: Convert PDF to Markdown
   emoji: 📄
 ---
 

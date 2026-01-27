@@ -1,9 +1,10 @@
 ---
-name: Extract Text from Images (OCR)
+name: extract-text-from-image
 description: Extract text from images, scanned documents, and PDFs using OCR
 metadata:
   author: Zo
   category: Official
+  display-name: Extract Text from Images (OCR)
   emoji: 🔍
 ---
 

@@ -1,9 +1,10 @@
 ---
-name: Organize my files
+name: organize-workspace
 description: Organizes your scattered files into logical folders by project, type, and purpose
 metadata:
   author: Zo
   category: Official
+  display-name: Organize my files
   emoji: 🗂️
 ---
 

@@ -1,9 +1,10 @@
 ---
-name: Convert EPUB to Markdown
+name: epub-to-markdown
 description: Convert EPUB ebooks to Markdown format
 metadata:
   author: Zo
   category: Official
+  display-name: Convert EPUB to Markdown
   emoji: 📚
 ---
 

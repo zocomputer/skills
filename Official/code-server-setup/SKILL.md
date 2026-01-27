@@ -1,9 +1,10 @@
 ---
-name: Set up code-server (VS Code in browser)
+name: code-server-setup
 description: Sets up VS Code in your web browser so you can write and edit code from anywhere
 metadata:
   author: Zo
   category: Official
+  display-name: Set up code-server (VS Code in browser)
   emoji: 💻
 ---
 

@@ -1,9 +1,10 @@
 ---
-name: Generate PDF from Markdown
+name: generate-pdf
 description: Convert Markdown files to PDF format with professional formatting
 metadata:
   author: Zo
   category: Official
+  display-name: Generate PDF from Markdown
   emoji: 📑
 ---
 

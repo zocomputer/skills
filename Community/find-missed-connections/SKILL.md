@@ -1,9 +1,10 @@
 ---
-name: Find recent Craigslist missed connections
+name: find-missed-connections
 description: Finds recent missed connections posts from Craigslist and gives you the highlights
 metadata:
   author: 0.zo.computer
   category: Community
+  display-name: Find recent Craigslist missed connections
   emoji: 💕
 ---
 

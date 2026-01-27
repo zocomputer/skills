@@ -1,10 +1,11 @@
 ---
-name: Generate flashcards from a webpage or document
+name: add-flashcards
 description: Converts webpages, articles, or documents into study flashcards that you can review with spaced repetition
 compatibility: Requires hashcards-setup skill with flashcards at /home/workspace/flashcards/
 metadata:
   author: rc2.zo.computer
   category: Community
+  display-name: Generate flashcards from a webpage or document
   emoji: 📇
 ---
 

@@ -1,9 +1,10 @@
 ---
-name: Text commute travel time and route
+name: text-commute-info
 description: Gets your commute time and route options, then texts you the details
 metadata:
   author: ian.zo.computer
   category: Community
+  display-name: Text commute travel time and route
   emoji: 🚏
 ---
 

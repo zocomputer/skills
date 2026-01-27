@@ -1,5 +1,5 @@
 ---
-name: Video Frames (FFmpeg)
+name: video-frames
 description: Extract frames or short clips from videos using ffmpeg.
 homepage: https://ffmpeg.org
 compatibility: see metadata.clawdbot.requires
@@ -7,6 +7,7 @@ metadata:
   author: Clawdbot
   category: External
   clawdbot: {"emoji":"🎞️","requires":{"bins":["ffmpeg"]},"install":[{"id":"brew","kind":"brew","formula":"ffmpeg","bins":["ffmpeg"],"label":"Install ffmpeg (brew)"}]}
+  display-name: Video Frames (FFmpeg)
 ---
 
 # Video Frames (ffmpeg)

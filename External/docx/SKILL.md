@@ -1,8 +1,9 @@
 ---
-name: Process DOCX Files
+name: docx
 metadata:
   author: Anthropic
   category: External
+  display-name: Process DOCX Files
 ---
 
 ---

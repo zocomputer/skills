@@ -1,9 +1,10 @@
 ---
-name: Weekly meeting reminder
+name: weekly-meeting-reminder
 description: Get an email every Sunday evening listing your meetings for the coming week.
 metadata:
   author: Zo
   category: Official
+  display-name: Weekly meeting reminder
   emoji: 🗓️
 ---
 

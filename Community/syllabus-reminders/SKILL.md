@@ -1,9 +1,10 @@
 ---
-name: Create syllabus reminders
+name: syllabus-reminders
 description: Reads your syllabus, finds all due dates, and sets up text reminders and calendar events so you never miss an assignment
 metadata:
   author: hatsunemiku.zo.computer
   category: Community
+  display-name: Create syllabus reminders
   emoji: 🔖
 ---
 

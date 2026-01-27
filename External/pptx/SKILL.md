@@ -1,8 +1,9 @@
 ---
-name: Process PPTX Files
+name: pptx
 metadata:
   author: Anthropic
   category: External
+  display-name: Process PPTX Files
 ---
 
 ---

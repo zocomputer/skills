@@ -1,5 +1,5 @@
 ---
-name: Use LinkedIn
+name: linkedin-cli
 description: A bird-like LinkedIn CLI for searching profiles, checking messages, and summarizing your feed using session cookies.
 homepage: https://github.com/clawdbot/linkedin-cli
 compatibility: see metadata.clawdbot.requires
@@ -7,6 +7,7 @@ metadata:
   author: Clawdbot
   category: External
   clawdbot: {"emoji":"💼","requires":{"bins":["python3"],"env":["LINKEDIN_LI_AT","LINKEDIN_JSESSIONID"]}}
+  display-name: Use LinkedIn
 ---
 
 # LinkedIn CLI (lk)

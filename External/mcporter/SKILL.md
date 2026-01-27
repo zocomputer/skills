@@ -1,5 +1,5 @@
 ---
-name: Use MCP Server
+name: mcporter
 description: Work with MCP servers directly
 homepage: http://mcporter.dev
 compatibility: see metadata.clawdbot.requires
@@ -7,6 +7,7 @@ metadata:
   author: Clawdbot
   category: External
   clawdbot: {"emoji":"📦","requires":{"bins":["mcporter"]},"install":[{"id":"node","kind":"node","package":"mcporter","bins":["mcporter"],"label":"Install mcporter (node)"}]}
+  display-name: Use MCP Server
 ---
 
 # mcporter

@@ -1,9 +1,10 @@
 ---
-name: Create ideal dating profile
+name: dating-profile
 description: Creates an ideal dating profile by writing your bio and choosing the best photos in the right order
 metadata:
   author: tiff.zo.computer
   category: Community
+  display-name: Create ideal dating profile
   emoji: 💌
 ---
 

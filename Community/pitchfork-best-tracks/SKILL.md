@@ -1,9 +1,10 @@
 ---
-name: Create Spotify playlist from Pitchfork Best New Tracks
+name: pitchfork-best-tracks
 description: Finds the latest songs from Pitchfork's Best New Tracks and creates a Spotify playlist for you
 metadata:
   author: ian.zo.computer
   category: Community
+  display-name: Create Spotify playlist from Pitchfork Best New Tracks
   emoji: 🎵
 ---
 

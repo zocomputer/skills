@@ -1,5 +1,5 @@
 ---
-name: Weather
+name: weather
 description: Get the current weather for any location
 homepage: https://wttr.in/:help
 compatibility: see metadata.clawdbot.requires
@@ -7,6 +7,7 @@ metadata:
   author: Clawdbot
   category: External
   clawdbot: {"emoji":"🌤️","requires":{"bins":["curl"]}}
+  display-name: Weather
 ---
 
 # Weather
