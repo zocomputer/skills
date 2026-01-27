@@ -76,42 +76,42 @@
   name: Use MCP Server
   description: Work with MCP servers directly
 - repository: clawdbot/clawdbot
-  skill: notion
-  description: Work with Notion using your own Notion API key (free)
-- repository: clawdbot/clawdbot
   skill: trello
   description: Work with Trello using your own Trello API key (free)
   notice: On Zo, your agent is called Zo (not Clawdbot).
 - repository: clawdbot/clawdbot
-  skill: weather
-  description: Get the current weather for any location
-- repository: clawdbot/clawdbot
-  skill: blogwatcher
-- repository: clawdbot/clawdbot
   skill: eightctl
   name: EightSleep Pod Control
 - repository: clawdbot/clawdbot
-  skill: github
+  skill: notion
+  description: Work with Notion using your own Notion API key (free)
 - repository: clawdbot/clawdbot
   skill: tmux
   notice: |
     Zo note: the docs mention Clawdbot-specific socket env vars. On Zo, you can still set
     `CLAWDBOT_TMUX_SOCKET_DIR` to any writable path (e.g. `/tmp/zo-tmux-sockets`) or omit it.
 - repository: clawdbot/clawdbot
+  skill: weather
+  description: Get the current weather for any location
+- repository: clawdbot/clawdbot
+  skill: blogwatcher
+- repository: clawdbot/clawdbot
+  skill: github
+- repository: clawdbot/clawdbot
   skill: video-frames
-- repository: clawdbot/skills
-  skill: just-fucking-cancel
 - repository: clawdbot/skills
   skill: lastfm
   notice: |
     Zo note: set `LASTFM_API_KEY` and `LASTFM_USER` in your shell (or source a local env file)
     before using this skill. The `~/.clawdbot/.env` path in the docs is not required on Zo.
 - repository: clawdbot/skills
-  skill: linkedin-cli
-- repository: clawdbot/skills
   skill: shorten
   notice: |
     On Zo, the script lives at `/home/workspace/Skills/shorten/shorten.sh`.
+- repository: clawdbot/skills
+  skill: just-fucking-cancel
+- repository: clawdbot/skills
+  skill: linkedin-cli
 - repository: clawdbot/skills
   skill: snow-report
 - repository: clawdbot/skills
@@ -153,23 +153,13 @@
 - repository: anthropics/skills
   skill: algorithmic-art
 - repository: anthropics/skills
-  skill: docx
-- repository: anthropics/skills
-  skill: pdf
-- repository: anthropics/skills
-  skill: pptx
-- repository: anthropics/skills
-  skill: slack-gif-creator
-- repository: anthropics/skills
-  skill: theme-factory
-- repository: anthropics/skills
-  skill: xlsx
-- repository: anthropics/skills
   skill: brand-guidelines
 - repository: anthropics/skills
   skill: canvas-design
 - repository: anthropics/skills
   skill: doc-coauthoring
+- repository: anthropics/skills
+  skill: docx
 - repository: anthropics/skills
   skill: frontend-design
 - repository: anthropics/skills
@@ -177,29 +167,33 @@
 - repository: anthropics/skills
   skill: mcp-builder
 - repository: anthropics/skills
+  skill: pdf
+- repository: anthropics/skills
+  skill: pptx
+- repository: anthropics/skills
   skill: skill-creator
 - repository: anthropics/skills
+  skill: slack-gif-creator
+- repository: anthropics/skills
   skill: template-skill
+- repository: anthropics/skills
+  skill: theme-factory
 - repository: anthropics/skills
   skill: web-artifacts-builder
 - repository: anthropics/skills
   skill: webapp-testing
-- repository: coreyhaines31/marketingskills
-  skill: copy-editing
-- repository: coreyhaines31/marketingskills
-  skill: copywriting
-- repository: coreyhaines31/marketingskills
-  skill: marketing-psychology
-- repository: coreyhaines31/marketingskills
-  skill: seo-audit
-- repository: coreyhaines31/marketingskills
-  skill: social-content
+- repository: anthropics/skills
+  skill: xlsx
 - repository: coreyhaines31/marketingskills
   skill: ab-test-setup
 - repository: coreyhaines31/marketingskills
   skill: analytics-tracking
 - repository: coreyhaines31/marketingskills
   skill: competitor-alternatives
+- repository: coreyhaines31/marketingskills
+  skill: copy-editing
+- repository: coreyhaines31/marketingskills
+  skill: copywriting
 - repository: coreyhaines31/marketingskills
   skill: email-sequence
 - repository: coreyhaines31/marketingskills
@@ -210,6 +204,8 @@
   skill: launch-strategy
 - repository: coreyhaines31/marketingskills
   skill: marketing-ideas
+- repository: coreyhaines31/marketingskills
+  skill: marketing-psychology
 - repository: coreyhaines31/marketingskills
   skill: onboarding-cro
 - repository: coreyhaines31/marketingskills
@@ -229,4 +225,8 @@
 - repository: coreyhaines31/marketingskills
   skill: schema-markup
 - repository: coreyhaines31/marketingskills
+  skill: seo-audit
+- repository: coreyhaines31/marketingskills
   skill: signup-flow-cro
+- repository: coreyhaines31/marketingskills
+  skill: social-content

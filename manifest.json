@@ -10,7 +10,398 @@
         "emoji": "📄"
       },
       "slug": "pdf-to-markdown",
-      "path": "pdf-to-markdown"
+      "path": "Zo/pdf-to-markdown"
+    },
+    {
+      "name": "Convert EPUB to Markdown",
+      "description": "Convert EPUB ebooks to Markdown format",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📚"
+      },
+      "slug": "epub-to-markdown",
+      "path": "Zo/epub-to-markdown"
+    },
+    {
+      "name": "Text commute travel time and route",
+      "description": "Gets your commute time and route options, then texts you the details",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🚏"
+      },
+      "slug": "text-commute-info",
+      "path": "Zo/text-commute-info"
+    },
+    {
+      "name": "Set up n8n workflow automation",
+      "description": "Sets up n8n workflow automation tool so you can create automated workflows between different apps and services",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔗"
+      },
+      "slug": "n8n-setup",
+      "path": "Zo/n8n-setup"
+    },
+    {
+      "name": "Set up Grafana for log visualization",
+      "description": "Sets up a visual dashboard to explore and analyze your system logs and data",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📈"
+      },
+      "slug": "grafana-setup",
+      "path": "Zo/grafana-setup"
+    },
+    {
+      "name": "Create a portfolio site",
+      "description": "Build a personal portfolio to showcase your work and resume.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🎨"
+      },
+      "slug": "portfolio-site",
+      "path": "Zo/portfolio-site"
+    },
+    {
+      "name": "Generate QR code with optional image",
+      "description": "Generates a QR code from any URL, and optionally overlays a custom image in the center",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📱"
+      },
+      "slug": "generate-custom-qr-code",
+      "path": "Zo/generate-custom-qr-code"
+    },
+    {
+      "name": "Genome Analysis",
+      "description": "Analyzes your 23andMe genetic data to identify health risks, drug sensitivities, ancestry, and traits, then generates a personalized report",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🧬"
+      },
+      "slug": "personal-genomics-analysis",
+      "path": "Zo/personal-genomics-analysis"
+    },
+    {
+      "name": "Enrich CSV with AI-generated columns",
+      "description": "Adds new columns to your spreadsheet by generating information for each row",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📊"
+      },
+      "slug": "enrich-csv",
+      "path": "Zo/enrich-csv"
+    },
+    {
+      "name": "Extract Text from Images (OCR)",
+      "description": "Extract text from images, scanned documents, and PDFs using OCR",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔍"
+      },
+      "slug": "extract-text-from-image",
+      "path": "Zo/extract-text-from-image"
+    },
+    {
+      "name": "Daily Linear digest",
+      "description": "Creates an automation to email you a summary of your Linear activity from the previous day",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📋"
+      },
+      "slug": "daily-linear-digest",
+      "path": "Zo/daily-linear-digest"
+    },
+    {
+      "name": "Resize Images",
+      "description": "Resize images to specific dimensions or percentages",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🖼️"
+      },
+      "slug": "resize-image",
+      "path": "Zo/resize-image"
+    },
+    {
+      "name": "google-calendar",
+      "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
+      "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🅖"
+      },
+      "slug": "google-calendar",
+      "path": "Zo/google-calendar"
+    },
+    {
+      "name": "Summarize Hacker News front page",
+      "description": "Picks the most interesting articles from Hacker News, reads them, and emails you a summary",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔶"
+      },
+      "slug": "summarize-hacker-news",
+      "path": "Zo/summarize-hacker-news"
+    },
+    {
+      "name": "Daily news digest",
+      "description": "Fetch the latest headlines on a topic you care about and email it to you every morning.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📰"
+      },
+      "slug": "daily-news-digest",
+      "path": "Zo/daily-news-digest"
+    },
+    {
+      "name": "Create Spotify playlist from Pitchfork Best New Tracks",
+      "description": "Finds the latest songs from Pitchfork's Best New Tracks and creates a Spotify playlist for you",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🎵"
+      },
+      "slug": "pitchfork-best-tracks",
+      "path": "Zo/pitchfork-best-tracks"
+    },
+    {
+      "name": "Automate something",
+      "description": "Create an automation with a Zo Agent task",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "⚙️"
+      },
+      "slug": "automate-something",
+      "path": "Zo/automate-something"
+    },
+    {
+      "name": "Create syllabus reminders",
+      "description": "Reads your syllabus, finds all due dates, and sets up text reminders and calendar events so you never miss an assignment",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔖"
+      },
+      "slug": "syllabus-reminders",
+      "path": "Zo/syllabus-reminders"
+    },
+    {
+      "name": "Research a topic",
+      "description": "Use Zo to research any topic comprehensively and write a report.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔬"
+      },
+      "slug": "research-topic",
+      "path": "Zo/research-topic"
+    },
+    {
+      "name": "Create a site",
+      "description": "Create a site hosted on your Zo server. Private by default, publish with a click.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "⚡"
+      },
+      "slug": "create-site",
+      "path": "Zo/create-site"
+    },
+    {
+      "name": "Remove Photo Metadata",
+      "description": "Strip all metadata from images for privacy",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔒"
+      },
+      "slug": "remove-photo-metadata",
+      "path": "Zo/remove-photo-metadata"
+    },
+    {
+      "name": "Create a slide deck",
+      "description": "Turn any reference material into a polished, visually cohesive slide deck.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🎞️"
+      },
+      "slug": "create-slidedeck",
+      "path": "Zo/create-slidedeck"
+    },
+    {
+      "name": "Texting positive affirmations daily",
+      "description": "Send yourself a daily text message with a randomly selected or rotating positive affirmation.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "✨"
+      },
+      "slug": "daily-affirmations",
+      "path": "Zo/daily-affirmations"
+    },
+    {
+      "name": "Organize my files",
+      "description": "Organizes your scattered files into logical folders by project, type, and purpose",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🗂️"
+      },
+      "slug": "organize-workspace",
+      "path": "Zo/organize-workspace"
+    },
+    {
+      "name": "Weekly meeting reminder",
+      "description": "Get an email every Sunday evening listing your meetings for the coming week.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🗓️"
+      },
+      "slug": "weekly-meeting-reminder",
+      "path": "Zo/weekly-meeting-reminder"
+    },
+    {
+      "name": "Plan code changes",
+      "description": "Plan out code changes using a plan file.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🧑🏻‍💻"
+      },
+      "slug": "plan-code-changes",
+      "path": "Zo/plan-code-changes"
+    },
+    {
+      "name": "Process file line-by-line with script",
+      "description": "Processes every line of a file one by one, transforming or extracting information from each line",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔄"
+      },
+      "slug": "for-each-line",
+      "path": "Zo/for-each-line"
+    },
+    {
+      "name": "Plant Care Plan",
+      "description": "Creates a comprehensive care guide for your specific plant",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🪴"
+      },
+      "slug": "plant-care-plan",
+      "path": "Zo/plant-care-plan"
+    },
+    {
+      "name": "Create a blog",
+      "description": "Build a blog or newsletter to share your thoughts.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📝"
+      },
+      "slug": "blog-site",
+      "path": "Zo/blog-site"
+    },
+    {
+      "name": "Generate PDF from Markdown",
+      "description": "Convert Markdown files to PDF format with professional formatting",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📑"
+      },
+      "slug": "generate-pdf",
+      "path": "Zo/generate-pdf"
+    },
+    {
+      "name": "Set up code-server (VS Code in browser)",
+      "description": "Sets up VS Code in your web browser so you can write and edit code from anywhere",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "💻"
+      },
+      "slug": "code-server-setup",
+      "path": "Zo/code-server-setup"
+    },
+    {
+      "name": "Set up daily video studio with Remotion",
+      "description": "Sets up a system that automatically creates educational videos every day on a schedule",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🎥"
+      },
+      "slug": "daily-video",
+      "path": "Zo/daily-video"
+    },
+    {
+      "name": "Create a guestbook",
+      "description": "Build an interactive guestbook where visitors can leave messages.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📖"
+      },
+      "slug": "guestbook-site",
+      "path": "Zo/guestbook-site"
+    },
+    {
+      "name": "Find meetings with attendees",
+      "description": "Shows you all the people you've met with recently, organized by meeting",
+      "metadata": {
+        "author": "Zo"
+      },
+      "slug": "meeting-list",
+      "path": "Zo/meeting-list"
+    },
+    {
+      "name": "Text summary of important emails",
+      "description": "Finds your most important emails from the past 2 days and texts you a summary with suggested follow-ups",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "📧"
+      },
+      "slug": "important-email-digest",
+      "path": "Zo/important-email-digest"
+    },
+    {
+      "name": "Set up SSH server for remote access",
+      "description": "Sets up secure remote access to your Zo Computer so you can connect from anywhere",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🔐"
+      },
+      "slug": "setup-sshd",
+      "path": "Zo/setup-sshd"
+    },
+    {
+      "name": "Create ideal dating profile",
+      "description": "Creates an ideal dating profile by writing your bio and choosing the best photos in the right order",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "💌"
+      },
+      "slug": "dating-profile",
+      "path": "Zo/dating-profile"
+    },
+    {
+      "name": "Set up automated receipt processing system",
+      "description": "Automatically scans receipts you drop in a folder, extracts the details, and saves them to a searchable database",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🧾"
+      },
+      "slug": "setup-receipt-tracker",
+      "path": "Zo/setup-receipt-tracker"
+    },
+    {
+      "name": "google-direct-oauth",
+      "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.\n",
+      "compatibility": "Requires a Google Cloud Console account (free). Works on any Zo Computer.",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "🅖"
+      },
+      "slug": "google-direct-oauth",
+      "path": "Zo/google-direct-oauth"
+    },
+    {
+      "name": "Find recent Craigslist missed connections",
+      "description": "Finds recent missed connections posts from Craigslist and gives you the highlights",
+      "metadata": {
+        "author": "Zo",
+        "emoji": "💕"
+      },
+      "slug": "find-missed-connections",
+      "path": "Zo/find-missed-connections"
     },
     {
       "name": "Marketing Psychology & Mental Models",
@@ -19,7 +410,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "marketing-psychology",
-      "path": "marketing-psychology"
+      "path": "External/marketing-psychology"
     },
     {
       "name": "programmatic-seo",
@@ -28,7 +419,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "programmatic-seo",
-      "path": "programmatic-seo"
+      "path": "External/programmatic-seo"
     },
     {
       "name": "X (Twitter)",
@@ -58,27 +449,7 @@
         }
       },
       "slug": "twitter",
-      "path": "twitter"
-    },
-    {
-      "name": "Convert EPUB to Markdown",
-      "description": "Convert EPUB ebooks to Markdown format",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📚"
-      },
-      "slug": "epub-to-markdown",
-      "path": "epub-to-markdown"
-    },
-    {
-      "name": "Text commute travel time and route",
-      "description": "Gets your commute time and route options, then texts you the details",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🚏"
-      },
-      "slug": "text-commute-info",
-      "path": "text-commute-info"
+      "path": "External/twitter"
     },
     {
       "name": "Create Animated Videos (Remotion)",
@@ -88,7 +459,7 @@
         "tags": "remotion, video, react, animation, composition"
       },
       "slug": "remotion-best-practices",
-      "path": "remotion-best-practices"
+      "path": "External/remotion-best-practices"
     },
     {
       "name": "template-skill",
@@ -97,7 +468,7 @@
         "author": "Anthropic"
       },
       "slug": "template-skill",
-      "path": "template-skill"
+      "path": "External/template-skill"
     },
     {
       "name": "Blog Watcher",
@@ -127,7 +498,7 @@
         }
       },
       "slug": "blogwatcher",
-      "path": "blogwatcher"
+      "path": "External/blogwatcher"
     },
     {
       "name": "SEO Expert",
@@ -136,17 +507,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "seo-audit",
-      "path": "seo-audit"
-    },
-    {
-      "name": "Set up n8n workflow automation",
-      "description": "Sets up n8n workflow automation tool so you can create automated workflows between different apps and services",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🔗"
-      },
-      "slug": "n8n-setup",
-      "path": "n8n-setup"
+      "path": "External/seo-audit"
     },
     {
       "name": "Copywriting Expert",
@@ -155,7 +516,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "copywriting",
-      "path": "copywriting"
+      "path": "External/copywriting"
     },
     {
       "name": "Font & Color Theme Builder",
@@ -165,7 +526,7 @@
         "author": "Anthropic"
       },
       "slug": "theme-factory",
-      "path": "theme-factory"
+      "path": "External/theme-factory"
     },
     {
       "name": "launch-strategy",
@@ -174,17 +535,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "launch-strategy",
-      "path": "launch-strategy"
-    },
-    {
-      "name": "Set up hashcards spaced repetition system",
-      "description": "Sets up a spaced repetition flashcard system that you can access through your web browser to study and memorize information",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📇"
-      },
-      "slug": "hashcards-setup",
-      "path": "hashcards-setup"
+      "path": "External/launch-strategy"
     },
     {
       "name": "threejs-shaders",
@@ -193,7 +544,7 @@
         "author": "Cloudai-x"
       },
       "slug": "threejs-shaders",
-      "path": "threejs-shaders"
+      "path": "External/threejs-shaders"
     },
     {
       "name": "Access Last.fm data using an API key (free)",
@@ -202,7 +553,7 @@
         "author": "Clawdbot"
       },
       "slug": "lastfm",
-      "path": "lastfm"
+      "path": "External/lastfm"
     },
     {
       "name": "threejs-lighting",
@@ -211,27 +562,7 @@
         "author": "Cloudai-x"
       },
       "slug": "threejs-lighting",
-      "path": "threejs-lighting"
-    },
-    {
-      "name": "Set up Grafana for log visualization",
-      "description": "Sets up a visual dashboard to explore and analyze your system logs and data",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📈"
-      },
-      "slug": "grafana-setup",
-      "path": "grafana-setup"
-    },
-    {
-      "name": "Create a portfolio site",
-      "description": "Build a personal portfolio to showcase your work and resume.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🎨"
-      },
-      "slug": "portfolio-site",
-      "path": "portfolio-site"
+      "path": "External/threejs-lighting"
     },
     {
       "name": "Create Memes",
@@ -240,7 +571,7 @@
         "author": "Softaworks"
       },
       "slug": "meme-factory",
-      "path": "meme-factory"
+      "path": "External/meme-factory"
     },
     {
       "name": "doc-coauthoring",
@@ -249,7 +580,7 @@
         "author": "Anthropic"
       },
       "slug": "doc-coauthoring",
-      "path": "doc-coauthoring"
+      "path": "External/doc-coauthoring"
     },
     {
       "name": "threejs-geometry",
@@ -258,7 +589,7 @@
         "author": "Cloudai-x"
       },
       "slug": "threejs-geometry",
-      "path": "threejs-geometry"
+      "path": "External/threejs-geometry"
     },
     {
       "name": "threejs-interaction",
@@ -267,7 +598,7 @@
         "author": "Cloudai-x"
       },
       "slug": "threejs-interaction",
-      "path": "threejs-interaction"
+      "path": "External/threejs-interaction"
     },
     {
       "name": "Social Content Expert",
@@ -276,7 +607,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "social-content",
-      "path": "social-content"
+      "path": "External/social-content"
     },
     {
       "name": "threejs-postprocessing",
@@ -285,7 +616,7 @@
         "author": "Cloudai-x"
       },
       "slug": "threejs-postprocessing",
-      "path": "threejs-postprocessing"
+      "path": "External/threejs-postprocessing"
     },
     {
       "name": "Use LinkedIn",
@@ -308,17 +639,7 @@
         }
       },
       "slug": "linkedin-cli",
-      "path": "linkedin-cli"
-    },
-    {
-      "name": "Generate QR code with optional image",
-      "description": "Generates a QR code from any URL, and optionally overlays a custom image in the center",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📱"
-      },
-      "slug": "generate-custom-qr-code",
-      "path": "generate-custom-qr-code"
+      "path": "External/linkedin-cli"
     },
     {
       "name": "competitor-alternatives",
@@ -327,17 +648,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "competitor-alternatives",
-      "path": "competitor-alternatives"
-    },
-    {
-      "name": "Genome Analysis",
-      "description": "Analyzes your 23andMe genetic data to identify health risks, drug sensitivities, ancestry, and traits, then generates a personalized report",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🧬"
-      },
-      "slug": "personal-genomics-analysis",
-      "path": "personal-genomics-analysis"
+      "path": "External/competitor-alternatives"
     },
     {
       "name": "Copy Editing Expert",
@@ -346,17 +657,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "copy-editing",
-      "path": "copy-editing"
-    },
-    {
-      "name": "Enrich CSV with AI-generated columns",
-      "description": "Adds new columns to your spreadsheet by generating information for each row",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📊"
-      },
-      "slug": "enrich-csv",
-      "path": "enrich-csv"
+      "path": "External/copy-editing"
     },
     {
       "name": "Process PDF Files",
@@ -366,17 +667,7 @@
         "author": "Anthropic"
       },
       "slug": "pdf",
-      "path": "pdf"
-    },
-    {
-      "name": "Extract Text from Images (OCR)",
-      "description": "Extract text from images, scanned documents, and PDFs using OCR",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🔍"
-      },
-      "slug": "extract-text-from-image",
-      "path": "extract-text-from-image"
+      "path": "External/pdf"
     },
     {
       "name": "Generate Algorithmic Art",
@@ -386,7 +677,7 @@
         "author": "Anthropic"
       },
       "slug": "algorithmic-art",
-      "path": "algorithmic-art"
+      "path": "External/algorithmic-art"
     },
     {
       "name": "marketing-ideas",
@@ -395,7 +686,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "marketing-ideas",
-      "path": "marketing-ideas"
+      "path": "External/marketing-ideas"
     },
     {
       "name": "Video Frames (FFmpeg)",
@@ -425,17 +716,7 @@
         }
       },
       "slug": "video-frames",
-      "path": "video-frames"
-    },
-    {
-      "name": "Daily Linear digest",
-      "description": "Creates an automation to email you a summary of your Linear activity from the previous day",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📋"
-      },
-      "slug": "daily-linear-digest",
-      "path": "daily-linear-digest"
+      "path": "External/video-frames"
     },
     {
       "name": "threejs-loaders",
@@ -444,7 +725,7 @@
         "author": "Cloudai-x"
       },
       "slug": "threejs-loaders",
-      "path": "threejs-loaders"
+      "path": "External/threejs-loaders"
     },
     {
       "name": "EightSleep Pod Control",
@@ -474,7 +755,7 @@
         }
       },
       "slug": "eightctl",
-      "path": "eightctl"
+      "path": "External/eightctl"
     },
     {
       "name": "pricing-strategy",
@@ -483,7 +764,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "pricing-strategy",
-      "path": "pricing-strategy"
+      "path": "External/pricing-strategy"
     },
     {
       "name": "free-tool-strategy",
@@ -492,7 +773,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "free-tool-strategy",
-      "path": "free-tool-strategy"
+      "path": "External/free-tool-strategy"
     },
     {
       "name": "Google Workspace Tool",
@@ -522,7 +803,7 @@
         }
       },
       "slug": "gog",
-      "path": "gog"
+      "path": "External/gog"
     },
     {
       "name": "Use Notion",
@@ -542,48 +823,7 @@
         }
       },
       "slug": "notion",
-      "path": "notion"
-    },
-    {
-      "name": "Resize Images",
-      "description": "Resize images to specific dimensions or percentages",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🖼️"
-      },
-      "slug": "resize-image",
-      "path": "resize-image"
-    },
-    {
-      "name": "google-calendar",
-      "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
-      "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🅖"
-      },
-      "slug": "google-calendar",
-      "path": "google-calendar"
-    },
-    {
-      "name": "Summarize Hacker News front page",
-      "description": "Picks the most interesting articles from Hacker News, reads them, and emails you a summary",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🔶"
-      },
-      "slug": "summarize-hacker-news",
-      "path": "summarize-hacker-news"
-    },
-    {
-      "name": "Daily news digest",
-      "description": "Fetch the latest headlines on a topic you care about and email it to you every morning.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📰"
-      },
-      "slug": "daily-news-digest",
-      "path": "daily-news-digest"
+      "path": "External/notion"
     },
     {
       "name": "Create 3Blue1Brown Videos (Manim)",
@@ -592,7 +832,7 @@
         "author": "Adithya-s-k"
       },
       "slug": "manim-composer",
-      "path": "manim-composer"
+      "path": "External/manim-composer"
     },
     {
       "name": "analytics-tracking",
@@ -601,17 +841,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "analytics-tracking",
-      "path": "analytics-tracking"
-    },
-    {
-      "name": "Create Spotify playlist from Pitchfork Best New Tracks",
-      "description": "Finds the latest songs from Pitchfork's Best New Tracks and creates a Spotify playlist for you",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🎵"
-      },
-      "slug": "pitchfork-best-tracks",
-      "path": "pitchfork-best-tracks"
+      "path": "External/analytics-tracking"
     },
     {
       "name": "paid-ads",
@@ -620,7 +850,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "paid-ads",
-      "path": "paid-ads"
+      "path": "External/paid-ads"
     },
     {
       "name": "form-cro",
@@ -629,7 +859,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "form-cro",
-      "path": "form-cro"
+      "path": "External/form-cro"
     },
     {
       "name": "threejs-animation",
@@ -638,7 +868,7 @@
         "author": "Cloudai-x"
       },
       "slug": "threejs-animation",
-      "path": "threejs-animation"
+      "path": "External/threejs-animation"
     },
     {
       "name": "internal-comms",
@@ -648,7 +878,7 @@
         "author": "Anthropic"
       },
       "slug": "internal-comms",
-      "path": "internal-comms"
+      "path": "External/internal-comms"
     },
     {
       "name": "page-cro",
@@ -657,7 +887,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "page-cro",
-      "path": "page-cro"
+      "path": "External/page-cro"
     },
     {
       "name": "skill-creator",
@@ -667,17 +897,7 @@
         "author": "Anthropic"
       },
       "slug": "skill-creator",
-      "path": "skill-creator"
-    },
-    {
-      "name": "Automate something",
-      "description": "Create an automation with a Zo Agent task",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "⚙️"
-      },
-      "slug": "automate-something",
-      "path": "automate-something"
+      "path": "External/skill-creator"
     },
     {
       "name": "canvas-design",
@@ -687,17 +907,7 @@
         "author": "Anthropic"
       },
       "slug": "canvas-design",
-      "path": "canvas-design"
-    },
-    {
-      "name": "Create syllabus reminders",
-      "description": "Reads your syllabus, finds all due dates, and sets up text reminders and calendar events so you never miss an assignment",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🔖"
-      },
-      "slug": "syllabus-reminders",
-      "path": "syllabus-reminders"
+      "path": "External/canvas-design"
     },
     {
       "name": "GitHub",
@@ -726,7 +936,7 @@
         }
       },
       "slug": "github",
-      "path": "github"
+      "path": "External/github"
     },
     {
       "name": "signup-flow-cro",
@@ -735,17 +945,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "signup-flow-cro",
-      "path": "signup-flow-cro"
-    },
-    {
-      "name": "Research a topic",
-      "description": "Use Zo to research any topic comprehensively and write a report.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🔬"
-      },
-      "slug": "research-topic",
-      "path": "research-topic"
+      "path": "External/signup-flow-cro"
     },
     {
       "name": "Brainstorming Expert",
@@ -754,17 +954,7 @@
         "author": "Obra"
       },
       "slug": "brainstorming",
-      "path": "brainstorming"
-    },
-    {
-      "name": "Create a site",
-      "description": "Create a site hosted on your Zo server. Private by default, publish with a click.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "⚡"
-      },
-      "slug": "create-site",
-      "path": "create-site"
+      "path": "External/brainstorming"
     },
     {
       "name": "Use MCP Server",
@@ -794,27 +984,7 @@
         }
       },
       "slug": "mcporter",
-      "path": "mcporter"
-    },
-    {
-      "name": "Remove Photo Metadata",
-      "description": "Strip all metadata from images for privacy",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🔒"
-      },
-      "slug": "remove-photo-metadata",
-      "path": "remove-photo-metadata"
-    },
-    {
-      "name": "Create a slide deck",
-      "description": "Turn any reference material into a polished, visually cohesive slide deck.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🎞️"
-      },
-      "slug": "create-slidedeck",
-      "path": "create-slidedeck"
+      "path": "External/mcporter"
     },
     {
       "name": "Read Reddit Content",
@@ -828,17 +998,7 @@
         "r/"
       ],
       "slug": "reddit",
-      "path": "reddit"
-    },
-    {
-      "name": "Texting positive affirmations daily",
-      "description": "Send yourself a daily text message with a randomly selected or rotating positive affirmation.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "✨"
-      },
-      "slug": "daily-affirmations",
-      "path": "daily-affirmations"
+      "path": "External/reddit"
     },
     {
       "name": "Create Animated GIFs for Slack",
@@ -848,17 +1008,7 @@
         "author": "Anthropic"
       },
       "slug": "slack-gif-creator",
-      "path": "slack-gif-creator"
-    },
-    {
-      "name": "Organize my files",
-      "description": "Organizes your scattered files into logical folders by project, type, and purpose",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🗂️"
-      },
-      "slug": "organize-workspace",
-      "path": "organize-workspace"
+      "path": "External/slack-gif-creator"
     },
     {
       "name": "Control tmux sessions",
@@ -880,27 +1030,7 @@
         }
       },
       "slug": "tmux",
-      "path": "tmux"
-    },
-    {
-      "name": "Weekly meeting reminder",
-      "description": "Get an email every Sunday evening listing your meetings for the coming week.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🗓️"
-      },
-      "slug": "weekly-meeting-reminder",
-      "path": "weekly-meeting-reminder"
-    },
-    {
-      "name": "Plan code changes",
-      "description": "Plan out code changes using a plan file.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🧑🏻‍💻"
-      },
-      "slug": "plan-code-changes",
-      "path": "plan-code-changes"
+      "path": "External/tmux"
     },
     {
       "name": "threejs-fundamentals",
@@ -909,7 +1039,7 @@
         "author": "Cloudai-x"
       },
       "slug": "threejs-fundamentals",
-      "path": "threejs-fundamentals"
+      "path": "External/threejs-fundamentals"
     },
     {
       "name": "Help me cancel my subscriptions",
@@ -919,7 +1049,7 @@
       },
       "attribution": "Originally created by rohunvora (https://github.com/rohunvora/just-fucking-cancel)",
       "slug": "just-fucking-cancel",
-      "path": "just-fucking-cancel"
+      "path": "External/just-fucking-cancel"
     },
     {
       "name": "webapp-testing",
@@ -929,17 +1059,7 @@
         "author": "Anthropic"
       },
       "slug": "webapp-testing",
-      "path": "webapp-testing"
-    },
-    {
-      "name": "Process file line-by-line with script",
-      "description": "Processes every line of a file one by one, transforming or extracting information from each line",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🔄"
-      },
-      "slug": "for-each-line",
-      "path": "for-each-line"
+      "path": "External/webapp-testing"
     },
     {
       "name": "Stripe Best Practices",
@@ -948,17 +1068,7 @@
         "author": "Stripe"
       },
       "slug": "stripe-best-practices",
-      "path": "stripe-best-practices"
-    },
-    {
-      "name": "Plant Care Plan",
-      "description": "Creates a comprehensive care guide for your specific plant",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🪴"
-      },
-      "slug": "plant-care-plan",
-      "path": "plant-care-plan"
+      "path": "External/stripe-best-practices"
     },
     {
       "name": "onboarding-cro",
@@ -967,7 +1077,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "onboarding-cro",
-      "path": "onboarding-cro"
+      "path": "External/onboarding-cro"
     },
     {
       "name": "Weather",
@@ -986,7 +1096,7 @@
         }
       },
       "slug": "weather",
-      "path": "weather"
+      "path": "External/weather"
     },
     {
       "name": "Shorten URLs",
@@ -995,7 +1105,7 @@
         "author": "Clawdbot"
       },
       "slug": "shorten",
-      "path": "shorten"
+      "path": "External/shorten"
     },
     {
       "name": "paywall-upgrade-cro",
@@ -1004,7 +1114,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "paywall-upgrade-cro",
-      "path": "paywall-upgrade-cro"
+      "path": "External/paywall-upgrade-cro"
     },
     {
       "name": "frontend-design",
@@ -1014,7 +1124,7 @@
         "author": "Anthropic"
       },
       "slug": "frontend-design",
-      "path": "frontend-design"
+      "path": "External/frontend-design"
     },
     {
       "name": "schema-markup",
@@ -1023,7 +1133,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "schema-markup",
-      "path": "schema-markup"
+      "path": "External/schema-markup"
     },
     {
       "name": "Use Trello",
@@ -1046,27 +1156,7 @@
         }
       },
       "slug": "trello",
-      "path": "trello"
-    },
-    {
-      "name": "Create a blog",
-      "description": "Build a blog or newsletter to share your thoughts.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📝"
-      },
-      "slug": "blog-site",
-      "path": "blog-site"
-    },
-    {
-      "name": "Generate PDF from Markdown",
-      "description": "Convert Markdown files to PDF format with professional formatting",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📑"
-      },
-      "slug": "generate-pdf",
-      "path": "generate-pdf"
+      "path": "External/trello"
     },
     {
       "name": "popup-cro",
@@ -1075,27 +1165,7 @@
         "author": "Coreyhaines31"
       },
       "slug": "popup-cro",
-      "path": "popup-cro"
-    },
-    {
-      "name": "Set up code-server (VS Code in browser)",
-      "description": "Sets up VS Code in your web browser so you can write and edit code from anywhere",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "💻"
-      },
-      "slug": "code-server-setup",
-      "path": "code-server-setup"
-    },
-    {
-      "name": "Set up daily video studio with Remotion",
-      "description": "Sets up a system that automatically creates educational videos every day on a schedule",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🎥"
-      },
-      "slug": "daily-video",
-      "path": "daily-video"
+      "path": "External/popup-cro"
     },
     {
       "name": "threejs-textures",
@@ -1104,17 +1174,7 @@
         "author": "Cloudai-x"
       },
       "slug": "threejs-textures",
-      "path": "threejs-textures"
-    },
-    {
-      "name": "Create a guestbook",
-      "description": "Build an interactive guestbook where visitors can leave messages.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📖"
-      },
-      "slug": "guestbook-site",
-      "path": "guestbook-site"
+      "path": "External/threejs-textures"
     },
     {
       "name": "mcp-builder",
@@ -1124,26 +1184,7 @@
         "author": "Anthropic"
       },
       "slug": "mcp-builder",
-      "path": "mcp-builder"
-    },
-    {
-      "name": "Find meetings with attendees",
-      "description": "Shows you all the people you've met with recently, organized by meeting",
-      "metadata": {
-        "author": "Zo"
-      },
-      "slug": "meeting-list",
-      "path": "meeting-list"
-    },
-    {
-      "name": "Text summary of important emails",
-      "description": "Finds your most important emails from the past 2 days and texts you a summary with suggested follow-ups",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "📧"
-      },
-      "slug": "important-email-digest",
-      "path": "important-email-digest"
+      "path": "External/mcp-builder"
     },
     {
       "name": "email-sequence",
@@ -1152,17 +1193,82 @@
         "author": "Coreyhaines31"
       },
       "slug": "email-sequence",
-      "path": "email-sequence"
+      "path": "External/email-sequence"
     },
     {
-      "name": "Set up SSH server for remote access",
-      "description": "Sets up secure remote access to your Zo Computer so you can connect from anywhere",
+      "name": "brand-guidelines",
+      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "brand-guidelines",
+      "path": "External/brand-guidelines"
+    },
+    {
+      "name": "Fetch snow conditions for any ski resort",
+      "description": "Get snow conditions, forecasts, and ski reports for any mountain resort worldwide. Use when asked about snow, powder, ski conditions, or mountain weather. Supports 1000+ resorts via OpenSnow. Users can set favorite mountains for quick access. Supports SnowTick 4-letter codes (JHMR, TARG, MMTH) for quick lookups.",
+      "metadata": {
+        "author": "Clawdbot"
+      },
+      "slug": "snow-report",
+      "path": "External/snow-report"
+    },
+    {
+      "name": "ab-test-setup",
+      "description": "When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions \"A/B test,\" \"split test,\" \"experiment,\" \"test this change,\" \"variant copy,\" \"multivariate test,\" or \"hypothesis.\" For tracking implementation, see analytics-tracking.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "ab-test-setup",
+      "path": "External/ab-test-setup"
+    },
+    {
+      "name": "threejs-materials",
+      "description": "Three.js materials - PBR, basic, phong, shader materials, material properties. Use when styling meshes, working with textures, creating custom shaders, or optimizing material performance.",
+      "metadata": {
+        "author": "Cloudai-x"
+      },
+      "slug": "threejs-materials",
+      "path": "External/threejs-materials"
+    },
+    {
+      "name": "referral-program",
+      "description": "When the user wants to create, optimize, or analyze a referral program, affiliate program, or word-of-mouth strategy. Also use when the user mentions 'referral,' 'affiliate,' 'ambassador,' 'word of mouth,' 'viral loop,' 'refer a friend,' or 'partner program.' This skill covers program design, incentive structure, and growth optimization.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "referral-program",
+      "path": "External/referral-program"
+    },
+    {
+      "name": "web-artifacts-builder",
+      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic"
+      },
+      "slug": "web-artifacts-builder",
+      "path": "External/web-artifacts-builder"
+    },
+    {
+      "name": "Use Yahoo Finance",
+      "description": "Get stock prices, quotes, fundamentals, earnings, options, dividends, and analyst ratings using Yahoo Finance. Uses yfinance library - no API key required.",
+      "metadata": {
+        "author": "Clawdbot"
+      },
+      "slug": "yahoo-finance",
+      "path": "External/yahoo-finance"
+    },
+    {
+      "name": "Set up hashcards spaced repetition system",
+      "description": "Sets up a spaced repetition flashcard system that you can access through your web browser to study and memorize information",
       "metadata": {
         "author": "Zo",
-        "emoji": "🔐"
+        "emoji": "📇"
       },
-      "slug": "setup-sshd",
-      "path": "setup-sshd"
+      "slug": "hashcards-setup",
+      "path": "Community/hashcards-setup"
     },
     {
       "name": "Generate flashcards from a webpage or document",
@@ -1173,113 +1279,7 @@
         "emoji": "📇"
       },
       "slug": "add-flashcards",
-      "path": "add-flashcards"
-    },
-    {
-      "name": "Create ideal dating profile",
-      "description": "Creates an ideal dating profile by writing your bio and choosing the best photos in the right order",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "💌"
-      },
-      "slug": "dating-profile",
-      "path": "dating-profile"
-    },
-    {
-      "name": "Set up automated receipt processing system",
-      "description": "Automatically scans receipts you drop in a folder, extracts the details, and saves them to a searchable database",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🧾"
-      },
-      "slug": "setup-receipt-tracker",
-      "path": "setup-receipt-tracker"
-    },
-    {
-      "name": "brand-guidelines",
-      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
-      "license": "Complete terms in LICENSE.txt",
-      "metadata": {
-        "author": "Anthropic"
-      },
-      "slug": "brand-guidelines",
-      "path": "brand-guidelines"
-    },
-    {
-      "name": "google-direct-oauth",
-      "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.\n",
-      "compatibility": "Requires a Google Cloud Console account (free). Works on any Zo Computer.",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "🅖"
-      },
-      "slug": "google-direct-oauth",
-      "path": "google-direct-oauth"
-    },
-    {
-      "name": "Fetch snow conditions for any ski resort",
-      "description": "Get snow conditions, forecasts, and ski reports for any mountain resort worldwide. Use when asked about snow, powder, ski conditions, or mountain weather. Supports 1000+ resorts via OpenSnow. Users can set favorite mountains for quick access. Supports SnowTick 4-letter codes (JHMR, TARG, MMTH) for quick lookups.",
-      "metadata": {
-        "author": "Clawdbot"
-      },
-      "slug": "snow-report",
-      "path": "snow-report"
-    },
-    {
-      "name": "ab-test-setup",
-      "description": "When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions \"A/B test,\" \"split test,\" \"experiment,\" \"test this change,\" \"variant copy,\" \"multivariate test,\" or \"hypothesis.\" For tracking implementation, see analytics-tracking.",
-      "metadata": {
-        "author": "Coreyhaines31"
-      },
-      "slug": "ab-test-setup",
-      "path": "ab-test-setup"
-    },
-    {
-      "name": "threejs-materials",
-      "description": "Three.js materials - PBR, basic, phong, shader materials, material properties. Use when styling meshes, working with textures, creating custom shaders, or optimizing material performance.",
-      "metadata": {
-        "author": "Cloudai-x"
-      },
-      "slug": "threejs-materials",
-      "path": "threejs-materials"
-    },
-    {
-      "name": "referral-program",
-      "description": "When the user wants to create, optimize, or analyze a referral program, affiliate program, or word-of-mouth strategy. Also use when the user mentions 'referral,' 'affiliate,' 'ambassador,' 'word of mouth,' 'viral loop,' 'refer a friend,' or 'partner program.' This skill covers program design, incentive structure, and growth optimization.",
-      "metadata": {
-        "author": "Coreyhaines31"
-      },
-      "slug": "referral-program",
-      "path": "referral-program"
-    },
-    {
-      "name": "Find recent Craigslist missed connections",
-      "description": "Finds recent missed connections posts from Craigslist and gives you the highlights",
-      "metadata": {
-        "author": "Zo",
-        "emoji": "💕"
-      },
-      "slug": "find-missed-connections",
-      "path": "find-missed-connections"
-    },
-    {
-      "name": "web-artifacts-builder",
-      "description": "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui). Use for complex artifacts requiring state management, routing, or shadcn/ui components - not for simple single-file HTML/JSX artifacts.",
-      "license": "Complete terms in LICENSE.txt",
-      "metadata": {
-        "author": "Anthropic"
-      },
-      "slug": "web-artifacts-builder",
-      "path": "web-artifacts-builder"
-    },
-    {
-      "name": "Use Yahoo Finance",
-      "description": "Get stock prices, quotes, fundamentals, earnings, options, dividends, and analyst ratings using Yahoo Finance. Uses yfinance library - no API key required.",
-      "metadata": {
-        "author": "Clawdbot"
-      },
-      "slug": "yahoo-finance",
-      "path": "yahoo-finance"
+      "path": "Community/add-flashcards"
     }
   ]
 }

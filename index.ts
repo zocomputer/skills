@@ -1,4 +1,14 @@
-import { cp, mkdtemp, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
+import {
+  cp,
+  mkdtemp,
+  mkdir,
+  readFile,
+  readdir,
+  rename,
+  rm,
+  stat,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import matter from "gray-matter";
@@ -11,6 +21,12 @@ type Issue = {
 
 const ROOT_DIR = process.cwd();
 const INSTALL_AGENT = "codex";
+const ZO_DIR = "Zo";
+const EXTERNAL_DIR = "External";
+const COMMUNITY_DIR = "Community";
+const SKILL_GROUP_DIRS = [ZO_DIR, EXTERNAL_DIR, COMMUNITY_DIR];
+const SKILL_GROUP_SET = new Set(SKILL_GROUP_DIRS);
+const COMMUNITY_SLUGS = new Set(["add-flashcards", "hashcards-setup"]);
 // Skip non-skill dirs and any gitignored folders during validation.
 const NON_SKILL_DIRS = new Set([
   ".git",
@@ -20,6 +36,7 @@ const NON_SKILL_DIRS = new Set([
   ".clawdhub",
   ".skills",
   "node_modules",
+  ...SKILL_GROUP_DIRS,
 ]);
 const ALLOWED_SKILL_DIRS = new Set(["assets", "references", "scripts"]);
 
@@ -43,21 +60,60 @@ const isGitIgnored = (targetPath: string) => {
   return result.exitCode === 0;
 };
 
+const ensureSkillGroupDirs = async () => {
+  for (const group of SKILL_GROUP_DIRS) {
+    const fullPath = path.join(ROOT_DIR, group);
+    await mkdir(fullPath, { recursive: true });
+  }
+};
+
+const isSkillDirectory = async (targetPath: string) => {
+  try {
+    return (await stat(path.join(targetPath, "SKILL.md"))).isFile();
+  } catch {
+    return false;
+  }
+};
+
 const loadSkillDirectories = async () => {
   const skillDirs: string[] = [];
-  const entries = await readdir(ROOT_DIR, { withFileTypes: true });
-  for (const entry of entries) {
+  const groupPaths = await Promise.all(
+    SKILL_GROUP_DIRS.map(async (group) => {
+      const fullPath = path.join(ROOT_DIR, group);
+      return (await isDirectory(fullPath)) ? fullPath : null;
+    }),
+  );
+  for (const groupPath of groupPaths.filter(Boolean) as string[]) {
+    const entries = await readdir(groupPath, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory()) {
+        continue;
+      }
+      const fullPath = path.join(groupPath, entry.name);
+      if (isGitIgnored(fullPath)) {
+        continue;
+      }
+      if (await isSkillDirectory(fullPath)) {
+        skillDirs.push(fullPath);
+      }
+    }
+  }
+  // Backward-compatible: catch any skills still at repo root.
+  const rootEntries = await readdir(ROOT_DIR, { withFileTypes: true });
+  for (const entry of rootEntries) {
     if (!entry.isDirectory()) {
       continue;
     }
-    if (NON_SKILL_DIRS.has(entry.name)) {
+    if (NON_SKILL_DIRS.has(entry.name) || SKILL_GROUP_SET.has(entry.name)) {
       continue;
     }
     const fullPath = path.join(ROOT_DIR, entry.name);
     if (isGitIgnored(fullPath)) {
       continue;
     }
-    skillDirs.push(fullPath);
+    if (await isSkillDirectory(fullPath)) {
+      skillDirs.push(fullPath);
+    }
   }
   return skillDirs;
 };
@@ -146,6 +202,77 @@ const escapeTableValue = (value: string) => value.replace(/\|/g, "\\|");
 
 const normalizeTableText = (value: string) => value.replace(/\s+/g, " ").trim();
 
+const resolveSkillGroup = (slug: string, externalSlugs: Set<string>) => {
+  if (COMMUNITY_SLUGS.has(slug)) {
+    return COMMUNITY_DIR;
+  }
+  if (externalSlugs.has(slug)) {
+    return EXTERNAL_DIR;
+  }
+  return ZO_DIR;
+};
+
+const collectSkillDirectoriesForReorg = async () => {
+  const skillDirs = new Map<string, string>();
+  const rootEntries = await readdir(ROOT_DIR, { withFileTypes: true });
+  for (const entry of rootEntries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+    if (NON_SKILL_DIRS.has(entry.name) || SKILL_GROUP_SET.has(entry.name)) {
+      continue;
+    }
+    const fullPath = path.join(ROOT_DIR, entry.name);
+    if (isGitIgnored(fullPath)) {
+      continue;
+    }
+    if (await isSkillDirectory(fullPath)) {
+      skillDirs.set(entry.name, fullPath);
+    }
+  }
+  for (const group of SKILL_GROUP_DIRS) {
+    const groupPath = path.join(ROOT_DIR, group);
+    if (!(await isDirectory(groupPath))) {
+      continue;
+    }
+    const entries = await readdir(groupPath, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory()) {
+        continue;
+      }
+      const fullPath = path.join(groupPath, entry.name);
+      if (isGitIgnored(fullPath)) {
+        continue;
+      }
+      if (await isSkillDirectory(fullPath)) {
+        skillDirs.set(entry.name, fullPath);
+      }
+    }
+  }
+  return skillDirs;
+};
+
+const reorganizeSkillDirectories = async (externalSlugs: Set<string>) => {
+  await ensureSkillGroupDirs();
+  const skillDirs = await collectSkillDirectoriesForReorg();
+  let moved = 0;
+  for (const [slug, currentPath] of skillDirs.entries()) {
+    const group = resolveSkillGroup(slug, externalSlugs);
+    const targetPath = path.join(ROOT_DIR, group, slug);
+    if (path.resolve(currentPath) === path.resolve(targetPath)) {
+      continue;
+    }
+    try {
+      await rm(targetPath, { recursive: true, force: true });
+      await rename(currentPath, targetPath);
+      moved += 1;
+    } catch {
+      console.log(`Unable to move ${slug} to ${group}.`);
+    }
+  }
+  return moved;
+};
+
 const resolveRecordDescription = (
   entry: Record<string, unknown>,
   manifestDescriptions: Map<string, string>,
@@ -159,6 +286,14 @@ const resolveRecordDescription = (
   }
   if (typeof entry.name === "string" && entry.name.trim()) {
     return escapeTableValue(normalizeTableText(entry.name));
+  }
+  return "";
+};
+
+const resolveRecordAuthor = (entry: Record<string, unknown>, manifestAuthors: Map<string, string>) => {
+  const slug = resolveRecordSlug(entry);
+  if (slug && manifestAuthors.has(slug)) {
+    return escapeTableValue(normalizeTableText(manifestAuthors.get(slug) ?? ""));
   }
   return "";
 };
@@ -190,10 +325,11 @@ const getRepoRef = () => {
 const buildSkillsTable = (
   entries: Record<string, unknown>[],
   manifestDescriptions: Map<string, string>,
+  manifestAuthors: Map<string, string>,
 ) => {
   const lines = [
-    "| Skill | Description |",
-    "| --- | --- |",
+    "| Skill | Author | Description |",
+    "| --- | --- | --- |",
   ];
   const repoUrl = getRepoHttpUrl();
   const ref = getRepoRef();
@@ -203,8 +339,9 @@ const buildSkillsTable = (
       continue;
     }
     const description = resolveRecordDescription(entry, manifestDescriptions);
-    const link = `${repoUrl}/blob/${ref}/${slug}/SKILL.md`;
-    lines.push(`| [${slug}](${link}) | ${description} |`);
+    const author = resolveRecordAuthor(entry, manifestAuthors);
+    const link = `${repoUrl}/blob/${ref}/${EXTERNAL_DIR}/${slug}/SKILL.md`;
+    lines.push(`| [${slug}](${link}) | ${author} | ${description} |`);
   }
   lines.push("");
   return lines.join("\n");
@@ -264,6 +401,39 @@ const loadManifestDescriptions = async () => {
     return descriptions;
   } catch {
     console.log("Unable to parse manifest.json; using external.yml metadata for descriptions.");
+    return new Map<string, string>();
+  }
+};
+
+const loadManifestAuthors = async () => {
+  const manifestPath = path.join(ROOT_DIR, "manifest.json");
+  let raw = "";
+  try {
+    raw = await readFile(manifestPath, "utf8");
+  } catch {
+    console.log("manifest.json not found; using external.yml metadata for authors.");
+    return new Map<string, string>();
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as SkillManifest;
+    const authors = new Map<string, string>();
+    for (const skill of parsed.skills ?? []) {
+      if (!skill || typeof skill.slug !== "string") {
+        continue;
+      }
+      const metadata = (skill as Record<string, unknown>).metadata;
+      if (!metadata || typeof metadata !== "object") {
+        continue;
+      }
+      const author = (metadata as Record<string, unknown>).author;
+      if (typeof author === "string" && author.trim()) {
+        authors.set(skill.slug, author.trim());
+      }
+    }
+    return authors;
+  } catch {
+    console.log("Unable to parse manifest.json; using external.yml metadata for authors.");
     return new Map<string, string>();
   }
 };
@@ -340,10 +510,18 @@ const organizeExternalConfig = async () => {
 
   const output = stringifyYaml(organized, { lineWidth: 0 });
   await writeFile(EXTERNAL_CONFIG, output);
+  const externalSlugs = new Set(
+    organized.map((entry) => resolveRecordSlug(entry)).filter(Boolean),
+  );
+  const moved = await reorganizeSkillDirectories(externalSlugs);
   const manifestDescriptions = await loadManifestDescriptions();
-  const table = buildSkillsTable(organized, manifestDescriptions);
+  const manifestAuthors = await loadManifestAuthors();
+  const table = buildSkillsTable(organized, manifestDescriptions, manifestAuthors);
   await upsertSkillsTableInReadme(table);
   console.log(`Organized ${organized.length} external skill entries.`);
+  if (moved > 0) {
+    console.log(`Moved ${moved} skill(s) into ${SKILL_GROUP_DIRS.join(", ")}.`);
+  }
   return 0;
 };
 
@@ -868,7 +1046,8 @@ const copySkillIntoRepo = async (source: ExternalSkill, canonicalSkillsDir: stri
   const canonicalSlug = resolveSkillSlug(source);
   const targetSlug = resolveTargetSlug(source);
   const canonicalPath = path.join(canonicalSkillsDir, canonicalSlug);
-  const targetPath = path.join(ROOT_DIR, targetSlug);
+  const targetPath = path.join(ROOT_DIR, EXTERNAL_DIR, targetSlug);
+  await mkdir(path.join(ROOT_DIR, EXTERNAL_DIR), { recursive: true });
   await rm(targetPath, { recursive: true, force: true });
   await cp(canonicalPath, targetPath, { recursive: true });
   return targetPath;
@@ -940,7 +1119,7 @@ const writeManifest = async () => {
 
 // Sync external skills via add-skill CLI non-interactively.
 // We install into Codex (.agents/skills) to avoid TTY prompts, then copy the
-// canonical skill into the repo root and clean up agent dirs.
+// canonical skill into External and clean up agent dirs.
 const createSyncWorkspace = async () => mkdtemp(path.join(tmpdir(), "skills-sync-"));
 
 const readStream = async (stream: ReadableStream<Uint8Array> | null | undefined) => {
@@ -1023,7 +1202,7 @@ const syncExternalSource = async (source: ExternalSkill): Promise<SyncResult> =>
     try {
       targetPath = await copySkillIntoRepo(source, canonicalSkillsDir);
     } catch {
-      return { source, ok: false, message: `Unable to copy ${targetSlug} into repo root.` };
+      return { source, ok: false, message: `Unable to copy ${targetSlug} into External.` };
     }
 
     const skillFile = path.join(targetPath, "SKILL.md");
@@ -1295,7 +1474,7 @@ const syncExternalMetadata = async () => {
     if (!targetSlug) {
       continue;
     }
-    const targetPath = path.join(ROOT_DIR, targetSlug);
+    const targetPath = path.join(ROOT_DIR, EXTERNAL_DIR, targetSlug);
     if (!(await isDirectory(targetPath))) {
       missing += 1;
       continue;
