@@ -2,6 +2,7 @@
 name: Process XLSX Files
 metadata:
   author: Anthropic
+  category: External
 ---
 
 ---

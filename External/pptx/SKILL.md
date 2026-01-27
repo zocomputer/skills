@@ -2,6 +2,7 @@
 name: Process PPTX Files
 metadata:
   author: Anthropic
+  category: External
 ---
 
 ---

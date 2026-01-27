@@ -4,6 +4,7 @@ description: A set of resources to help me write all kinds of internal communica
 license: Complete terms in LICENSE.txt
 metadata:
   author: Anthropic
+  category: External
 ---
 
 ## When to use this skill

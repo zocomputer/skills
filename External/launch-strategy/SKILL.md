@@ -3,6 +3,7 @@ name: launch-strategy
 description: When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,' or 'product update.' This skill covers phased launches, channel strategy, and ongoing launch momentum.
 metadata:
   author: Coreyhaines31
+  category: External
 ---
 
 # Launch Strategy

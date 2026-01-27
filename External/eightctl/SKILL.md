@@ -5,6 +5,7 @@ homepage: https://eightctl.sh
 compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
+  category: External
   clawdbot: {"emoji":"🎛️","requires":{"bins":["eightctl"]},"install":[{"id":"go","kind":"go","module":"github.com/steipete/eightctl/cmd/eightctl@latest","bins":["eightctl"],"label":"Install eightctl (go)"}]}
 ---
 

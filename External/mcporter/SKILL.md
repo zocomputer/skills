@@ -5,6 +5,7 @@ homepage: http://mcporter.dev
 compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
+  category: External
   clawdbot: {"emoji":"📦","requires":{"bins":["mcporter"]},"install":[{"id":"node","kind":"node","package":"mcporter","bins":["mcporter"],"label":"Install mcporter (node)"}]}
 ---
 

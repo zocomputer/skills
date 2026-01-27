@@ -3,6 +3,7 @@ name: Shorten URLs
 description: Shorten URLs using is.gd (no auth required). Returns a permanent short link.
 metadata:
   author: Clawdbot
+  category: External
 ---
 
 # Notice

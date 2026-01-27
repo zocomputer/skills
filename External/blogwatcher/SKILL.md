@@ -5,6 +5,7 @@ homepage: https://github.com/Hyaxia/blogwatcher
 compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
+  category: External
   clawdbot: {"emoji":"📰","requires":{"bins":["blogwatcher"]},"install":[{"id":"go","kind":"go","module":"github.com/Hyaxia/blogwatcher/cmd/blogwatcher@latest","bins":["blogwatcher"],"label":"Install blogwatcher (go)"}]}
 ---
 

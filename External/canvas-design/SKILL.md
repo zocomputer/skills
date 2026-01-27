@@ -4,6 +4,7 @@ description: Create beautiful visual art in .png and .pdf documents using design
 license: Complete terms in LICENSE.txt
 metadata:
   author: Anthropic
+  category: External
 ---
 
 These are instructions for creating design philosophies - aesthetic movements that are then EXPRESSED VISUALLY. Output only .md files, .pdf files, and .png files.

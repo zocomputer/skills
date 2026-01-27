@@ -4,6 +4,7 @@ description: Toolkit for interacting with and testing local web applications usi
 license: Complete terms in LICENSE.txt
 metadata:
   author: Anthropic
+  category: External
 ---
 
 # Web Application Testing

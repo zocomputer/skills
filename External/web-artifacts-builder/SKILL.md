@@ -4,6 +4,7 @@ description: Suite of tools for creating elaborate, multi-component claude.ai HT
 license: Complete terms in LICENSE.txt
 metadata:
   author: Anthropic
+  category: External
 ---
 
 # Web Artifacts Builder

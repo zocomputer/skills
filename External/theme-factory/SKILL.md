@@ -4,6 +4,7 @@ description: Toolkit for styling artifacts with a theme. These artifacts can be 
 license: Complete terms in LICENSE.txt
 metadata:
   author: Anthropic
+  category: External
 ---
 
 # Theme Factory Skill

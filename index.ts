@@ -23,10 +23,6 @@ const ROOT_DIR = process.cwd();
 const INSTALL_AGENT = "codex";
 const ZO_DIR = "Zo";
 const EXTERNAL_DIR = "External";
-const COMMUNITY_DIR = "Community";
-const SKILL_GROUP_DIRS = [ZO_DIR, EXTERNAL_DIR, COMMUNITY_DIR];
-const SKILL_GROUP_SET = new Set(SKILL_GROUP_DIRS);
-const COMMUNITY_SLUGS = new Set(["add-flashcards", "hashcards-setup"]);
 // Skip non-skill dirs and any gitignored folders during validation.
 const NON_SKILL_DIRS = new Set([
   ".git",
@@ -36,7 +32,6 @@ const NON_SKILL_DIRS = new Set([
   ".clawdhub",
   ".skills",
   "node_modules",
-  ...SKILL_GROUP_DIRS,
 ]);
 const ALLOWED_SKILL_DIRS = new Set(["assets", "references", "scripts"]);
 
@@ -60,12 +55,26 @@ const isGitIgnored = (targetPath: string) => {
   return result.exitCode === 0;
 };
 
-const ensureSkillGroupDirs = async () => {
-  for (const group of SKILL_GROUP_DIRS) {
-    const fullPath = path.join(ROOT_DIR, group);
-    await mkdir(fullPath, { recursive: true });
+const getCategoryDirs = async () => {
+  const categories: string[] = [];
+  const entries = await readdir(ROOT_DIR, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+    if (NON_SKILL_DIRS.has(entry.name)) {
+      continue;
+    }
+    const fullPath = path.join(ROOT_DIR, entry.name);
+    if (isGitIgnored(fullPath)) {
+      continue;
+    }
+    categories.push(entry.name);
   }
+  return categories;
 };
+
+const getCategorySet = async () => new Set(await getCategoryDirs());
 
 const isSkillDirectory = async (targetPath: string) => {
   try {
@@ -77,13 +86,9 @@ const isSkillDirectory = async (targetPath: string) => {
 
 const loadSkillDirectories = async () => {
   const skillDirs: string[] = [];
-  const groupPaths = await Promise.all(
-    SKILL_GROUP_DIRS.map(async (group) => {
-      const fullPath = path.join(ROOT_DIR, group);
-      return (await isDirectory(fullPath)) ? fullPath : null;
-    }),
-  );
-  for (const groupPath of groupPaths.filter(Boolean) as string[]) {
+  const categories = await getCategoryDirs();
+  for (const category of categories) {
+    const groupPath = path.join(ROOT_DIR, category);
     const entries = await readdir(groupPath, { withFileTypes: true });
     for (const entry of entries) {
       if (!entry.isDirectory()) {
@@ -104,7 +109,7 @@ const loadSkillDirectories = async () => {
     if (!entry.isDirectory()) {
       continue;
     }
-    if (NON_SKILL_DIRS.has(entry.name) || SKILL_GROUP_SET.has(entry.name)) {
+    if (NON_SKILL_DIRS.has(entry.name)) {
       continue;
     }
     const fullPath = path.join(ROOT_DIR, entry.name);
@@ -202,14 +207,19 @@ const escapeTableValue = (value: string) => value.replace(/\|/g, "\\|");
 
 const normalizeTableText = (value: string) => value.replace(/\s+/g, " ").trim();
 
-const resolveSkillGroup = (slug: string, externalSlugs: Set<string>) => {
-  if (COMMUNITY_SLUGS.has(slug)) {
-    return COMMUNITY_DIR;
-  }
+const resolveSkillGroup = (
+  slug: string,
+  externalSlugs: Set<string>,
+  currentCategory: string,
+  defaultCategory: string,
+) => {
   if (externalSlugs.has(slug)) {
     return EXTERNAL_DIR;
   }
-  return ZO_DIR;
+  if (currentCategory) {
+    return currentCategory;
+  }
+  return defaultCategory;
 };
 
 const collectSkillDirectoriesForReorg = async () => {
@@ -219,7 +229,7 @@ const collectSkillDirectoriesForReorg = async () => {
     if (!entry.isDirectory()) {
       continue;
     }
-    if (NON_SKILL_DIRS.has(entry.name) || SKILL_GROUP_SET.has(entry.name)) {
+    if (NON_SKILL_DIRS.has(entry.name)) {
       continue;
     }
     const fullPath = path.join(ROOT_DIR, entry.name);
@@ -230,8 +240,9 @@ const collectSkillDirectoriesForReorg = async () => {
       skillDirs.set(entry.name, fullPath);
     }
   }
-  for (const group of SKILL_GROUP_DIRS) {
-    const groupPath = path.join(ROOT_DIR, group);
+  const categories = await getCategoryDirs();
+  for (const category of categories) {
+    const groupPath = path.join(ROOT_DIR, category);
     if (!(await isDirectory(groupPath))) {
       continue;
     }
@@ -253,16 +264,32 @@ const collectSkillDirectoriesForReorg = async () => {
 };
 
 const reorganizeSkillDirectories = async (externalSlugs: Set<string>) => {
-  await ensureSkillGroupDirs();
+  await mkdir(path.join(ROOT_DIR, EXTERNAL_DIR), { recursive: true });
+  const categoryDirs = await getCategoryDirs();
+  const sortedCategories = [...categoryDirs].sort((a, b) => a.localeCompare(b));
+  const nonExternalCategories = sortedCategories.filter((name) => name !== EXTERNAL_DIR);
+  const defaultCategory = nonExternalCategories.includes(ZO_DIR)
+    ? ZO_DIR
+    : nonExternalCategories[0] ?? EXTERNAL_DIR;
+  const categorySet = await getCategorySet();
+  categorySet.add(EXTERNAL_DIR);
+  categorySet.add(ZO_DIR);
   const skillDirs = await collectSkillDirectoriesForReorg();
   let moved = 0;
   for (const [slug, currentPath] of skillDirs.entries()) {
-    const group = resolveSkillGroup(slug, externalSlugs);
+    const currentCategory = path.basename(path.dirname(currentPath));
+    const group = resolveSkillGroup(
+      slug,
+      externalSlugs,
+      categorySet.has(currentCategory) ? currentCategory : "",
+      defaultCategory,
+    );
     const targetPath = path.join(ROOT_DIR, group, slug);
     if (path.resolve(currentPath) === path.resolve(targetPath)) {
       continue;
     }
     try {
+      await mkdir(path.join(ROOT_DIR, group), { recursive: true });
       await rm(targetPath, { recursive: true, force: true });
       await rename(currentPath, targetPath);
       moved += 1;
@@ -271,6 +298,40 @@ const reorganizeSkillDirectories = async (externalSlugs: Set<string>) => {
     }
   }
   return moved;
+};
+
+const ensureMetadataCategoryForAllSkills = async () => {
+  const categorySet = await getCategorySet();
+  const skillDirs = await loadSkillDirectories();
+  let updated = 0;
+  for (const skillDir of skillDirs) {
+    const skillFile = path.join(skillDir, "SKILL.md");
+    try {
+      const parsed = await readSkillFile(skillFile);
+      if (!parsed) {
+        continue;
+      }
+      const category = resolveCategoryFromSkillPath(skillFile, categorySet);
+      if (!category) {
+        continue;
+      }
+      const metadata = parsed.data.metadata;
+      const updatedMetadata =
+        metadata && typeof metadata === "object" ? { ...metadata } : {};
+      const current = (updatedMetadata as Record<string, unknown>).category;
+      if (current === category) {
+        continue;
+      }
+      (updatedMetadata as Record<string, unknown>).category = category;
+      parsed.data.metadata = updatedMetadata;
+      const updatedFile = serializeSkillFile(parsed.data, parsed.body);
+      await writeFile(skillFile, updatedFile);
+      updated += 1;
+    } catch {
+      console.log(`Unable to set metadata.category for ${skillDir}.`);
+    }
+  }
+  return updated;
 };
 
 const resolveRecordDescription = (
@@ -514,13 +575,17 @@ const organizeExternalConfig = async () => {
     organized.map((entry) => resolveRecordSlug(entry)).filter(Boolean),
   );
   const moved = await reorganizeSkillDirectories(externalSlugs);
+  const categoryUpdates = await ensureMetadataCategoryForAllSkills();
   const manifestDescriptions = await loadManifestDescriptions();
   const manifestAuthors = await loadManifestAuthors();
   const table = buildSkillsTable(organized, manifestDescriptions, manifestAuthors);
   await upsertSkillsTableInReadme(table);
   console.log(`Organized ${organized.length} external skill entries.`);
   if (moved > 0) {
-    console.log(`Moved ${moved} skill(s) into ${SKILL_GROUP_DIRS.join(", ")}.`);
+    console.log(`Moved ${moved} skill(s) into category folders.`);
+  }
+  if (categoryUpdates > 0) {
+    console.log(`Updated metadata.category for ${categoryUpdates} skill(s).`);
   }
   return 0;
 };
@@ -914,6 +979,34 @@ const ensureMetadataAuthor = async (skillFile: string, author: string) => {
   await writeFile(skillFile, updated);
 };
 
+const resolveCategoryFromSkillPath = (skillFile: string, categorySet: Set<string>) => {
+  const skillDir = path.dirname(skillFile);
+  const parentDir = path.basename(path.dirname(skillDir));
+  return categorySet.has(parentDir) ? parentDir : "";
+};
+
+const ensureMetadataCategory = async (skillFile: string, categorySet: Set<string>) => {
+  const category = resolveCategoryFromSkillPath(skillFile, categorySet);
+  if (!category) {
+    return;
+  }
+  const parsed = await readSkillFile(skillFile);
+  if (!parsed) {
+    return;
+  }
+  const metadata = parsed.data.metadata;
+  const updatedMetadata =
+    metadata && typeof metadata === "object" ? { ...metadata } : {};
+  const current = (updatedMetadata as Record<string, unknown>).category;
+  if (current === category) {
+    return;
+  }
+  (updatedMetadata as Record<string, unknown>).category = category;
+  parsed.data.metadata = updatedMetadata;
+  const updated = serializeSkillFile(parsed.data, parsed.body);
+  await writeFile(skillFile, updated);
+};
+
 const ensureCompatibility = async (skillFile: string) => {
   const parsed = await readSkillFile(skillFile);
   if (!parsed) {
@@ -1233,6 +1326,12 @@ const syncExternalSource = async (source: ExternalSkill): Promise<SyncResult> =>
         console.log(`Unable to apply overrides for ${source.repository}.`);
       }
     }
+    try {
+      const categorySet = await getCategorySet();
+      await ensureMetadataCategory(skillFile, categorySet);
+    } catch {
+      console.log(`Unable to set metadata.category for ${source.repository}.`);
+    }
     await maybeWarnClawdWithoutNotice(source, skillFile);
     await maybeLogClawdbotInstall(source, skillFile);
 
@@ -1467,6 +1566,7 @@ const syncExternalMetadata = async () => {
     return 0;
   }
 
+  const categorySet = await getCategorySet();
   let updated = 0;
   let missing = 0;
   for (const source of sources) {
@@ -1507,6 +1607,11 @@ const syncExternalMetadata = async () => {
         console.log(`Unable to apply overrides for ${source.repository}.`);
       }
     }
+    try {
+      await ensureMetadataCategory(skillFile, categorySet);
+    } catch {
+      console.log(`Unable to set metadata.category for ${source.repository}.`);
+    }
     await maybeWarnClawdWithoutNotice(source, skillFile);
     await maybeLogClawdbotInstall(source, skillFile);
     updated += 1;
@@ -1516,6 +1621,10 @@ const syncExternalMetadata = async () => {
     console.log(`Skipped ${missing} skill(s) missing from the repo.`);
   }
   console.log(`Synced metadata for ${updated} skill(s).`);
+  const categoryUpdates = await ensureMetadataCategoryForAllSkills();
+  if (categoryUpdates > 0) {
+    console.log(`Updated metadata.category for ${categoryUpdates} skill(s).`);
+  }
   return 0;
 };
 

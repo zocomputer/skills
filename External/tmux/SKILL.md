@@ -4,6 +4,7 @@ description: Remote-control tmux sessions for interactive CLIs by sending keystr
 compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
+  category: External
   clawdbot: {"emoji":"🧵","os":["darwin","linux"],"requires":{"bins":["tmux"]}}
 ---
 

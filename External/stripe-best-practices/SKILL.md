@@ -3,6 +3,7 @@ name: Stripe Best Practices
 description: Best practices for building a Stripe integrations
 metadata:
   author: Stripe
+  category: External
 ---
 
 When designing an integration, always prefer the documentation in [Stripe's Integration Options doc](https://docs.stripe.com/payments/payment-methods/integration-options.md)

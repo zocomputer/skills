@@ -5,6 +5,7 @@ homepage: https://developer.atlassian.com/cloud/trello/rest/
 compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
+  category: External
   clawdbot: {"emoji":"📋","requires":{"bins":["jq"],"env":["TRELLO_API_KEY","TRELLO_TOKEN"]}}
 ---
 

@@ -5,6 +5,7 @@ homepage: https://wttr.in/:help
 compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
+  category: External
   clawdbot: {"emoji":"🌤️","requires":{"bins":["curl"]}}
 ---
 

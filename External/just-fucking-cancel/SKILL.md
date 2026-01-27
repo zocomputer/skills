@@ -3,6 +3,7 @@ name: Help me cancel my subscriptions
 description: Analyze bank transaction CSVs to find recurring charges, categorize subscriptions, and cancel what you don't need. Use when user says "cancel subscriptions", "audit subscriptions", "find recurring charges", or "what am I paying for". Supports Apple Card, Chase, Mint, and generic CSV formats. Outputs interactive HTML audit with copy-to-cancel workflow.
 metadata:
   author: Clawdbot
+  category: External
 attribution: Originally created by rohunvora (https://github.com/rohunvora/just-fucking-cancel)
 ---
 

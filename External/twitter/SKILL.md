@@ -5,6 +5,7 @@ homepage: https://bird.fast
 compatibility: see metadata.clawdbot.requires
 metadata:
   author: Clawdbot
+  category: External
   clawdbot: {"emoji":"🐦","requires":{"bins":["bird"]},"install":[{"id":"npm","kind":"node","package":"@steipete/bird","bins":["bird"],"label":"Install bird (npm)"}]}
 ---
 

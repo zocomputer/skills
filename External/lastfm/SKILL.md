@@ -3,6 +3,7 @@ name: Access Last.fm data using an API key (free)
 description: Access Last.fm listening history, music stats, and discovery. Query recent tracks, top artists/albums/tracks, loved tracks, similar artists, and global charts.
 metadata:
   author: Clawdbot
+  category: External
 ---
 
 # Notice

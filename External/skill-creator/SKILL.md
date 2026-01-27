@@ -4,6 +4,7 @@ description: Guide for creating effective skills. This skill should be used when
 license: Complete terms in LICENSE.txt
 metadata:
   author: Anthropic
+  category: External
 ---
 
 # Skill Creator

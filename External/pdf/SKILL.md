@@ -4,6 +4,7 @@ description: Comprehensive PDF manipulation toolkit for extracting text and tabl
 license: Proprietary. LICENSE.txt has complete terms
 metadata:
   author: Anthropic
+  category: External
 ---
 
 # PDF Processing Guide

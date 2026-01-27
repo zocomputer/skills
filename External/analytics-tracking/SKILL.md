@@ -3,6 +3,7 @@ name: analytics-tracking
 description: When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions "set up tracking," "GA4," "Google Analytics," "conversion tracking," "event tracking," "UTM parameters," "tag manager," "GTM," "analytics implementation," or "tracking plan." For A/B test measurement, see ab-test-setup.
 metadata:
   author: Coreyhaines31
+  category: External
 ---
 
 # Analytics Tracking

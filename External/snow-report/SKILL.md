@@ -3,6 +3,7 @@ name: Fetch snow conditions for any ski resort
 description: Get snow conditions, forecasts, and ski reports for any mountain resort worldwide. Use when asked about snow, powder, ski conditions, or mountain weather. Supports 1000+ resorts via OpenSnow. Users can set favorite mountains for quick access. Supports SnowTick 4-letter codes (JHMR, TARG, MMTH) for quick lookups.
 metadata:
   author: Clawdbot
+  category: External
 ---
 
 # Snow Report
