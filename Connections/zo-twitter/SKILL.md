@@ -1,90 +1,30 @@
 ---
 name: twitter
 description: Let Zo use your X (Twitter) account
-homepage: https://bird.fast
-compatibility: see metadata.clawdbot.requires
+compatibility: Requires the bird CLI, pre-installed on Zo. Credentials can be set in Zo settings.
 metadata:
-  author: Clawdbot
+  author: Zo
   category: Connections
-  clawdbot: {"emoji":"🐦","requires":{"bins":["bird"]},"install":[{"id":"npm","kind":"node","package":"@steipete/bird","bins":["bird"],"label":"Install bird (npm)"}]}
   display-name: X (Twitter)
 ---
 
-# Notice
+`bird`: Fast X/Twitter CLI using cookie auth.
 
-This environment cannot read browser cookies automatically. Ask the USER for these two cookie values, giving them the following instructions:
+## Updating
 
-- Go to x.com and log in
-- Open Chrome DevTools (macOS: `⌥⌘I`, Windows: `Ctrl+Shift+I`) → Application tab
-- Under Cookies, you should see x.com
-- Copy the values for `auth_token` and `ct0` and paste them in the chat so I can save them.
-
-## Setup
-
-Once you have the cookies from the USER, run these commands to set up bird:
-
-### 1. Install bird (npm)
+`bird` comes pre-installed on Zo. To update:
 
 ```bash
 npm install -g @steipete/bird
-```
-
-### 2. Store credentials
-
-```bash
-mkdir -p ~/.config/bird
-cat > ~/.config/bird/auth.env <<'EOF'
-AUTH_TOKEN=<user_provided_auth_token>
-CT0=<user_provided_ct0>
-EOF
-chmod 600 ~/.config/bird/auth.env
-```
-
-### 3. Create wrapper to auto-load credentials
-
-The npm install creates a symlink at `/usr/bin/bird`. Create a wrapper at `/usr/local/bin/bird` (which takes precedence in PATH) that sources the credentials:
-
-```bash
-cat > /usr/local/bin/bird <<'EOF'
-#!/bin/bash
-set -a
-[ -f ~/.config/bird/auth.env ] && . ~/.config/bird/auth.env
-set +a
-exec /usr/bin/bird "$@"
-EOF
-chmod +x /usr/local/bin/bird
-```
-
-### 4. Verify
-
-```bash
-bird whoami
-bird home -n 5
-```
-# bird 🐦
-
-Fast X/Twitter CLI using GraphQL + cookie auth.
-
-## Install
-
-```bash
-# npm/pnpm/bun
-npm install -g @steipete/bird
-
-# Homebrew (macOS, prebuilt binary)
-brew install steipete/tap/bird
-
-# One-shot (no install)
-bunx @steipete/bird whoami
 ```
 
 ## Authentication
 
-`bird` uses cookie-based auth.
+`bird` uses cookie-based auth. 
 
-Use `--auth-token` / `--ct0` to pass cookies directly, or `--cookie-source` for browser cookies.
+The USER must set their credentials in their Settings > Integrations > Connections page.
 
-Run `bird check` to see which source is active. For Arc/Brave, use `--chrome-profile-dir <path>`.
+If `TWITTER_AUTH_TOKEN` and `TWITTER_CT0` are not set, direct the USER to this page with a relative URL.
 
 ## Commands
 
@@ -250,4 +190,4 @@ bird query-ids --fresh
 
 ---
 
-**TL;DR**: Read/search/engage with CLI. Post carefully or use browser. 🐦
+**TL;DR**: Read/search/engage with CLI. Post carefully or use browser.
