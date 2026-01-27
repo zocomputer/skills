@@ -55,7 +55,7 @@
     ```
 - repository: clawdbot/clawdbot
   skill: gog
-  name: Google Workspace (gog)
+  name: Google Workspace Tool
   description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs
   compatibility: Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
   notice: |
@@ -77,76 +77,59 @@
   description: Work with MCP servers directly
 - repository: clawdbot/clawdbot
   skill: notion
-  name: Use Notion
   description: Work with Notion using your own Notion API key (free)
 - repository: clawdbot/clawdbot
   skill: trello
-  name: Use Trello
   description: Work with Trello using your own Trello API key (free)
   notice: On Zo, your agent is called Zo (not Clawdbot).
 - repository: clawdbot/clawdbot
   skill: weather
-  name: Weather
   description: Get the current weather for any location
 - repository: clawdbot/clawdbot
   skill: blogwatcher
-  name: Blog Watcher
 - repository: clawdbot/clawdbot
   skill: eightctl
   name: EightSleep Pod Control
 - repository: clawdbot/clawdbot
   skill: github
-  name: GitHub
 - repository: clawdbot/clawdbot
   skill: tmux
-  name: Control tmux sessions
   notice: |
     Zo note: the docs mention Clawdbot-specific socket env vars. On Zo, you can still set
     `CLAWDBOT_TMUX_SOCKET_DIR` to any writable path (e.g. `/tmp/zo-tmux-sockets`) or omit it.
 - repository: clawdbot/clawdbot
   skill: video-frames
-  name: Video Frames (FFmpeg)
 - repository: clawdbot/skills
   skill: just-fucking-cancel
-  name: Help me cancel my subscriptions
 - repository: clawdbot/skills
   skill: lastfm
-  name: Access Last.fm data using an API key (free)
   notice: |
     Zo note: set `LASTFM_API_KEY` and `LASTFM_USER` in your shell (or source a local env file)
     before using this skill. The `~/.clawdbot/.env` path in the docs is not required on Zo.
 - repository: clawdbot/skills
   skill: linkedin-cli
-  name: Use LinkedIn
 - repository: clawdbot/skills
   skill: shorten
-  name: Shorten URLs
   notice: |
     On Zo, the script lives at `/home/workspace/Skills/shorten/shorten.sh`.
 - repository: clawdbot/skills
   skill: snow-report
-  name: Fetch snow conditions for any ski resort
 - repository: clawdbot/skills
   skill: yahoo-finance
-  name: Use Yahoo Finance
 - repository: adithya-s-k/manim_skill
   skill: manim-composer
   name: Create 3Blue1Brown Videos (Manim)
 - repository: obra/superpowers
   skill: brainstorming
-  name: Brainstorming Expert
 - repository: remotion-dev/skills
   skill: remotion-best-practices
   name: Create Animated Videos (Remotion)
 - repository: resciencelab/opc-skills
   skill: reddit
-  name: Read Reddit Content
 - repository: softaworks/agent-toolkit
   skill: meme-factory
-  name: Create Memes
 - repository: stripe/ai
   skill: stripe-best-practices
-  name: Stripe Best Practices
 - repository: cloudai-x/threejs-skills
   skill: threejs-animation
 - repository: cloudai-x/threejs-skills
@@ -169,25 +152,18 @@
   skill: threejs-textures
 - repository: anthropics/skills
   skill: algorithmic-art
-  name: Generate Algorithmic Art
 - repository: anthropics/skills
   skill: docx
-  name: Process DOCX Files
 - repository: anthropics/skills
   skill: pdf
-  name: Process PDF Files
 - repository: anthropics/skills
   skill: pptx
-  name: Process PPTX Files
 - repository: anthropics/skills
   skill: slack-gif-creator
-  name: Create Animated GIFs for Slack
 - repository: anthropics/skills
   skill: theme-factory
-  name: Font & Color Theme Builder
 - repository: anthropics/skills
   skill: xlsx
-  name: Process XLSX Files
 - repository: anthropics/skills
   skill: brand-guidelines
 - repository: anthropics/skills
@@ -210,19 +186,14 @@
   skill: webapp-testing
 - repository: coreyhaines31/marketingskills
   skill: copy-editing
-  name: Copy Editing Expert
 - repository: coreyhaines31/marketingskills
   skill: copywriting
-  name: Copywriting Expert
 - repository: coreyhaines31/marketingskills
   skill: marketing-psychology
-  name: Marketing Psychology & Mental Models
 - repository: coreyhaines31/marketingskills
   skill: seo-audit
-  name: SEO Expert
 - repository: coreyhaines31/marketingskills
   skill: social-content
-  name: Social Content Expert
 - repository: coreyhaines31/marketingskills
   skill: ab-test-setup
 - repository: coreyhaines31/marketingskills

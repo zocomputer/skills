@@ -321,6 +321,15 @@
       "path": "generate-custom-qr-code"
     },
     {
+      "name": "competitor-alternatives",
+      "description": "When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when the user mentions 'alternative page,' 'vs page,' 'competitor comparison,' 'comparison page,' '[Product] vs [Product],' '[Product] alternative,' or 'competitive landing pages.' Covers four formats: singular alternative, plural alternatives, you vs competitor, and competitor vs competitor. Emphasizes deep research, modular content architecture, and varied section types beyond feature tables.",
+      "metadata": {
+        "author": "Coreyhaines31"
+      },
+      "slug": "competitor-alternatives",
+      "path": "competitor-alternatives"
+    },
+    {
       "name": "Genome Analysis",
       "description": "Analyzes your 23andMe genetic data to identify health risks, drug sensitivities, ancestry, and traits, then generates a personalized report",
       "metadata": {
@@ -486,7 +495,7 @@
       "path": "free-tool-strategy"
     },
     {
-      "name": "Google Workspace (gog)",
+      "name": "Google Workspace Tool",
       "description": "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs",
       "homepage": "https://gogcli.sh",
       "compatibility": "Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/; see metadata.clawdbot.requires",
@@ -1067,36 +1076,6 @@
       },
       "slug": "popup-cro",
       "path": "popup-cro"
-    },
-    {
-      "name": "Use WhatsApp",
-      "description": "Send WhatsApp messages or search/sync history (not for normal chats)",
-      "homepage": "https://wacli.sh",
-      "compatibility": "see metadata.clawdbot.requires",
-      "metadata": {
-        "author": "Clawdbot",
-        "clawdbot": {
-          "emoji": "📱",
-          "requires": {
-            "bins": [
-              "wacli"
-            ]
-          },
-          "install": [
-            {
-              "id": "go",
-              "kind": "go",
-              "module": "github.com/steipete/wacli/cmd/wacli@latest",
-              "bins": [
-                "wacli"
-              ],
-              "label": "Install wacli (go)"
-            }
-          ]
-        }
-      },
-      "slug": "wacli",
-      "path": "wacli"
     },
     {
       "name": "Set up code-server (VS Code in browser)",

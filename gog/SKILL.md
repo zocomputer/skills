@@ -1,5 +1,5 @@
 ---
-name: Google Workspace (gog)
+name: Google Workspace Tool
 description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs
 homepage: https://gogcli.sh
 compatibility: Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
