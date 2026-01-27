@@ -6,7 +6,19 @@ Inside Zo, you can browse all the skills in this registry and install them for y
 
 # Contributing
 
-Add new skills to the `Community` folder and make a pull request.
+If it's your own skill
+
+1. Add a new skill to the `Community` folder
+2. Run `bun validate` 
+3. Run `bun manifest`
+4. Make a pull request
+
+If it's a skill you found, look it up in the [Agent Skills Registry](https://skills.sh)
+
+1. Add the skill to the top of `external.yml`
+2. Run `bun sync`
+3. Run `bun manifest`
+4. Make a pull request
 
 ## Manual installation
 
