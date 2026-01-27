@@ -2,8 +2,8 @@
 name: remove-photo-metadata
 description: Strip all metadata from images for privacy
 metadata:
-  author: Zo
-  category: Official
+  author: ian.zo.computer
+  category: Community
   display-name: Remove Photo Metadata
   emoji: 🔒
 ---

@@ -2,7 +2,7 @@
 name: gog
 description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs
 homepage: https://gogcli.sh
-compatibility: Requires google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
+compatibility: Requires zo-google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
 metadata:
   author: Clawdbot
   category: External
@@ -12,11 +12,11 @@ metadata:
 
 # Notice
 
-This skill can reuse OAuth credentials from `google-direct-oauth` at `/home/.z/google-oauth/`.
+This skill can reuse OAuth credentials from `zo-google-direct-oauth` at `/home/.z/google-oauth/`.
 Use these steps to avoid creating a second OAuth app:
 
 ### Setup (reuse existing OAuth app)
-1. Ensure `google-direct-oauth` is already set up.
+1. Ensure `zo-google-direct-oauth` is already set up.
 2. Run:
    - `gog auth credentials /home/.z/google-oauth/client_secret.json`
    - `gog auth add you@gmail.com --services gmail,calendar,drive,contacts,docs,sheets`

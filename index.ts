@@ -24,6 +24,8 @@ const ROOT_DIR = process.cwd();
 const INSTALL_AGENT = "codex";
 const ZO_DIR = "Zo";
 const EXTERNAL_DIR = "External";
+const OFFICIAL_DIR = "Official";
+const OFFICIAL_PREFIX = "zo-";
 // Skip non-skill dirs and any gitignored folders during validation.
 const NON_SKILL_DIRS = new Set([
   ".git",
@@ -335,21 +337,65 @@ const ensureMetadataCategoryForAllSkills = async () => {
   return updated;
 };
 
+const ensureOfficialSlugPrefixForAllSkills = async () => {
+  const officialRoot = path.join(ROOT_DIR, OFFICIAL_DIR);
+  if (!(await isDirectory(officialRoot))) {
+    return 0;
+  }
+  const entries = await readdir(officialRoot, { withFileTypes: true });
+  let moved = 0;
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+    const currentPath = path.join(officialRoot, entry.name);
+    if (isGitIgnored(currentPath)) {
+      continue;
+    }
+    if (!(await isSkillDirectory(currentPath))) {
+      continue;
+    }
+    if (entry.name.startsWith(OFFICIAL_PREFIX)) {
+      continue;
+    }
+    const targetSlug = `${OFFICIAL_PREFIX}${entry.name}`;
+    const targetPath = path.join(officialRoot, targetSlug);
+    try {
+      if (await isDirectory(targetPath)) {
+        console.log(
+          `Unable to rename ${entry.name} to ${targetSlug} (target exists).`,
+        );
+        continue;
+      }
+      await rename(currentPath, targetPath);
+      moved += 1;
+    } catch {
+      console.log(`Unable to rename ${entry.name} to ${targetSlug}.`);
+    }
+  }
+  return moved;
+};
+
 const ensureSkillNameSlugForAllSkills = async () => {
   const skillDirs = await loadSkillDirectories();
   let updated = 0;
   for (const skillDir of skillDirs) {
     const skillFile = path.join(skillDir, "SKILL.md");
     const slug = path.basename(skillDir);
+    const parentCategory = path.basename(path.dirname(skillDir));
+    const expectedName =
+      parentCategory === OFFICIAL_DIR && slug.startsWith(OFFICIAL_PREFIX)
+        ? slug.slice(OFFICIAL_PREFIX.length)
+        : slug;
     try {
       const parsed = await readSkillFile(skillFile);
       if (!parsed) {
         continue;
       }
       const currentName = typeof parsed.data.name === "string" ? parsed.data.name : "";
-      if (!currentName || currentName === slug) {
+      if (!currentName || currentName === expectedName) {
         if (!currentName) {
-          parsed.data.name = slug;
+          parsed.data.name = expectedName;
           const updatedFile = serializeSkillFile(parsed.data, parsed.body);
           await writeFile(skillFile, updatedFile);
           updated += 1;
@@ -363,7 +409,7 @@ const ensureSkillNameSlugForAllSkills = async () => {
       if (!("display-name" in metadata) || !metadata["display-name"]) {
         metadata["display-name"] = currentName;
       }
-      parsed.data.name = slug;
+      parsed.data.name = expectedName;
       parsed.data.metadata = metadata;
       const updatedFile = serializeSkillFile(parsed.data, parsed.body);
       await writeFile(skillFile, updatedFile);
@@ -621,6 +667,7 @@ const organizeExternalConfig = async () => {
     organized.map((entry) => resolveRecordSlug(entry)).filter(Boolean),
   );
   const moved = await reorganizeSkillDirectories(externalSlugs);
+  const officialMoves = await ensureOfficialSlugPrefixForAllSkills();
   const nameUpdates = await ensureSkillNameSlugForAllSkills();
   const categoryUpdates = await ensureMetadataCategoryForAllSkills();
   const manifestDescriptions = await loadManifestDescriptions();
@@ -630,6 +677,9 @@ const organizeExternalConfig = async () => {
   console.log(`Organized ${organized.length} external skill entries.`);
   if (moved > 0) {
     console.log(`Moved ${moved} skill(s) into category folders.`);
+  }
+  if (officialMoves > 0) {
+    console.log(`Prefixed ${officialMoves} Official skill slug(s) with ${OFFICIAL_PREFIX}.`);
   }
   if (nameUpdates > 0) {
     console.log(`Normalized name field for ${nameUpdates} skill(s).`);
@@ -820,10 +870,17 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
         level: "error",
       });
     }
-    if (name !== skillName) {
+    const expectedName =
+      parentCategory === OFFICIAL_DIR && skillName.startsWith(OFFICIAL_PREFIX)
+        ? skillName.slice(OFFICIAL_PREFIX.length)
+        : skillName;
+    if (name !== expectedName) {
       issues.push({
         skillPath: toDisplayPath(skillFile),
-        message: "Field 'name' must match the parent directory name.",
+        message:
+          parentCategory === OFFICIAL_DIR
+            ? "Field 'name' must match the parent directory name without the 'zo-' prefix."
+            : "Field 'name' must match the parent directory name.",
         level: "error",
       });
     }
@@ -849,6 +906,14 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
     issues.push({
       skillPath: toDisplayPath(skillFile),
       message: "Missing required 'metadata.author' field in frontmatter.",
+      level: "error",
+    });
+  }
+
+  if (parentCategory === OFFICIAL_DIR && !skillName.startsWith(OFFICIAL_PREFIX)) {
+    issues.push({
+      skillPath: toDisplayPath(skillDir),
+      message: `Official skill directories must start with '${OFFICIAL_PREFIX}'.`,
       level: "error",
     });
   }
@@ -1726,6 +1791,10 @@ const syncExternalMetadata = async () => {
   const nameUpdates = await ensureSkillNameSlugForAllSkills();
   if (nameUpdates > 0) {
     console.log(`Normalized name field for ${nameUpdates} skill(s).`);
+  }
+  const officialMoves = await ensureOfficialSlugPrefixForAllSkills();
+  if (officialMoves > 0) {
+    console.log(`Prefixed ${officialMoves} Official skill slug(s) with ${OFFICIAL_PREFIX}.`);
   }
   return 0;
 };
