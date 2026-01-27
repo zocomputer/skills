@@ -1,10 +1,12 @@
-# Zo Skills 
+# Zo Skills
 
 Agent Skills Registry for [Zo Computer](https://zo.computer)
 
 Inside Zo, you can browse all the skills in this registry and install them for your agent to use.
 
 # Contributing
+
+Add new skills to the `Community` folder and make a pull request.
 
 ## Manual installation
 
@@ -42,7 +44,7 @@ slug="bird"; dest="Skills"; manifest_url="https://raw.githubusercontent.com/zoco
 - A `manifest.json` lists all the skills along with installation metadata
 - Run `bun manifest` to generate the manifest
 
-## Skills
+# Skills
 
 <!-- skills-table-start -->
 | Skill | Author | Description |
