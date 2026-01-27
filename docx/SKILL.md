@@ -1,5 +1,7 @@
 ---
 name: Process DOCX Files
+metadata:
+  author: Anthropic
 ---
 
 ---

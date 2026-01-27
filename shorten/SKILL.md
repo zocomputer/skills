@@ -5,6 +5,9 @@ metadata:
   author: Clawdbot
 ---
 
+# Notice
+
+On Zo, the script lives at `/home/workspace/Skills/shorten/shorten.sh`.
 # Shorten
 
 Quickly shorten URLs using the [is.gd](https://is.gd) service. No API key or account required.

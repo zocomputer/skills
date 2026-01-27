@@ -8,6 +8,9 @@ metadata:
   clawdbot: {"emoji":"📋","requires":{"bins":["jq"],"env":["TRELLO_API_KEY","TRELLO_TOKEN"]}}
 ---
 
+# Notice
+
+On Zo, your agent is called Zo (not Clawdbot).
 # Trello Skill
 
 Manage Trello boards, lists, and cards directly from Clawdbot.

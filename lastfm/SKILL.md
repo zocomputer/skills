@@ -5,6 +5,10 @@ metadata:
   author: Clawdbot
 ---
 
+# Notice
+
+Zo note: set `LASTFM_API_KEY` and `LASTFM_USER` in your shell (or source a local env file)
+before using this skill. The `~/.clawdbot/.env` path in the docs is not required on Zo.
 # Last.fm API Skill
 
 Access Last.fm listening history, music stats, and discovery.

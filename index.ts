@@ -820,6 +820,50 @@ const resolveTargetSlug = (source: ExternalSkill) => {
   return resolveSkillSlug(source);
 };
 
+const hasClawdMentionInBody = async (skillFile: string) => {
+  const parsed = await readSkillFile(skillFile);
+  if (!parsed) {
+    return false;
+  }
+  return /clawd/i.test(parsed.body);
+};
+
+const hasClawdbotInstallInFrontmatter = async (skillFile: string) => {
+  const parsed = await readSkillFile(skillFile);
+  if (!parsed) {
+    return false;
+  }
+  const metadata = parsed.data.metadata;
+  if (!metadata || typeof metadata !== "object") {
+    return false;
+  }
+  const clawdbot = (metadata as Record<string, unknown>).clawdbot;
+  if (!clawdbot || typeof clawdbot !== "object") {
+    return false;
+  }
+  const install = (clawdbot as Record<string, unknown>).install;
+  return Array.isArray(install) && install.length > 0;
+};
+
+const maybeWarnClawdWithoutNotice = async (source: ExternalSkill, skillFile: string) => {
+  if (source.notice) {
+    return;
+  }
+  if (await hasClawdMentionInBody(skillFile)) {
+    const slug = resolveTargetSlug(source) || resolveSkillSlug(source);
+    console.log(
+      `Warning: ${slug} references "clawd" outside frontmatter without a notice in external.yml.`,
+    );
+  }
+};
+
+const maybeLogClawdbotInstall = async (source: ExternalSkill, skillFile: string) => {
+  if (await hasClawdbotInstallInFrontmatter(skillFile)) {
+    const slug = resolveTargetSlug(source) || resolveSkillSlug(source);
+    console.log(`Detected metadata.clawdbot.install in ${slug}.`);
+  }
+};
+
 const copySkillIntoRepo = async (source: ExternalSkill, canonicalSkillsDir: string) => {
   const canonicalSlug = resolveSkillSlug(source);
   const targetSlug = resolveTargetSlug(source);
@@ -988,7 +1032,7 @@ const syncExternalSource = async (source: ExternalSkill): Promise<SyncResult> =>
       try {
         await ensureMetadataAuthor(skillFile, author);
       } catch {
-        console.log(`Unable to set metadata.author for ${source.repository}.`);
+        console.log(`Unable to set metadata.author for ${targetSlug} (${source.repository}).`);
       }
     }
     if (source.notice) {
@@ -1010,6 +1054,8 @@ const syncExternalSource = async (source: ExternalSkill): Promise<SyncResult> =>
         console.log(`Unable to apply overrides for ${source.repository}.`);
       }
     }
+    await maybeWarnClawdWithoutNotice(source, skillFile);
+    await maybeLogClawdbotInstall(source, skillFile);
 
     return { source, ok: true };
   } catch {
@@ -1260,7 +1306,7 @@ const syncExternalMetadata = async () => {
       try {
         await ensureMetadataAuthor(skillFile, author);
       } catch {
-        console.log(`Unable to set metadata.author for ${source.repository}.`);
+        console.log(`Unable to set metadata.author for ${targetSlug} (${source.repository}).`);
       }
     }
     if (source.notice) {
@@ -1282,6 +1328,8 @@ const syncExternalMetadata = async () => {
         console.log(`Unable to apply overrides for ${source.repository}.`);
       }
     }
+    await maybeWarnClawdWithoutNotice(source, skillFile);
+    await maybeLogClawdbotInstall(source, skillFile);
     updated += 1;
   }
 

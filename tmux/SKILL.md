@@ -7,6 +7,10 @@ metadata:
   clawdbot: {"emoji":"🧵","os":["darwin","linux"],"requires":{"bins":["tmux"]}}
 ---
 
+# Notice
+
+Zo note: the docs mention Clawdbot-specific socket env vars. On Zo, you can still set
+`CLAWDBOT_TMUX_SOCKET_DIR` to any writable path (e.g. `/tmp/zo-tmux-sockets`) or omit it.
 # tmux Skill (Clawdbot)
 
 Use tmux only when you need an interactive TTY. Prefer exec background mode for long-running, non-interactive tasks.

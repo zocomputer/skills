@@ -4,6 +4,43 @@ Agent Skills Registry for [Zo Computer](https://zo.computer)
 
 Inside Zo, you can browse all the skills in this registry and install them for your agent to use.
 
+# Contributing
+
+## Manual installation
+
+To install a skill manually, run:
+
+```bash
+slug="bird"; dest="Skills"; manifest_url="https://raw.githubusercontent.com/zocomputer/skills/main/manifest.json"; mkdir -p "$dest" && tarball_url="$(curl -fsSL "$manifest_url" | jq -r '.tarball_url')" && archive_root="$(curl -fsSL "$manifest_url" | jq -r '.archive_root')" && curl -L "$tarball_url" | tar -xz -C "$dest" --strip-components=1 "$archive_root/$slug"
+```
+
+> Gets repo tarball in temp dir, extracts the skill directory. `archive_root` is the tarball root folder created by GitHub: `<repo>-<branch>`.
+
+## Structure
+
+`bun validate` to ensure all skills follow this structure:
+
+- Each skill is a top-level directory with a required `SKILL.md`.
+- Allowed subdirectories: `assets/`, `references/`, `scripts/`.
+- `SKILL.md` frontmatter must include `name`, `description`, and `metadata.author`.
+
+## External Skills
+
+- External skills are defined in `external.yml` and pulled from [skills.sh](https://skills.sh/docs/cli)
+- `bun sync` treats `external.yml` as a transformation layer: it installs skills from the source repo, then applies any overrides before copying into this registry
+- Use `notice` to prepend a "Notice" section to the synced `SKILL.md` (Zo-specific setup or constraints)
+- Run `bun grab <owner/repo>` to scrape skills.sh and append new skills to `external.yml`
+- Run `bun sync` to sync the newest entry in `external.yml` (preferred contributor flow)
+- Run `bun sync <slug>` to sync a specific external skill by slug
+- Run `bun sync <owner/repo>` to sync all skills from a specific repository
+- Run `bun sync all` to sync every external skill in parallel
+- Run `bun sync metadata` to update metadata for already-synced skills
+
+## Manifest
+
+- A `manifest.json` lists all the skills along with installation metadata
+- Run `bun manifest` to generate the manifest
+
 ## Skills
 
 <!-- skills-table-start -->
@@ -85,41 +122,4 @@ Inside Zo, you can browse all the skills in this registry and install them for y
 | [signup-flow-cro](https://github.com/zocomputer/skills/blob/main/signup-flow-cro/SKILL.md) | When the user wants to optimize signup, registration, account creation, or trial activation flows. Also use when the user mentions "signup conversions," "registration friction," "signup form optimization," "free trial signup," "reduce signup dropoff," or "account creation flow." For post-signup onboarding, see onboarding-cro. For lead capture forms (not account creation), see form-cro. |
 
 <!-- skills-table-end -->
-
-# Contributing
-
-## Manual installation
-
-To install a skill manually, run:
-
-```bash
-slug="bird"; dest="Skills"; manifest_url="https://raw.githubusercontent.com/zocomputer/skills/main/manifest.json"; mkdir -p "$dest" && tarball_url="$(curl -fsSL "$manifest_url" | jq -r '.tarball_url')" && archive_root="$(curl -fsSL "$manifest_url" | jq -r '.archive_root')" && curl -L "$tarball_url" | tar -xz -C "$dest" --strip-components=1 "$archive_root/$slug"
-```
-
-> Gets repo tarball in temp dir, extracts the skill directory. `archive_root` is the tarball root folder created by GitHub: `<repo>-<branch>`.
-
-## Structure
-
-`bun validate` to ensure all skills follow this structure:
-
-- Each skill is a top-level directory with a required `SKILL.md`.
-- Allowed subdirectories: `assets/`, `references/`, `scripts/`.
-- `SKILL.md` frontmatter must include `name`, `description`, and `metadata.author`.
-
-## External Skills
-
-- External skills are defined in `external.yml` and pulled from [skills.sh](https://skills.sh/docs/cli)
-- `bun sync` treats `external.yml` as a transformation layer: it installs skills from the source repo, then applies any overrides before copying into this registry
-- Use `notice` to prepend a “Notice” section to the synced `SKILL.md` (Zo-specific setup or constraints)
-- Run `bun grab <owner/repo>` to scrape skills.sh and append new skills to `external.yml`
-- Run `bun sync` to sync the newest entry in `external.yml` (preferred contributor flow)
-- Run `bun sync <slug>` to sync a specific external skill by slug
-- Run `bun sync <owner/repo>` to sync all skills from a specific repository
-- Run `bun sync all` to sync every external skill in parallel
-- Run `bun sync metadata` to update metadata for already-synced skills
-
-## Manifest
-
-- A `manifest.json` lists all the skills along with installation metadata
-- Run `bun manifest` to generate the manifest
 

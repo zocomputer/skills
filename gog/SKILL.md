@@ -22,7 +22,6 @@ Use these steps to avoid creating a second OAuth app:
    - `gog auth list`
 
 IMPORTANT: If you generate a new OAuth app here, it may replace or invalidate existing tokens.
-
 # gog
 
 Use `gog` for Gmail/Calendar/Drive/Contacts/Sheets/Docs. Requires OAuth setup.

@@ -83,10 +83,7 @@
   skill: trello
   name: Use Trello
   description: Work with Trello using your own Trello API key (free)
-- repository: clawdbot/clawdbot
-  skill: wacli
-  name: Use WhatsApp
-  description: Send WhatsApp messages or search/sync history (not for normal chats)
+  notice: On Zo, your agent is called Zo (not Clawdbot).
 - repository: clawdbot/clawdbot
   skill: weather
   name: Weather
@@ -103,6 +100,9 @@
 - repository: clawdbot/clawdbot
   skill: tmux
   name: Control tmux sessions
+  notice: |
+    Zo note: the docs mention Clawdbot-specific socket env vars. On Zo, you can still set
+    `CLAWDBOT_TMUX_SOCKET_DIR` to any writable path (e.g. `/tmp/zo-tmux-sockets`) or omit it.
 - repository: clawdbot/clawdbot
   skill: video-frames
   name: Video Frames (FFmpeg)
@@ -112,12 +112,17 @@
 - repository: clawdbot/skills
   skill: lastfm
   name: Access Last.fm data using an API key (free)
+  notice: |
+    Zo note: set `LASTFM_API_KEY` and `LASTFM_USER` in your shell (or source a local env file)
+    before using this skill. The `~/.clawdbot/.env` path in the docs is not required on Zo.
 - repository: clawdbot/skills
   skill: linkedin-cli
   name: Use LinkedIn
 - repository: clawdbot/skills
   skill: shorten
   name: Shorten URLs
+  notice: |
+    On Zo, the script lives at `/home/workspace/Skills/shorten/shorten.sh`.
 - repository: clawdbot/skills
   skill: snow-report
   name: Fetch snow conditions for any ski resort

@@ -59,7 +59,6 @@ chmod +x /usr/local/bin/bird
 bird whoami
 bird home -n 5
 ```
-
 # bird 🐦
 
 Fast X/Twitter CLI using GraphQL + cookie auth.
