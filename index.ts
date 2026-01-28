@@ -1320,6 +1320,15 @@ const writeManifest = async () => {
   }
 
   const { tarball_url, archive_root } = resolveGitHubArchive();
+  
+  // Get GitHub repo info for source URLs
+  const remote = Bun.spawnSync(["git", "remote", "get-url", "origin"], {
+    stdout: "pipe",
+    stderr: "ignore",
+  });
+  const remoteUrl = remote.success ? remote.stdout.toString().trim() : "";
+  const repo = remoteUrl ? parseGitHubRepo(remoteUrl) : null;
+  
   const skills: SkillInfo[] = [];
 
   for (const skillDir of skillDirs) {
@@ -1329,8 +1338,21 @@ const writeManifest = async () => {
     }
     const relPath = toDisplayPath(skillDir);
     const slug = path.basename(skillDir);
+    
+    // Add source URL to metadata
+    const existingMetadata = info.metadata && typeof info.metadata === "object" 
+      ? info.metadata as Record<string, unknown>
+      : {};
+    
+    const metadata = { ...existingMetadata };
+    
+    if (repo) {
+      metadata.source = `https://github.com/${repo.owner}/${repo.repo}/tree/main/${relPath}`;
+    }
+    
     skills.push({
       ...info,
+      metadata,
       slug,
       path: relPath,
     });

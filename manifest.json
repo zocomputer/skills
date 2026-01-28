@@ -3,6 +3,215 @@
   "archive_root": "skills-main",
   "skills": [
     {
+      "name": "add-flashcards",
+      "description": "Converts webpages, articles, or documents into study flashcards that you can review with spaced repetition",
+      "compatibility": "Requires hashcards-setup skill with flashcards at /home/workspace/flashcards/",
+      "metadata": {
+        "author": "rc2.zo.computer",
+        "category": "Community",
+        "display-name": "Generate flashcards from a webpage or document",
+        "emoji": "📇",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/add-flashcards"
+      },
+      "slug": "add-flashcards",
+      "path": "Community/add-flashcards"
+    },
+    {
+      "name": "daily-affirmations",
+      "description": "Send yourself a daily text message with a randomly selected or rotating positive affirmation.",
+      "metadata": {
+        "author": "Zo",
+        "category": "Community",
+        "display-name": "Texting positive affirmations daily",
+        "emoji": "✨",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/daily-affirmations"
+      },
+      "slug": "daily-affirmations",
+      "path": "Community/daily-affirmations"
+    },
+    {
+      "name": "dating-profile",
+      "description": "Creates an ideal dating profile by writing your bio and choosing the best photos in the right order",
+      "metadata": {
+        "author": "tiff.zo.computer",
+        "category": "Community",
+        "display-name": "Create ideal dating profile",
+        "emoji": "💌",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/dating-profile"
+      },
+      "slug": "dating-profile",
+      "path": "Community/dating-profile"
+    },
+    {
+      "name": "find-missed-connections",
+      "description": "Finds recent missed connections posts from Craigslist and gives you the highlights",
+      "metadata": {
+        "author": "0.zo.computer",
+        "category": "Community",
+        "display-name": "Find recent Craigslist missed connections",
+        "emoji": "💕",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/find-missed-connections"
+      },
+      "slug": "find-missed-connections",
+      "path": "Community/find-missed-connections"
+    },
+    {
+      "name": "generate-custom-qr-code",
+      "description": "Generates a QR code from any URL, and optionally overlays a custom image in the center",
+      "metadata": {
+        "author": "hatsunemiku.zo.computer",
+        "category": "Community",
+        "display-name": "Generate QR code with optional image",
+        "emoji": "📱",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/generate-custom-qr-code"
+      },
+      "slug": "generate-custom-qr-code",
+      "path": "Community/generate-custom-qr-code"
+    },
+    {
+      "name": "google-calendar",
+      "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
+      "compatibility": "Requires zo-google-direct-oauth skill with valid tokens at /home/.z/google-oauth/",
+      "metadata": {
+        "author": "rob.zo.computer",
+        "category": "Community",
+        "emoji": "🅖",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/google-calendar"
+      },
+      "slug": "google-calendar",
+      "path": "Community/google-calendar"
+    },
+    {
+      "name": "hashcards-setup",
+      "description": "Sets up a spaced repetition flashcard system that you can access through your web browser to study and memorize information",
+      "metadata": {
+        "author": "rc2.zo.computer",
+        "category": "Community",
+        "display-name": "Set up hashcards spaced repetition system",
+        "emoji": "📇",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/hashcards-setup"
+      },
+      "slug": "hashcards-setup",
+      "path": "Community/hashcards-setup"
+    },
+    {
+      "name": "personal-genomics-analysis",
+      "description": "Analyzes your 23andMe genetic data to identify health risks, drug sensitivities, ancestry, and traits, then generates a personalized report",
+      "metadata": {
+        "author": "rob.zo.computer",
+        "category": "Community",
+        "display-name": "Genome Analysis",
+        "emoji": "🧬",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/personal-genomics-analysis"
+      },
+      "slug": "personal-genomics-analysis",
+      "path": "Community/personal-genomics-analysis"
+    },
+    {
+      "name": "pitchfork-best-tracks",
+      "description": "Finds the latest songs from Pitchfork's Best New Tracks and creates a Spotify playlist for you",
+      "metadata": {
+        "author": "ian.zo.computer",
+        "category": "Community",
+        "display-name": "Create Spotify playlist from Pitchfork Best New Tracks",
+        "emoji": "🎵",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/pitchfork-best-tracks"
+      },
+      "slug": "pitchfork-best-tracks",
+      "path": "Community/pitchfork-best-tracks"
+    },
+    {
+      "name": "plan-code-changes",
+      "description": "Plan out code changes using a plan file.",
+      "metadata": {
+        "author": "0.zo.computer",
+        "category": "Community",
+        "display-name": "Plan code changes",
+        "emoji": "🧑🏻‍💻",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/plan-code-changes"
+      },
+      "slug": "plan-code-changes",
+      "path": "Community/plan-code-changes"
+    },
+    {
+      "name": "plant-care-plan",
+      "description": "Creates a comprehensive care guide for your specific plant",
+      "metadata": {
+        "author": "hatsunemiku.zo.computer",
+        "category": "Community",
+        "display-name": "Plant Care Plan",
+        "emoji": "🪴",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/plant-care-plan"
+      },
+      "slug": "plant-care-plan",
+      "path": "Community/plant-care-plan"
+    },
+    {
+      "name": "receipt-tracker-setup",
+      "description": "Automatically scans receipts you drop in a folder, extracts the details, and saves them to a searchable database",
+      "metadata": {
+        "author": "rob.zo.computer",
+        "category": "Community",
+        "display-name": "Set up automated receipt processing system",
+        "emoji": "🧾",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/receipt-tracker-setup"
+      },
+      "slug": "receipt-tracker-setup",
+      "path": "Community/receipt-tracker-setup"
+    },
+    {
+      "name": "remove-photo-metadata",
+      "description": "Strip all metadata from images for privacy",
+      "metadata": {
+        "author": "ian.zo.computer",
+        "category": "Community",
+        "display-name": "Remove Photo Metadata",
+        "emoji": "🔒",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/remove-photo-metadata"
+      },
+      "slug": "remove-photo-metadata",
+      "path": "Community/remove-photo-metadata"
+    },
+    {
+      "name": "summarize-hacker-news",
+      "description": "Picks the most interesting articles from Hacker News, reads them, and emails you a summary",
+      "metadata": {
+        "author": "0.zo.computer",
+        "category": "Community",
+        "display-name": "Summarize Hacker News front page",
+        "emoji": "🔶",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/summarize-hacker-news"
+      },
+      "slug": "summarize-hacker-news",
+      "path": "Community/summarize-hacker-news"
+    },
+    {
+      "name": "syllabus-reminders",
+      "description": "Reads your syllabus, finds all due dates, and sets up text reminders and calendar events so you never miss an assignment",
+      "metadata": {
+        "author": "hatsunemiku.zo.computer",
+        "category": "Community",
+        "display-name": "Create syllabus reminders",
+        "emoji": "🔖",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/syllabus-reminders"
+      },
+      "slug": "syllabus-reminders",
+      "path": "Community/syllabus-reminders"
+    },
+    {
+      "name": "text-commute-info",
+      "description": "Gets your commute time and route options, then texts you the details",
+      "metadata": {
+        "author": "ian.zo.computer",
+        "category": "Community",
+        "display-name": "Text commute travel time and route",
+        "emoji": "🚏",
+        "source": "https://github.com/zocomputer/skills/tree/main/Community/text-commute-info"
+      },
+      "slug": "text-commute-info",
+      "path": "Community/text-commute-info"
+    },
+    {
       "name": "linkedin",
       "description": "LinkedIn tool for searching profiles, checking messages, and summarizing your feed using session cookies.",
       "homepage": "https://github.com/clawdbot/linkedin-cli",
@@ -10,7 +219,8 @@
       "metadata": {
         "author": "Zo",
         "category": "Connections",
-        "display-name": "LinkedIn"
+        "display-name": "LinkedIn",
+        "source": "https://github.com/zocomputer/skills/tree/main/Connections/zo-linkedin"
       },
       "slug": "zo-linkedin",
       "path": "Connections/zo-linkedin"
@@ -22,352 +232,46 @@
       "metadata": {
         "author": "Zo",
         "category": "Connections",
-        "display-name": "X (Twitter)"
+        "display-name": "X (Twitter)",
+        "source": "https://github.com/zocomputer/skills/tree/main/Connections/zo-twitter"
       },
       "slug": "zo-twitter",
       "path": "Connections/zo-twitter"
     },
     {
-      "name": "generate-pdf",
-      "description": "Convert Markdown files to PDF format with professional formatting",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Generate PDF from Markdown",
-        "emoji": "📑"
-      },
-      "slug": "zo-generate-pdf",
-      "path": "Official/zo-generate-pdf"
-    },
-    {
-      "name": "automate-something",
-      "description": "Create an automation with a Zo Agent task",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Automate something",
-        "emoji": "⚙️"
-      },
-      "slug": "zo-automate-something",
-      "path": "Official/zo-automate-something"
-    },
-    {
-      "name": "ssh-setup",
-      "description": "Sets up secure remote access to your Zo Computer so you can connect from anywhere",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Set up SSH server for remote access",
-        "emoji": "🔐"
-      },
-      "slug": "zo-ssh-setup",
-      "path": "Official/zo-ssh-setup"
-    },
-    {
-      "name": "for-each-line",
-      "description": "Processes every line of a file one by one, transforming or extracting information from each line",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Process file line-by-line with script",
-        "emoji": "🔄"
-      },
-      "slug": "zo-for-each-line",
-      "path": "Official/zo-for-each-line"
-    },
-    {
-      "name": "create-slidedeck",
-      "description": "Turn any reference material into a polished, visually cohesive slide deck.",
-      "metadata": {
-        "author": "rob.zo.computer",
-        "category": "Official",
-        "display-name": "Create a slide deck",
-        "emoji": "🎞️"
-      },
-      "slug": "zo-create-slidedeck",
-      "path": "Official/zo-create-slidedeck"
-    },
-    {
-      "name": "research-topic",
-      "description": "Use Zo to research any topic comprehensively and write a report.",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Research a topic",
-        "emoji": "🔬"
-      },
-      "slug": "zo-research-topic",
-      "path": "Official/zo-research-topic"
-    },
-    {
-      "name": "organize-workspace",
-      "description": "Organizes your scattered files into logical folders by project, type, and purpose",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Organize my files",
-        "emoji": "🗂️"
-      },
-      "slug": "zo-organize-workspace",
-      "path": "Official/zo-organize-workspace"
-    },
-    {
-      "name": "enrich-csv",
-      "description": "Adds new columns to your spreadsheet by generating information for each row",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Enrich CSV with AI-generated columns",
-        "emoji": "📊"
-      },
-      "slug": "zo-enrich-csv",
-      "path": "Official/zo-enrich-csv"
-    },
-    {
-      "name": "weekly-meeting-reminder",
-      "description": "Get an email every Sunday evening listing your meetings for the coming week.",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Weekly meeting reminder",
-        "emoji": "🗓️"
-      },
-      "slug": "zo-weekly-meeting-reminder",
-      "path": "Official/zo-weekly-meeting-reminder"
-    },
-    {
-      "name": "meeting-list",
-      "description": "Shows you all the people you've met with recently, organized by meeting",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Find meetings with attendees"
-      },
-      "slug": "zo-meeting-list",
-      "path": "Official/zo-meeting-list"
-    },
-    {
-      "name": "important-email-digest",
-      "description": "Finds your most important emails from the past 2 days and texts you a summary with suggested follow-ups",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Text summary of important emails",
-        "emoji": "📧"
-      },
-      "slug": "zo-important-email-digest",
-      "path": "Official/zo-important-email-digest"
-    },
-    {
-      "name": "resize-image",
-      "description": "Resize images to specific dimensions or percentages",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Resize Images",
-        "emoji": "🖼️"
-      },
-      "slug": "zo-resize-image",
-      "path": "Official/zo-resize-image"
-    },
-    {
-      "name": "guestbook-site",
-      "description": "Build an interactive guestbook where visitors can leave messages.",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Create a guestbook",
-        "emoji": "📖"
-      },
-      "slug": "zo-guestbook-site",
-      "path": "Official/zo-guestbook-site"
-    },
-    {
-      "name": "daily-linear-digest",
-      "description": "Creates an automation to email you a summary of your Linear activity from the previous day",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Daily Linear digest",
-        "emoji": "📋"
-      },
-      "slug": "zo-daily-linear-digest",
-      "path": "Official/zo-daily-linear-digest"
-    },
-    {
-      "name": "blog-site",
-      "description": "Build a blog or newsletter to share your thoughts.",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Create a blog",
-        "emoji": "📝"
-      },
-      "slug": "zo-blog-site",
-      "path": "Official/zo-blog-site"
-    },
-    {
-      "name": "portfolio-site",
-      "description": "Build a personal portfolio to showcase your work and resume.",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Create a portfolio site",
-        "emoji": "🎨"
-      },
-      "slug": "zo-portfolio-site",
-      "path": "Official/zo-portfolio-site"
-    },
-    {
-      "name": "n8n-setup",
-      "description": "Sets up n8n workflow automation tool so you can create automated workflows between different apps and services",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Set up n8n workflow automation",
-        "emoji": "🔗"
-      },
-      "slug": "zo-n8n-setup",
-      "path": "Official/zo-n8n-setup"
-    },
-    {
-      "name": "daily-news-digest",
-      "description": "Fetch the latest headlines on a topic you care about and email it to you every morning.",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Daily news digest",
-        "emoji": "📰"
-      },
-      "slug": "zo-daily-news-digest",
-      "path": "Official/zo-daily-news-digest"
-    },
-    {
-      "name": "epub-to-markdown",
-      "description": "Convert EPUB ebooks to Markdown format",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Convert EPUB to Markdown",
-        "emoji": "📚"
-      },
-      "slug": "zo-epub-to-markdown",
-      "path": "Official/zo-epub-to-markdown"
-    },
-    {
-      "name": "pdf-to-markdown",
-      "description": "Convert PDF files to Markdown format",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Convert PDF to Markdown",
-        "emoji": "📄"
-      },
-      "slug": "zo-pdf-to-markdown",
-      "path": "Official/zo-pdf-to-markdown"
-    },
-    {
-      "name": "code-server-setup",
-      "description": "Sets up VS Code in your web browser so you can write and edit code from anywhere",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Set up code-server (VS Code in browser)",
-        "emoji": "💻"
-      },
-      "slug": "zo-code-server-setup",
-      "path": "Official/zo-code-server-setup"
-    },
-    {
-      "name": "grafana-setup",
-      "description": "Sets up a visual dashboard to explore and analyze your system logs and data",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Set up Grafana for log visualization",
-        "emoji": "📈"
-      },
-      "slug": "zo-grafana-setup",
-      "path": "Official/zo-grafana-setup"
-    },
-    {
-      "name": "extract-text-from-image",
-      "description": "Extract text from images, scanned documents, and PDFs using OCR",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Extract Text from Images (OCR)",
-        "emoji": "🔍"
-      },
-      "slug": "zo-extract-text-from-image",
-      "path": "Official/zo-extract-text-from-image"
-    },
-    {
-      "name": "google-direct-oauth",
-      "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.\n",
-      "compatibility": "Requires a Google Cloud Console account (free). Works on any Zo Computer.",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "emoji": "🅖"
-      },
-      "slug": "zo-google-direct-oauth",
-      "path": "Official/zo-google-direct-oauth"
-    },
-    {
-      "name": "create-site",
-      "description": "Create a site hosted on your Zo server. Private by default, publish with a click.",
-      "metadata": {
-        "author": "Zo",
-        "category": "Official",
-        "display-name": "Create a site",
-        "emoji": "⚡"
-      },
-      "slug": "zo-create-site",
-      "path": "Official/zo-create-site"
-    },
-    {
-      "name": "marketing-psychology",
-      "description": "When the user wants to apply psychological principles, mental models, or behavioral science to marketing. Also use when the user mentions 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,' 'behavioral science,' 'why people buy,' 'decision-making,' or 'consumer behavior.' This skill provides 70+ mental models organized for marketing application.",
+      "name": "ab-test-setup",
+      "description": "When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions \"A/B test,\" \"split test,\" \"experiment,\" \"test this change,\" \"variant copy,\" \"multivariate test,\" or \"hypothesis.\" For tracking implementation, see analytics-tracking.",
       "metadata": {
         "author": "Coreyhaines31",
         "category": "External",
-        "display-name": "Marketing Psychology & Mental Models"
+        "source": "https://github.com/zocomputer/skills/tree/main/External/ab-test-setup"
       },
-      "slug": "marketing-psychology",
-      "path": "External/marketing-psychology"
+      "slug": "ab-test-setup",
+      "path": "External/ab-test-setup"
     },
     {
-      "name": "programmatic-seo",
-      "description": "When the user wants to create SEO-driven pages at scale using templates and data. Also use when the user mentions \"programmatic SEO,\" \"template pages,\" \"pages at scale,\" \"directory pages,\" \"location pages,\" \"[keyword] + [city] pages,\" \"comparison pages,\" \"integration pages,\" or \"building many pages for SEO.\" For auditing existing SEO issues, see seo-audit.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "programmatic-seo",
-      "path": "External/programmatic-seo"
-    },
-    {
-      "name": "remotion-best-practices",
-      "description": "Best practices for Remotion - Video creation in React",
-      "metadata": {
-        "author": "Remotion-dev",
-        "category": "External",
-        "display-name": "Create Animated Videos (Remotion)",
-        "tags": "remotion, video, react, animation, composition"
-      },
-      "slug": "remotion-best-practices",
-      "path": "External/remotion-best-practices"
-    },
-    {
-      "name": "template-skill",
-      "description": "Replace with description of the skill and when Claude should use it.",
+      "name": "algorithmic-art",
+      "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
+      "license": "Complete terms in LICENSE.txt",
       "metadata": {
         "author": "Anthropic",
-        "category": "External"
+        "category": "External",
+        "display-name": "Generate Algorithmic Art",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/algorithmic-art"
       },
-      "slug": "template-skill",
-      "path": "External/template-skill"
+      "slug": "algorithmic-art",
+      "path": "External/algorithmic-art"
+    },
+    {
+      "name": "analytics-tracking",
+      "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" or \"tracking plan.\" For A/B test measurement, see ab-test-setup.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/analytics-tracking"
+      },
+      "slug": "analytics-tracking",
+      "path": "External/analytics-tracking"
     },
     {
       "name": "blogwatcher",
@@ -396,154 +300,55 @@
             }
           ]
         },
-        "display-name": "Blog Watcher"
+        "display-name": "Blog Watcher",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/blogwatcher"
       },
       "slug": "blogwatcher",
       "path": "External/blogwatcher"
     },
     {
-      "name": "seo-audit",
-      "description": "When the user wants to audit, review, or diagnose SEO issues on their site. Also use when the user mentions \"SEO audit,\" \"technical SEO,\" \"why am I not ranking,\" \"SEO issues,\" \"on-page SEO,\" \"meta tags review,\" or \"SEO health check.\" For building pages at scale to target keywords, see programmatic-seo. For adding structured data, see schema-markup.",
+      "name": "brainstorming",
+      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
       "metadata": {
-        "author": "Coreyhaines31",
+        "author": "Obra",
         "category": "External",
-        "display-name": "SEO Expert"
+        "display-name": "Brainstorming Expert",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/brainstorming"
       },
-      "slug": "seo-audit",
-      "path": "External/seo-audit"
+      "slug": "brainstorming",
+      "path": "External/brainstorming"
     },
     {
-      "name": "copywriting",
-      "description": "When the user wants to write, rewrite, or improve marketing copy for any page — including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says \"write copy for,\" \"improve this copy,\" \"rewrite this page,\" \"marketing copy,\" \"headline help,\" or \"CTA copy.\" For email copy, see email-sequence. For popup copy, see popup-cro.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External",
-        "display-name": "Copywriting Expert"
-      },
-      "slug": "copywriting",
-      "path": "External/copywriting"
-    },
-    {
-      "name": "theme-factory",
-      "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+      "name": "brand-guidelines",
+      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
       "license": "Complete terms in LICENSE.txt",
       "metadata": {
         "author": "Anthropic",
         "category": "External",
-        "display-name": "Font & Color Theme Builder"
+        "source": "https://github.com/zocomputer/skills/tree/main/External/brand-guidelines"
       },
-      "slug": "theme-factory",
-      "path": "External/theme-factory"
+      "slug": "brand-guidelines",
+      "path": "External/brand-guidelines"
     },
     {
-      "name": "launch-strategy",
-      "description": "When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,' or 'product update.' This skill covers phased launches, channel strategy, and ongoing launch momentum.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "launch-strategy",
-      "path": "External/launch-strategy"
-    },
-    {
-      "name": "threejs-shaders",
-      "description": "Three.js shaders - GLSL, ShaderMaterial, uniforms, custom effects. Use when creating custom visual effects, modifying vertices, writing fragment shaders, or extending built-in materials.",
-      "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
-      },
-      "slug": "threejs-shaders",
-      "path": "External/threejs-shaders"
-    },
-    {
-      "name": "lastfm",
-      "description": "Access Last.fm listening history, music stats, and discovery. Query recent tracks, top artists/albums/tracks, loved tracks, similar artists, and global charts.",
-      "metadata": {
-        "author": "Clawdbot",
-        "category": "External",
-        "display-name": "Access Last.fm data using an API key (free)"
-      },
-      "slug": "lastfm",
-      "path": "External/lastfm"
-    },
-    {
-      "name": "threejs-lighting",
-      "description": "Three.js lighting - light types, shadows, environment lighting. Use when adding lights, configuring shadows, setting up IBL, or optimizing lighting performance.",
-      "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
-      },
-      "slug": "threejs-lighting",
-      "path": "External/threejs-lighting"
-    },
-    {
-      "name": "meme-factory",
-      "description": "Generate memes using the memegen.link API. Use when users request memes, want to add humor to content, or need visual aids for social media. Supports 100+ popular templates with custom text and styling.",
-      "metadata": {
-        "author": "Softaworks",
-        "category": "External",
-        "display-name": "Create Memes"
-      },
-      "slug": "meme-factory",
-      "path": "External/meme-factory"
-    },
-    {
-      "name": "doc-coauthoring",
-      "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
+      "name": "canvas-design",
+      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
+      "license": "Complete terms in LICENSE.txt",
       "metadata": {
         "author": "Anthropic",
-        "category": "External"
-      },
-      "slug": "doc-coauthoring",
-      "path": "External/doc-coauthoring"
-    },
-    {
-      "name": "threejs-geometry",
-      "description": "Three.js geometry creation - built-in shapes, BufferGeometry, custom geometry, instancing. Use when creating 3D shapes, working with vertices, building custom meshes, or optimizing with instanced rendering.",
-      "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
-      },
-      "slug": "threejs-geometry",
-      "path": "External/threejs-geometry"
-    },
-    {
-      "name": "threejs-interaction",
-      "description": "Three.js interaction - raycasting, controls, mouse/touch input, object selection. Use when handling user input, implementing click detection, adding camera controls, or creating interactive 3D experiences.",
-      "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
-      },
-      "slug": "threejs-interaction",
-      "path": "External/threejs-interaction"
-    },
-    {
-      "name": "social-content",
-      "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' or 'viral content.' This skill covers content creation, repurposing, and platform-specific strategies.",
-      "metadata": {
-        "author": "Coreyhaines31",
         "category": "External",
-        "display-name": "Social Content Expert"
+        "source": "https://github.com/zocomputer/skills/tree/main/External/canvas-design"
       },
-      "slug": "social-content",
-      "path": "External/social-content"
-    },
-    {
-      "name": "threejs-postprocessing",
-      "description": "Three.js post-processing - EffectComposer, bloom, DOF, screen effects. Use when adding visual effects, color grading, blur, glow, or creating custom screen-space shaders.",
-      "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
-      },
-      "slug": "threejs-postprocessing",
-      "path": "External/threejs-postprocessing"
+      "slug": "canvas-design",
+      "path": "External/canvas-design"
     },
     {
       "name": "competitor-alternatives",
       "description": "When the user wants to create competitor comparison or alternative pages for SEO\nand sales enablement. Also use when the user mentions \"alternative page,\" \"vs\npage,\" \"competitor comparison,\" \"comparison page,\" \"[Product] vs [Product],\"\n\"[Product] alternative,\" or \"competitive landing pages.\" Covers four formats:\nsingular alternative, plural alternatives, you vs competitor, and competitor vs\ncompetitor. Emphasizes deep research, modular content architecture, and varied\nsection types beyond feature tables.\n",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/competitor-alternatives"
       },
       "slug": "competitor-alternatives",
       "path": "External/competitor-alternatives"
@@ -554,86 +359,34 @@
       "metadata": {
         "author": "Coreyhaines31",
         "category": "External",
-        "display-name": "Copy Editing Expert"
+        "display-name": "Copy Editing Expert",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/copy-editing"
       },
       "slug": "copy-editing",
       "path": "External/copy-editing"
     },
     {
-      "name": "pdf",
-      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale.",
-      "license": "Proprietary. LICENSE.txt has complete terms",
-      "metadata": {
-        "author": "Anthropic",
-        "category": "External",
-        "display-name": "Process PDF Files"
-      },
-      "slug": "pdf",
-      "path": "External/pdf"
-    },
-    {
-      "name": "algorithmic-art",
-      "description": "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users request creating art using code, generative art, algorithmic art, flow fields, or particle systems. Create original algorithmic art rather than copying existing artists' work to avoid copyright violations.",
-      "license": "Complete terms in LICENSE.txt",
-      "metadata": {
-        "author": "Anthropic",
-        "category": "External",
-        "display-name": "Generate Algorithmic Art"
-      },
-      "slug": "algorithmic-art",
-      "path": "External/algorithmic-art"
-    },
-    {
-      "name": "marketing-ideas",
-      "description": "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' or 'ideas to grow.' This skill provides 140 proven marketing approaches organized by category.",
+      "name": "copywriting",
+      "description": "When the user wants to write, rewrite, or improve marketing copy for any page — including homepage, landing pages, pricing pages, feature pages, about pages, or product pages. Also use when the user says \"write copy for,\" \"improve this copy,\" \"rewrite this page,\" \"marketing copy,\" \"headline help,\" or \"CTA copy.\" For email copy, see email-sequence. For popup copy, see popup-cro.",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "marketing-ideas",
-      "path": "External/marketing-ideas"
-    },
-    {
-      "name": "video-frames",
-      "description": "Extract frames or short clips from videos using ffmpeg.",
-      "homepage": "https://ffmpeg.org",
-      "compatibility": "see metadata.clawdbot.requires",
-      "metadata": {
-        "author": "Clawdbot",
         "category": "External",
-        "clawdbot": {
-          "emoji": "🎞️",
-          "requires": {
-            "bins": [
-              "ffmpeg"
-            ]
-          },
-          "install": [
-            {
-              "id": "brew",
-              "kind": "brew",
-              "formula": "ffmpeg",
-              "bins": [
-                "ffmpeg"
-              ],
-              "label": "Install ffmpeg (brew)"
-            }
-          ]
-        },
-        "display-name": "Video Frames (FFmpeg)"
+        "display-name": "Copywriting Expert",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/copywriting"
       },
-      "slug": "video-frames",
-      "path": "External/video-frames"
+      "slug": "copywriting",
+      "path": "External/copywriting"
     },
     {
-      "name": "threejs-loaders",
-      "description": "Three.js asset loading - GLTF, textures, images, models, async patterns. Use when loading 3D models, textures, HDR environments, or managing loading progress.",
+      "name": "doc-coauthoring",
+      "description": "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, proposals, technical specs, decision docs, or similar structured content. This workflow helps users efficiently transfer context, refine content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
       "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
+        "author": "Anthropic",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/doc-coauthoring"
       },
-      "slug": "threejs-loaders",
-      "path": "External/threejs-loaders"
+      "slug": "doc-coauthoring",
+      "path": "External/doc-coauthoring"
     },
     {
       "name": "eightctl",
@@ -662,30 +415,88 @@
             }
           ]
         },
-        "display-name": "EightSleep Pod Control"
+        "display-name": "EightSleep Pod Control",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/eightctl"
       },
       "slug": "eightctl",
       "path": "External/eightctl"
     },
     {
-      "name": "pricing-strategy",
-      "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' or 'monetization.' This skill covers pricing research, tier structure, and packaging strategy.",
+      "name": "email-sequence",
+      "description": "When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions \"email sequence,\" \"drip campaign,\" \"nurture sequence,\" \"onboarding emails,\" \"welcome sequence,\" \"re-engagement emails,\" \"email automation,\" or \"lifecycle emails.\" For in-app onboarding, see onboarding-cro.",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/email-sequence"
       },
-      "slug": "pricing-strategy",
-      "path": "External/pricing-strategy"
+      "slug": "email-sequence",
+      "path": "External/email-sequence"
+    },
+    {
+      "name": "form-cro",
+      "description": "When the user wants to optimize any form that is NOT signup/registration — including lead capture forms, contact forms, demo request forms, application forms, survey forms, or checkout forms. Also use when the user mentions \"form optimization,\" \"lead form conversions,\" \"form friction,\" \"form fields,\" \"form completion rate,\" or \"contact form.\" For signup/registration forms, see signup-flow-cro. For popups containing forms, see popup-cro.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/form-cro"
+      },
+      "slug": "form-cro",
+      "path": "External/form-cro"
     },
     {
       "name": "free-tool-strategy",
       "description": "When the user wants to plan, evaluate, or build a free tool for marketing purposes — lead generation, SEO value, or brand awareness. Also use when the user mentions \"engineering as marketing,\" \"free tool,\" \"marketing tool,\" \"calculator,\" \"generator,\" \"interactive tool,\" \"lead gen tool,\" \"build a tool for leads,\" or \"free resource.\" This skill bridges engineering and marketing — useful for founders and technical marketers.",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/free-tool-strategy"
       },
       "slug": "free-tool-strategy",
       "path": "External/free-tool-strategy"
+    },
+    {
+      "name": "frontend-design",
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/frontend-design"
+      },
+      "slug": "frontend-design",
+      "path": "External/frontend-design"
+    },
+    {
+      "name": "github",
+      "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "category": "External",
+        "clawdbot": {
+          "emoji": "🐙",
+          "requires": {
+            "bins": [
+              "gh"
+            ]
+          },
+          "install": [
+            {
+              "id": "apt",
+              "kind": "apt",
+              "package": "gh",
+              "bins": [
+                "gh"
+              ],
+              "label": "Install GitHub CLI (apt)"
+            }
+          ]
+        },
+        "display-name": "GitHub",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/github"
+      },
+      "slug": "github",
+      "path": "External/github"
     },
     {
       "name": "gog",
@@ -714,83 +525,11 @@
             }
           ]
         },
-        "display-name": "Google Workspace Tool"
+        "display-name": "Google Workspace Tool",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/gog"
       },
       "slug": "gog",
       "path": "External/gog"
-    },
-    {
-      "name": "notion",
-      "description": "Work with Notion using your own Notion API key (free)",
-      "homepage": "https://developers.notion.com",
-      "compatibility": "see metadata.clawdbot.requires",
-      "metadata": {
-        "author": "Clawdbot",
-        "category": "External",
-        "clawdbot": {
-          "emoji": "📝",
-          "requires": {
-            "env": [
-              "NOTION_API_KEY"
-            ]
-          },
-          "primaryEnv": "NOTION_API_KEY"
-        },
-        "display-name": "Use Notion"
-      },
-      "slug": "notion",
-      "path": "External/notion"
-    },
-    {
-      "name": "manim-composer",
-      "description": "Trigger when: (1) User wants to create an educational/explainer video, (2) User has a vague concept they want visualized, (3) User mentions \"3b1b style\" or \"explain like 3Blue1Brown\", (4) User wants to plan a Manim video or animation sequence, (5) User asks to \"compose\" or \"plan\" a math/science visualization.\n\nTransforms vague video ideas into detailed scene-by-scene plans (scenes.md). Conducts research, asks clarifying questions about audience/scope/focus, and outputs comprehensive scene specifications ready for implementation with ManimCE or ManimGL.\n\nUse this BEFORE writing any Manim code. This skill plans the video; use manimce-best-practices or manimgl-best-practices for implementation.\n",
-      "metadata": {
-        "author": "Adithya-s-k",
-        "category": "External",
-        "display-name": "Create 3Blue1Brown Videos (Manim)"
-      },
-      "slug": "manim-composer",
-      "path": "External/manim-composer"
-    },
-    {
-      "name": "analytics-tracking",
-      "description": "When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions \"set up tracking,\" \"GA4,\" \"Google Analytics,\" \"conversion tracking,\" \"event tracking,\" \"UTM parameters,\" \"tag manager,\" \"GTM,\" \"analytics implementation,\" or \"tracking plan.\" For A/B test measurement, see ab-test-setup.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "analytics-tracking",
-      "path": "External/analytics-tracking"
-    },
-    {
-      "name": "paid-ads",
-      "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ad copy,' 'ad creative,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' or 'audience targeting.' This skill covers campaign strategy, ad creation, audience targeting, and optimization.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "paid-ads",
-      "path": "External/paid-ads"
-    },
-    {
-      "name": "form-cro",
-      "description": "When the user wants to optimize any form that is NOT signup/registration — including lead capture forms, contact forms, demo request forms, application forms, survey forms, or checkout forms. Also use when the user mentions \"form optimization,\" \"lead form conversions,\" \"form friction,\" \"form fields,\" \"form completion rate,\" or \"contact form.\" For signup/registration forms, see signup-flow-cro. For popups containing forms, see popup-cro.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "form-cro",
-      "path": "External/form-cro"
-    },
-    {
-      "name": "threejs-animation",
-      "description": "Three.js animation - keyframe animation, skeletal animation, morph targets, animation mixing. Use when animating objects, playing GLTF animations, creating procedural motion, or blending animations.",
-      "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
-      },
-      "slug": "threejs-animation",
-      "path": "External/threejs-animation"
     },
     {
       "name": "internal-comms",
@@ -798,94 +537,94 @@
       "license": "Complete terms in LICENSE.txt",
       "metadata": {
         "author": "Anthropic",
-        "category": "External"
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/internal-comms"
       },
       "slug": "internal-comms",
       "path": "External/internal-comms"
     },
     {
-      "name": "page-cro",
-      "description": "When the user wants to optimize, improve, or increase conversions on any marketing page — including homepage, landing pages, pricing pages, feature pages, or blog posts. Also use when the user says \"CRO,\" \"conversion rate optimization,\" \"this page isn't converting,\" \"improve conversions,\" or \"why isn't this page working.\" For signup/registration flows, see signup-flow-cro. For post-signup activation, see onboarding-cro. For forms outside of signup, see form-cro. For popups/modals, see popup-cro.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "page-cro",
-      "path": "External/page-cro"
-    },
-    {
-      "name": "skill-creator",
-      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.",
-      "license": "Complete terms in LICENSE.txt",
-      "metadata": {
-        "author": "Anthropic",
-        "category": "External"
-      },
-      "slug": "skill-creator",
-      "path": "External/skill-creator"
-    },
-    {
-      "name": "canvas-design",
-      "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.",
-      "license": "Complete terms in LICENSE.txt",
-      "metadata": {
-        "author": "Anthropic",
-        "category": "External"
-      },
-      "slug": "canvas-design",
-      "path": "External/canvas-design"
-    },
-    {
-      "name": "github",
-      "description": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
-      "compatibility": "see metadata.clawdbot.requires",
+      "name": "just-fucking-cancel",
+      "description": "Analyze bank transaction CSVs to find recurring charges, categorize subscriptions, and cancel what you don't need. Use when user says \"cancel subscriptions\", \"audit subscriptions\", \"find recurring charges\", or \"what am I paying for\". Supports Apple Card, Chase, Mint, and generic CSV formats. Outputs interactive HTML audit with copy-to-cancel workflow.",
       "metadata": {
         "author": "Clawdbot",
         "category": "External",
-        "clawdbot": {
-          "emoji": "🐙",
-          "requires": {
-            "bins": [
-              "gh"
-            ]
-          },
-          "install": [
-            {
-              "id": "apt",
-              "kind": "apt",
-              "package": "gh",
-              "bins": [
-                "gh"
-              ],
-              "label": "Install GitHub CLI (apt)"
-            }
-          ]
-        },
-        "display-name": "GitHub"
+        "display-name": "Help me cancel my subscriptions",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/just-fucking-cancel"
       },
-      "slug": "github",
-      "path": "External/github"
+      "attribution": "Originally created by rohunvora (https://github.com/rohunvora/just-fucking-cancel)",
+      "slug": "just-fucking-cancel",
+      "path": "External/just-fucking-cancel"
     },
     {
-      "name": "signup-flow-cro",
-      "description": "When the user wants to optimize signup, registration, account creation, or trial activation flows. Also use when the user mentions \"signup conversions,\" \"registration friction,\" \"signup form optimization,\" \"free trial signup,\" \"reduce signup dropoff,\" or \"account creation flow.\" For post-signup onboarding, see onboarding-cro. For lead capture forms (not account creation), see form-cro.",
+      "name": "lastfm",
+      "description": "Access Last.fm listening history, music stats, and discovery. Query recent tracks, top artists/albums/tracks, loved tracks, similar artists, and global charts.",
+      "metadata": {
+        "author": "Clawdbot",
+        "category": "External",
+        "display-name": "Access Last.fm data using an API key (free)",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/lastfm"
+      },
+      "slug": "lastfm",
+      "path": "External/lastfm"
+    },
+    {
+      "name": "launch-strategy",
+      "description": "When the user wants to plan a product launch, feature announcement, or release strategy. Also use when the user mentions 'launch,' 'Product Hunt,' 'feature release,' 'announcement,' 'go-to-market,' 'beta launch,' 'early access,' 'waitlist,' or 'product update.' This skill covers phased launches, channel strategy, and ongoing launch momentum.",
       "metadata": {
         "author": "Coreyhaines31",
-        "category": "External"
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/launch-strategy"
       },
-      "slug": "signup-flow-cro",
-      "path": "External/signup-flow-cro"
+      "slug": "launch-strategy",
+      "path": "External/launch-strategy"
     },
     {
-      "name": "brainstorming",
-      "description": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "name": "manim-composer",
+      "description": "Trigger when: (1) User wants to create an educational/explainer video, (2) User has a vague concept they want visualized, (3) User mentions \"3b1b style\" or \"explain like 3Blue1Brown\", (4) User wants to plan a Manim video or animation sequence, (5) User asks to \"compose\" or \"plan\" a math/science visualization.\n\nTransforms vague video ideas into detailed scene-by-scene plans (scenes.md). Conducts research, asks clarifying questions about audience/scope/focus, and outputs comprehensive scene specifications ready for implementation with ManimCE or ManimGL.\n\nUse this BEFORE writing any Manim code. This skill plans the video; use manimce-best-practices or manimgl-best-practices for implementation.\n",
       "metadata": {
-        "author": "Obra",
+        "author": "Adithya-s-k",
         "category": "External",
-        "display-name": "Brainstorming Expert"
+        "display-name": "Create 3Blue1Brown Videos (Manim)",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/manim-composer"
       },
-      "slug": "brainstorming",
-      "path": "External/brainstorming"
+      "slug": "manim-composer",
+      "path": "External/manim-composer"
+    },
+    {
+      "name": "marketing-ideas",
+      "description": "When the user needs marketing ideas, inspiration, or strategies for their SaaS or software product. Also use when the user asks for 'marketing ideas,' 'growth ideas,' 'how to market,' 'marketing strategies,' 'marketing tactics,' 'ways to promote,' or 'ideas to grow.' This skill provides 140 proven marketing approaches organized by category.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/marketing-ideas"
+      },
+      "slug": "marketing-ideas",
+      "path": "External/marketing-ideas"
+    },
+    {
+      "name": "marketing-psychology",
+      "description": "When the user wants to apply psychological principles, mental models, or behavioral science to marketing. Also use when the user mentions 'psychology,' 'mental models,' 'cognitive bias,' 'persuasion,' 'behavioral science,' 'why people buy,' 'decision-making,' or 'consumer behavior.' This skill provides 70+ mental models organized for marketing application.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "display-name": "Marketing Psychology & Mental Models",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/marketing-psychology"
+      },
+      "slug": "marketing-psychology",
+      "path": "External/marketing-psychology"
+    },
+    {
+      "name": "mcp-builder",
+      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/mcp-builder"
+      },
+      "slug": "mcp-builder",
+      "path": "External/mcp-builder"
     },
     {
       "name": "mcporter",
@@ -914,10 +653,136 @@
             }
           ]
         },
-        "display-name": "Use MCP Server"
+        "display-name": "Use MCP Server",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/mcporter"
       },
       "slug": "mcporter",
       "path": "External/mcporter"
+    },
+    {
+      "name": "meme-factory",
+      "description": "Generate memes using the memegen.link API. Use when users request memes, want to add humor to content, or need visual aids for social media. Supports 100+ popular templates with custom text and styling.",
+      "metadata": {
+        "author": "Softaworks",
+        "category": "External",
+        "display-name": "Create Memes",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/meme-factory"
+      },
+      "slug": "meme-factory",
+      "path": "External/meme-factory"
+    },
+    {
+      "name": "notion",
+      "description": "Work with Notion using your own Notion API key (free)",
+      "homepage": "https://developers.notion.com",
+      "compatibility": "see metadata.clawdbot.requires",
+      "metadata": {
+        "author": "Clawdbot",
+        "category": "External",
+        "clawdbot": {
+          "emoji": "📝",
+          "requires": {
+            "env": [
+              "NOTION_API_KEY"
+            ]
+          },
+          "primaryEnv": "NOTION_API_KEY"
+        },
+        "display-name": "Use Notion",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/notion"
+      },
+      "slug": "notion",
+      "path": "External/notion"
+    },
+    {
+      "name": "onboarding-cro",
+      "description": "When the user wants to optimize post-signup onboarding, user activation, first-run experience, or time-to-value. Also use when the user mentions \"onboarding flow,\" \"activation rate,\" \"user activation,\" \"first-run experience,\" \"empty states,\" \"onboarding checklist,\" \"aha moment,\" or \"new user experience.\" For signup/registration optimization, see signup-flow-cro. For ongoing email sequences, see email-sequence.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/onboarding-cro"
+      },
+      "slug": "onboarding-cro",
+      "path": "External/onboarding-cro"
+    },
+    {
+      "name": "page-cro",
+      "description": "When the user wants to optimize, improve, or increase conversions on any marketing page — including homepage, landing pages, pricing pages, feature pages, or blog posts. Also use when the user says \"CRO,\" \"conversion rate optimization,\" \"this page isn't converting,\" \"improve conversions,\" or \"why isn't this page working.\" For signup/registration flows, see signup-flow-cro. For post-signup activation, see onboarding-cro. For forms outside of signup, see form-cro. For popups/modals, see popup-cro.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/page-cro"
+      },
+      "slug": "page-cro",
+      "path": "External/page-cro"
+    },
+    {
+      "name": "paid-ads",
+      "description": "When the user wants help with paid advertising campaigns on Google Ads, Meta (Facebook/Instagram), LinkedIn, Twitter/X, or other ad platforms. Also use when the user mentions 'PPC,' 'paid media,' 'ad copy,' 'ad creative,' 'ROAS,' 'CPA,' 'ad campaign,' 'retargeting,' or 'audience targeting.' This skill covers campaign strategy, ad creation, audience targeting, and optimization.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/paid-ads"
+      },
+      "slug": "paid-ads",
+      "path": "External/paid-ads"
+    },
+    {
+      "name": "paywall-upgrade-cro",
+      "description": "When the user wants to create or optimize in-app paywalls, upgrade screens, upsell modals, or feature gates. Also use when the user mentions \"paywall,\" \"upgrade screen,\" \"upgrade modal,\" \"upsell,\" \"feature gate,\" \"convert free to paid,\" \"freemium conversion,\" \"trial expiration screen,\" \"limit reached screen,\" \"plan upgrade prompt,\" or \"in-app pricing.\" Distinct from public pricing pages (see page-cro) — this skill focuses on in-product upgrade moments where the user has already experienced value.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/paywall-upgrade-cro"
+      },
+      "slug": "paywall-upgrade-cro",
+      "path": "External/paywall-upgrade-cro"
+    },
+    {
+      "name": "pdf",
+      "description": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale.",
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "metadata": {
+        "author": "Anthropic",
+        "category": "External",
+        "display-name": "Process PDF Files",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/pdf"
+      },
+      "slug": "pdf",
+      "path": "External/pdf"
+    },
+    {
+      "name": "popup-cro",
+      "description": "When the user wants to create or optimize popups, modals, overlays, slide-ins, or banners for conversion purposes. Also use when the user mentions \"exit intent,\" \"popup conversions,\" \"modal optimization,\" \"lead capture popup,\" \"email popup,\" \"announcement banner,\" or \"overlay.\" For forms outside of popups, see form-cro. For general page conversion optimization, see page-cro.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/popup-cro"
+      },
+      "slug": "popup-cro",
+      "path": "External/popup-cro"
+    },
+    {
+      "name": "pricing-strategy",
+      "description": "When the user wants help with pricing decisions, packaging, or monetization strategy. Also use when the user mentions 'pricing,' 'pricing tiers,' 'freemium,' 'free trial,' 'packaging,' 'price increase,' 'value metric,' 'Van Westendorp,' 'willingness to pay,' or 'monetization.' This skill covers pricing research, tier structure, and packaging strategy.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/pricing-strategy"
+      },
+      "slug": "pricing-strategy",
+      "path": "External/pricing-strategy"
+    },
+    {
+      "name": "programmatic-seo",
+      "description": "When the user wants to create SEO-driven pages at scale using templates and data. Also use when the user mentions \"programmatic SEO,\" \"template pages,\" \"pages at scale,\" \"directory pages,\" \"location pages,\" \"[keyword] + [city] pages,\" \"comparison pages,\" \"integration pages,\" or \"building many pages for SEO.\" For auditing existing SEO issues, see seo-audit.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/programmatic-seo"
+      },
+      "slug": "programmatic-seo",
+      "path": "External/programmatic-seo"
     },
     {
       "name": "reddit",
@@ -925,7 +790,8 @@
       "metadata": {
         "author": "Resciencelab",
         "category": "External",
-        "display-name": "Read Reddit Content"
+        "display-name": "Read Reddit Content",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/reddit"
       },
       "triggers": [
         "reddit",
@@ -936,16 +802,269 @@
       "path": "External/reddit"
     },
     {
+      "name": "referral-program",
+      "description": "When the user wants to create, optimize, or analyze a referral program, affiliate program, or word-of-mouth strategy. Also use when the user mentions 'referral,' 'affiliate,' 'ambassador,' 'word of mouth,' 'viral loop,' 'refer a friend,' or 'partner program.' This skill covers program design, incentive structure, and growth optimization.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/referral-program"
+      },
+      "slug": "referral-program",
+      "path": "External/referral-program"
+    },
+    {
+      "name": "remotion-best-practices",
+      "description": "Best practices for Remotion - Video creation in React",
+      "metadata": {
+        "author": "Remotion-dev",
+        "category": "External",
+        "display-name": "Create Animated Videos (Remotion)",
+        "tags": "remotion, video, react, animation, composition",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/remotion-best-practices"
+      },
+      "slug": "remotion-best-practices",
+      "path": "External/remotion-best-practices"
+    },
+    {
+      "name": "schema-markup",
+      "description": "When the user wants to add, fix, or optimize schema markup and structured data on their site. Also use when the user mentions \"schema markup,\" \"structured data,\" \"JSON-LD,\" \"rich snippets,\" \"schema.org,\" \"FAQ schema,\" \"product schema,\" \"review schema,\" or \"breadcrumb schema.\" For broader SEO issues, see seo-audit.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/schema-markup"
+      },
+      "slug": "schema-markup",
+      "path": "External/schema-markup"
+    },
+    {
+      "name": "seo-audit",
+      "description": "When the user wants to audit, review, or diagnose SEO issues on their site. Also use when the user mentions \"SEO audit,\" \"technical SEO,\" \"why am I not ranking,\" \"SEO issues,\" \"on-page SEO,\" \"meta tags review,\" or \"SEO health check.\" For building pages at scale to target keywords, see programmatic-seo. For adding structured data, see schema-markup.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "display-name": "SEO Expert",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/seo-audit"
+      },
+      "slug": "seo-audit",
+      "path": "External/seo-audit"
+    },
+    {
+      "name": "shorten",
+      "description": "Shorten URLs using is.gd (no auth required). Returns a permanent short link.",
+      "metadata": {
+        "author": "Clawdbot",
+        "category": "External",
+        "display-name": "Shorten URLs",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/shorten"
+      },
+      "slug": "shorten",
+      "path": "External/shorten"
+    },
+    {
+      "name": "signup-flow-cro",
+      "description": "When the user wants to optimize signup, registration, account creation, or trial activation flows. Also use when the user mentions \"signup conversions,\" \"registration friction,\" \"signup form optimization,\" \"free trial signup,\" \"reduce signup dropoff,\" or \"account creation flow.\" For post-signup onboarding, see onboarding-cro. For lead capture forms (not account creation), see form-cro.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/signup-flow-cro"
+      },
+      "slug": "signup-flow-cro",
+      "path": "External/signup-flow-cro"
+    },
+    {
+      "name": "skill-creator",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/skill-creator"
+      },
+      "slug": "skill-creator",
+      "path": "External/skill-creator"
+    },
+    {
       "name": "slack-gif-creator",
       "description": "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and animation concepts. Use when users request animated GIFs for Slack like \"make me a GIF of X doing Y for Slack.\"",
       "license": "Complete terms in LICENSE.txt",
       "metadata": {
         "author": "Anthropic",
         "category": "External",
-        "display-name": "Create Animated GIFs for Slack"
+        "display-name": "Create Animated GIFs for Slack",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/slack-gif-creator"
       },
       "slug": "slack-gif-creator",
       "path": "External/slack-gif-creator"
+    },
+    {
+      "name": "snow-report",
+      "description": "Get snow conditions, forecasts, and ski reports for any mountain resort worldwide. Use when asked about snow, powder, ski conditions, or mountain weather. Supports 1000+ resorts via OpenSnow. Users can set favorite mountains for quick access. Supports SnowTick 4-letter codes (JHMR, TARG, MMTH) for quick lookups.",
+      "metadata": {
+        "author": "Clawdbot",
+        "category": "External",
+        "display-name": "Fetch snow conditions for any ski resort",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/snow-report"
+      },
+      "slug": "snow-report",
+      "path": "External/snow-report"
+    },
+    {
+      "name": "social-content",
+      "description": "When the user wants help creating, scheduling, or optimizing social media content for LinkedIn, Twitter/X, Instagram, TikTok, Facebook, or other platforms. Also use when the user mentions 'LinkedIn post,' 'Twitter thread,' 'social media,' 'content calendar,' 'social scheduling,' 'engagement,' or 'viral content.' This skill covers content creation, repurposing, and platform-specific strategies.",
+      "metadata": {
+        "author": "Coreyhaines31",
+        "category": "External",
+        "display-name": "Social Content Expert",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/social-content"
+      },
+      "slug": "social-content",
+      "path": "External/social-content"
+    },
+    {
+      "name": "stripe-best-practices",
+      "description": "Best practices for building a Stripe integrations",
+      "metadata": {
+        "author": "Stripe",
+        "category": "External",
+        "display-name": "Stripe Best Practices",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/stripe-best-practices"
+      },
+      "slug": "stripe-best-practices",
+      "path": "External/stripe-best-practices"
+    },
+    {
+      "name": "template-skill",
+      "description": "Replace with description of the skill and when Claude should use it.",
+      "metadata": {
+        "author": "Anthropic",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/template-skill"
+      },
+      "slug": "template-skill",
+      "path": "External/template-skill"
+    },
+    {
+      "name": "theme-factory",
+      "description": "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic",
+        "category": "External",
+        "display-name": "Font & Color Theme Builder",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/theme-factory"
+      },
+      "slug": "theme-factory",
+      "path": "External/theme-factory"
+    },
+    {
+      "name": "threejs-animation",
+      "description": "Three.js animation - keyframe animation, skeletal animation, morph targets, animation mixing. Use when animating objects, playing GLTF animations, creating procedural motion, or blending animations.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-animation"
+      },
+      "slug": "threejs-animation",
+      "path": "External/threejs-animation"
+    },
+    {
+      "name": "threejs-fundamentals",
+      "description": "Three.js scene setup, cameras, renderer, Object3D hierarchy, coordinate systems. Use when setting up 3D scenes, creating cameras, configuring renderers, managing object hierarchies, or working with transforms.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-fundamentals"
+      },
+      "slug": "threejs-fundamentals",
+      "path": "External/threejs-fundamentals"
+    },
+    {
+      "name": "threejs-geometry",
+      "description": "Three.js geometry creation - built-in shapes, BufferGeometry, custom geometry, instancing. Use when creating 3D shapes, working with vertices, building custom meshes, or optimizing with instanced rendering.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-geometry"
+      },
+      "slug": "threejs-geometry",
+      "path": "External/threejs-geometry"
+    },
+    {
+      "name": "threejs-interaction",
+      "description": "Three.js interaction - raycasting, controls, mouse/touch input, object selection. Use when handling user input, implementing click detection, adding camera controls, or creating interactive 3D experiences.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-interaction"
+      },
+      "slug": "threejs-interaction",
+      "path": "External/threejs-interaction"
+    },
+    {
+      "name": "threejs-lighting",
+      "description": "Three.js lighting - light types, shadows, environment lighting. Use when adding lights, configuring shadows, setting up IBL, or optimizing lighting performance.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-lighting"
+      },
+      "slug": "threejs-lighting",
+      "path": "External/threejs-lighting"
+    },
+    {
+      "name": "threejs-loaders",
+      "description": "Three.js asset loading - GLTF, textures, images, models, async patterns. Use when loading 3D models, textures, HDR environments, or managing loading progress.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-loaders"
+      },
+      "slug": "threejs-loaders",
+      "path": "External/threejs-loaders"
+    },
+    {
+      "name": "threejs-materials",
+      "description": "Three.js materials - PBR, basic, phong, shader materials, material properties. Use when styling meshes, working with textures, creating custom shaders, or optimizing material performance.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-materials"
+      },
+      "slug": "threejs-materials",
+      "path": "External/threejs-materials"
+    },
+    {
+      "name": "threejs-postprocessing",
+      "description": "Three.js post-processing - EffectComposer, bloom, DOF, screen effects. Use when adding visual effects, color grading, blur, glow, or creating custom screen-space shaders.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-postprocessing"
+      },
+      "slug": "threejs-postprocessing",
+      "path": "External/threejs-postprocessing"
+    },
+    {
+      "name": "threejs-shaders",
+      "description": "Three.js shaders - GLSL, ShaderMaterial, uniforms, custom effects. Use when creating custom visual effects, modifying vertices, writing fragment shaders, or extending built-in materials.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-shaders"
+      },
+      "slug": "threejs-shaders",
+      "path": "External/threejs-shaders"
+    },
+    {
+      "name": "threejs-textures",
+      "description": "Three.js textures - texture types, UV mapping, environment maps, texture settings. Use when working with images, UV coordinates, cubemaps, HDR environments, or texture optimization.",
+      "metadata": {
+        "author": "Cloudai-x",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/threejs-textures"
+      },
+      "slug": "threejs-textures",
+      "path": "External/threejs-textures"
     },
     {
       "name": "tmux",
@@ -966,127 +1085,11 @@
             ]
           }
         },
-        "display-name": "Control tmux sessions"
+        "display-name": "Control tmux sessions",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/tmux"
       },
       "slug": "tmux",
       "path": "External/tmux"
-    },
-    {
-      "name": "threejs-fundamentals",
-      "description": "Three.js scene setup, cameras, renderer, Object3D hierarchy, coordinate systems. Use when setting up 3D scenes, creating cameras, configuring renderers, managing object hierarchies, or working with transforms.",
-      "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
-      },
-      "slug": "threejs-fundamentals",
-      "path": "External/threejs-fundamentals"
-    },
-    {
-      "name": "just-fucking-cancel",
-      "description": "Analyze bank transaction CSVs to find recurring charges, categorize subscriptions, and cancel what you don't need. Use when user says \"cancel subscriptions\", \"audit subscriptions\", \"find recurring charges\", or \"what am I paying for\". Supports Apple Card, Chase, Mint, and generic CSV formats. Outputs interactive HTML audit with copy-to-cancel workflow.",
-      "metadata": {
-        "author": "Clawdbot",
-        "category": "External",
-        "display-name": "Help me cancel my subscriptions"
-      },
-      "attribution": "Originally created by rohunvora (https://github.com/rohunvora/just-fucking-cancel)",
-      "slug": "just-fucking-cancel",
-      "path": "External/just-fucking-cancel"
-    },
-    {
-      "name": "webapp-testing",
-      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
-      "license": "Complete terms in LICENSE.txt",
-      "metadata": {
-        "author": "Anthropic",
-        "category": "External"
-      },
-      "slug": "webapp-testing",
-      "path": "External/webapp-testing"
-    },
-    {
-      "name": "stripe-best-practices",
-      "description": "Best practices for building a Stripe integrations",
-      "metadata": {
-        "author": "Stripe",
-        "category": "External",
-        "display-name": "Stripe Best Practices"
-      },
-      "slug": "stripe-best-practices",
-      "path": "External/stripe-best-practices"
-    },
-    {
-      "name": "onboarding-cro",
-      "description": "When the user wants to optimize post-signup onboarding, user activation, first-run experience, or time-to-value. Also use when the user mentions \"onboarding flow,\" \"activation rate,\" \"user activation,\" \"first-run experience,\" \"empty states,\" \"onboarding checklist,\" \"aha moment,\" or \"new user experience.\" For signup/registration optimization, see signup-flow-cro. For ongoing email sequences, see email-sequence.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "onboarding-cro",
-      "path": "External/onboarding-cro"
-    },
-    {
-      "name": "weather",
-      "description": "Get the current weather for any location",
-      "homepage": "https://wttr.in/:help",
-      "compatibility": "see metadata.clawdbot.requires",
-      "metadata": {
-        "author": "Clawdbot",
-        "category": "External",
-        "clawdbot": {
-          "emoji": "🌤️",
-          "requires": {
-            "bins": [
-              "curl"
-            ]
-          }
-        },
-        "display-name": "Weather"
-      },
-      "slug": "weather",
-      "path": "External/weather"
-    },
-    {
-      "name": "shorten",
-      "description": "Shorten URLs using is.gd (no auth required). Returns a permanent short link.",
-      "metadata": {
-        "author": "Clawdbot",
-        "category": "External",
-        "display-name": "Shorten URLs"
-      },
-      "slug": "shorten",
-      "path": "External/shorten"
-    },
-    {
-      "name": "paywall-upgrade-cro",
-      "description": "When the user wants to create or optimize in-app paywalls, upgrade screens, upsell modals, or feature gates. Also use when the user mentions \"paywall,\" \"upgrade screen,\" \"upgrade modal,\" \"upsell,\" \"feature gate,\" \"convert free to paid,\" \"freemium conversion,\" \"trial expiration screen,\" \"limit reached screen,\" \"plan upgrade prompt,\" or \"in-app pricing.\" Distinct from public pricing pages (see page-cro) — this skill focuses on in-product upgrade moments where the user has already experienced value.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "paywall-upgrade-cro",
-      "path": "External/paywall-upgrade-cro"
-    },
-    {
-      "name": "frontend-design",
-      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.",
-      "license": "Complete terms in LICENSE.txt",
-      "metadata": {
-        "author": "Anthropic",
-        "category": "External"
-      },
-      "slug": "frontend-design",
-      "path": "External/frontend-design"
-    },
-    {
-      "name": "schema-markup",
-      "description": "When the user wants to add, fix, or optimize schema markup and structured data on their site. Also use when the user mentions \"schema markup,\" \"structured data,\" \"JSON-LD,\" \"rich snippets,\" \"schema.org,\" \"FAQ schema,\" \"product schema,\" \"review schema,\" or \"breadcrumb schema.\" For broader SEO issues, see seo-audit.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "schema-markup",
-      "path": "External/schema-markup"
     },
     {
       "name": "trello",
@@ -1108,103 +1111,66 @@
             ]
           }
         },
-        "display-name": "Use Trello"
+        "display-name": "Use Trello",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/trello"
       },
       "slug": "trello",
       "path": "External/trello"
     },
     {
-      "name": "popup-cro",
-      "description": "When the user wants to create or optimize popups, modals, overlays, slide-ins, or banners for conversion purposes. Also use when the user mentions \"exit intent,\" \"popup conversions,\" \"modal optimization,\" \"lead capture popup,\" \"email popup,\" \"announcement banner,\" or \"overlay.\" For forms outside of popups, see form-cro. For general page conversion optimization, see page-cro.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "popup-cro",
-      "path": "External/popup-cro"
-    },
-    {
-      "name": "threejs-textures",
-      "description": "Three.js textures - texture types, UV mapping, environment maps, texture settings. Use when working with images, UV coordinates, cubemaps, HDR environments, or texture optimization.",
-      "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
-      },
-      "slug": "threejs-textures",
-      "path": "External/threejs-textures"
-    },
-    {
-      "name": "mcp-builder",
-      "description": "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).",
-      "license": "Complete terms in LICENSE.txt",
-      "metadata": {
-        "author": "Anthropic",
-        "category": "External"
-      },
-      "slug": "mcp-builder",
-      "path": "External/mcp-builder"
-    },
-    {
-      "name": "email-sequence",
-      "description": "When the user wants to create or optimize an email sequence, drip campaign, automated email flow, or lifecycle email program. Also use when the user mentions \"email sequence,\" \"drip campaign,\" \"nurture sequence,\" \"onboarding emails,\" \"welcome sequence,\" \"re-engagement emails,\" \"email automation,\" or \"lifecycle emails.\" For in-app onboarding, see onboarding-cro.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "email-sequence",
-      "path": "External/email-sequence"
-    },
-    {
-      "name": "brand-guidelines",
-      "description": "Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.",
-      "license": "Complete terms in LICENSE.txt",
-      "metadata": {
-        "author": "Anthropic",
-        "category": "External"
-      },
-      "slug": "brand-guidelines",
-      "path": "External/brand-guidelines"
-    },
-    {
-      "name": "snow-report",
-      "description": "Get snow conditions, forecasts, and ski reports for any mountain resort worldwide. Use when asked about snow, powder, ski conditions, or mountain weather. Supports 1000+ resorts via OpenSnow. Users can set favorite mountains for quick access. Supports SnowTick 4-letter codes (JHMR, TARG, MMTH) for quick lookups.",
+      "name": "video-frames",
+      "description": "Extract frames or short clips from videos using ffmpeg.",
+      "homepage": "https://ffmpeg.org",
+      "compatibility": "see metadata.clawdbot.requires",
       "metadata": {
         "author": "Clawdbot",
         "category": "External",
-        "display-name": "Fetch snow conditions for any ski resort"
+        "clawdbot": {
+          "emoji": "🎞️",
+          "requires": {
+            "bins": [
+              "ffmpeg"
+            ]
+          },
+          "install": [
+            {
+              "id": "brew",
+              "kind": "brew",
+              "formula": "ffmpeg",
+              "bins": [
+                "ffmpeg"
+              ],
+              "label": "Install ffmpeg (brew)"
+            }
+          ]
+        },
+        "display-name": "Video Frames (FFmpeg)",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/video-frames"
       },
-      "slug": "snow-report",
-      "path": "External/snow-report"
+      "slug": "video-frames",
+      "path": "External/video-frames"
     },
     {
-      "name": "ab-test-setup",
-      "description": "When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions \"A/B test,\" \"split test,\" \"experiment,\" \"test this change,\" \"variant copy,\" \"multivariate test,\" or \"hypothesis.\" For tracking implementation, see analytics-tracking.",
+      "name": "weather",
+      "description": "Get the current weather for any location",
+      "homepage": "https://wttr.in/:help",
+      "compatibility": "see metadata.clawdbot.requires",
       "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
+        "author": "Clawdbot",
+        "category": "External",
+        "clawdbot": {
+          "emoji": "🌤️",
+          "requires": {
+            "bins": [
+              "curl"
+            ]
+          }
+        },
+        "display-name": "Weather",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/weather"
       },
-      "slug": "ab-test-setup",
-      "path": "External/ab-test-setup"
-    },
-    {
-      "name": "threejs-materials",
-      "description": "Three.js materials - PBR, basic, phong, shader materials, material properties. Use when styling meshes, working with textures, creating custom shaders, or optimizing material performance.",
-      "metadata": {
-        "author": "Cloudai-x",
-        "category": "External"
-      },
-      "slug": "threejs-materials",
-      "path": "External/threejs-materials"
-    },
-    {
-      "name": "referral-program",
-      "description": "When the user wants to create, optimize, or analyze a referral program, affiliate program, or word-of-mouth strategy. Also use when the user mentions 'referral,' 'affiliate,' 'ambassador,' 'word of mouth,' 'viral loop,' 'refer a friend,' or 'partner program.' This skill covers program design, incentive structure, and growth optimization.",
-      "metadata": {
-        "author": "Coreyhaines31",
-        "category": "External"
-      },
-      "slug": "referral-program",
-      "path": "External/referral-program"
+      "slug": "weather",
+      "path": "External/weather"
     },
     {
       "name": "web-artifacts-builder",
@@ -1212,10 +1178,23 @@
       "license": "Complete terms in LICENSE.txt",
       "metadata": {
         "author": "Anthropic",
-        "category": "External"
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/web-artifacts-builder"
       },
       "slug": "web-artifacts-builder",
       "path": "External/web-artifacts-builder"
+    },
+    {
+      "name": "webapp-testing",
+      "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+      "license": "Complete terms in LICENSE.txt",
+      "metadata": {
+        "author": "Anthropic",
+        "category": "External",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/webapp-testing"
+      },
+      "slug": "webapp-testing",
+      "path": "External/webapp-testing"
     },
     {
       "name": "yahoo-finance",
@@ -1223,203 +1202,335 @@
       "metadata": {
         "author": "Clawdbot",
         "category": "External",
-        "display-name": "Use Yahoo Finance"
+        "display-name": "Use Yahoo Finance",
+        "source": "https://github.com/zocomputer/skills/tree/main/External/yahoo-finance"
       },
       "slug": "yahoo-finance",
       "path": "External/yahoo-finance"
     },
     {
-      "name": "text-commute-info",
-      "description": "Gets your commute time and route options, then texts you the details",
-      "metadata": {
-        "author": "ian.zo.computer",
-        "category": "Community",
-        "display-name": "Text commute travel time and route",
-        "emoji": "🚏"
-      },
-      "slug": "text-commute-info",
-      "path": "Community/text-commute-info"
-    },
-    {
-      "name": "hashcards-setup",
-      "description": "Sets up a spaced repetition flashcard system that you can access through your web browser to study and memorize information",
-      "metadata": {
-        "author": "rc2.zo.computer",
-        "category": "Community",
-        "display-name": "Set up hashcards spaced repetition system",
-        "emoji": "📇"
-      },
-      "slug": "hashcards-setup",
-      "path": "Community/hashcards-setup"
-    },
-    {
-      "name": "generate-custom-qr-code",
-      "description": "Generates a QR code from any URL, and optionally overlays a custom image in the center",
-      "metadata": {
-        "author": "hatsunemiku.zo.computer",
-        "category": "Community",
-        "display-name": "Generate QR code with optional image",
-        "emoji": "📱"
-      },
-      "slug": "generate-custom-qr-code",
-      "path": "Community/generate-custom-qr-code"
-    },
-    {
-      "name": "personal-genomics-analysis",
-      "description": "Analyzes your 23andMe genetic data to identify health risks, drug sensitivities, ancestry, and traits, then generates a personalized report",
-      "metadata": {
-        "author": "rob.zo.computer",
-        "category": "Community",
-        "display-name": "Genome Analysis",
-        "emoji": "🧬"
-      },
-      "slug": "personal-genomics-analysis",
-      "path": "Community/personal-genomics-analysis"
-    },
-    {
-      "name": "receipt-tracker-setup",
-      "description": "Automatically scans receipts you drop in a folder, extracts the details, and saves them to a searchable database",
-      "metadata": {
-        "author": "rob.zo.computer",
-        "category": "Community",
-        "display-name": "Set up automated receipt processing system",
-        "emoji": "🧾"
-      },
-      "slug": "receipt-tracker-setup",
-      "path": "Community/receipt-tracker-setup"
-    },
-    {
-      "name": "google-calendar",
-      "description": "Query Google Calendar for events and free time blocks. Requires google-direct-oauth skill to be \nset up first. Ask Zo things like \"what's on my calendar today\", \"find free time tomorrow\", \n\"show my week\", or \"when am I free on Friday between 10am and 4pm\".\n",
-      "compatibility": "Requires zo-google-direct-oauth skill with valid tokens at /home/.z/google-oauth/",
-      "metadata": {
-        "author": "rob.zo.computer",
-        "category": "Community",
-        "emoji": "🅖"
-      },
-      "slug": "google-calendar",
-      "path": "Community/google-calendar"
-    },
-    {
-      "name": "summarize-hacker-news",
-      "description": "Picks the most interesting articles from Hacker News, reads them, and emails you a summary",
-      "metadata": {
-        "author": "0.zo.computer",
-        "category": "Community",
-        "display-name": "Summarize Hacker News front page",
-        "emoji": "🔶"
-      },
-      "slug": "summarize-hacker-news",
-      "path": "Community/summarize-hacker-news"
-    },
-    {
-      "name": "pitchfork-best-tracks",
-      "description": "Finds the latest songs from Pitchfork's Best New Tracks and creates a Spotify playlist for you",
-      "metadata": {
-        "author": "ian.zo.computer",
-        "category": "Community",
-        "display-name": "Create Spotify playlist from Pitchfork Best New Tracks",
-        "emoji": "🎵"
-      },
-      "slug": "pitchfork-best-tracks",
-      "path": "Community/pitchfork-best-tracks"
-    },
-    {
-      "name": "syllabus-reminders",
-      "description": "Reads your syllabus, finds all due dates, and sets up text reminders and calendar events so you never miss an assignment",
-      "metadata": {
-        "author": "hatsunemiku.zo.computer",
-        "category": "Community",
-        "display-name": "Create syllabus reminders",
-        "emoji": "🔖"
-      },
-      "slug": "syllabus-reminders",
-      "path": "Community/syllabus-reminders"
-    },
-    {
-      "name": "remove-photo-metadata",
-      "description": "Strip all metadata from images for privacy",
-      "metadata": {
-        "author": "ian.zo.computer",
-        "category": "Community",
-        "display-name": "Remove Photo Metadata",
-        "emoji": "🔒"
-      },
-      "slug": "remove-photo-metadata",
-      "path": "Community/remove-photo-metadata"
-    },
-    {
-      "name": "daily-affirmations",
-      "description": "Send yourself a daily text message with a randomly selected or rotating positive affirmation.",
+      "name": "automate-something",
+      "description": "Create an automation with a Zo Agent task",
       "metadata": {
         "author": "Zo",
-        "category": "Community",
-        "display-name": "Texting positive affirmations daily",
-        "emoji": "✨"
+        "category": "Official",
+        "display-name": "Automate something",
+        "emoji": "⚙️",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-automate-something"
       },
-      "slug": "daily-affirmations",
-      "path": "Community/daily-affirmations"
+      "slug": "zo-automate-something",
+      "path": "Official/zo-automate-something"
     },
     {
-      "name": "plan-code-changes",
-      "description": "Plan out code changes using a plan file.",
+      "name": "blog-site",
+      "description": "Build a blog or newsletter to share your thoughts.",
       "metadata": {
-        "author": "0.zo.computer",
-        "category": "Community",
-        "display-name": "Plan code changes",
-        "emoji": "🧑🏻‍💻"
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Create a blog",
+        "emoji": "📝",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-blog-site"
       },
-      "slug": "plan-code-changes",
-      "path": "Community/plan-code-changes"
+      "slug": "zo-blog-site",
+      "path": "Official/zo-blog-site"
     },
     {
-      "name": "plant-care-plan",
-      "description": "Creates a comprehensive care guide for your specific plant",
+      "name": "code-server-setup",
+      "description": "Sets up VS Code in your web browser so you can write and edit code from anywhere",
       "metadata": {
-        "author": "hatsunemiku.zo.computer",
-        "category": "Community",
-        "display-name": "Plant Care Plan",
-        "emoji": "🪴"
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Set up code-server (VS Code in browser)",
+        "emoji": "💻",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-code-server-setup"
       },
-      "slug": "plant-care-plan",
-      "path": "Community/plant-care-plan"
+      "slug": "zo-code-server-setup",
+      "path": "Official/zo-code-server-setup"
     },
     {
-      "name": "add-flashcards",
-      "description": "Converts webpages, articles, or documents into study flashcards that you can review with spaced repetition",
-      "compatibility": "Requires hashcards-setup skill with flashcards at /home/workspace/flashcards/",
+      "name": "create-site",
+      "description": "Create a site hosted on your Zo server. Private by default, publish with a click.",
       "metadata": {
-        "author": "rc2.zo.computer",
-        "category": "Community",
-        "display-name": "Generate flashcards from a webpage or document",
-        "emoji": "📇"
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Create a site",
+        "emoji": "⚡",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-create-site"
       },
-      "slug": "add-flashcards",
-      "path": "Community/add-flashcards"
+      "slug": "zo-create-site",
+      "path": "Official/zo-create-site"
     },
     {
-      "name": "dating-profile",
-      "description": "Creates an ideal dating profile by writing your bio and choosing the best photos in the right order",
+      "name": "create-slidedeck",
+      "description": "Turn any reference material into a polished, visually cohesive slide deck.",
       "metadata": {
-        "author": "tiff.zo.computer",
-        "category": "Community",
-        "display-name": "Create ideal dating profile",
-        "emoji": "💌"
+        "author": "rob.zo.computer",
+        "category": "Official",
+        "display-name": "Create a slide deck",
+        "emoji": "🎞️",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-create-slidedeck"
       },
-      "slug": "dating-profile",
-      "path": "Community/dating-profile"
+      "slug": "zo-create-slidedeck",
+      "path": "Official/zo-create-slidedeck"
     },
     {
-      "name": "find-missed-connections",
-      "description": "Finds recent missed connections posts from Craigslist and gives you the highlights",
+      "name": "daily-linear-digest",
+      "description": "Creates an automation to email you a summary of your Linear activity from the previous day",
       "metadata": {
-        "author": "0.zo.computer",
-        "category": "Community",
-        "display-name": "Find recent Craigslist missed connections",
-        "emoji": "💕"
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Daily Linear digest",
+        "emoji": "📋",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-daily-linear-digest"
       },
-      "slug": "find-missed-connections",
-      "path": "Community/find-missed-connections"
+      "slug": "zo-daily-linear-digest",
+      "path": "Official/zo-daily-linear-digest"
+    },
+    {
+      "name": "daily-news-digest",
+      "description": "Fetch the latest headlines on a topic you care about and email it to you every morning.",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Daily news digest",
+        "emoji": "📰",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-daily-news-digest"
+      },
+      "slug": "zo-daily-news-digest",
+      "path": "Official/zo-daily-news-digest"
+    },
+    {
+      "name": "enrich-csv",
+      "description": "Adds new columns to your spreadsheet by generating information for each row",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Enrich CSV with AI-generated columns",
+        "emoji": "📊",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-enrich-csv"
+      },
+      "slug": "zo-enrich-csv",
+      "path": "Official/zo-enrich-csv"
+    },
+    {
+      "name": "epub-to-markdown",
+      "description": "Convert EPUB ebooks to Markdown format",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Convert EPUB to Markdown",
+        "emoji": "📚",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-epub-to-markdown"
+      },
+      "slug": "zo-epub-to-markdown",
+      "path": "Official/zo-epub-to-markdown"
+    },
+    {
+      "name": "extract-text-from-image",
+      "description": "Extract text from images, scanned documents, and PDFs using OCR",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Extract Text from Images (OCR)",
+        "emoji": "🔍",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-extract-text-from-image"
+      },
+      "slug": "zo-extract-text-from-image",
+      "path": "Official/zo-extract-text-from-image"
+    },
+    {
+      "name": "for-each-line",
+      "description": "Processes every line of a file one by one, transforming or extracting information from each line",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Process file line-by-line with script",
+        "emoji": "🔄",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-for-each-line"
+      },
+      "slug": "zo-for-each-line",
+      "path": "Official/zo-for-each-line"
+    },
+    {
+      "name": "generate-pdf",
+      "description": "Convert Markdown files to PDF format with professional formatting",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Generate PDF from Markdown",
+        "emoji": "📑",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-generate-pdf"
+      },
+      "slug": "zo-generate-pdf",
+      "path": "Official/zo-generate-pdf"
+    },
+    {
+      "name": "google-direct-oauth",
+      "description": "Direct Google OAuth integration without third-party apps. Connects your Google Calendar and Gmail \nusing your own OAuth credentials in Google Cloud Console. Includes a refresh daemon that keeps \ntokens warm. Use this when you want direct API access to Google services without relying on \nexternal OAuth providers.\n",
+      "compatibility": "Requires a Google Cloud Console account (free). Works on any Zo Computer.",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "emoji": "🅖",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-google-direct-oauth"
+      },
+      "slug": "zo-google-direct-oauth",
+      "path": "Official/zo-google-direct-oauth"
+    },
+    {
+      "name": "grafana-setup",
+      "description": "Sets up a visual dashboard to explore and analyze your system logs and data",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Set up Grafana for log visualization",
+        "emoji": "📈",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-grafana-setup"
+      },
+      "slug": "zo-grafana-setup",
+      "path": "Official/zo-grafana-setup"
+    },
+    {
+      "name": "guestbook-site",
+      "description": "Build an interactive guestbook where visitors can leave messages.",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Create a guestbook",
+        "emoji": "📖",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-guestbook-site"
+      },
+      "slug": "zo-guestbook-site",
+      "path": "Official/zo-guestbook-site"
+    },
+    {
+      "name": "important-email-digest",
+      "description": "Finds your most important emails from the past 2 days and texts you a summary with suggested follow-ups",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Text summary of important emails",
+        "emoji": "📧",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-important-email-digest"
+      },
+      "slug": "zo-important-email-digest",
+      "path": "Official/zo-important-email-digest"
+    },
+    {
+      "name": "meeting-list",
+      "description": "Shows you all the people you've met with recently, organized by meeting",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Find meetings with attendees",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-meeting-list"
+      },
+      "slug": "zo-meeting-list",
+      "path": "Official/zo-meeting-list"
+    },
+    {
+      "name": "n8n-setup",
+      "description": "Sets up n8n workflow automation tool so you can create automated workflows between different apps and services",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Set up n8n workflow automation",
+        "emoji": "🔗",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-n8n-setup"
+      },
+      "slug": "zo-n8n-setup",
+      "path": "Official/zo-n8n-setup"
+    },
+    {
+      "name": "organize-workspace",
+      "description": "Organizes your scattered files into logical folders by project, type, and purpose",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Organize my files",
+        "emoji": "🗂️",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-organize-workspace"
+      },
+      "slug": "zo-organize-workspace",
+      "path": "Official/zo-organize-workspace"
+    },
+    {
+      "name": "pdf-to-markdown",
+      "description": "Convert PDF files to Markdown format",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Convert PDF to Markdown",
+        "emoji": "📄",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-pdf-to-markdown"
+      },
+      "slug": "zo-pdf-to-markdown",
+      "path": "Official/zo-pdf-to-markdown"
+    },
+    {
+      "name": "portfolio-site",
+      "description": "Build a personal portfolio to showcase your work and resume.",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Create a portfolio site",
+        "emoji": "🎨",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-portfolio-site"
+      },
+      "slug": "zo-portfolio-site",
+      "path": "Official/zo-portfolio-site"
+    },
+    {
+      "name": "research-topic",
+      "description": "Use Zo to research any topic comprehensively and write a report.",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Research a topic",
+        "emoji": "🔬",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-research-topic"
+      },
+      "slug": "zo-research-topic",
+      "path": "Official/zo-research-topic"
+    },
+    {
+      "name": "resize-image",
+      "description": "Resize images to specific dimensions or percentages",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Resize Images",
+        "emoji": "🖼️",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-resize-image"
+      },
+      "slug": "zo-resize-image",
+      "path": "Official/zo-resize-image"
+    },
+    {
+      "name": "ssh-setup",
+      "description": "Sets up secure remote access to your Zo Computer so you can connect from anywhere",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Set up SSH server for remote access",
+        "emoji": "🔐",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-ssh-setup"
+      },
+      "slug": "zo-ssh-setup",
+      "path": "Official/zo-ssh-setup"
+    },
+    {
+      "name": "weekly-meeting-reminder",
+      "description": "Get an email every Sunday evening listing your meetings for the coming week.",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Weekly meeting reminder",
+        "emoji": "🗓️",
+        "source": "https://github.com/zocomputer/skills/tree/main/Official/zo-weekly-meeting-reminder"
+      },
+      "slug": "zo-weekly-meeting-reminder",
+      "path": "Official/zo-weekly-meeting-reminder"
     }
   ]
 }
