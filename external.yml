@@ -53,8 +53,6 @@
 - repository: clawdbot/skills
   skill: just-fucking-cancel
 - repository: clawdbot/skills
-  skill: snow-report
-- repository: clawdbot/skills
   skill: yahoo-finance
 - repository: adithya-s-k/manim_skill
   skill: manim-composer

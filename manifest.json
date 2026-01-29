@@ -1150,17 +1150,6 @@
       "path": "External/brand-guidelines"
     },
     {
-      "name": "snow-report",
-      "description": "Get snow conditions, forecasts, and ski reports for any mountain resort worldwide. Use when asked about snow, powder, ski conditions, or mountain weather. Supports 1000+ resorts via OpenSnow. Users can set favorite mountains for quick access. Supports SnowTick 4-letter codes (JHMR, TARG, MMTH) for quick lookups.",
-      "metadata": {
-        "author": "Clawdbot",
-        "category": "External",
-        "display-name": "Fetch snow conditions for any ski resort"
-      },
-      "slug": "snow-report",
-      "path": "External/snow-report"
-    },
-    {
       "name": "ab-test-setup",
       "description": "When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions \"A/B test,\" \"split test,\" \"experiment,\" \"test this change,\" \"variant copy,\" \"multivariate test,\" or \"hypothesis.\" For tracking implementation, see analytics-tracking.",
       "metadata": {
