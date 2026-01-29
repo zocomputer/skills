@@ -52,8 +52,6 @@
     On Zo, the script lives at `/home/workspace/Skills/shorten/shorten.sh`.
 - repository: clawdbot/skills
   skill: just-fucking-cancel
-- repository: clawdbot/skills
-  skill: yahoo-finance
 - repository: adithya-s-k/manim_skill
   skill: manim-composer
 - repository: obra/superpowers

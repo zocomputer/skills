@@ -1191,17 +1191,6 @@
       "path": "External/web-artifacts-builder"
     },
     {
-      "name": "yahoo-finance",
-      "description": "Get stock prices, quotes, fundamentals, earnings, options, dividends, and analyst ratings using Yahoo Finance. Uses yfinance library - no API key required.",
-      "metadata": {
-        "author": "Clawdbot",
-        "category": "External",
-        "display-name": "Use Yahoo Finance"
-      },
-      "slug": "yahoo-finance",
-      "path": "External/yahoo-finance"
-    },
-    {
       "name": "text-commute-info",
       "description": "Gets your commute time and route options, then texts you the details",
       "metadata": {
