@@ -62,8 +62,6 @@
   skill: brainstorming
 - repository: remotion-dev/skills
   skill: remotion-best-practices
-- repository: resciencelab/opc-skills
-  skill: reddit
 - repository: softaworks/agent-toolkit
   skill: meme-factory
 - repository: stripe/ai
