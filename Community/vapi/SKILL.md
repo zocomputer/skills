@@ -156,6 +156,31 @@ Vapi supports multiple providers. Set:
 VAPI_LLM_MODEL=claude-sonnet-4-20250514  # or gpt-4o, etc.
 ```
 
+### Personalize `vapi.ts`
+
+The `scripts/vapi.ts` CLI has several hardcoded values that should be updated to match your identity and preferences. While environment variables handle API keys and some config, the following are embedded directly in the script:
+
+**Assistant Identity** (`createAssistant` function):
+- `name: "Matt"` — Change to your assistant's name
+- `firstMessage: "Hey, this is Matt..."` — The greeting callers hear first
+- `endCallMessage: "Alright, talk to you later!"` — Said when hanging up
+
+**System Prompt** (`createAssistant` → `model.messages`):
+- `"You are Matt, a helpful assistant for Nick"` — Update both names
+- `"CEO and Co-Founder of PeakMetrics"` — Replace with your own role/company
+- `"PeakMetrics is a narrative intelligence platform..."` — Replace with your company description
+- The tone/style instructions (e.g., "1-2 sentences per response") can also be adjusted
+
+**Voice** (`createAssistant` → `voice`):
+- `voiceId: "pwMBn0SsmN1220Aorv15"` — Hardcoded ElevenLabs voice ID (overrides `VAPI_VOICE_ID` env var for `assistant create`)
+
+**Voicemail Messages** (appear in multiple places):
+- `createAssistant`: `"Hey, this is Matt calling for Nick..."`
+- `updateAssistant`: Same hardcoded voicemail message
+- `generateVoicemailMessage`: Default and purpose-based voicemail templates both reference "Matt" and "Nick"
+
+> **Tip:** Search for `Matt` and `Nick` in the file to find all instances that need updating. There are currently 6+ references to "Matt" and 4+ references to "Nick" scattered across the assistant config, voicemail templates, and system prompt.
+
 ### Extend Tools
 
 Add new tools by modifying `webhook.ts`:
