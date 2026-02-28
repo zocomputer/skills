@@ -30,6 +30,92 @@ Use this skill when:
 2. **bun** must be available (pre-installed on Zo)
 3. The skill must be in `/home/workspace/Skills/<skill-name>/` with a valid `SKILL.md`
 
+## ⚠️ Sanitization (REQUIRED)
+
+**CRITICAL: Always sanitize skills before publishing.** Skills must NOT contain any personally identifiable information (PII), secrets, or user-specific data.
+
+### What Must Be Sanitized
+
+| Data Type | Example | Replace With |
+|-----------|---------|--------------|
+| Email addresses | `user@gmail.com` | `your-email@example.com` or remove |
+| User handles | `curtastrophe.zo.computer` | `YOUR_HANDLE.zo.computer` |
+| API keys / tokens | `sk_live_abc123...` | `YOUR_API_KEY` or remove |
+| Passwords / secrets | `mySecretPass123` | `YOUR_SECRET` or remove |
+| Specific file paths | `/Users/curtis/Documents/` | `/home/workspace/` or generic path |
+| Phone numbers | `+1-780-555-1234` | Remove or `+1-555-555-5555` |
+| Real names | `John Smith` | Remove or generic placeholder |
+| Company names (if private) | `Acme Corp` | Remove or `Your Company` |
+| Internal URLs | `https://internal.company.com` | Remove or generic |
+| Database names | `my_prod_database` | `your_database` |
+| IP addresses | `192.168.1.100` | `192.168.1.1` or remove |
+
+### Sanitization Process
+
+**Step 1: Scan for PII patterns**
+
+```bash
+# Check for email addresses
+grep -rE '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}' /home/workspace/Skills/<skill-name>/
+
+# Check for API keys (common patterns)
+grep -rE '(sk_live|sk_test|api_key|apikey|token|secret|password)\s*[=:]\s*["\']?[^\s"\'\"]+' /home/workspace/Skills/<skill-name>/
+
+# Check for phone numbers
+grep -rE '\+?[0-9]{1,3}[-. ]?\(?[0-9]{3}\)?[-. ]?[0-9]{3}[-. ]?[0-9]{4}' /home/workspace/Skills/<skill-name>/
+
+# Check for your handle
+grep -r 'curtastrophe\|<your-handle>' /home/workspace/Skills/<skill-name>/
+```
+
+**Step 2: Replace with placeholders**
+
+Use generic placeholders that clearly indicate where the user should substitute their own values:
+
+```yaml
+# Good examples:
+author: YOUR_HANDLE.zo.computer
+api_key: YOUR_API_KEY_HERE
+email: your-email@example.com
+```
+
+**Step 3: Verify frontmatter**
+
+Ensure `metadata.author` uses a placeholder, NOT your actual handle:
+
+```yaml
+# WRONG:
+metadata:
+  author: curtastrophe.zo.computer
+
+# CORRECT:
+metadata:
+  author: YOUR_HANDLE.zo.computer
+```
+
+### Pre-Publish Sanitization Checklist
+
+Before copying the skill to skills-hub, verify:
+
+- [ ] **No email addresses** (yours or others')
+- [ ] **No API keys, tokens, or secrets** (even example ones)
+- [ ] **No personal handles** in author field or code examples
+- [ ] **No specific file paths** containing your username
+- [ ] **No phone numbers**
+- [ ] **No real names** of individuals
+- [ ] **No internal/private URLs**
+- [ ] **No database names** that identify specific installations
+- [ ] **No IP addresses** (or use `192.168.x.x` ranges)
+- [ ] **All placeholders are obvious** (use `YOUR_*` prefix)
+
+### Files to Check
+
+Sanitize ALL files in the skill directory:
+- `SKILL.md` - Main skill file
+- `scripts/*.ts` or `scripts/*.py` - Any scripts
+- `references/*.md` - Documentation files
+- `assets/*` - Check for embedded text in images/docs
+
 ## Publishing Workflow
 
 ### Step 1: Validate the Skill
@@ -228,11 +314,25 @@ Once your PR is merged:
 User: "Package my analytics-tracking skill and publish to the Zo skills hub"
 
 Zo should:
-1. Validate the skill at /home/workspace/Skills/analytics-tracking/SKILL.md
-2. Clone or update the skills-hub repo
-3. Copy the skill to Community/
-4. Run bun validate
-5. Create branch, commit, push
-6. Create PR with descriptive title and body
-7. Report PR URL to user
+1. Sanitize the skill - scan for and remove all PII
+2. Validate the skill at /home/workspace/Skills/analytics-tracking/SKILL.md
+3. Clone or update the skills-hub repo
+4. Copy the sanitized skill to Community/
+5. Run bun validate
+6. Create branch, commit, push
+7. Create PR with descriptive title and body
+8. Report PR URL to user
 ```
+
+## Sanitization Quick Reference
+
+When in doubt, use these replacements:
+
+| If you see... | Replace with... |
+|---------------|-----------------|
+| Your actual handle | `YOUR_HANDLE.zo.computer` |
+| Your actual email | `your-email@example.com` |
+| Any API key/token | `YOUR_API_KEY` or remove entirely |
+| Specific paths like `/Users/yourname/` | `/home/workspace/` |
+| Company-specific URLs | Remove or use `https://api.example.com` |
+| Real person names | Remove or use generic names |
