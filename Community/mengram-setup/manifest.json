@@ -1,0 +1,14 @@
+{
+  "name": "mengram-setup",
+  "description": "Set up a self-hosted Mengram memory system for AI agents with semantic, episodic, and procedural memory. Includes REST API, authentication, and knowledge graph capabilities. Use when the user wants to add persistent human-like memory to their Zo Computer.",
+  "homepage": "https://github.com/alibaizhanov/mengram",
+  "compatibility": "Created for Zo Computer. Requires Python 3.10+ and Ollama (optional for local LLM).",
+  "metadata": {
+    "author": "your-handle.zo.computer",
+    "category": "System",
+    "display-name": "Mengram Memory System",
+    "emojis": ["🧠", "💾", "🔍"]
+  },
+  "slug": "zo-mengram-setup",
+  "path": "System/zo-mengram-setup"
+}
