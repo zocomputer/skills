@@ -1608,6 +1608,18 @@
       },
       "slug": "remove-photo-metadata",
       "path": "Community/remove-photo-metadata"
+    },
+    {
+      "name": "zo-qa-app",
+      "description": "Install the Zo Q&A App - a real-time Q&A application for live events with submission, voting, TV wall display, and admin controls.",
+      "metadata": {
+        "author": "jonahprice.zo.computer",
+        "category": "Official",
+        "display-name": "Zo Q&A App",
+        "emoji": "❓"
+      },
+      "slug": "zo-qa-app",
+      "path": "Official/zo-qa-app"
     }
   ]
 }
