@@ -1,0 +1,55 @@
+# Mengram Configuration Template
+# Copy to ~/mengram/config.yaml and customize
+
+# Memory vault location
+vault_path: "~/mengram/vault"
+
+# LLM Provider Configuration
+# Choose one: ollama, openai, anthropic, openrouter
+
+llm:
+  # Local Ollama (recommended for self-hosted)
+  provider: "ollama"
+  ollama:
+    base_url: "http://localhost:11434"
+    model: "llama3.2"
+  
+  # OpenAI (requires OPENAI_API_KEY env var)
+  # provider: "openai"
+  # openai:
+  #   api_key: "${OPENAI_API_KEY}"
+  #   model: "gpt-4o-mini"
+  
+  # Anthropic (requires ANTHROPIC_API_KEY env var)
+  # provider: "anthropic"
+  # anthropic:
+  #   api_key: "${ANTHROPIC_API_KEY}"
+  #   model: "claude-3-haiku-20240307"
+  
+  # OpenRouter (requires OPENROUTER_API_KEY env var)
+  # provider: "openrouter"
+  # llm_settings:
+  #   model: "anthropic/claude-3-haiku"
+
+# Semantic Search Settings
+semantic_search:
+  enabled: true
+  # Local embedding model (384 dimensions, ~80MB)
+  embedding_model: "all-MiniLM-L6-v2"
+  # Alternative: "all-mpnet-base-v2" (768 dimensions, ~400MB, more accurate)
+
+# Security Settings
+security:
+  enabled: true
+  api_keys_file: "~/mengram/api_keys.json"
+  # Optional: restrict API keys
+  # allowed_keys: ["mg_..."]
+
+# Knowledge Graph Settings
+graph:
+  max_depth: 3
+  min_relation_strength: 0.3
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
