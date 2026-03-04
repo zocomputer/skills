@@ -1,0 +1,41 @@
+{
+  "secrets": [
+    { "name": "AWS Access Key", "pattern": "AKIA[0-9A-Z]{16}", "severity": "critical", "remediation": "Rotate this AWS key immediately and store it in Zo Secrets (Settings > Advanced)." },
+    { "name": "AWS Secret Key", "pattern": "(?:aws_secret_access_key|aws_secret)\\s*[:=]\\s*['\"]?[A-Za-z0-9/+=]{40}", "severity": "critical", "remediation": "Rotate this AWS secret key and move it to Zo Secrets." },
+    { "name": "Private Key File", "pattern": "-----BEGIN\\s+(?:RSA|DSA|EC|OPENSSH|PGP)\\s+PRIVATE\\s+KEY-----", "severity": "critical", "remediation": "Remove this private key from the workspace. Store it in Zo Secrets or a proper key vault." },
+    { "name": "Stripe Secret Key", "pattern": "sk_(?:live|test)_[a-zA-Z0-9]{24,}", "severity": "critical", "remediation": "Move this Stripe key to Zo Secrets and reference it as process.env.STRIPE_SECRET_KEY." },
+    { "name": "Stripe Webhook Secret", "pattern": "whsec_[a-zA-Z0-9]{24,}", "severity": "high", "remediation": "Move this webhook secret to Zo Secrets." },
+    { "name": "GitHub Personal Access Token", "pattern": "gh[pousr]_[A-Za-z0-9_]{36,}", "severity": "critical", "remediation": "Revoke this GitHub token at github.com/settings/tokens and store the new one in Zo Secrets." },
+    { "name": "Slack Token", "pattern": "xox[bpors]-[a-zA-Z0-9\\-]{10,}", "severity": "critical", "remediation": "Revoke this Slack token and regenerate via Slack API settings. Store in Zo Secrets." },
+    { "name": "Generic API Key Assignment", "pattern": "(?:api[_\\-]?key|apikey)\\s*[:=]\\s*['\"][a-zA-Z0-9_\\-]{20,}['\"]", "severity": "high", "remediation": "Move this API key to Zo Secrets (Settings > Advanced) and reference via environment variable." },
+    { "name": "Generic Secret/Password Assignment", "pattern": "(?:password|passwd|secret|token|credential|auth_token)\\s*[:=]\\s*['\"][^\\s'\"]{8,}['\"]", "severity": "high", "remediation": "Never hardcode secrets. Move to Zo Secrets and reference as an environment variable." },
+    { "name": "Password in URL", "pattern": "://[^:\\s]+:[^@\\s]+@[^\\s]+", "severity": "critical", "remediation": "Remove credentials from URLs. Use environment variables for connection strings." },
+    { "name": "Google OAuth Client Secret", "pattern": "\"client_secret\"\\s*:\\s*\"[A-Za-z0-9_\\-]{24,}\"", "severity": "high", "remediation": "Move OAuth secrets to Zo Secrets. Do not commit credentials.json to version control." },
+    { "name": "SendGrid API Key", "pattern": "SG\\.[a-zA-Z0-9_\\-]{22}\\.[a-zA-Z0-9_\\-]{43}", "severity": "critical", "remediation": "Revoke and regenerate this SendGrid key. Store in Zo Secrets." },
+    { "name": "Twilio Auth Token", "pattern": "(?:twilio.*(?:token|secret|auth))\\s*[:=]\\s*['\"]?[a-f0-9]{32}", "severity": "critical", "remediation": "Rotate this Twilio token and store in Zo Secrets." }
+  ],
+  "sensitive_filenames": [
+    "id_rsa", "id_dsa", "id_ecdsa", "id_ed25519",
+    ".pem", ".key", ".p12", ".pfx", ".jks", ".keystore",
+    "credentials.json", "service-account.json", "service_account.json",
+    "token.json", ".htpasswd", ".netrc", ".pgpass",
+    "wp-config.php", "database.yml", "secrets.yml", "master.key"
+  ],
+  "sensitive_extensions": [
+    ".pem", ".key", ".p12", ".pfx", ".jks", ".keystore",
+    ".sqlite", ".sqlite3", ".db", ".sql", ".dump"
+  ],
+  "skip_dirs": [
+    "node_modules", ".git", "Trash", ".cache", ".npm", ".bun",
+    "__pycache__", ".venv", "venv", ".zo", "dist", "build"
+  ],
+  "skip_extensions": [
+    ".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico", ".webp", ".avif",
+    ".mp3", ".mp4", ".mov", ".avi", ".mkv", ".wav", ".ogg", ".webm",
+    ".woff", ".woff2", ".ttf", ".eot", ".otf",
+    ".zip", ".gz", ".tar", ".bz2", ".7z", ".rar",
+    ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+    ".pyc", ".o", ".so", ".dylib", ".dll", ".exe", ".bin",
+    ".lock", ".map"
+  ]
+}
