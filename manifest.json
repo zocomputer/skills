@@ -1598,6 +1598,96 @@
       "path": "Community/handoff"
     },
     {
+      "name": "strategic-option-generator",
+      "description": "Break narrow framing and generate genuinely distinct options with asymmetric upside.",
+      "slug": "strategic-option-generator",
+      "repo_url": "https://github.com/KaiyzerBX50/strategic-option-generator",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/strategic-option-generator/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "strategic-option-generator-1.0.0"
+    },
+    {
+      "name": "classroom-materials-packager",
+      "description": "Generate a complete classroom-ready lesson packet including teacher script, slides outline, handouts, practice sets, answer key, differentiation supports, and setup checklist.",
+      "slug": "classroom-materials-packager",
+      "repo_url": "https://github.com/KaiyzerBX50/classroom-materials-packager",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/classroom-materials-packager/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "classroom-materials-packager-1.0.0"
+    },
+    {
+      "name": "consequence-engine",
+      "description": "Analyze downstream effects, unintended consequences, and long-term impact of decisions or actions.",
+      "slug": "consequence-engine",
+      "repo_url": "https://github.com/KaiyzerBX50/consequence-engine",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/consequence-engine/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "consequence-engine-1.0.0"
+    },
+    {
+      "name": "evidence-weight-calculator",
+      "description": "Evaluate and compare the strength of multiple pieces of evidence.",
+      "slug": "evidence-weight-calculator",
+      "repo_url": "https://github.com/KaiyzerBX50/evidence-weight-calculator",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/evidence-weight-calculator/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "evidence-weight-calculator-1.0.0"
+    },
+    {
+      "name": "ethical-impact-evaluator",
+      "description": "Assess ethical implications and risks of decisions, technologies, or policies.",
+      "slug": "ethical-impact-evaluator",
+      "repo_url": "https://github.com/KaiyzerBX50/ethical-impact-evaluator",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/ethical-impact-evaluator/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "ethical-impact-evaluator-1.0.0"
+    },
+    {
+      "name": "constraint-solver",
+      "description": "Generate feasible plans within strict constraints like budget, time, or resources.",
+      "slug": "constraint-solver",
+      "repo_url": "https://github.com/KaiyzerBX50/constraint-solver",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/constraint-solver/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "constraint-solver-1.0.0"
+    },
+    {
+      "name": "decision-tradeoff-visualizer",
+      "description": "Analyze tradeoffs between options and clarify which choice fits best.",
+      "slug": "decision-tradeoff-visualizer",
+      "repo_url": "https://github.com/KaiyzerBX50/decision-tradeoff-visualizer",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/decision-tradeoff-visualizer/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "decision-tradeoff-visualizer-1.0.0"
+    },
+    {
+      "name": "system-failure-analyzer",
+      "description": "Diagnose failure points in plans, systems, workflows, or operations and suggest fixes.",
+      "slug": "system-failure-analyzer",
+      "repo_url": "https://github.com/KaiyzerBX50/system-failure-analyzer",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/system-failure-analyzer/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "system-failure-analyzer-1.0.0"
+    },
+    {
+      "name": "research-method-advisor",
+      "description": "Recommend the right research method, evidence approach, and study design for a question or project.",
+      "slug": "research-method-advisor",
+      "repo_url": "https://github.com/KaiyzerBX50/research-method-advisor",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/research-method-advisor/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "research-method-advisor-1.0.0"
+    },
+    {
+      "name": "knowledge-structure-mapper",
+      "description": "Map complex domains into structured knowledge models, outlines, and concept relationships.",
+      "slug": "knowledge-structure-mapper",
+      "repo_url": "https://github.com/KaiyzerBX50/knowledge-structure-mapper",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/knowledge-structure-mapper/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "knowledge-structure-mapper-1.0.0"
+    },
+    {
       "name": "remove-photo-metadata",
       "description": "Strip all metadata from images for privacy",
       "metadata": {
