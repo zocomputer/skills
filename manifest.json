@@ -1608,6 +1608,70 @@
       },
       "slug": "remove-photo-metadata",
       "path": "Community/remove-photo-metadata"
+    }    ,
+    {
+      "slug": "signalforge",
+      "name": "signalforge",
+      "description": "Produce decision-grade research artifacts for AI, business, and technology with traceable source support.",
+      "repo_url": "https://github.com/KaiyzerBX50/signalforge",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/signalforge/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "signalforge-1.0.0"
+    },
+    {
+      "slug": "fixpoint",
+      "name": "fixpoint",
+      "description": "Help users organize, troubleshoot, and set up Zo for research and operations in their own environment.",
+      "repo_url": "https://github.com/KaiyzerBX50/fixpoint",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/fixpoint/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "fixpoint-1.0.0"
+    },
+    {
+      "slug": "classroom-packager",
+      "name": "classroom-packager",
+      "description": "Generate complete classroom-ready materials packets from a topic, standard, text, or lesson idea.",
+      "repo_url": "https://github.com/KaiyzerBX50/classroom-packager",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/classroom-packager/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "classroom-packager-1.0.0"
+    },
+    {
+      "slug": "communication-studio",
+      "name": "communication-studio",
+      "description": "Create clear, professional messages for families or students, including updates, requests, and conference materials.",
+      "repo_url": "https://github.com/KaiyzerBX50/communication-studio",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/communication-studio/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "communication-studio-1.0.0"
+    },
+    {
+      "slug": "ai-adoption-playbook-for-teams",
+      "name": "ai-adoption-playbook-for-teams",
+      "description": "Plan responsible AI rollout for teams with guardrails, pilot design, training, and measurement.",
+      "repo_url": "https://github.com/KaiyzerBX50/ai-adoption-playbook-for-teams",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/ai-adoption-playbook-for-teams/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "ai-adoption-playbook-for-teams-1.0.0"
+    },
+    {
+      "slug": "tool-stack-designer-for-nontech",
+      "name": "tool-stack-designer-for-nontech",
+      "description": "Design or improve a simple software stack for non-technical users, aligned to goals, budget, and simplicity.",
+      "repo_url": "https://github.com/KaiyzerBX50/tool-stack-designer-for-nontech",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/tool-stack-designer-for-nontech/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "tool-stack-designer-for-nontech-1.0.0"
+    },
+    {
+      "slug": "zo-reporting",
+      "name": "zo-reporting",
+      "description": "Real-time news command center for Zo-related monitoring with sentiment, engagement, and dashboard support.",
+      "repo_url": "https://github.com/KaiyzerBX50/zo-reporting",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/zo-reporting/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "zo-reporting-1.0.0"
     }
+
   ]
 }
