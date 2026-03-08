@@ -1608,6 +1608,34 @@
       },
       "slug": "remove-photo-metadata",
       "path": "Community/remove-photo-metadata"
+    }  ,
+    {
+      "slug": "zo-signal-pulse",
+      "name": "zo-signal-pulse",
+      "description": "Execution intelligence from meeting notes for Zo.",
+      "repo_url": "https://github.com/KaiyzerBX50/zo-signal-pulse",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/zo-signal-pulse/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "zo-signal-pulse-1.0.0"
+    },
+    {
+      "slug": "zo-teacher-os",
+      "name": "zo-teacher-os",
+      "description": "Private prompt-builder and lesson package installer for educators on Zo.",
+      "repo_url": "https://github.com/KaiyzerBX50/zo-teacher-os",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/zo-teacher-os/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "zo-teacher-os-1.0.0"
+    },
+    {
+      "slug": "stickie-zo",
+      "name": "stickie-zo",
+      "description": "A personal note capture system for Zo with chat, import, and private web app support.",
+      "repo_url": "https://github.com/KaiyzerBX50/stickie-zo",
+      "release_tag": "v1.0.0",
+      "tarball_url": "https://github.com/KaiyzerBX50/stickie-zo/archive/refs/tags/v1.0.0.tar.gz",
+      "archive_root": "stickie-zo-1.0.0"
     }
+
   ]
 }
