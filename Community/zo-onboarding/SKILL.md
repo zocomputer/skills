@@ -1,15 +1,12 @@
 ---
 name: zo-onboarding
-description: >
-  Personalized onboarding experience for new Zo Computer users. Guides them
-  through discovery, feature matching, plan creation, and progress tracking
-  with a warm, encouraging tone. Run manually when onboarding a new user, or
-  activate the companion persona for ongoing sessions.
+description: |
+  Personalized onboarding experience for new Zo Computer users. Guides them through discovery, feature matching, plan creation, and progress tracking with a warm, encouraging tone. Run manually when onboarding a new user, or activate the companion persona for ongoing sessions.
 category: Community
 metadata:
   author: YOUR_HANDLE.zo.computer
   emoji: 🎉
-  emojis: ["🎉", "🚀", "🤝"]
+  emojis: ["🎉","🚀","🤝"]
 tags:
   - onboarding
   - getting-started
@@ -17,7 +14,6 @@ tags:
   - setup
   - walkthrough
 ---
-
 # Zo Onboarding Specialist
 
 A guided, personalized onboarding experience for brand-new Zo Computer users. Pairs with the **Zo Onboarding Guide** persona for full conversational onboarding.
@@ -33,8 +29,14 @@ A guided, personalized onboarding experience for brand-new Zo Computer users. Pa
 ### Initialization & Dependency Check (Persona Setup)
 
 Before starting the onboarding flow, verify if the **Zo Onboarding Guide** persona is installed and active:
-1. Use the `list_personas` tool to check if it exists.
-2. If it does not exist, use the `create_persona` tool to build it. Set the `name` to "Zo Onboarding Guide" and provide a `prompt` that instructs the AI to be a warm, patient onboarding specialist that strictly follows this skill's exact workflow (Discovery, Feature Matching, Plan Creation, and Scheduled Check-Ins).
+
+1. Use the `list_personas` tool to check if a persona named "Zo Onboarding Guide" exists.
+2. **If it does not exist**, do NOT generate it from scratch. Instead, direct the user to install it from the official public link:
+
+   > "Before we get started, you'll need the Zo Onboarding Guide persona for the best experience. Install it here: [Zo Onboarding Guide Persona](https://www.zo.computer/pub/persona/prs_vRbliOATbZacD4Ir). Once it's installed, switch to it and we'll begin!"
+
+   Wait for the user to confirm they've installed and activated it before proceeding.
+
 3. If it exists but isn't active, use `set_active_persona` to switch to it so the proper tone is maintained throughout the session.
 
 ### Option 1: Activate the Persona (Recommended)
