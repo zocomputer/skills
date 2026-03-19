@@ -65,6 +65,9 @@
   skill: meme-factory
 - repository: stripe/ai
   skill: stripe-best-practices
+- repository: yshishenya/stitchflow
+  skill: stitchflow
+  description: Turn product briefs and mockups into Stitch UI screens, design variants, Tailwind-friendly HTML, and screenshots across Codex, Claude Code, OpenClaw, GitHub Copilot, and Gemini CLI.
 - repository: cloudai-x/threejs-skills
   skill: threejs-animation
 - repository: cloudai-x/threejs-skills

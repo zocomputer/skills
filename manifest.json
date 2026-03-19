@@ -336,6 +336,24 @@
       "path": "External/web-artifacts-builder"
     },
     {
+      "name": "stitchflow",
+      "description": "Turn product briefs and mockups into Stitch UI screens, design variants, Tailwind-friendly HTML, and screenshots across Codex, Claude Code, OpenClaw, GitHub Copilot, and Gemini CLI.",
+      "homepage": "https://github.com/yshishenya/stitchflow",
+      "compatibility": "Requires Node.js 22+, a configured STITCH_API_KEY, and the local stitch-starter toolkit installed by this repository.",
+      "metadata": {
+        "author": "Yshishenya",
+        "category": "External"
+      },
+      "category": "design",
+      "install": "bash install.sh --target all",
+      "legacy_aliases": "stitch-design-local",
+      "platforms": "codex, claude-code, openclaw, github-copilot, gemini-cli",
+      "slug": "stitchflow",
+      "toolkit_root": "${STITCH_STARTER_ROOT:-$HOME/.agents/stitch-starter}",
+      "version": "1.3.0",
+      "path": "External/stitchflow"
+    },
+    {
       "name": "just-fucking-cancel",
       "description": "Analyze bank transaction CSVs to find recurring charges, categorize subscriptions, and cancel what you don't need. Use when user says \"cancel subscriptions\", \"audit subscriptions\", \"find recurring charges\", or \"what am I paying for\". Supports Apple Card, Chase, Mint, and generic CSV formats. Outputs interactive HTML audit with copy-to-cancel workflow.",
       "metadata": {
