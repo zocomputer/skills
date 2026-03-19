@@ -42,6 +42,29 @@ python3 mengram_memory.py remember "<text>"
 python3 mengram_memory.py status
 ```
 
+## Proactive Patterns
+
+### Procedural Extraction
+After any successful multi-step task, extract verified workflows as procedural memories:
+- **Prefix**: `PROCEDURAL: <Topic>`
+- **Content**: Exact command sequences, tool parameters, and stable outcomes.
+- **Trigger**: Success state reached.
+
+### Environmental Anchoring
+At session start, read the workspace knowledge map to anchor context:
+- **File**: `file '/home/workspace/.zo/KNOWLEDGE_MAP.md'`
+- **Action**: Anchor to projects and skills without manual disk searches.
+
+## Reflexive Safety (L4 Gated)
+
+### SMS Guardrail
+- **Rule**: NEVER send SMS if `new_tasks == 0` or any technical error occurs.
+- **Recall**: Triggered automatically via gated recall before notification tasks.
+
+### Anti-Hallucination
+- **Rule**: NEVER fabricate data to demonstrate format. Report "No results" honestly.
+- **Recall**: Triggered before any data extraction/reporting task.
+
 ## Break-glass
 
 ```bash
