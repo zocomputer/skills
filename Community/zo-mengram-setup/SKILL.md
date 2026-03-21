@@ -4,7 +4,7 @@ description: Install and secure a self-hosted Mengram memory stack on Zo Compute
 category: Data & Integrations
 compatibility: Created for Zo Computer
 metadata:
-  author: YOUR_HANDLE.zo.computer
+  author: Zenlyte.zo.computer
   emoji: 🧠
   emojis: ["🧠", "🔐", "⚙️"]
 tags:
@@ -55,3 +55,8 @@ Expected:
 - health returns status ok
 - unauthenticated profile is unauthorized
 - authenticated profile succeeds
+
+## Shared resources
+
+The runtime CLI script (`mengram_memory.py`) lives in `zo-mengram-memory/scripts/`.
+Reference docs (API, architecture, security) are maintained here in `references/` and shared by both skills.

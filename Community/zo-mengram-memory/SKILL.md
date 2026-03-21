@@ -4,7 +4,7 @@ description: Run Mengram memory in daily use with gated recall/search, proactive
 category: Data & Integrations
 compatibility: Created for Zo Computer
 metadata:
-  author: YOUR_HANDLE.zo.computer
+  author: Zenlyte.zo.computer
   emoji: 🧩
   emojis: ["🧩", "🧠", "📡"]
 tags:
@@ -78,3 +78,8 @@ Run daily checks for:
 - auth enforcement
 - gated skip/query behavior
 - Ollama availability
+
+## Shared references
+
+API, architecture, and security docs live in `zo-mengram-setup/references/` to avoid duplication.
+Consult those when troubleshooting or extending the setup.

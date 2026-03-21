@@ -25,7 +25,7 @@ def run(cmd: str, cwd: Path | None = None, check: bool = True):
 def ensure_repo():
     if INSTALL_DIR.exists():
         return
-    run(f"git clone https://github.com/alibaizhanov/mengram.git {INSTALL_DIR}")
+    run(f"git clone --branch v2.6.1 --depth 1 https://github.com/alibaizhanov/mengram.git {INSTALL_DIR}")
 
 
 def ensure_config():
