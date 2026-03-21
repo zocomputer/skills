@@ -3,7 +3,7 @@ name: tokencut
 description: Compress text using AgentReady's TokenCut API to reduce token usage by 40-60% with minimal accuracy loss. Use when you need to reduce prompt length or compress text before sending to LLMs.
 category: Data & Integrations
 metadata:
-  author: YOUR_HANDLE.zo.computer
+  author: curtastrophe.zo.computer
   emojis: ["✂️", "📉", "⚡"]
 tags:
   - compression
@@ -15,6 +15,8 @@ tags:
 # TokenCut - Text Compression Skill
 
 This skill compresses text using AgentReady's TokenCut API to reduce token usage by 40-60% with minimal accuracy loss (~0.4% on standard benchmarks).
+
+> **Data Disclosure:** All input text is transmitted to AgentReady's external servers (`agentready.cloud`) for compression processing. Your text leaves your environment. Do not compress text containing passwords, API keys, PII, or confidential information without first reviewing [AgentReady's data retention policy](https://agentready.cloud). Your LLM API keys are never sent to AgentReady, only the text content itself.
 
 ---
 
@@ -222,10 +224,8 @@ Agent B (Processor):
 
 ## What's New (Feb 2026)
 
-AgentReady launched a **privacy-first API**:
-
 - **`/v1/compress` endpoint** - Now live and stable
-- **Your LLM key never leaves your environment** - No `X-Upstream-API-Key` needed
+- **Simplified auth** - No `X-Upstream-API-Key` needed, only your AgentReady API key
 - **Optimized compression** - More efficient token reduction
 - **Token usage tracking** - Better visibility into savings
 - **Self-hosted version** - Coming soon for entirely local compression
@@ -242,29 +242,18 @@ AgentReady launched a **privacy-first API**:
 
 ## When to Trigger This Skill
 
-### Automatic Trigger (Recommended)
+### Suggested Use Cases
 
-This skill should be **automatically triggered** whenever you are about to write, create, or modify a script that processes multiple items through an LLM in a batch/loop pattern. You do NOT need to explicitly call this skill for these cases. The auto-trigger fires for:
+Consider offering TokenCut compression when the user is building:
 
-- Mass classification of items via scripted LLM calls
-- Bulk labeling or categorization through a dataset
-- Row-by-row CSV/JSON processing sent to an external LLM API
-- Batch summarization of multiple documents
-- Bulk content generation pipelines
-- Parallel LLM calls over a dataset
-- Any script that iterates over data and sends each item to OpenAI, Claude, Gemini, or similar
+- Scripts that process multiple items through an external LLM in a batch/loop
+- Multi-agent pipelines with file handoffs between stages
+- zo.space API routes that process text before calling an LLM
+- Pre-processing pipelines that prepare data for later LLM consumption
 
-**What the auto-trigger does:** Imports `compressText` from this skill's `compress.ts` and compresses the data payload before each LLM call in the script. System prompts and short inputs are left uncompressed.
+**Important:** Because this skill sends text to an external API, always confirm with the user before adding compression to their workflow. Never inject TokenCut silently into scripts or pipelines.
 
-**Tip:** To enable auto-triggering on Zo, create a conditional rule that fires when writing batch LLM scripts, with instructions to import and use the `compressText` function from this skill.
-
-### Manual Trigger
-
-This skill should also be triggered when:
-- You need to compress text in a script before calling an external LLM
-- You're building a multi-agent pipeline with file handoffs
-- You're creating a zo.space API route that processes text
-- You need to pre-process data for later LLM consumption
+**Opt-in tip:** On Zo, users can create a conditional rule to be prompted about TokenCut when writing batch LLM scripts.
 
 ### When NOT to Trigger
 
