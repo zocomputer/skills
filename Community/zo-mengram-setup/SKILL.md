@@ -4,7 +4,7 @@ description: Install and secure a self-hosted Mengram memory stack on Zo Compute
 category: Data & Integrations
 compatibility: Created for Zo Computer
 metadata:
-  author: Zenlyte.zo.computer
+  author: curtastrophe.zo.computer
   emoji: 🧠
   emojis: ["🧠", "🔐", "⚙️"]
 tags:

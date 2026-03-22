@@ -4,7 +4,7 @@ description: Run Mengram memory in daily use with gated recall/search, proactive
 category: Data & Integrations
 compatibility: Created for Zo Computer
 metadata:
-  author: Zenlyte.zo.computer
+  author: curtastrophe.zo.computer
   emoji: 🧩
   emojis: ["🧩", "🧠", "📡"]
 tags:
