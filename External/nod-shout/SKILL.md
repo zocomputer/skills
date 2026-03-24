@@ -10,89 +10,63 @@ metadata:
 
 # Notice
 
-Set `NOD_SHOUT_API_KEY` in your environment before using this skill.
-Get your API key at [nodsocial.com](https://nodsocial.com).
+Set `NOD_SUPABASE_KEY` in your environment before using this skill.
+Sign up at [nodsocial.com](https://nodsocial.com) to get your credentials.
 
 # nod shout
 
 Turn links from your conversations into a curated public page. Your agent saves articles, tools, music, projects — whatever you share — and publishes them to your shout page automatically.
 
 Site: [nodsocial.com](https://nodsocial.com)
+Repo: [github.com/jeffweisbein/nod-shout](https://github.com/jeffweisbein/nod-shout)
 
 ## Configuration
 
 **Required env vars:**
-- `NOD_SHOUT_API_KEY` — your nod API key
-- `NOD_SHOUT_USER_ID` — your nod user ID
+- `SUPABASE_URL` — nod supabase URL
+- `NOD_SUPABASE_KEY` — your nod API key
 
-**Base URL**: `https://ooykzbkcquvreeheaijy.supabase.co/rest/v1`
+## MCP Server
 
-## Quick Reference
-
-All requests use these headers:
-```bash
-AUTH_HEADERS="-H 'apikey: $NOD_SHOUT_API_KEY' -H 'Authorization: Bearer $NOD_SHOUT_API_KEY' -H 'Content-Type: application/json' -H 'Prefer: return=representation'"
-```
-
-### Save a link (shout it)
+nod-shout is an MCP server. Install it directly:
 
 ```bash
-curl -s -X POST "$BASE_URL/shouts" $AUTH_HEADERS -d '{
-  "user_id": "'$NOD_SHOUT_USER_ID'",
-  "url": "https://example.com/article",
-  "title": "Article Title",
-  "summary": "Brief summary of what this is and why it matters",
-  "tags": ["ai", "tools"],
-  "category": "ai",
-  "source": "agent",
-  "post_type": "link",
-  "visibility": "public"
-}'
+git clone https://github.com/jeffweisbein/nod-shout.git
+cd nod-shout
+npm install
+npm run build
 ```
 
-### Post a text thought (no URL)
-
-```bash
-curl -s -X POST "$BASE_URL/shouts" $AUTH_HEADERS -d '{
-  "user_id": "'$NOD_SHOUT_USER_ID'",
-  "title": "thought",
-  "summary": "Your text content here",
-  "tags": ["observation"],
-  "source": "agent",
-  "post_type": "text",
-  "visibility": "public"
-}'
+Add to your MCP config:
+```json
+{
+  "mcpServers": {
+    "nod-shout": {
+      "command": "node",
+      "args": ["/path/to/nod-shout/dist/index.js"],
+      "env": {
+        "SUPABASE_URL": "https://ooykzbkcquvreeheaijy.supabase.co",
+        "NOD_SUPABASE_KEY": "your-key"
+      }
+    }
+  }
+}
 ```
 
-### List recent shouts
+## Tools
 
-```bash
-curl -s "$BASE_URL/shouts?user_id=eq.$NOD_SHOUT_USER_ID&order=created_at.desc&limit=10&select=id,url,title,summary,tags,created_at" $AUTH_HEADERS
-```
-
-### Delete a shout
-
-```bash
-curl -s -X DELETE "$BASE_URL/shouts?id=eq.SHOUT_ID&user_id=eq.$NOD_SHOUT_USER_ID" $AUTH_HEADERS
-```
-
-### Queue a link for review (save now, decide later)
-
-```bash
-curl -s -X POST "$BASE_URL/shout_queue" $AUTH_HEADERS -d '{
-  "user_id": "'$NOD_SHOUT_USER_ID'",
-  "url": "https://example.com/maybe-interesting",
-  "title": "Title",
-  "context": "Why this might be worth sharing",
-  "status": "pending"
-}'
-```
-
-### Review queued links
-
-```bash
-curl -s "$BASE_URL/shout_queue?user_id=eq.$NOD_SHOUT_USER_ID&status=eq.pending&order=created_at.desc" $AUTH_HEADERS
-```
+| Tool | Description |
+|------|-------------|
+| `shout_save_link` | Save a URL with AI-generated summary and tags |
+| `shout_list` | List recent shouts, filter by collection or search |
+| `shout_remove` | Delete a shout by ID |
+| `shout_create_collection` | Create a named collection to organize shouts |
+| `shout_list_collections` | List all your collections |
+| `shout_generate_digest` | Generate a digest from recent shouts |
+| `shout_follow` | Follow another user's shouts |
+| `shout_feed` | Aggregated feed from followed users |
+| `shout_agent_curate` | Auto-curate links from conversation context |
+| `shout_settings` | Configure auto-detect, visibility, digest frequency |
 
 ## When to use this skill
 
@@ -100,30 +74,21 @@ curl -s "$BASE_URL/shout_queue?user_id=eq.$NOD_SHOUT_USER_ID&status=eq.pending&o
 - User mentions an article, tool, or project worth remembering
 - User asks to curate or publish links
 - User wants to see their recent shouts
-- During conversations, when the user shares something interesting, silently queue it for later review
-
-## MCP Server
-
-nod shout also has an MCP server for deeper integration:
-- Repo: [github.com/jeffweisbein/shout](https://github.com/jeffweisbein/shout)
-- Install: `npm install` then `npm run build`
-- Provides tools: `shout_save_link`, `shout_list`, `shout_feed`, `shout_agent_curate`, `shout_generate_digest`, and more
+- During conversations, when the user shares something interesting, queue it for later review
 
 ## Example
 
 ```
-$ curl -s "$BASE_URL/shouts?user_id=eq.$NOD_SHOUT_USER_ID&order=created_at.desc&limit=3&select=title,url,tags" $AUTH_HEADERS
+> shout_save_link("https://github.com/karpathy/autoresearch")
 
-[
-  {"title": "Karpathy's autoresearch pattern", "url": "https://github.com/karpathy/autoresearch", "tags": ["ai", "research"]},
-  {"title": "Building agents that talk over iMessage", "url": "https://openclaw.com/blog/imessage-agents", "tags": ["agents", "infrastructure"]},
-  {"title": "SQLite is the only database you need", "url": "https://blog.wesleyac.com/posts/consider-sqlite", "tags": ["databases", "simplicity"]}
-]
+Saved: "Karpathy's autoresearch"
+Summary: Automated research pipeline that generates literature reviews...
+Tags: [ai, research, automation]
+URL: nodsocial.com/shout/yourname
 ```
 
 ## Notes
 
-- Shouts are public by default. Set `"visibility": "unlisted"` to keep them private.
-- The agent should extract a good title and summary before saving. Don't just dump raw URLs.
-- Tags help with discovery. Use lowercase, short tags.
-- View any user's shout page at `nodsocial.com/shout/USERNAME`.
+- Shouts are public by default. Use `shout_settings` to change visibility.
+- The agent extracts title, summary, and tags automatically.
+- View any user's page at `nodsocial.com/shout/USERNAME`.
