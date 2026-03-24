@@ -105,7 +105,7 @@ curl -s "$BASE_URL/shout_queue?user_id=eq.$NOD_SHOUT_USER_ID&status=eq.pending&o
 ## MCP Server
 
 nod shout also has an MCP server for deeper integration:
-- Repo: [github.com/jeffweisbein/nod-shout](https://github.com/jeffweisbein/nod-shout)
+- Repo: [github.com/jeffweisbein/shout](https://github.com/jeffweisbein/shout)
 - Install: `npm install` then `npm run build`
 - Provides tools: `shout_save_link`, `shout_list`, `shout_feed`, `shout_agent_curate`, `shout_generate_digest`, and more
 
