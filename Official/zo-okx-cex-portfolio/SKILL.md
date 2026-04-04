@@ -84,7 +84,7 @@ okx --profile demo account balance
 okx --profile demo account positions
 okx --profile demo account positions-history
 okx --profile demo account bills
-okx --profile demo account fee-rates
+okx --profile demo account fees --instType SPOT
 okx --profile demo account config
 ```
 
