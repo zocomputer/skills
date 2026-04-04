@@ -6,11 +6,18 @@ metadata:
   author: Zo
   category: Official
   display-name: OKX Trade
+  version: "1.2.8"
+  homepage: "https://www.okx.com"
 ---
 
 # OKX Trade
 
 Execute OKX trades on Zo with a strict quote, validate, confirm, execute flow.
+
+## Preflight
+
+Before running any OKX command in this session, follow `../_shared/preflight.md`.
+Use `metadata.version` from this file as the comparison version for drift checks.
 
 ## What Zo Uses
 
@@ -104,6 +111,17 @@ okx --profile demo swap leverage --instId BTC-USDT-SWAP --lever 10 --mgnMode cro
 ```bash
 okx --profile demo swap algo trail --instId BTC-USDT-SWAP --side sell --sz 1 --tdMode cross --posSide long --callbackRatio 0.02
 ```
+
+## Reference Files
+
+Load the matching reference file before running anything beyond the simplest spot or swap flow:
+
+- spot orders and spot algo commands: `references/spot-commands.md`
+- perpetual swap execution and swap algo commands: `references/swap-commands.md`
+- delivery futures execution: `references/futures-commands.md`
+- options contracts, Greeks, and premium conversion: `references/options-commands.md`
+- MCP mappings, output rules, and amount safety rules: `references/templates.md`
+- cross-skill workflows and example execution sequences: `references/workflows.md`
 
 ## Derivatives Validation Rule
 

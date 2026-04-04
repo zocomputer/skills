@@ -6,11 +6,18 @@ metadata:
   author: Zo
   category: Official
   display-name: OKX Portfolio
+  version: "1.2.8"
+  homepage: "https://www.okx.com"
 ---
 
 # OKX Portfolio
 
 Inspect OKX account state on Zo, including balances, positions, PnL, bills, fees, and selected account operations.
+
+## Preflight
+
+Before running any OKX command in this session, follow `../_shared/preflight.md`.
+Use `metadata.version` from this file as the comparison version for drift checks.
 
 ## What Zo Uses
 

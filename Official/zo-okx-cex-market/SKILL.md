@@ -6,11 +6,18 @@ metadata:
   author: Zo
   category: Official
   display-name: OKX Market Data
+  version: "1.2.8"
+  homepage: "https://www.okx.com"
 ---
 
 # OKX Market Data
 
 Use the OKX CLI on Zo for read-only market data and technical indicator queries.
+
+## Preflight
+
+Before running any OKX command in this session, follow `../_shared/preflight.md`.
+Use `metadata.version` from this file as the comparison version for drift checks.
 
 ## What Zo Uses
 
@@ -47,6 +54,16 @@ okx market open-interest --instType SWAP --instId BTC-USDT-SWAP
 okx market instruments --instType SPOT
 okx market indicator rsi BTC-USDT --bar 1Dutc
 ```
+
+## Reference Files
+
+Load the matching reference file before running less-obvious commands or multi-step workflows:
+
+- price, candles, order book, trades: `references/price-data-commands.md`
+- indicators: `references/indicator-commands.md`
+- funding, mark price, open interest, price limits, index data: `references/derivatives-commands.md`
+- instrument discovery and non-crypto categories: `references/instrument-commands.md`
+- cross-skill workflows and MCP mappings: `references/workflows.md`
 
 ## Workflow
 
