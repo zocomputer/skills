@@ -1,5 +1,15 @@
 # Technical Indicator Command Reference
 
+## Availability Gate
+
+Before using anything in this file, verify the installed CLI exposes the indicator subcommand:
+
+```bash
+okx market --help
+```
+
+Only continue if `indicator` appears in the listed market subcommands. If it is missing, stop and tell the user that the installed OKX CLI build does not currently support market indicators, even if newer partner docs mention them.
+
 ## Command Syntax
 
 ```bash

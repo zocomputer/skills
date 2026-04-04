@@ -52,7 +52,6 @@ okx market candles BTC-USDT --bar 1H --limit 100
 okx market funding-rate BTC-USDT-SWAP
 okx market open-interest --instType SWAP --instId BTC-USDT-SWAP
 okx market instruments --instType SPOT
-okx market indicator rsi BTC-USDT --bar 1Dutc
 ```
 
 ## Reference Files
@@ -75,9 +74,17 @@ Load the matching reference file before running less-obvious commands or multi-s
 - instrument discovery
 - indicators
 
-2. Run the minimal command that answers the question.
+2. If the user wants indicators, verify the subcommand exists before using any indicator reference:
 
-3. Summarize the result in chat rather than dumping raw terminal output unless the user asked for raw output.
+```bash
+okx market --help
+```
+
+Only continue with indicator commands if `indicator` appears in the available market subcommands. If it does not, stop and tell the user that this installed OKX CLI build does not expose indicator commands yet.
+
+3. Run the minimal command that answers the question.
+
+4. Summarize the result in chat rather than dumping raw terminal output unless the user asked for raw output.
 
 ## Historical Pull Guardrail
 
