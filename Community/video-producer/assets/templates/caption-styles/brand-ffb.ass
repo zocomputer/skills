@@ -1,0 +1,11 @@
+[Script Info]
+Title: Fauna Flora Botanicals Brand Caption Style
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Montserrat,42,&H00E8DCC8,&H000000FF,&H002D1810,&H00000000,-1,0,0,0,100,100,0,0,1,3,0,2,40,40,100,1
