@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "description": "Model fallback chains for agent self-healing. When a model is unhealthy, agents are switched to the next healthy model in the chain.",
+
+  "healerAgentId": "",
+
+  "healerConfig": {
+    "model": "zo:fast",
+    "label": "Zo Fast (built-in, no external dependency)",
+    "rule": "The healer agent MUST run on a Zo-native model (zo:fast or zo:smart) that has no external provider dependency. Never add zo:fast or zo:smart to a fallback chain."
+  },
+
+  "probeConfig": {
+    "prompt": "You are a health check responder. List the numbers 1 through 10, each on its own line. After the list, write exactly: HEALTH_CHECK_PASS",
+    "expectedSubstring": "HEALTH_CHECK_PASS",
+    "timeoutMs": 30000,
+    "retries": 1,
+    "latencyThresholds": {
+      "degradedMs": 25000,
+      "slowMs": 45000
+    }
+  },
+
+  "fallbackChains": {
+    "byok:your-primary-model-id": {
+      "label": "Primary Model",
+      "fallbacks": [
+        "byok:your-backup-model-id",
+        "zo:smart"
+      ]
+    },
+    "byok:your-backup-model-id": {
+      "label": "Backup Model",
+      "fallbacks": [
+        "byok:your-primary-model-id",
+        "zo:smart"
+      ]
+    }
+  },
+
+  "modelLabels": {
+    "byok:your-primary-model-id": "Primary Model",
+    "byok:your-backup-model-id": "Backup Model",
+    "zo:smart": "Zo Smart",
+    "zo:fast": "Zo Fast"
+  }
+}
