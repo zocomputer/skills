@@ -1,3 +1,13 @@
+#!/usr/bin/env python3
+"""Supermemory companion CLI -- commands not covered by the official `npx supermemory` CLI.
+
+Only two commands live here:
+  conversation  - Ingest structured messages via v4/conversations (role-attributed, incremental)
+  memories      - List extracted memory entries with version history (v4/memories/list)
+
+For everything else, use `npx supermemory`:
+  remember, search, profile, forget, update, add, tags, docs, etc.
+"""
 import json
 import os
 import sys
@@ -5,19 +15,19 @@ import urllib.request
 import urllib.error
 from datetime import datetime, timezone
 
-BASE_URL = "https://api.supermemory.ai"
 
-# Customize these container names for your setup.
-# The default container is for the user's context.
-# The self container is for the AI's own self-knowledge (optional).
-CONTAINER_DEFAULT = "user"
-CONTAINER_SELF = "ai"
+BASE_URL = "https://api.supermemory.ai"
+DEFAULT_CONTAINER = os.environ.get("SUPERMEMORY_TAG", "default")
+
+
+def get_container(override=None):
+    return override or DEFAULT_CONTAINER
 
 
 def api(method, path, body=None):
     api_key = os.environ.get("SUPERMEMORY_API_KEY", "")
     if not api_key:
-        print("ERROR: SUPERMEMORY_API_KEY not set", file=sys.stderr)
+        print("ERROR: SUPERMEMORY_API_KEY not set.", file=sys.stderr)
         sys.exit(1)
 
     url = f"{BASE_URL}{path}"
@@ -28,329 +38,186 @@ def api(method, path, body=None):
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
-            "User-Agent": "ZoSupermemory/1.0",
+            "User-Agent": "supermemory-companion/1.0",
         },
         method=method,
     )
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
-            body = resp.read()
-            if not body:
+            raw = resp.read()
+            if not raw:
                 return {}
-            return json.loads(body)
+            return json.loads(raw)
     except urllib.error.HTTPError as e:
         body_text = e.read().decode() if e.fp else ""
         print(f"ERROR: API returned {e.code}: {body_text}", file=sys.stderr)
         sys.exit(1)
 
 
-def cmd_save(args, container_tag=None):
-    if container_tag is None:
-        container_tag = CONTAINER_DEFAULT
-    content = None
-    tags = ""
-    metadata = {}
-    custom_id = None
+def _parse_args(args, spec):
+    result = {k: v[1] for k, v in spec.items()}
     i = 0
     while i < len(args):
-        if args[i] == "--content" and i + 1 < len(args):
-            content = args[i + 1]; i += 2
-        elif args[i] == "--tags" and i + 1 < len(args):
-            tags = args[i + 1]; i += 2
-        elif args[i] == "--id" and i + 1 < len(args):
-            custom_id = args[i + 1]; i += 2
-        else:
+        matched = False
+        for key, (typ, _) in spec.items():
+            flag = f"--{key.replace('_', '-')}"
+            if args[i] == flag:
+                if typ == "bool":
+                    result[key] = True
+                    i += 1
+                elif i + 1 < len(args):
+                    val = args[i + 1]
+                    if typ == "int":
+                        val = int(val)
+                    result[key] = val
+                    i += 2
+                else:
+                    i += 1
+                matched = True
+                break
+        if not matched:
             i += 1
-
-    if not content:
-        if not sys.stdin.isatty():
-            content = sys.stdin.read().strip()
-        if not content:
-            print("ERROR: --content required or pipe content via stdin", file=sys.stderr)
-            sys.exit(1)
-
-    if tags:
-        metadata["tags"] = tags
-
-    body = {
-        "content": content,
-        "containerTag": container_tag,
-    }
-    if metadata:
-        body["metadata"] = metadata
-    if custom_id:
-        body["customId"] = custom_id
-
-    result = api("POST", "/v3/documents", body)
-    print(f"Saved to [{container_tag}]. ID: {result.get('id', 'unknown')}, Status: {result.get('status', 'unknown')}")
+    for key, (typ, _) in spec.items():
+        if typ == "str_or_stdin" and result[key] is None:
+            if not sys.stdin.isatty():
+                result[key] = sys.stdin.read().strip()
     return result
 
 
-def cmd_search(args, container_tag=None):
-    if container_tag is None:
-        container_tag = CONTAINER_DEFAULT
-    query = None
-    limit = 10
-    i = 0
-    while i < len(args):
-        if args[i] in ("--query", "-q") and i + 1 < len(args):
-            query = args[i + 1]; i += 2
-        elif args[i] == "--limit" and i + 1 < len(args):
-            limit = int(args[i + 1]); i += 2
-        else:
-            i += 1
+def cmd_conversation(args, container_tag):
+    parsed = _parse_args(args, {
+        "content": ("str_or_stdin", None),
+        "id": ("str", None),
+        "file": ("str", None),
+    })
 
-    if not query:
-        print("ERROR: --query required", file=sys.stderr)
+    messages = None
+
+    if parsed["file"]:
+        with open(parsed["file"]) as f:
+            data = json.load(f)
+            if isinstance(data, list):
+                messages = data
+            elif isinstance(data, dict) and "messages" in data:
+                messages = data["messages"]
+            else:
+                print("ERROR: File must contain a JSON array of messages or {messages: [...]}", file=sys.stderr)
+                sys.exit(1)
+    elif parsed["content"]:
+        content = parsed["content"]
+        try:
+            data = json.loads(content)
+            if isinstance(data, list) and len(data) > 0 and isinstance(data[0], dict) and "role" in data[0]:
+                messages = data
+            elif isinstance(data, dict) and "messages" in data:
+                messages = data["messages"]
+        except (json.JSONDecodeError, TypeError):
+            pass
+        if messages is None:
+            messages = [{"role": "user", "content": content}]
+    else:
+        print("ERROR: --content, --file, or piped input required", file=sys.stderr)
         sys.exit(1)
 
+    valid_roles = {"user", "assistant", "system", "tool"}
+    for msg in messages:
+        if not isinstance(msg, dict) or "role" not in msg or "content" not in msg:
+            print("ERROR: Each message must have 'role' and 'content' fields", file=sys.stderr)
+            sys.exit(1)
+        if msg["role"] not in valid_roles:
+            print(f"ERROR: Invalid role '{msg['role']}'. Must be one of: {valid_roles}", file=sys.stderr)
+            sys.exit(1)
+
+    conversation_id = parsed["id"] or f"conv-{int(datetime.now(timezone.utc).timestamp())}"
+
     body = {
-        "q": query,
+        "conversationId": conversation_id,
+        "messages": messages,
         "containerTags": [container_tag],
     }
 
-    result = api("POST", "/v3/search", body)
-    results = result.get("results", [])
-    if not results:
-        print(f"No results found in [{container_tag}].")
+    result = api("POST", "/v4/conversations", body)
+    msg_count = len(messages)
+    roles = set(m["role"] for m in messages)
+    print(f"Conversation ingested to [{container_tag}]. ID: {conversation_id} ({msg_count} messages, roles: {', '.join(sorted(roles))})")
+    return result
+
+
+def cmd_memories(args, container_tag):
+    parsed = _parse_args(args, {
+        "limit": ("int", 30),
+    })
+
+    body = {"containerTags": [container_tag]}
+
+    result = api("POST", "/v4/memories/list", body)
+    memories = result.get("memories", result.get("results", []))
+    if not memories:
+        print(f"No memory entries found in [{container_tag}].")
         return
 
-    for idx, r in enumerate(results[:limit], 1):
-        doc_id = r.get("documentId", "")
-        score = r.get("score", "")
-        tags = r.get("metadata", {}).get("tags", "")
-        chunks = r.get("chunks", [])
-        content = chunks[0].get("content", "")[:300] if chunks else ""
-        created = r.get("createdAt", "")[:10]
+    limit = parsed["limit"]
+    for idx, mem in enumerate(memories[:limit], 1):
+        mem_id = mem.get("id") or ""
+        content = (mem.get("memory") or mem.get("content") or "")[:200]
+        is_static = mem.get("isStatic", False)
+        version = mem.get("version", 1)
+        updated = (mem.get("updatedAt") or mem.get("createdAt") or "")[:10]
+        forgotten = mem.get("isForgotten", False)
+        metadata = mem.get("metadata") or {}
+        tags = metadata.get("tags") or ""
 
-        print(f"\n--- Result {idx} (score: {score:.2f}) [id: {doc_id}] {created} ---")
+        static_label = " [static]" if is_static else ""
+        forgotten_label = " [forgotten]" if forgotten else ""
+        version_label = f" v{version}" if version and version > 1 else ""
+        print(f"[{mem_id}]{static_label}{forgotten_label}{version_label} {updated}")
         if tags:
             print(f"  tags: {tags}")
         print(f"  {content}")
 
-    print(f"\n{len(results)} results total.")
-
-
-def cmd_profile(args, container_tag=None):
-    if container_tag is None:
-        container_tag = CONTAINER_DEFAULT
-    body = {
-        "containerTag": container_tag,
-    }
-
-    result = api("POST", "/v4/profile", body)
-    profile = result.get("profile", {})
-
-    static = profile.get("static", "")
-    dynamic = profile.get("dynamic", "")
-
-    label = container_tag.capitalize()
-
-    if static:
-        print(f"=== {label} Static Profile ===")
-        print(static)
-        print()
-    if dynamic:
-        print(f"=== {label} Dynamic Context ===")
-        print(dynamic)
+        history = mem.get("history") or []
+        if history:
+            for h in history[:3]:
+                h_ver = h.get("version", "?")
+                h_content = (h.get("memory") or h.get("content") or "")[:100]
+                h_date = (h.get("createdAt") or "")[:10]
+                print(f"    v{h_ver} ({h_date}): {h_content}")
         print()
 
-    if not static and not dynamic:
-        print(f"No profile data yet for [{container_tag}]. Save some memories first.")
+    print(f"Showing {min(limit, len(memories))} of {len(memories)} memory entries.")
 
 
-def cmd_conversation(args, container_tag=None):
-    if container_tag is None:
-        container_tag = CONTAINER_DEFAULT
-    content = None
-    custom_id = None
-    i = 0
-    while i < len(args):
-        if args[i] == "--content" and i + 1 < len(args):
-            content = args[i + 1]; i += 2
-        elif args[i] == "--id" and i + 1 < len(args):
-            custom_id = args[i + 1]; i += 2
-        else:
-            i += 1
+def cmd_help(**_):
+    print("""Supermemory companion CLI -- commands not in the official CLI
 
-    if not content:
-        if not sys.stdin.isatty():
-            content = sys.stdin.read().strip()
-        if not content:
-            print("ERROR: --content required or pipe content via stdin", file=sys.stderr)
-            sys.exit(1)
+For most operations, use the official CLI:
+  npx supermemory remember "content" --tag <tag>
+  npx supermemory search "query" --tag <tag>
+  npx supermemory profile --tag <tag>
+  npx supermemory forget <id> --tag <tag>
+  npx supermemory update <id> "new content" --tag <tag>
+  npx supermemory add <content|file|url> --tag <tag>
+  npx supermemory tags list
+  npx supermemory docs list --tag <tag>
 
-    body = {
-        "content": content,
-        "containerTag": container_tag,
-    }
-    if custom_id:
-        body["customId"] = custom_id
+This companion script covers two gaps:
 
-    result = api("POST", "/v4/conversations", body)
-    print(f"Conversation ingested to [{container_tag}]. ID: {result.get('id', 'unknown')}")
-    return result
+  conversation  Ingest structured messages via v4/conversations
+                  --content "text"    Raw text or JSON messages (or pipe)
+                  --file "path.json"  Load messages from JSON file
+                  --id "conv-id"      Conversation ID (enables incremental updates)
 
-
-def cmd_list(args, container_tag=None):
-    if container_tag is None:
-        container_tag = CONTAINER_DEFAULT
-    limit = 20
-    i = 0
-    while i < len(args):
-        if args[i] == "--limit" and i + 1 < len(args):
-            limit = int(args[i + 1]); i += 2
-        else:
-            i += 1
-
-    body = {
-        "containerTags": [container_tag],
-    }
-
-    result = api("POST", "/v3/documents/list", body)
-    docs = result.get("memories", result.get("documents", result.get("results", [])))
-
-    if not docs:
-        print(f"No memories found in [{container_tag}].")
-        return
-
-    for doc in docs[:limit]:
-        doc_id = doc.get("id", "")
-        title = doc.get("title", "")
-        summary = doc.get("summary", "")[:150]
-        status = doc.get("status", "")
-        tags = doc.get("metadata", {}).get("tags", "")
-        created = doc.get("createdAt", "")[:10]
-        print(f"[{doc_id}] ({status}) {created}")
-        if title:
-            print(f"  {title}")
-        if tags:
-            print(f"  tags: {tags}")
-        if summary:
-            print(f"  {summary}")
-        print()
-
-    print(f"Showing {min(limit, len(docs))} of {len(docs)} memories.")
-
-
-def cmd_forget(args, container_tag=None):
-    memory_id = None
-    i = 0
-    while i < len(args):
-        if args[i] == "--id" and i + 1 < len(args):
-            memory_id = args[i + 1]; i += 2
-        else:
-            i += 1
-
-    if not memory_id:
-        print("ERROR: --id required", file=sys.stderr)
-        sys.exit(1)
-
-    api("DELETE", f"/v3/documents/{memory_id}")
-    print(f"Document deleted: {memory_id}")
-
-
-def cmd_close(args, container_tag=None):
-    summary = None
-    saves = 0
-    i = 0
-    while i < len(args):
-        if args[i] == "--summary" and i + 1 < len(args):
-            summary = args[i + 1]; i += 2
-        elif args[i] == "--saves" and i + 1 < len(args):
-            saves = int(args[i + 1]); i += 2
-        else:
-            i += 1
-
-    if not summary:
-        print("ERROR: --summary required", file=sys.stderr)
-        sys.exit(1)
-
-    log_file = "/home/workspace/Data/memory-close-log.jsonl"
-    os.makedirs(os.path.dirname(log_file), exist_ok=True)
-
-    handoff_exists = os.path.exists("/home/workspace/Data/handoff.json")
-
-    entry = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "summary": summary,
-        "saves": saves,
-        "handoff": handoff_exists,
-    }
-
-    with open(log_file, "a") as f:
-        f.write(json.dumps(entry) + "\n")
-
-    print(f"Close logged. Saves: {saves}, Handoff pending: {handoff_exists}")
-    print(f"  Summary: {summary}")
-
-
-# Self-* shortcuts: use the AI's own container
-def cmd_self_save(args, container_tag=None):
-    return cmd_save(args, container_tag=CONTAINER_SELF)
-
-def cmd_self_search(args, container_tag=None):
-    return cmd_search(args, container_tag=CONTAINER_SELF)
-
-def cmd_self_profile(args, container_tag=None):
-    return cmd_profile(args, container_tag=CONTAINER_SELF)
-
-
-def cmd_help():
-    print(f"""Supermemory CLI -- long-term memory for your AI
-
-Containers:
-  Default (user context): {CONTAINER_DEFAULT}
-  Self (AI self-knowledge): {CONTAINER_SELF}
+  memories      List extracted memory entries with version history
+                  --limit N           Max results (default: 30)
 
 Global flags:
-  --as <name>    Target a specific container (default: {CONTAINER_DEFAULT})
-
-Commands:
-  save          Save a memory
-                  --content "text"  Content to save (or pipe via stdin)
-                  --tags "a,b"      Comma-separated tags (optional)
-                  --id "custom-id"  Custom ID for document-level dedup (optional)
-
-  search        Search memories
-                  --query "text"    Search query (required)
-                  --limit N         Max results (default: 10)
-
-  profile       Get profile (static facts + dynamic context)
-
-  self-save     Save to AI's own container (shortcut for --as {CONTAINER_SELF} save)
-  self-search   Search AI's own container
-  self-profile  Get AI's own profile
-
-  conversation  Ingest a conversation for memory extraction
-                  --content "text"  Conversation text (or pipe via stdin)
-                  --id "conv-id"    Conversation ID (optional)
-
-  list          List recent documents
-                  --limit N         Max results (default: 20)
-
-  forget        Delete a document (permanent)
-                  --id "doc-id"     Document ID to delete (required)
-
-  close         Log conversation close protocol execution
-                  --summary "text"  Brief conversation summary (required)
-                  --saves N         Number of saves made this session (default: 0)
-
-  help          Show this help""")
+  --container <name>   Override target container""")
 
 
 COMMANDS = {
-    "save": cmd_save,
-    "search": cmd_search,
-    "profile": cmd_profile,
-    "self-save": cmd_self_save,
-    "self-search": cmd_self_search,
-    "self-profile": cmd_self_profile,
     "conversation": cmd_conversation,
-    "list": cmd_list,
-    "forget": cmd_forget,
-    "close": cmd_close,
-    "help": lambda _, **kw: cmd_help(),
+    "memories": cmd_memories,
+    "help": lambda *a, **kw: cmd_help(),
 }
 
 
@@ -359,21 +226,20 @@ def main():
         cmd_help()
         sys.exit(0 if len(sys.argv) < 2 else 1)
 
-    # Extract --as flag from anywhere in args
-    container_tag = CONTAINER_DEFAULT
+    container_tag = None
     args = list(sys.argv[2:])
     filtered_args = []
     i = 0
     while i < len(args):
-        if args[i] == "--as" and i + 1 < len(args):
-            container_tag = args[i + 1].lower()
+        if args[i] == "--container" and i + 1 < len(args):
+            container_tag = args[i + 1]
             i += 2
         else:
             filtered_args.append(args[i])
             i += 1
 
-    command = sys.argv[1]
-    COMMANDS[command](filtered_args, container_tag=container_tag)
+    container_tag = get_container(container_tag)
+    COMMANDS[sys.argv[1]](filtered_args, container_tag=container_tag)
 
 
 if __name__ == "__main__":

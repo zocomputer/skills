@@ -1,11 +1,10 @@
 ---
 name: supermemory
 description: >
-  Long-term memory that persists across conversations. Save facts, decisions,
-  and preferences to a knowledge graph that builds a living profile of the user
-  over time. Replaces static user docs with dynamic context that grows and
-  self-corrects.
-compatibility: Created for Zo Computer
+  Long-term memory for AI agents via Supermemory's knowledge graph API. Primary
+  CLI is `npx supermemory`; companion script covers conversation ingestion and
+  memory listing not yet in the official CLI.
+compatibility: Any machine with Node.js (npx) and SUPERMEMORY_API_KEY
 metadata:
   author: skeletorjs
   category: Community
@@ -16,155 +15,242 @@ metadata:
 1. Sign up at [supermemory.ai](https://supermemory.ai) and get an API key
 2. Add `SUPERMEMORY_API_KEY` to your Zo secrets at [Settings > Advanced](/?t=settings&s=advanced)
 3. Install this skill to `Skills/supermemory/`
-4. **Important**: Always run memory.py through the Zo shell (`run_bash_command` tool), not the local shell. The API key is only available in the Zo environment.
+4. (Optional) Install the CLI globally: `npm install -g supermemory`
+5. (Optional) Set a default container tag: `npx supermemory config --set tag=<your-tag>`
+
+**Important**: Always run commands through the Zo shell (`run_bash_command`), not the local shell. The API key is only available in the Zo environment.
 
 ## CLI
 
+Primary CLI (official):
 ```bash
-python3 /home/workspace/Skills/supermemory/scripts/memory.py <command> [options]
+npx supermemory <command> [options]
 ```
+
+Companion script (for commands not in the official CLI):
+```bash
+python3 Skills/supermemory/scripts/memory.py <command> [--container <name>] [options]
+```
+
+Container is set via `SUPERMEMORY_TAG` env var or `--tag` flag per command.
+
+### Primary Commands (npx supermemory)
 
 | Command | Purpose |
 |---------|---------|
-| save | Save a memory (--content, --tags, --id) |
-| search | Search memories (--query, --limit) |
-| profile | Get user profile (static facts + dynamic context) |
-| conversation | Ingest a conversation for extraction (--content, --id) |
-| list | List recent memories (--limit) |
-| forget | Delete a memory document (--id) |
-| close | Log conversation close protocol (--summary, --saves) |
+| remember | Save a memory directly (v4, immediately searchable) |
+| search | Search memories with hybrid mode + reranking (v4) |
+| profile | Get profile (static facts + dynamic context) |
+| forget | Soft-delete a memory (v4) |
+| update | Update a memory with versioning (v4) |
+| add | Ingest content (text, file, URL) via document pipeline |
+| tags | Manage container tags (list, info, create, delete, merge) |
+| docs | Manage documents (list, get, delete, chunks, status) |
 
-## Multiple Containers
+### Companion Commands (memory.py)
 
-The script supports multiple memory containers via the `--as` flag. This is useful for separating the user's context from the AI's own self-knowledge:
-
-```bash
-# Save to the default (user) container
-python3 memory.py save --content "User prefers dark mode"
-
-# Save to a custom container
-python3 memory.py save --as myai --content "I noticed a pattern in how I approach debugging"
-
-# Search a specific container
-python3 memory.py search --as myai --query "debugging patterns"
-
-# Get profile for a specific container
-python3 memory.py profile --as myai
-```
-
-To customize container names, edit the `CONTAINER_DEFAULT` and `CONTAINER_SELF` variables at the top of `memory.py`.
+| Command | Purpose |
+|---------|---------|
+| conversation | Ingest structured messages via v4/conversations (role-attributed, incremental) |
+| memories | List extracted memory entries with version history (v4/memories/list) |
 
 ## How Supermemory Works
 
 Supermemory is a knowledge graph, not a key-value store. When you save content, it:
 
-1. **Extracts facts**: AI analyzes the content and pulls out discrete memories
-2. **Builds relationships**: Each memory connects to existing ones via three relationship types:
-   - **Updates**: New fact contradicts old one. Old gets marked `isLatest=false`. Searches return current info.
-   - **Extends**: New fact enriches existing one. Both remain valid and searchable.
-   - **Derives**: System infers new facts from patterns across memories.
-3. **Maintains profiles**: The `/v4/profile` endpoint auto-generates a static/dynamic profile from all accumulated memories.
+1. **Extracts facts** from the content
+2. **Builds relationships** between memories:
+   - **Updates**: New fact contradicts old one. Old gets deprioritized. Searches return current info.
+   - **Extends**: New fact enriches existing one. Both remain valid.
+   - **Derives**: System infers new facts from patterns.
+3. **Maintains profiles** via `/v4/profile`, auto-generated from all accumulated memories.
 
-### Automatic Forgetting
+### Two ingestion paths
 
-Supermemory handles memory decay on its own:
+- **Direct (v4/memories)**: `remember` command. Bypasses document pipeline. Immediately searchable. Best for entity-centric facts, decisions, preferences.
+- **Pipeline (v3/documents)**: `add` command. Content goes through extraction, chunking, embedding. Best for URLs, long documents, files.
 
-- **Time-based**: Temporary facts ("meeting at 3pm today") are automatically forgotten after they expire.
-- **Contradiction resolution**: When new facts update old ones, searches return current info. History is preserved but deprioritized.
-- **Noise filtering**: Casual, non-meaningful content doesn't become permanent memories.
+### Static vs dynamic memories
 
-You do NOT need to manually delete stale temporal memories.
+- **Static** (`--static`): Permanent traits that don't decay. Name, role, hometown, core preferences. Use for facts that should always surface in profiles.
+- **Dynamic** (default): Normal memories subject to graph evolution, contradiction resolution, and time-based decay.
+
+### Automatic forgetting
+
+- **Contradiction resolution**: New facts supersede old ones in search results.
+- **Noise filtering**: Casual content doesn't become permanent.
+- **Soft delete**: `forget` marks memories as forgotten but preserves history.
+
+You do NOT need to manually delete stale memories. The graph handles it.
 
 ## How to Use It
 
 ### RECALL (search when you need context)
 
-Run `memory.py search` or `memory.py profile` whenever context would help:
+Run `search` or `profile` whenever context would help:
 
-- **Conversation start**: Profile for general context, search for topic-relevant memories.
-- **Mid-conversation**: When uncertain about prior decisions, past context, or preferences. Don't guess when you can check.
-- **Meeting prep**: Before calendar events, search for context about attendees, company, or topic.
-- **"Do you remember"**: Any time the user asks about past context.
+- **Conversation start**: Profile for general context, search for topic-specific memories.
+- **Mid-conversation**: When uncertain about prior decisions or preferences. Don't guess when you can check.
+- **First mention of a person/company/project**: Search for existing context before responding.
+
+Search modes:
+- **memories** (default): Searches extracted memory entries only. Fast, low latency.
+- **hybrid**: Searches both memories and document chunks. Best when you need both extracted facts and raw context.
+- **documents**: Searches document chunks only. Use for RAG-style retrieval from ingested content.
+
+Use `--rerank` when precision matters more than speed (~100ms overhead).
+Use `--rewrite` to let Supermemory rewrite the query for better retrieval.
 
 ### CAPTURE (save when something worth remembering happens)
 
-Run `memory.py save` as things happen, not just at conversation end.
-
-Write content as **entity-centric facts**, not raw notes:
-- Good: "User decided to use DuckDB for task management"
+**For individual facts**: Use `remember`. Write entity-centric statements.
+- Good: "User decided to use DuckDB for task management because of embedded SQL and zero dependencies."
 - Bad: "We talked about databases and decided on DuckDB"
+
+**For conversations**: Use `conversation` (companion script). The graph extracts multiple connected memories from the conversation structure, preserving relationships between facts that individual saves would lose.
+
+**For URLs and documents**: Use `add`. Supermemory fetches the content, chunks it, extracts memories, and makes it searchable.
 
 What to save:
 - **Decisions** the moment they're made
 - **Preferences** about tools, workflow, communication
 - **Key facts** about people, companies, projects
-- **Meeting takeaways** after processing transcripts
-- **Significant project/architecture context**
+- **Corrections** when a previous decision changes (reference what changed from what)
 
 What NOT to save:
 - Trivial exchanges
-- Temporary/session-specific context (debugging steps, draft iterations)
+- Temporary/session-specific context
 - Raw data that belongs in files
+- Information already captured elsewhere
 
 ### Save Quality
 
-Saves should be useful cold, readable by a future version of you with zero context about the current conversation.
+Every save should be useful cold, readable with zero context about the current conversation.
 
-**Good saves:**
-- "User decided to use DataForSEO over SEMrush for client SEO work because of pay-as-you-go pricing and API flexibility."
-- "User prefers Bun over Node for new TypeScript projects. Confirmed across multiple sessions."
-
-**Bad saves:**
-- "User decided on DataForSEO." (no context on why or what it replaced)
-- "User likes Bun." (preferences need specificity)
-
-**Minimum bar:** Every save should include at least: who or what entity it's about, what the fact/decision/preference is, and enough context that the "why" is inferrable.
+Minimum bar: who/what entity, what the fact is, enough context that the "why" is inferrable. Under 15 words is probably too thin.
 
 ### Correction Saves
 
-When the user changes a previous decision or preference, save the correction with explicit supersession language:
+When a previous decision changes, use `update` for versioned corrections (preserves history), or save with explicit supersession language:
+- "User changed X from Y to Z because [reason]."
 
-- "User changed the pricing model from flat fee to hybrid. Previous model was $X/month flat."
-- "User no longer wants to use Redis for caching. Switched to in-memory caching for simplicity."
-
-The knowledge graph uses this language to mark old memories as stale.
+The graph uses this to mark old memories as stale.
 
 ### Tags
 
-Tags go in `--tags` as comma-separated values. Keep them simple:
+Optional. Pass as JSON metadata via `--metadata '{"tags":"a,b"}'`. Simple categories: decision, preference, fact, meeting, project, lesson.
 
-| Tag | Use for |
-|-----|---------|
-| decision | Choices made, approaches selected |
-| preference | Tool preferences, workflow habits |
-| fact | Stable facts about people, companies, projects |
-| meeting | Meeting outcomes and takeaways |
-| project | Architecture, strategy, planning context |
+### Containers
 
-### Using customId
-
-`customId` is for **document-level identity**, not memory-level dedup. Use it when:
-
-- You have a growing document you'll update over time (e.g., a conversation transcript)
-- You want to fully replace a previous version of the same content
-- You're ingesting something with a natural external ID (meeting ID, ticket ID)
-
-You do NOT need `customId` for every individual fact you save. The graph handles dedup through its relationship system.
+Use container tags to separate contexts (e.g., one for the user's personal context, another for a specific project or team). Set the default with `npx supermemory config --set tag=<name>` or override per command with `--tag <name>`.
 
 ## Conversation Ingestion
 
-For long or important conversations, use the `conversation` command:
+The most powerful capture method. Accepts structured messages with proper role attribution:
 
 ```bash
-python3 memory.py conversation --content "..." --id "conv-2026-02-16-topic"
+# From a JSON file with structured messages
+python3 memory.py conversation --file /path/to/messages.json --id "conv-2026-03-28-topic"
+
+# Piped JSON array of messages
+echo '[{"role":"user","content":"..."},{"role":"assistant","content":"..."}]' | python3 memory.py conversation
+
+# Raw text (wrapped as single user message, backward compatible)
+python3 memory.py conversation --content "Long conversation transcript..." --id "conv-id"
 ```
 
-Supermemory extracts multiple connected memories from a single conversation.
+Message format: `{"role": "user|assistant|system|tool", "content": "..."}`
 
-## Profile as Living Context
+Using `--id` enables incremental updates. Send the same conversation ID with additional messages and Supermemory updates its extraction without duplicating.
 
-Supermemory automatically builds the user's profile from all accumulated memories:
-- **Static**: Long-term stable facts (role, location, preferences)
-- **Dynamic**: Recent context and temporary states (current projects, active discussions)
+## Command Reference
 
-The profile is fully automatic. Run `memory.py profile` to check current state.
+### remember (npx supermemory)
+```
+npx supermemory remember "content" [options]
+  --tag          Container tag
+  --static       Mark as permanent trait
+  --metadata     JSON metadata to attach
+```
+
+### search (npx supermemory)
+```
+npx supermemory search "query" [options]
+  --tag          Filter by container tag
+  --limit N      Max results (default: 10)
+  --mode MODE    memories|hybrid|documents (default: memories)
+  --rerank       Enable reranking
+  --rewrite      Rewrite query for better retrieval
+  --threshold N  0-1, lower = more results (default: 0.6)
+  --include      Comma-separated: summaries,documents,relatedMemories,forgottenMemories
+  --filter       Metadata filter (JSON)
+```
+
+### profile (npx supermemory)
+```
+npx supermemory profile [options]
+  --tag          Container tag
+  --query        Also run a search within the profile
+```
+
+### forget (npx supermemory)
+```
+npx supermemory forget [ID] [options]
+  --tag          Container tag (required)
+  --reason       Reason for forgetting
+  --content      Find and forget by content match (instead of ID)
+```
+
+### update (npx supermemory)
+```
+npx supermemory update <ID> "new content" [options]
+  --tag          Container tag
+  --metadata     Updated metadata (JSON)
+  --reason       Reason for update
+```
+
+### add (npx supermemory)
+```
+npx supermemory add <content|file|url> [options]
+  --tag          Container tag
+  --stdin        Read content from stdin
+  --title        Document title
+  --metadata     JSON metadata to attach
+  --id           Custom document ID (for idempotency)
+  --batch        Read JSON array from stdin (batch mode)
+```
+
+### conversation (companion script)
+```
+python3 memory.py conversation [options]
+  --content "text"    Raw text or JSON messages (or pipe)
+  --file "path.json"  Load messages from JSON file
+  --id "conv-id"      Conversation ID (enables incremental updates)
+  --container <name>  Override target container
+```
+
+### memories (companion script)
+```
+python3 memory.py memories [options]
+  --limit N           Max results (default: 30)
+  --container <name>  Override target container
+```
+
+### tags (npx supermemory)
+```
+npx supermemory tags list
+npx supermemory tags info <tag>
+npx supermemory tags create <tag>
+npx supermemory tags delete <tag>
+npx supermemory tags context <tag> --set "context text"
+npx supermemory tags merge <source> --into <target>
+```
+
+### docs (npx supermemory)
+```
+npx supermemory docs list --tag <tag>
+npx supermemory docs get <id>
+npx supermemory docs delete <id>
+npx supermemory docs chunks <id>
+npx supermemory docs status <id>
+```
