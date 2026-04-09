@@ -14,8 +14,6 @@ Access your Granola meeting notes, transcripts, folders, and AI summaries using 
 
 ## Setup
 
-Run these commands once to connect Granola to Zo:
-
 Connect Granola to Zo once with these steps:
 
 1. Add the Granola MCP server:
@@ -57,6 +55,8 @@ Zo will use the appropriate MCP tool to answer directly from your Granola notes.
 If MCP is unavailable, you can use the Granola REST API directly with a Personal API key (requires Business or Enterprise plan).
 
 **Get an API key:** Granola desktop app → Settings → API → Create new key
+
+**Store it securely:** Save the key as `GRANOLA_API_KEY` in [Settings → Developers](/settings#developers). Never paste the raw key into chat or commit it to files — reference it only via the environment variable.
 
 **Base URL:** `https://public-api.granola.ai/v1`  
 **Auth header:** `Authorization: Bearer $GRANOLA_API_KEY`
