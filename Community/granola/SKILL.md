@@ -16,14 +16,15 @@ Access your Granola meeting notes, transcripts, folders, and AI summaries using 
 
 Run these commands once to connect Granola to Zo:
 
-```bash
-# 1. Add the Granola MCP server
-claude mcp add granola --transport http https://mcp.granola.ai/mcp
+Connect Granola to Zo once with these steps:
 
-# 2. Authenticate (opens browser OAuth flow)
-```
+1. Add the Granola MCP server:
 
-After running `claude mcp add`, restart the session and run `/mcp`, select `granola`, then choose **Authenticate** to complete the browser sign-in.
+   ```bash
+   claude mcp add granola --transport http https://mcp.granola.ai/mcp
+   ```
+
+2. Authenticate: restart the session and run `/mcp`, select `granola`, then choose **Authenticate** to complete the browser OAuth sign-in.
 
 > **Requirements:** A Granola account with existing meeting notes. Free accounts can access notes from the last 30 days; paid accounts get full history including shared notes and private folders.
 
