@@ -1,0 +1,6 @@
+{
+  "specVersion": "0.1.0",
+  "icon": "brain",
+  "tags": ["memory", "ai", "personalization"],
+  "integrations": ["honcho"]
+}
