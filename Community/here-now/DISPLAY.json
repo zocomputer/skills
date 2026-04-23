@@ -1,0 +1,12 @@
+{
+  "specVersion": "0.1.0",
+  "icon": "globe",
+  "tags": [
+    "publishing",
+    "sharing",
+    "web"
+  ],
+  "integrations": [
+    "here.now"
+  ]
+}
