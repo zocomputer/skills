@@ -3,21 +3,16 @@
   description: Post, reply, and engage on Moltbook, a social network for AI agents.
 - repository: clawdbot/clawdbot
   skill: gog
-  description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs
+  description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets,
+    and Docs
   compatibility: Requires zo-google-direct-oauth skill with valid tokens at /home/.z/google-oauth/
-  notice: |
-    This skill can reuse OAuth credentials from `zo-google-direct-oauth` at `/home/.z/google-oauth/`.
-    Use these steps to avoid creating a second OAuth app:
-
-    ### Setup (reuse existing OAuth app)
-    1. Ensure `zo-google-direct-oauth` is already set up.
-    2. Run:
-       - `gog auth credentials /home/.z/google-oauth/client_secret.json`
-       - `gog auth add you@gmail.com --services gmail,calendar,drive,contacts,docs,sheets`
-    3. Verify:
-       - `gog auth list`
-
-    IMPORTANT: If you generate a new OAuth app here, it may replace or invalidate existing tokens.
+  notice: "This skill can reuse OAuth credentials from `zo-google-direct-oauth` at\
+    \ `/home/.z/google-oauth/`.\nUse these steps to avoid creating a second OAuth\
+    \ app:\n\n### Setup (reuse existing OAuth app)\n1. Ensure `zo-google-direct-oauth`\
+    \ is already set up.\n2. Run:\n   - `gog auth credentials /home/.z/google-oauth/client_secret.json`\n\
+    \   - `gog auth add you@gmail.com --services gmail,calendar,drive,contacts,docs,sheets`\n\
+    3. Verify:\n   - `gog auth list`\n\nIMPORTANT: If you generate a new OAuth app\
+    \ here, it may replace or invalidate existing tokens.\n"
 - repository: clawdbot/clawdbot
   skill: trello
   description: Work with Trello using your own Trello API key (free)
@@ -30,9 +25,13 @@
   description: Work with Notion using your own Notion API key (free)
 - repository: clawdbot/clawdbot
   skill: tmux
-  notice: |
-    Zo note: the docs mention Clawdbot-specific socket env vars. On Zo, you can still set
-    `CLAWDBOT_TMUX_SOCKET_DIR` to any writable path (e.g. `/tmp/zo-tmux-sockets`) or omit it.
+  notice: 'Zo note: the docs mention Clawdbot-specific socket env vars. On Zo, you
+    can still set
+
+    `CLAWDBOT_TMUX_SOCKET_DIR` to any writable path (e.g. `/tmp/zo-tmux-sockets`)
+    or omit it.
+
+    '
 - repository: clawdbot/clawdbot
   skill: weather
   description: Get the current weather for any location
@@ -46,13 +45,18 @@
   skill: video-frames
 - repository: clawdbot/skills
   skill: lastfm
-  notice: |
-    Zo note: set `LASTFM_API_KEY` and `LASTFM_USER` in your shell (or source a local env file)
-    before using this skill. The `~/.clawdbot/.env` path in the docs is not required on Zo.
+  notice: 'Zo note: set `LASTFM_API_KEY` and `LASTFM_USER` in your shell (or source
+    a local env file)
+
+    before using this skill. The `~/.clawdbot/.env` path in the docs is not required
+    on Zo.
+
+    '
 - repository: clawdbot/skills
   skill: shorten
-  notice: |
-    On Zo, the script lives at `/home/workspace/Skills/shorten/shorten.sh`.
+  notice: 'On Zo, the script lives at `/home/workspace/Skills/shorten/shorten.sh`.
+
+    '
 - repository: clawdbot/skills
   skill: just-fucking-cancel
 - repository: adithya-s-k/manim_skill
@@ -165,3 +169,8 @@
   skill: signup-flow-cro
 - repository: coreyhaines31/marketingskills
   skill: social-content
+- repository: Noesis-Boss/skills-huggingface-hub
+  skill: huggingface-hub
+  description: Access Hugging Face Hub models, datasets, and spaces via the huggingface_hub
+    Python library. Use when you need to list, search, download, or upload HF assets.
+
