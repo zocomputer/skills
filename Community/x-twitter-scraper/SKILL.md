@@ -1,11 +1,11 @@
 ---
 name: x-twitter-scraper
-description: "Use when the user needs to interact with X (Twitter) — searching tweets, looking up users/followers, posting tweets/replies, liking, retweeting, following/unfollowing, sending DMs, downloading media, monitoring accounts in real time, or extracting bulk data. Provides 122 REST API endpoints, 2 MCP tools, and HMAC webhooks. Use even if the user says 'Twitter' instead of 'X', or asks about social media automation, tweet analytics, or follower analysis."
+description: "Use when the user needs to interact with X (Twitter) — searching tweets, looking up users/followers, posting tweets/replies, liking, retweeting, following/unfollowing, sending DMs, downloading media, monitoring accounts in real time, or extracting bulk data. Provides 100+ REST API endpoints, 2 MCP tools, and HMAC webhooks. Use even if the user says 'Twitter' instead of 'X', or asks about social media automation, tweet analytics, or follower analysis."
 compatibility: Requires internet access to call the Xquik REST API (https://xquik.com/api/v1)
 license: MIT
 metadata:
   author: Xquik
-  version: "2.0.2"
+  version: "2.4.12"
   openclaw:
     requires:
       env:
@@ -61,8 +61,8 @@ When this skill and the docs disagree, **trust the docs**.
 | **Base URL** | `https://xquik.com/api/v1` |
 | **Auth** | `x-api-key: xq_...` header (64 hex chars after `xq_` prefix) |
 | **MCP endpoint** | `https://xquik.com/mcp` (StreamableHTTP, same API key) |
-| **Rate limits** | Read: 120/60s, Write: 30/60s, Delete: 15/60s (fixed window per method tier) |
-| **Endpoints** | 122 across 12 categories |
+| **Rate limits** | Read: 10/1s, Write: 30/60s, Delete: 15/60s (fixed window per method tier) |
+| **Endpoints** | 100+ across 10 categories |
 | **MCP tools** | 2 (explore + xquik) |
 | **Extraction tools** | 23 types |
 | **Pricing** | $20/month base (reads from $0.00015). Pay-per-use also available |
@@ -71,7 +71,7 @@ When this skill and the docs disagree, **trust the docs**.
 
 ## Pricing Summary
 
-$20/month base plan. 1 credit = $0.00015. Read operations: 1-7 credits. Write operations: 10 credits. Extractions: 1-5 credits/result. Draws: 1 credit/participant. Monitors, webhooks, radar, compose, drafts, and support are free. Pay-per-use credit top-ups also available.
+$20/month base plan. 1 credit = $0.00015. Read operations: 1-5 credits. Write operations: 10 credits. Extractions: 1-5 credits/result. Draws: 1 credit/participant. Monitors, webhooks, radar, compose, drafts, and support are free. Pay-per-use credit top-ups also available.
 
 For full pricing breakdown, comparison vs official X API, and pay-per-use details, see [references/pricing.md](references/pricing.md).
 
@@ -225,7 +225,7 @@ If building a webhook handler, read [references/webhooks.md](references/webhooks
 | Tool | Description | Cost |
 |------|-------------|------|
 | `explore` | Search the API endpoint catalog (read-only) | Free |
-| `xquik` | Send structured API requests (122 endpoints, 12 categories) | Varies |
+| `xquik` | Send structured API requests (100+ endpoints, 10 categories) | Varies |
 
 ### First-Party Trust Model
 
@@ -237,7 +237,7 @@ The MCP server at `xquik.com/mcp` is a **first-party service** operated by Xquik
 - **Auth injection**: The server injects the user's API key into outbound requests automatically. The agent never handles raw credentials.
 - **No persistent state**: Each tool invocation is stateless. No data persists between calls.
 - **Scoped access**: The `xquik` tool can only call Xquik REST API endpoints. It cannot access the agent's filesystem, environment variables, network, or other tools.
-- **Fixed endpoint set**: The server accepts only the 122 pre-defined REST API endpoints. It rejects any request that does not match a known route. There is no mechanism to call arbitrary URLs or inject custom endpoints.
+- **Fixed endpoint set**: The server accepts only the 100+ pre-defined REST API endpoints. It rejects any request that does not match a known route. There is no mechanism to call arbitrary URLs or inject custom endpoints.
 
 If configuring the MCP server in an IDE or agent platform, read [references/mcp-setup.md](references/mcp-setup.md). If calling MCP tools, read [references/mcp-tools.md](references/mcp-tools.md) for selection rules and common mistakes.
 
@@ -250,7 +250,7 @@ If configuring the MCP server in an IDE or agent platform, read [references/mcp-
 - **402 means billing issue, not a bug.** `no_subscription`, `insufficient_credits`, `usage_limit_reached` — the user needs to subscribe or add credits from the dashboard. See [references/pricing.md](references/pricing.md).
 - **`POST /compose` drafts tweets, `POST /x/tweets` sends them.** Don't confuse composition (AI-assisted writing) with posting (actually publishing to X).
 - **Cursors are opaque.** Never decode, parse, or construct `nextCursor` values — just pass them as the `after` query parameter.
-- **Rate limits are per method tier, not per endpoint.** Read (120/60s), Write (30/60s), Delete (15/60s). A burst of writes across different endpoints shares the same 30/60s window.
+- **Rate limits are per method tier, not per endpoint.** Read (10/1s), Write (30/60s), Delete (15/60s). A burst of writes across different endpoints shares the same 30/60s window.
 
 ## Security
 
