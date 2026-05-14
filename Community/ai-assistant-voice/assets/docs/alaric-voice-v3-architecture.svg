@@ -1,0 +1,202 @@
+<svg width="1600" height="1080" viewBox="0 0 1600 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0F1B"/>
+      <stop offset="1" stop-color="#070B14"/>
+    </linearGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="lineGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .title { font: 700 40px Inter, ui-sans-serif, system-ui, sans-serif; fill: #F8FAFC; }
+      .subtitle { font: 500 16px Inter, ui-sans-serif, system-ui, sans-serif; fill: #64748B; letter-spacing: 0.06em; }
+      .section { font: 600 12px Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.32em; fill: #6B7280; }
+      .cardTitle { font: 700 24px Inter, ui-sans-serif, system-ui, sans-serif; }
+      .cardSub { font: 500 13px Inter, ui-sans-serif, system-ui, sans-serif; fill: #64748B; letter-spacing: 0.06em; }
+      .cardBody { font: 500 17px Inter, ui-sans-serif, system-ui, sans-serif; fill: #CBD5E1; }
+      .chipText { font: 500 14px Inter, ui-sans-serif, system-ui, sans-serif; fill: #94A3B8; }
+      .chipMono { font: 500 13px ui-monospace, "SF Mono", Menlo, monospace; fill: #94A3B8; }
+      .tiny { font: 600 12px Inter, ui-sans-serif, system-ui, sans-serif; fill: #64748B; letter-spacing: 0.08em; }
+      .topTitle { font: 800 22px Inter, ui-sans-serif, system-ui, sans-serif; fill: #22D3EE; }
+      .versionPill { font: 700 12px Inter, ui-sans-serif, system-ui, sans-serif; fill: #22D3EE; letter-spacing: 0.18em; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1080" fill="url(#bg)"/>
+  <text x="56" y="64" class="title">AI Assistant Voice — Architecture</text>
+  <text x="58" y="92" class="subtitle">v3.0 · native-MCP · GPT-Realtime-2 · WebRTC voice</text>
+  <rect x="40" y="108" width="1520" height="2" rx="1" fill="#1F2937"/>
+
+  <!-- Version pill top-right -->
+  <g filter="url(#softGlow)">
+    <rect x="1410" y="50" width="150" height="36" rx="10" fill="#09111F" stroke="#22D3EE" stroke-width="2"/>
+  </g>
+  <text x="1485" y="73" text-anchor="middle" class="versionPill">v3.0  ·  2026-05-14</text>
+
+  <!-- ============== CLIENT SURFACE ============== -->
+  <text x="800" y="148" text-anchor="middle" class="section">CLIENT SURFACE</text>
+
+  <g filter="url(#softGlow)">
+    <rect x="320" y="170" width="960" height="120" rx="20" fill="#09111F" stroke="#06B6D4" stroke-width="3"/>
+  </g>
+  <text x="800" y="208" text-anchor="middle" class="topTitle">Browser PWA  ·  /&lt;path&gt;</text>
+  <text x="800" y="228" text-anchor="middle" class="cardSub">React 19  ·  service worker  ·  installable to home screen</text>
+  <g>
+    <rect x="344" y="244" width="220" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="454" y="263" text-anchor="middle" class="chipText">WebRTC mic + audio</text>
+    <rect x="576" y="244" width="220" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="686" y="263" text-anchor="middle" class="chipText">Wake-word gating</text>
+    <rect x="808" y="244" width="220" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="918" y="263" text-anchor="middle" class="chipText">Push-to-talk + hands-free</text>
+    <rect x="1040" y="244" width="220" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1150" y="263" text-anchor="middle" class="chipText">Persona picker · TTS fallback</text>
+  </g>
+
+  <line x1="800" y1="304" x2="800" y2="338" stroke="#0F766E" stroke-width="3" filter="url(#lineGlow)"/>
+  <text x="800" y="358" text-anchor="middle" class="section">ZO.SPACE BACKEND  ·  API ROUTES</text>
+
+  <!-- ============== 4 backend routes ============== -->
+  <g filter="url(#softGlow)">
+    <rect x="60" y="380" width="360" height="240" rx="20" fill="#09111F" stroke="#F59E0B" stroke-width="3"/>
+    <rect x="440" y="380" width="360" height="240" rx="20" fill="#0C1224" stroke="#3B82F6" stroke-width="3"/>
+    <rect x="820" y="380" width="360" height="240" rx="20" fill="#0E1120" stroke="#A855F7" stroke-width="3"/>
+    <rect x="1200" y="380" width="340" height="240" rx="20" fill="#0E1120" stroke="#EC4899" stroke-width="3"/>
+  </g>
+
+  <!-- Bootstrap -->
+  <text x="240" y="418" text-anchor="middle" class="cardTitle" fill="#FBBF24">HMAC Bootstrap</text>
+  <text x="240" y="438" text-anchor="middle" class="chipMono">/api/&lt;slug&gt;-bootstrap</text>
+  <g>
+    <rect x="80" y="456" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="240" y="475" text-anchor="middle" class="chipText">Origin gate · POST issuer</text>
+    <rect x="80" y="490" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="240" y="509" text-anchor="middle" class="chipText">v1.exp.nonce.sig token</text>
+    <rect x="80" y="524" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="240" y="543" text-anchor="middle" class="chipText">24h TTL · HMAC-SHA256</text>
+    <rect x="80" y="558" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="240" y="577" text-anchor="middle" class="chipMono">signed with ZO_ASK_TOKEN</text>
+  </g>
+
+  <!-- Realtime Session -->
+  <text x="620" y="418" text-anchor="middle" class="cardTitle" fill="#60A5FA">Realtime Session</text>
+  <text x="620" y="438" text-anchor="middle" class="chipMono">/api/realtime-session</text>
+  <g>
+    <rect x="460" y="456" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="620" y="475" text-anchor="middle" class="chipText">Mints OpenAI ephemeral key</text>
+    <rect x="460" y="490" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="620" y="509" text-anchor="middle" class="chipText">Attaches MCP tool config</text>
+    <rect x="460" y="524" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="620" y="543" text-anchor="middle" class="chipText">Pack-aware: 19 · 28 · 36 tools</text>
+    <rect x="460" y="558" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="620" y="577" text-anchor="middle" class="chipText">3-attempt backoff · 1s · 2s · 4s</text>
+  </g>
+
+  <!-- MCP Server -->
+  <text x="1000" y="418" text-anchor="middle" class="cardTitle" fill="#C084FC">MCP Server</text>
+  <text x="1000" y="438" text-anchor="middle" class="chipMono">/api/&lt;slug&gt;-mcp</text>
+  <g>
+    <rect x="840" y="456" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1000" y="475" text-anchor="middle" class="chipText">JSON-RPC 2.0  ·  tools/list + call</text>
+    <rect x="840" y="490" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1000" y="509" text-anchor="middle" class="chipText">3-tier auth: header · bearer · ?t=</text>
+    <rect x="840" y="524" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1000" y="543" text-anchor="middle" class="chipText">10s Promise.race hard cap</text>
+    <rect x="840" y="558" width="320" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1000" y="577" text-anchor="middle" class="chipText">Approval gate on writes</text>
+  </g>
+
+  <!-- Personas -->
+  <text x="1370" y="418" text-anchor="middle" class="cardTitle" fill="#F472B6">Persona Catalog</text>
+  <text x="1370" y="438" text-anchor="middle" class="chipMono">/api/&lt;slug&gt;-personas</text>
+  <g>
+    <rect x="1220" y="456" width="300" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1370" y="475" text-anchor="middle" class="chipText">dynamic catalog (list_personas)</text>
+    <rect x="1220" y="490" width="300" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1370" y="509" text-anchor="middle" class="chipText">HMAC-gated · ETag cached</text>
+    <rect x="1220" y="524" width="300" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1370" y="543" text-anchor="middle" class="chipText">Pre-baked at deploy time</text>
+    <rect x="1220" y="558" width="300" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1370" y="577" text-anchor="middle" class="chipText">Drives runtime dropdown</text>
+  </g>
+
+  <line x1="800" y1="638" x2="800" y2="672" stroke="#0F766E" stroke-width="3" filter="url(#lineGlow)"/>
+  <text x="800" y="692" text-anchor="middle" class="section">REALTIME  ·  TOOL EXECUTION</text>
+
+  <!-- ============== REALTIME + UPSTREAM MCP ============== -->
+  <g filter="url(#softGlow)">
+    <rect x="60" y="714" width="740" height="200" rx="20" fill="#09111F" stroke="#14B8A6" stroke-width="3"/>
+    <rect x="820" y="714" width="720" height="200" rx="20" fill="#11131F" stroke="#F59E0B" stroke-width="3"/>
+  </g>
+
+  <text x="430" y="754" text-anchor="middle" class="cardTitle" fill="#2DD4BF">OpenAI Realtime  ·  gpt-realtime-2</text>
+  <text x="430" y="774" text-anchor="middle" class="cardSub">WebRTC voice in / out  ·  native MCP tool runtime</text>
+  <g>
+    <rect x="80" y="790" width="340" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="250" y="809" text-anchor="middle" class="chipText">WebRTC SDP exchange</text>
+    <rect x="430" y="790" width="350" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="605" y="809" text-anchor="middle" class="chipText">Speech-to-speech ~300ms</text>
+    <rect x="80" y="824" width="340" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="250" y="843" text-anchor="middle" class="chipText">Direct MCP tools/list + tools/call</text>
+    <rect x="430" y="824" width="350" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="605" y="843" text-anchor="middle" class="chipText">Multi-tool chaining per turn</text>
+    <rect x="80" y="858" width="340" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="250" y="877" text-anchor="middle" class="chipText">mcp_approval_request / response</text>
+    <rect x="430" y="858" width="350" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="605" y="877" text-anchor="middle" class="chipText">response.output_item.added/done</text>
+  </g>
+
+  <text x="1180" y="754" text-anchor="middle" class="cardTitle" fill="#FBBF24">Upstream Zo MCP</text>
+  <text x="1180" y="774" text-anchor="middle" class="cardSub">api.zo.computer/mcp  ·  Bearer ZO_API_KEY</text>
+  <g>
+    <rect x="840" y="790" width="340" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1010" y="809" text-anchor="middle" class="chipText">Workspace · file · shell</text>
+    <rect x="1190" y="790" width="330" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1355" y="809" text-anchor="middle" class="chipText">Calendar · Gmail · Drive</text>
+    <rect x="840" y="824" width="340" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1010" y="843" text-anchor="middle" class="chipText">Memory · search · image-gen</text>
+    <rect x="1190" y="824" width="330" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1355" y="843" text-anchor="middle" class="chipText">Agents · automations · routes</text>
+    <rect x="840" y="858" width="340" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1010" y="877" text-anchor="middle" class="chipText">Persona switch · publish</text>
+    <rect x="1190" y="858" width="330" height="28" rx="8" fill="#172133" stroke="#243244"/>
+    <text x="1355" y="877" text-anchor="middle" class="chipText">Pluggable memory backend</text>
+  </g>
+
+  <line x1="800" y1="934" x2="800" y2="966" stroke="#0F766E" stroke-width="3" filter="url(#lineGlow)"/>
+  <text x="800" y="986" text-anchor="middle" class="section">TOOL PACKS  ·  REALTIME RESILIENCE</text>
+
+  <!-- ============== TOOL PACKS + RESILIENCE ============== -->
+  <g filter="url(#softGlow)">
+    <rect x="60" y="1002" width="280" height="62" rx="14" fill="#111120" stroke="#06B6D4" stroke-width="2.5"/>
+    <rect x="356" y="1002" width="280" height="62" rx="14" fill="#111120" stroke="#3B82F6" stroke-width="2.5"/>
+    <rect x="652" y="1002" width="320" height="62" rx="14" fill="#111120" stroke="#A855F7" stroke-width="2.5"/>
+    <rect x="988" y="1002" width="280" height="62" rx="14" fill="#111120" stroke="#22C55E" stroke-width="2.5"/>
+    <rect x="1284" y="1002" width="256" height="62" rx="14" fill="#111120" stroke="#EAB308" stroke-width="2.5"/>
+  </g>
+  <text x="200" y="1028" text-anchor="middle" class="cardTitle" fill="#22D3EE" font-size="18">essentials</text>
+  <text x="200" y="1052" text-anchor="middle" class="cardBody" font-size="14">19 reads · approval never</text>
+
+  <text x="496" y="1028" text-anchor="middle" class="cardTitle" fill="#60A5FA" font-size="18">power</text>
+  <text x="496" y="1052" text-anchor="middle" class="cardBody" font-size="14">28 tools · light writes</text>
+
+  <text x="812" y="1028" text-anchor="middle" class="cardTitle" fill="#C084FC" font-size="18">power_with_writes</text>
+  <text x="812" y="1052" text-anchor="middle" class="cardBody" font-size="14">36 tools · per-call approval</text>
+
+  <text x="1128" y="1028" text-anchor="middle" class="cardTitle" fill="#4ADE80" font-size="18">wake gating</text>
+  <text x="1128" y="1052" text-anchor="middle" class="cardBody" font-size="14">mic muted until "Hey &lt;name&gt;"</text>
+
+  <text x="1412" y="1028" text-anchor="middle" class="cardTitle" fill="#FDE047" font-size="18">backoff + cap</text>
+  <text x="1412" y="1052" text-anchor="middle" class="cardBody" font-size="14">3-attempt + 10s tool cap</text>
+
+</svg>

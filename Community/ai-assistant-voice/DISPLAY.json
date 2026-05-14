@@ -1,0 +1,39 @@
+{
+  "specVersion": "0.2.0",
+  "icon": "mic",
+  "image": "assets/docs/hero-banner.png",
+  "tags": [
+    "voice",
+    "realtime",
+    "mcp",
+    "pwa",
+    "personas",
+    "tts"
+  ],
+  "integrations": [
+    "openai",
+    "elevenlabs"
+  ],
+  "secrets": [
+    {
+      "secret_name": "ZO_ASK_TOKEN",
+      "description": "Zo access token used to mint HMAC session tokens for the PWA. Create in Settings > Advanced > Access Tokens."
+    },
+    {
+      "secret_name": "ZO_API_KEY",
+      "description": "Zo API key used by the MCP route to call api.zo.computer/mcp. Create in Settings > Advanced > Access Tokens."
+    },
+    {
+      "secret_name": "MCP_SHARED_TOKEN",
+      "description": "Shared secret authenticating OpenAI Realtime callbacks to /api/<slug>-mcp. Generate any random string. The env-var name is configurable via the deploy flag --mcp-token-secret."
+    },
+    {
+      "secret_name": "OPENAI_API_KEY",
+      "description": "OpenAI API key with Realtime GA access. Used to mint ephemeral client secrets for WebRTC sessions."
+    },
+    {
+      "secret_name": "ELEVENLABS_API_KEY",
+      "description": "Optional. Required only when using the ElevenLabs TTS backend in text-mode fallback."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Voice AI",
+  "short_name": "Voice AI",
+  "version": "1.0.0",
+  "description": "Generic voice interface for any Zo persona",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"]
+}
