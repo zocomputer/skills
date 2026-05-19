@@ -79,22 +79,54 @@ Use the `register_user_service` agent tool with these exact parameters (also pri
 - **mode**: `process`
 - **entrypoint**: `sec-indexer`
 - **workdir**: `/home/workspace`
-- **env_vars**: copy verbatim from the `SERVICE_REGISTRATION` envelope printed by `setup.py` — includes `ZO_API_KEY` plus a `CLARION_DATA_ROOT` value resolved at setup time (e.g. `/home/workspace/clarion` on Zo)
+- **env_vars**: pass as a JSON **object** — see *env_vars formatting* below
 - **description**: `Clarion sec-indexer — background SEC EDGAR filing indexer`
+
+**env_vars formatting (critical — common failure mode).** `env_vars` is an object-valued parameter, **not a stringified JSON**. Pass it exactly as printed in the `SERVICE_REGISTRATION` envelope:
+
+```json
+{"ZO_API_KEY": "$ZO_API_KEY", "CLARION_DATA_ROOT": "/home/workspace/clarion"}
+```
+
+Do **not** wrap it in quotes and escape it like `"{\"ZO_API_KEY\": \"$ZO_API_KEY\", ...}"`. If the tool call appears to require escape sequences inside `env_vars`, stop and re-form the call — the parameter is an object, not a string. Models that try to escape this end up generating malformed input that either fails outright (`register_user_service` returns a runner-stopped error) or — worse — succeeds with corrupted values (env vars inlined into the entrypoint shell-string, trailing XML-tag artifacts appended to the entrypoint, `CLARION_DATA_ROOT` silently dropped). The wrong-values-but-success failure mode is the dangerous one and Step 5 catches it; the prevention is to get the env_vars shape right here.
 
 The `$ZO_API_KEY` value is shell-style syntax telling Zo to resolve from the user's secret of the same name (created in Step 3) at service start. The `CLARION_DATA_ROOT` value is a literal path — it pins the indexer's writes to the same data root chat skills read from, so SEC filings land in the user-visible workspace and not in `/root/clarion/` when the service runs as root. Use the snake_case parameter names exactly — `workdir` and `env_vars` — these are the canonical keys Zo's tool accepts.
 
 Confirm registration succeeded (the tool should return a service ID like `svc_…`).
 
-### Step 5 — Verify and report
+### Step 5 — Verify the service is actually running (do not skip)
 
-Run a final check:
+**Critical:** `register_user_service` returns success when the registration is *recorded*, not when the process is *running*. The platform does not validate that the entrypoint is a parseable shell command, nor that env_vars were correctly formatted — those checks are on you, and silent-corruption failure modes do occur when model output drifts on the JSON-escaping path. Verify the service actually started before reporting completion.
+
+Check service status using Zo's supervisor-status tool (`service_doctor` on the current Zo platform; use the equivalent if your environment differs):
+
+```bash
+service_doctor sec-indexer
+```
+
+**Expected:** `RUNNING` with a non-zero `uptime`. If the status shows `FATAL`, `BACKOFF`, `EXITED`, or `STOPPED`, the entrypoint failed to launch. The two failure modes you'll see in practice are:
+
+1. **Trailing characters in the entrypoint.** The registered `entrypoint` field should be exactly `sec-indexer`. If it's something like `sec-indexer</`, `sec-indexer\n`, or `ZO_API_KEY="$ZO_API_KEY" ... sec-indexer` (env vars inlined into the entrypoint string), the model output got corrupted during the tool call. The supervisor cannot execute these.
+2. **Missing or malformed env_vars.** If `ZO_API_KEY` or `CLARION_DATA_ROOT` aren't in the registered service's `env_vars` as separate keys (or got inlined into the entrypoint instead), the binary will either fail at startup (no token) or run but write to the wrong data root (`/root/clarion/` instead of `/home/workspace/clarion/`) — invisible to the user.
+
+Inspect logs if status is not RUNNING:
+
+```bash
+tail -50 /dev/shm/sec-indexer.log
+tail -50 /dev/shm/sec-indexer_err.log
+```
+
+If anything is wrong, **delete the broken service and re-register**. Re-read this skill's *env_vars formatting* note from Step 4 first — the most common cause is `env_vars` being passed as a string instead of an object on the retry too.
+
+**Do not tell the user setup is complete until `service_doctor sec-indexer` shows RUNNING with non-zero uptime.** A registered-but-broken service is a worse failure mode than a registration that visibly failed.
+
+As a separate (weaker) sanity check that the binary is reachable on PATH:
 
 ```bash
 sec-indexer --help
 ```
 
-If it prints help text, all components are in place.
+This proves the executable resolves on PATH, but does NOT prove the service is running. The `service_doctor` check above is the one that actually validates the install.
 
 Tell the user:
 
