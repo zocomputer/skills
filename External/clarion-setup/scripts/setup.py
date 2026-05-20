@@ -64,7 +64,11 @@ DATA_SUBDIRS = (
 DEFAULT_CONFIG: dict = {
     "indexing_model": "zo:openai/gpt-5.4-mini",
     "indexing_fallback_model": "zo:minimax/minimax-m2.5",
-    "reasoning_model": "zo:anthropic/claude-opus-4-7",
+    # Free-tier default per ARCHITECTURE.md "Default model selection" — a fresh install
+    # must run end-to-end on a free Zo account. Subscriber-tier models (e.g.
+    # zo:anthropic/claude-opus-4-7) are opt-in: edit this field in ~/clarion/config.json
+    # and restart the sec-indexer service.
+    "reasoning_model": "zo:openai/gpt-5.4-mini",
     "sec_user_agent": "Clarion Intelligence System (clarion@example.com)",
     "data_root": str(WORKSPACE),
 }
