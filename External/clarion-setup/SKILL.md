@@ -153,6 +153,16 @@ tail -50 /dev/shm/sec-indexer_err.log
 
 If anything is wrong, `delete_user_service` the broken one and re-do Step 3 — re-read the *env_vars formatting* guidance carefully. **Do not tell the user setup is complete until `service_doctor(service="sec-indexer")` reports RUNNING with non-zero uptime.**
 
+### Verify the service is running CURRENT code (issue #55)
+
+`service_doctor` confirms the process is RUNNING, but a process can be RUNNING on **stale** code — an editable reinstall (`uv pip install -e`) does NOT reload an already-running service. On a re-run that pulled new code, a service that wasn't restarted will keep executing the old code, and re-indexing will silently produce wrong data. Confirm freshness:
+
+```bash
+clarion-sec-research doctor
+```
+
+Expect `Indexer: up to date (commit …)`. If it reports `Indexer: STALE — running commit X but installed code is Y`, the service is still on pre-update code: restart it (repeat Step 5b) and re-run `clarion-sec-research doctor` until it reports up to date. **Do not report setup complete while `doctor` reports STALE.** (If it reports "no runtime marker", the service hasn't started since this version was installed — restart it.)
+
 As a separate (weaker) sanity check that the binary is reachable on PATH:
 
 ```bash
@@ -196,9 +206,13 @@ Personas and routing rules are not touched by re-runs because they're not instal
 
 ### Re-running to pick up source updates
 
-Editable installs (`uv pip install -e`) do NOT reload an already-running service — the `sec-indexer` process keeps the Python modules it imported at startup in memory. After a `git pull` brings in new code, you MUST restart the service for the changes to take effect.
+Editable installs (`uv pip install -e`) do NOT reload an already-running service — the `sec-indexer` process keeps the Python modules it imported at startup in memory. After a `git pull` brings in new code, you MUST restart the service for the changes to take effect. **Skipping the restart is silent: the logs look healthy, filings get marked indexed, and the old code quietly produces wrong data** (this is exactly what happened in issue #55 — an extraction fix was pulled but the service kept running pre-fix code, so re-indexed filings stayed broken).
 
-If the user is re-running setup specifically to pull in upstream fixes, the existing Step 5b restart in this flow handles this naturally. After Step 6 verifies RUNNING, the new code is live.
+A full setup re-run handles this: the clean-re-run path jumps to Step 5b (restart unconditionally), and Step 6's `clarion-sec-research doctor` check then confirms the running code matches what's installed. **Always let the restart happen on a re-run — do not skip Step 5b even if config is unchanged.**
+
+If code was updated **outside** this flow (a bare `git pull` without re-running setup), the service is almost certainly stale. Run `clarion-sec-research doctor`; if it reports STALE, restart the `sec-indexer` service first.
+
+**Applying extraction fixes to an already-indexed corpus (issue #57).** A code update only changes how filings are *parsed*; it does not touch filings already on disk. After confirming the service is current (`doctor` → up to date), run `clarion-sec-research reindex` to re-extract the existing corpus. It re-extracts only filings built by older code (current ones skip), so it's safe to run after every upgrade — and necessary for extraction/parsing fixes to reach data the user indexed before the upgrade.
 
 ## On error
 
