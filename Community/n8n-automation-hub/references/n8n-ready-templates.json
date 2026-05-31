@@ -1,0 +1,477 @@
+{
+  "templates": [
+
+    {
+      "id": "tpl-001",
+      "name": "Telegram Bot → AI Agent → Reply",
+      "description": "รับข้อความจาก Telegram → AI ประมวลผล → ตอบกลับ. เหมาะสำหรับ chatbot พื้นฐาน",
+      "useCase": ["chatbot", "telegram", "AI agent", "assistant"],
+      "credentialsNeeded": ["telegramApi", "openAiApi"],
+      "setupSteps": ["สร้าง Telegram Bot ผ่าน @BotFather", "ใส่ Bot Token ใน Telegram credential", "ใส่ OpenAI API Key"],
+      "workflow": {
+        "name": "Telegram AI Chatbot",
+        "active": false,
+        "settings": { "executionOrder": "v1" },
+        "nodes": [
+          {
+            "id": "node-1",
+            "name": "Telegram Trigger",
+            "type": "n8n-nodes-base.telegramTrigger",
+            "typeVersion": 1.1,
+            "position": [240, 300],
+            "parameters": {
+              "updates": ["message"],
+              "additionalFields": {}
+            },
+            "credentials": {
+              "telegramApi": { "id": "YOUR_TELEGRAM_CRED_ID", "name": "Telegram Bot" }
+            }
+          },
+          {
+            "id": "node-2",
+            "name": "AI Agent",
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 1.7,
+            "position": [490, 300],
+            "parameters": {
+              "promptType": "define",
+              "text": "={{ $json.message.text }}",
+              "options": {
+                "systemMessage": "คุณคือผู้ช่วยอัจฉริยะ ตอบเป็นภาษาไทยเสมอ"
+              }
+            }
+          },
+          {
+            "id": "node-3",
+            "name": "OpenAI Chat Model",
+            "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+            "typeVersion": 1.2,
+            "position": [490, 480],
+            "parameters": {
+              "model": "gpt-4o-mini",
+              "options": {}
+            },
+            "credentials": {
+              "openAiApi": { "id": "YOUR_OPENAI_CRED_ID", "name": "OpenAI account" }
+            }
+          },
+          {
+            "id": "node-4",
+            "name": "Window Buffer Memory",
+            "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+            "typeVersion": 1.3,
+            "position": [640, 480],
+            "parameters": {
+              "contextWindowLength": 10
+            }
+          },
+          {
+            "id": "node-5",
+            "name": "Send Reply",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1.2,
+            "position": [740, 300],
+            "parameters": {
+              "operation": "sendMessage",
+              "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+              "text": "={{ $json.output }}",
+              "additionalFields": {}
+            },
+            "credentials": {
+              "telegramApi": { "id": "YOUR_TELEGRAM_CRED_ID", "name": "Telegram Bot" }
+            }
+          }
+        ],
+        "connections": {
+          "Telegram Trigger": {
+            "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]]
+          },
+          "OpenAI Chat Model": {
+            "ai_languageModel": [[{ "node": "AI Agent", "type": "ai_languageModel", "index": 0 }]]
+          },
+          "Window Buffer Memory": {
+            "ai_memory": [[{ "node": "AI Agent", "type": "ai_memory", "index": 0 }]]
+          },
+          "AI Agent": {
+            "main": [[{ "node": "Send Reply", "type": "main", "index": 0 }]]
+          }
+        }
+      }
+    },
+
+    {
+      "id": "tpl-002",
+      "name": "Webhook → Process → Google Sheets + Email",
+      "description": "รับข้อมูลจาก form/webhook → บันทึก Google Sheets → ส่ง email ยืนยัน",
+      "useCase": ["form", "registration", "booking", "lead capture"],
+      "credentialsNeeded": ["googleSheetsOAuth2Api", "gmailOAuth2"],
+      "setupSteps": ["ตั้งค่า Google Sheets credential (OAuth)", "ตั้งค่า Gmail credential", "แก้ Sheet ID ใน node", "Copy webhook URL ไปใส่ใน form"],
+      "workflow": {
+        "name": "Form to Sheets + Email",
+        "active": false,
+        "settings": { "executionOrder": "v1" },
+        "nodes": [
+          {
+            "id": "node-1",
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 2,
+            "position": [240, 300],
+            "parameters": {
+              "httpMethod": "POST",
+              "path": "form-submit",
+              "responseMode": "onReceived",
+              "responseData": "allEntries"
+            }
+          },
+          {
+            "id": "node-2",
+            "name": "Save to Sheets",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.5,
+            "position": [490, 300],
+            "parameters": {
+              "operation": "append",
+              "documentId": {
+                "__rl": true,
+                "value": "YOUR_GOOGLE_SHEET_ID",
+                "mode": "id"
+              },
+              "sheetName": {
+                "__rl": true,
+                "value": "Sheet1",
+                "mode": "name"
+              },
+              "columns": {
+                "mappingMode": "autoMapInputData",
+                "value": {}
+              }
+            },
+            "credentials": {
+              "googleSheetsOAuth2Api": { "id": "YOUR_SHEETS_CRED_ID", "name": "Google Sheets account" }
+            }
+          },
+          {
+            "id": "node-3",
+            "name": "Send Confirmation Email",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.1,
+            "position": [740, 300],
+            "parameters": {
+              "operation": "send",
+              "toList": "={{ $('Webhook').item.json.body.email }}",
+              "subject": "ยืนยันการรับข้อมูลของคุณ",
+              "emailType": "text",
+              "message": "สวัสดีคุณ {{ $('Webhook').item.json.body.name }}\n\nเราได้รับข้อมูลของคุณเรียบร้อยแล้ว\nทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง\n\nขอบคุณ"
+            },
+            "credentials": {
+              "gmailOAuth2": { "id": "YOUR_GMAIL_CRED_ID", "name": "Gmail account" }
+            }
+          }
+        ],
+        "connections": {
+          "Webhook": {
+            "main": [[{ "node": "Save to Sheets", "type": "main", "index": 0 }]]
+          },
+          "Save to Sheets": {
+            "main": [[{ "node": "Send Confirmation Email", "type": "main", "index": 0 }]]
+          }
+        }
+      }
+    },
+
+    {
+      "id": "tpl-003",
+      "name": "Schedule → Fetch Data → AI Summary → Telegram Report",
+      "description": "รันตามเวลา → ดึงข้อมูล API → AI สรุป → ส่งรายงาน Telegram",
+      "useCase": ["daily report", "news summary", "monitoring", "digest"],
+      "credentialsNeeded": ["telegramApi", "openAiApi"],
+      "setupSteps": ["แก้ cron expression ตามเวลาที่ต้องการ", "แก้ URL ของ API ที่ต้องการดึงข้อมูล", "แก้ Chat ID ของ Telegram"],
+      "workflow": {
+        "name": "Daily AI Report to Telegram",
+        "active": false,
+        "settings": { "executionOrder": "v1" },
+        "nodes": [
+          {
+            "id": "node-1",
+            "name": "Schedule Trigger",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.2,
+            "position": [240, 300],
+            "parameters": {
+              "rule": {
+                "interval": [{ "field": "cronExpression", "expression": "0 8 * * 1-5" }]
+              }
+            }
+          },
+          {
+            "id": "node-2",
+            "name": "Fetch Data",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4.2,
+            "position": [490, 300],
+            "parameters": {
+              "method": "GET",
+              "url": "https://YOUR_API_ENDPOINT",
+              "options": {}
+            }
+          },
+          {
+            "id": "node-3",
+            "name": "AI Summary",
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 1.7,
+            "position": [740, 300],
+            "parameters": {
+              "promptType": "define",
+              "text": "=สรุปข้อมูลต่อไปนี้เป็นภาษาไทย กระชับ ชัดเจน:\n\n{{ JSON.stringify($json) }}",
+              "options": {
+                "systemMessage": "คุณคือผู้ช่วยสรุปข้อมูล ตอบเป็นภาษาไทย กระชับ ใช้ emoji ประกอบ"
+              }
+            }
+          },
+          {
+            "id": "node-4",
+            "name": "OpenAI Chat Model",
+            "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+            "typeVersion": 1.2,
+            "position": [740, 480],
+            "parameters": {
+              "model": "gpt-4o-mini",
+              "options": {}
+            },
+            "credentials": {
+              "openAiApi": { "id": "YOUR_OPENAI_CRED_ID", "name": "OpenAI account" }
+            }
+          },
+          {
+            "id": "node-5",
+            "name": "Send to Telegram",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1.2,
+            "position": [990, 300],
+            "parameters": {
+              "operation": "sendMessage",
+              "chatId": "YOUR_CHAT_ID",
+              "text": "=📊 รายงานประจำวัน {{ $now.format('DD/MM/YYYY') }}\n\n{{ $json.output }}",
+              "additionalFields": {
+                "parse_mode": "HTML"
+              }
+            },
+            "credentials": {
+              "telegramApi": { "id": "YOUR_TELEGRAM_CRED_ID", "name": "Telegram Bot" }
+            }
+          }
+        ],
+        "connections": {
+          "Schedule Trigger": {
+            "main": [[{ "node": "Fetch Data", "type": "main", "index": 0 }]]
+          },
+          "Fetch Data": {
+            "main": [[{ "node": "AI Summary", "type": "main", "index": 0 }]]
+          },
+          "OpenAI Chat Model": {
+            "ai_languageModel": [[{ "node": "AI Summary", "type": "ai_languageModel", "index": 0 }]]
+          },
+          "AI Summary": {
+            "main": [[{ "node": "Send to Telegram", "type": "main", "index": 0 }]]
+          }
+        }
+      }
+    },
+
+    {
+      "id": "tpl-004",
+      "name": "Gmail Trigger → AI Classify → Route → Auto Reply",
+      "description": "รับ email ใหม่ → AI จัดหมวด → แยก route → ตอบอัตโนมัติ",
+      "useCase": ["inbox automation", "email triage", "customer support", "lead response"],
+      "credentialsNeeded": ["gmailOAuth2", "openAiApi"],
+      "setupSteps": ["ตั้งค่า Gmail OAuth credential", "ใส่ OpenAI API Key", "แก้ system message ให้ตรงกับ category ที่ต้องการ"],
+      "workflow": {
+        "name": "Smart Email Router",
+        "active": false,
+        "settings": { "executionOrder": "v1" },
+        "nodes": [
+          {
+            "id": "node-1",
+            "name": "Gmail Trigger",
+            "type": "n8n-nodes-base.gmailTrigger",
+            "typeVersion": 1,
+            "position": [240, 300],
+            "parameters": {
+              "pollTimes": { "item": [{ "mode": "everyMinute" }] },
+              "filters": {}
+            },
+            "credentials": {
+              "gmailOAuth2": { "id": "YOUR_GMAIL_CRED_ID", "name": "Gmail account" }
+            }
+          },
+          {
+            "id": "node-2",
+            "name": "Classify Email",
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1.7,
+            "position": [490, 300],
+            "parameters": {
+              "operation": "message",
+              "modelId": { "__rl": true, "value": "gpt-4o-mini", "mode": "list" },
+              "messages": {
+                "values": [
+                  {
+                    "role": "system",
+                    "content": "จัดหมวดอีเมลต่อไปนี้ ตอบเป็น JSON เท่านั้น: {\"category\": \"support|sales|spam|other\", \"priority\": \"high|medium|low\", \"summary\": \"สรุปสั้นๆ\"}"
+                  },
+                  {
+                    "role": "user",
+                    "content": "=Subject: {{ $json.payload.headers.find(h => h.name === 'Subject')?.value }}\n\nBody: {{ $json.snippet }}"
+                  }
+                ]
+              },
+              "options": {}
+            },
+            "credentials": {
+              "openAiApi": { "id": "YOUR_OPENAI_CRED_ID", "name": "OpenAI account" }
+            }
+          },
+          {
+            "id": "node-3",
+            "name": "Parse Response",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [740, 300],
+            "parameters": {
+              "jsCode": "const raw = $input.first().json.message.content;\ntry {\n  const parsed = JSON.parse(raw);\n  return [{ json: { ...parsed, emailId: $('Gmail Trigger').first().json.id } }];\n} catch(e) {\n  return [{ json: { category: 'other', priority: 'low', summary: raw } }];\n}"
+            }
+          },
+          {
+            "id": "node-4",
+            "name": "Route by Category",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.2,
+            "position": [990, 300],
+            "parameters": {
+              "mode": "expression",
+              "output": "={{ $json.category }}",
+              "rules": {
+                "rules": [
+                  { "outputKey": "support" },
+                  { "outputKey": "sales" },
+                  { "outputKey": "spam" }
+                ]
+              },
+              "fallbackOutput": "none"
+            }
+          }
+        ],
+        "connections": {
+          "Gmail Trigger": {
+            "main": [[{ "node": "Classify Email", "type": "main", "index": 0 }]]
+          },
+          "Classify Email": {
+            "main": [[{ "node": "Parse Response", "type": "main", "index": 0 }]]
+          },
+          "Parse Response": {
+            "main": [[{ "node": "Route by Category", "type": "main", "index": 0 }]]
+          }
+        }
+      }
+    },
+
+    {
+      "id": "tpl-005",
+      "name": "Webhook → AI Agent + Tools → Response",
+      "description": "รับ request → AI Agent พร้อม tools (HTTP, Code) → ส่งผลกลับ. เหมาะสำหรับ API endpoint ที่ใช้ AI ตัดสินใจ",
+      "useCase": ["API with AI", "smart webhook", "AI backend", "agent API"],
+      "credentialsNeeded": ["openAiApi"],
+      "setupSteps": ["ใส่ OpenAI API Key", "เพิ่ม Tool nodes ที่ต้องการ", "ปรับ system message"],
+      "workflow": {
+        "name": "AI Agent API Endpoint",
+        "active": false,
+        "settings": { "executionOrder": "v1" },
+        "nodes": [
+          {
+            "id": "node-1",
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 2,
+            "position": [240, 300],
+            "parameters": {
+              "httpMethod": "POST",
+              "path": "ai-agent",
+              "responseMode": "lastNode",
+              "responseData": "firstEntryJson"
+            }
+          },
+          {
+            "id": "node-2",
+            "name": "AI Agent",
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 1.7,
+            "position": [490, 300],
+            "parameters": {
+              "promptType": "define",
+              "text": "={{ $json.body.prompt || $json.body.message }}",
+              "options": {
+                "systemMessage": "You are a helpful AI assistant. Use available tools when needed. Always respond in Thai."
+              }
+            }
+          },
+          {
+            "id": "node-3",
+            "name": "OpenAI Chat Model",
+            "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+            "typeVersion": 1.2,
+            "position": [490, 480],
+            "parameters": {
+              "model": "gpt-4o",
+              "options": {}
+            },
+            "credentials": {
+              "openAiApi": { "id": "YOUR_OPENAI_CRED_ID", "name": "OpenAI account" }
+            }
+          },
+          {
+            "id": "node-4",
+            "name": "Format Response",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+            "position": [740, 300],
+            "parameters": {
+              "mode": "manual",
+              "assignments": {
+                "assignments": [
+                  { "id": "f1", "name": "response", "value": "={{ $json.output }}", "type": "string" },
+                  { "id": "f2", "name": "success", "value": true, "type": "boolean" },
+                  { "id": "f3", "name": "timestamp", "value": "={{ $now.toISO() }}", "type": "string" }
+                ]
+              }
+            }
+          }
+        ],
+        "connections": {
+          "Webhook": {
+            "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]]
+          },
+          "OpenAI Chat Model": {
+            "ai_languageModel": [[{ "node": "AI Agent", "type": "ai_languageModel", "index": 0 }]]
+          },
+          "AI Agent": {
+            "main": [[{ "node": "Format Response", "type": "main", "index": 0 }]]
+          }
+        }
+      }
+    }
+
+  ],
+
+  "howToUse": {
+    "step1": "ดูว่า use case ของผู้ใช้ตรงกับ template ไหน (ดูจาก useCase array)",
+    "step2": "Copy workflow object ออกมา",
+    "step3": "แทน YOUR_*_CRED_ID ด้วย placeholder ที่ชัดเจน เช่น <<ใส่ credential ID ของคุณ>>",
+    "step4": "แทนค่า hardcode เช่น Sheet ID, Chat ID ด้วย YOUR_SHEET_ID หรือ placeholder",
+    "step5": "แสดง JSON ให้ผู้ใช้ copy ไป Import ใน n8n",
+    "step6": "อธิบาย setupSteps ให้ผู้ใช้ทำตามหลัง import"
+  },
+
+  "importInstructions": "1. เปิด n8n → 2. คลิก Workflows → 3. คลิก ⋮ (สามจุด) มุมขวาบน → 4. Import from File หรือ Import from URL → 5. Paste JSON → 6. บันทึก → 7. ตั้งค่า Credentials → 8. กด Activate"
+}
