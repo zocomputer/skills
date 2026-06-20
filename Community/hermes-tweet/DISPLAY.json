@@ -1,0 +1,18 @@
+{
+  "specVersion": "0.2.0",
+  "icon": "send",
+  "tags": [
+    "social",
+    "automation",
+    "agents"
+  ],
+  "integrations": [
+    "x"
+  ],
+  "secrets": [
+    {
+      "secret_name": "XQUIK_API_KEY",
+      "description": "Create an API key in the Xquik dashboard and store it in the Hermes runtime environment."
+    }
+  ]
+}
