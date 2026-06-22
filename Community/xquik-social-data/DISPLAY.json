@@ -1,0 +1,17 @@
+{
+  "icon": "search",
+  "tags": [
+    "social",
+    "automation",
+    "data"
+  ],
+  "integrations": [
+    "x"
+  ],
+  "secrets": [
+    {
+      "secret_name": "XQUIK_API_KEY",
+      "description": "Create an API key in Xquik, then paste it here for REST requests."
+    }
+  ]
+}
