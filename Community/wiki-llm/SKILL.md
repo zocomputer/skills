@@ -40,6 +40,8 @@ The CLI is `scripts/wiki` (Bun). All commands work on a registered project; pass
 | `wiki hook` | Stop-hook entrypoint. For each registered project: detect git changes, archive deletions to trash, queue updates. Cheap, non-LLM. |
 | `wiki install-hook` | Add the Stop hook to `~/.claude/settings.json`. Idempotent. |
 | `wiki uninstall-hook` | Remove the Stop hook. |
+| `wiki doctor [--fix]` | Check required (`bun`, `git`) and optional (`qmd`, `ripgrep`, `rustup`, `cargo`) deps. With `--fix`, best-effort install missing ones (qmd via npm/bun → cargo → rustup+cargo; git/ripgrep via apt). |
+| `wiki install-qmd` | Best-effort install of qmd search backend (npm/bun → cargo → bootstrap rustup then cargo). |
 
 ## Init flow — questions asked
 
@@ -77,7 +79,16 @@ It does NOT call any LLM. Actual wiki regeneration happens when the user (or the
 
 ## qmd integration
 
-If `qmd` is on PATH, `wiki query` uses it. If not, it falls back to ripgrep + a simple ranked-by-headings heuristic. Install qmd via `wiki install-qmd` (best-effort: tries `cargo install qmd` or downloads from releases). On Zo Computer the install runs once at skill init.
+If `qmd` is on PATH, `wiki query` uses it. If not, it falls back to ripgrep + a simple ranked-by-headings heuristic. Install qmd via `wiki install-qmd` (best-effort: tries `bun add -g qmd` → `npm i -g qmd` → `cargo install qmd` → bootstraps rustup if cargo is missing and retries). On Zo Computer the install runs once at skill init.
+
+## First-run dependency preflight
+
+The first time `wiki <anything>` runs in a fresh Zo Computer instance (detected by absence of `~/.wiki-llm/registry.json`), the CLI auto-runs `doctor --fix` to install missing deps. The check covers:
+
+- **Required**: `bun` (script runtime), `git` (diff/recovery)
+- **Optional**: `qmd` (hybrid search; ripgrep fallback), `ripgrep` (search fallback), `rustup` + `cargo` (only used if qmd can't install via npm/bun)
+
+After the first successful run, dependency checks are skipped on subsequent invocations — re-run `wiki doctor` manually to re-check. The hook entrypoint (`wiki hook`) explicitly skips preflight to keep Stop-hook latency minimal.
 
 ## Conventions for the wiki
 

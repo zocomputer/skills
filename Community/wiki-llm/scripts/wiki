@@ -559,14 +559,120 @@ function cmdUninstallHook() {
 }
 
 // ----- install-qmd -----
-function cmdInstallQmd() {
-  if (spawnSync("which", ["qmd"]).status === 0) { console.log("qmd already installed"); return; }
-  const cargo = spawnSync("which", ["cargo"]);
-  if (cargo.status === 0) {
-    console.log("attempting `cargo install qmd`...");
-    const r = spawnSync("cargo", ["install", "qmd"], { stdio: "inherit" });
-    if (r.status === 0) return;
+function which(bin: string): string | null {
+  const r = spawnSync("which", [bin]);
+  if (r.status === 0) {
+    const out = r.stdout.toString().trim();
+    if (out) return out;
   }
+  // Probe well-known install locations not always on PATH
+  for (const dir of [join(homedir(), ".cargo", "bin"), join(homedir(), ".bun", "bin"), "/usr/local/bin"]) {
+    const cand = join(dir, bin);
+    if (existsSync(cand)) {
+      if (!process.env.PATH?.split(":").includes(dir)) process.env.PATH = `${dir}:${process.env.PATH}`;
+      return cand;
+    }
+  }
+  return null;
+}
+function tryInstallQmd(): boolean {
+  if (which("qmd")) return true;
+  // Prefer npm/bun (qmd is published as @tobi/qmd; tobi/qmd also publishes prebuilt binaries)
+  if (which("bun")) {
+    console.log("→ trying `bun add -g qmd`...");
+    if (spawnSync("bun", ["add", "-g", "qmd"], { stdio: "inherit" }).status === 0 && which("qmd")) return true;
+  }
+  if (which("npm")) {
+    console.log("→ trying `npm i -g qmd`...");
+    if (spawnSync("npm", ["i", "-g", "qmd"], { stdio: "inherit" }).status === 0 && which("qmd")) return true;
+  }
+  // Cargo fallback (requires rustup/cargo on PATH)
+  if (which("cargo")) {
+    console.log("→ trying `cargo install qmd`...");
+    if (spawnSync("cargo", ["install", "qmd"], { stdio: "inherit" }).status === 0 && which("qmd")) return true;
+  }
+  return false;
+}
+function tryInstallRustup(): boolean {
+  if (which("rustup") && which("cargo")) return true;
+  console.log("→ installing rustup (non-interactive, default profile)...");
+  const r = spawnSync("bash", ["-lc", "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile minimal"], { stdio: "inherit" });
+  if (r.status !== 0) return false;
+  // Make cargo available in current process for downstream installs
+  const cargoBin = join(homedir(), ".cargo", "bin");
+  process.env.PATH = `${cargoBin}:${process.env.PATH}`;
+  return Boolean(which("cargo"));
+}
+function aptInstall(pkg: string): boolean {
+  if (which(pkg)) return true;
+  if (which("apt-get") && process.getuid?.() === 0) {
+    console.log(`→ apt-get install -y ${pkg}...`);
+    spawnSync("apt-get", ["update", "-y"], { stdio: "ignore" });
+    if (spawnSync("apt-get", ["install", "-y", pkg], { stdio: "inherit" }).status === 0) return Boolean(which(pkg));
+  }
+  return false;
+}
+type DepStatus = { name: string; ok: boolean; required: boolean; version?: string; note?: string };
+function checkDeps(): DepStatus[] {
+  const out: DepStatus[] = [];
+  const ver = (bin: string, arg = "--version") => {
+    try { return execSync(`${bin} ${arg} 2>/dev/null`).toString().trim().split("\n")[0]; } catch { return undefined; }
+  };
+  out.push({ name: "bun",   required: true,  ok: !!which("bun"),   version: ver("bun") });
+  out.push({ name: "git",   required: true,  ok: !!which("git"),   version: ver("git") });
+  out.push({ name: "qmd",   required: false, ok: !!which("qmd"),   version: ver("qmd"), note: "search backend (hybrid BM25+vector); ripgrep fallback if missing" });
+  out.push({ name: "rg",    required: false, ok: !!which("rg"),    version: ver("rg"),  note: "fallback search if qmd missing" });
+  out.push({ name: "rustup",required: false, ok: !!which("rustup"),version: ver("rustup"), note: "only needed if qmd can't install via npm/bun" });
+  out.push({ name: "cargo", required: false, ok: !!which("cargo"), version: ver("cargo"), note: "only needed if qmd can't install via npm/bun" });
+  return out;
+}
+function cmdDoctor(args: string[]) {
+  const fix = args.includes("--fix") || args.includes("--install");
+  const quiet = args.includes("--quiet");
+  let deps = checkDeps();
+  if (fix) {
+    if (!deps.find(d => d.name === "bun")?.ok) console.error("bun is required and must be installed manually (https://bun.sh)");
+    if (!deps.find(d => d.name === "git")?.ok) aptInstall("git");
+    if (!deps.find(d => d.name === "rg")?.ok)  aptInstall("ripgrep");
+    if (!deps.find(d => d.name === "qmd")?.ok) {
+      if (!tryInstallQmd()) {
+        // Last resort: install rustup so cargo path works
+        if (tryInstallRustup()) tryInstallQmd();
+      }
+    }
+    deps = checkDeps();
+  }
+  if (quiet) {
+    const missingReq = deps.filter(d => d.required && !d.ok);
+    if (missingReq.length) { console.error(`missing required: ${missingReq.map(d => d.name).join(", ")}`); process.exit(1); }
+    return;
+  }
+  const lines = deps.map(d => `  ${d.ok ? "✓" : (d.required ? "✗" : "·")} ${d.name.padEnd(7)} ${d.ok ? (d.version || "") : (d.required ? "MISSING (required)" : "missing (optional)")}${d.note && !d.ok ? `  — ${d.note}` : ""}`);
+  console.log("wiki-llm dependency check:\n" + lines.join("\n"));
+  const missingReq = deps.filter(d => d.required && !d.ok);
+  if (missingReq.length) {
+    console.error(`\nmissing required dependency: ${missingReq.map(d => d.name).join(", ")}. Re-run \`wiki doctor --fix\` to attempt install.`);
+    process.exit(1);
+  }
+  const missingOpt = deps.filter(d => !d.required && !d.ok);
+  if (missingOpt.length && !fix) {
+    console.log(`\nhint: run \`wiki doctor --fix\` to install optional deps (${missingOpt.map(d => d.name).join(", ")}).`);
+  }
+}
+function ensureDepsForFirstRun() {
+  // Auto-preflight on the first ever invocation in a fresh Zo instance: no registry yet.
+  if (existsSync(REGISTRY)) return;
+  const deps = checkDeps();
+  const needFix = deps.some(d => !d.ok);
+  if (!needFix) return;
+  console.error("first run detected — checking dependencies (run `wiki doctor` anytime to re-check)...");
+  cmdDoctor(["--fix"]);
+}
+function cmdInstallQmd() {
+  if (which("qmd")) { console.log("qmd already installed"); return; }
+  if (tryInstallQmd()) { console.log(`qmd installed at ${which("qmd")}`); return; }
+  console.log("qmd install via npm/bun/cargo failed; bootstrapping rustup then retrying...");
+  if (tryInstallRustup() && tryInstallQmd()) { console.log(`qmd installed at ${which("qmd")}`); return; }
   console.error("qmd install failed. Manual install: https://github.com/tobi/qmd. Skill will fall back to ripgrep search.");
   process.exit(1);
 }
@@ -588,7 +694,11 @@ const cmds: Record<string, (a: string[]) => any> = {
   "install-hook": () => cmdInstallHook(),
   "uninstall-hook": () => cmdUninstallHook(),
   "install-qmd": () => cmdInstallQmd(),
+  doctor: cmdDoctor,
 };
+// Preflight: on the first ever run (no registry), check + offer to install missing deps.
+// Skip for the doctor command itself (to avoid recursion) and the hook (cheap path).
+if (cmd && cmd !== "doctor" && cmd !== "hook" && cmds[cmd]) ensureDepsForFirstRun();
 if (!cmd || cmd === "--help" || cmd === "-h" || !cmds[cmd]) {
   console.log(`wiki — LLM-maintained wiki for any project folder
 
@@ -608,7 +718,8 @@ Commands:
   hook                   Stop-hook entrypoint (cheap, non-LLM, called by Claude Code)
   install-hook           Add Stop hook to ~/.claude/settings.json
   uninstall-hook         Remove Stop hook
-  install-qmd            Best-effort install of qmd search backend
+  install-qmd            Best-effort install of qmd search backend (tries npm/bun → cargo → rustup+cargo)
+  doctor [--fix]         Check (and optionally install) deps: bun, git, qmd, ripgrep, rustup/cargo
 
 Common flags: --project <path>  --json <answers.json>  --commit
 `);
