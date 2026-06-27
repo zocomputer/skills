@@ -1,18 +1,88 @@
 #!/usr/bin/env bun
 // wiki-llm CLI — see ../SKILL.md
-import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, readdirSync, copyFileSync, rmSync, appendFileSync } from "node:fs";
-import { join, dirname, basename, resolve, relative } from "node:path";
-import { execSync, spawnSync } from "node:child_process";
+import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, readdirSync, copyFileSync, rmSync, appendFileSync, renameSync, openSync, closeSync } from "node:fs";
+import { join, dirname, basename, resolve, relative, sep, isAbsolute } from "node:path";
+import { execSync, spawnSync, type SpawnSyncOptions } from "node:child_process";
 import { homedir } from "node:os";
 
 const REGISTRY = join(homedir(), ".wiki-llm", "registry.json");
 const TEMPLATE_DIR = resolve(import.meta.dir, "..", "assets", "wiki-template");
+const MAX_GIT_BUFFER = 50 * 1024 * 1024;   // 50 MB per `git show` / `git diff`
+const MAX_INGEST_BYTES = 5 * 1024 * 1024;  // 5 MB per ingested source
+const DEFAULT_TRASH_RETENTION_DAYS = 30;
+const GIT_REF_RE = /^[A-Za-z0-9._\/\-]{1,255}$/;
 
+// ---------- safety helpers ----------
+function gitSafeRef(ref: string | undefined | null): string | null {
+  if (!ref) return null;
+  return GIT_REF_RE.test(ref) ? ref : null;
+}
+/** Reject "..", absolute paths, or paths that escape `root` once resolved. */
+function safeRelpath(rel: string): string | null {
+  if (!rel || typeof rel !== "string") return null;
+  if (isAbsolute(rel)) return null;
+  const parts = rel.split(/[\\/]/);
+  if (parts.some(p => p === "..")) return null;
+  // strip leading "./" and any null bytes
+  if (rel.includes("\0")) return null;
+  return rel.replace(/^\.\//, "");
+}
+/** Ensure `child` resolves to a path under `root` (defence-in-depth around safeRelpath). */
+function isUnder(root: string, child: string): boolean {
+  const r = resolve(root) + sep;
+  const c = resolve(child);
+  return c === resolve(root) || c.startsWith(r);
+}
+function safeReadJSON<T>(path: string, fallback: T): T {
+  try {
+    if (!existsSync(path)) return fallback;
+    const raw = readFileSync(path, "utf-8");
+    if (!raw.trim()) return fallback;
+    return JSON.parse(raw) as T;
+  } catch {
+    return fallback;
+  }
+}
+function atomicWriteFile(path: string, data: string) {
+  mkdirSync(dirname(path), { recursive: true });
+  const tmp = `${path}.tmp.${process.pid}.${Date.now()}`;
+  writeFileSync(tmp, data);
+  renameSync(tmp, path);
+}
+function runGit(cwd: string, args: string[], opts: SpawnSyncOptions = {}) {
+  return spawnSync("git", ["-C", cwd, ...args], {
+    encoding: "utf-8",
+    maxBuffer: MAX_GIT_BUFFER,
+    ...opts,
+  });
+}
+/** Single-process advisory lock via O_EXCL. Returns release(). */
+function acquireLock(lockPath: string, timeoutMs = 5000): (() => void) | null {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    try {
+      mkdirSync(dirname(lockPath), { recursive: true });
+      const fd = openSync(lockPath, "wx");
+      writeFileSync(lockPath, String(process.pid));
+      return () => { try { closeSync(fd); } catch {}; try { rmSync(lockPath); } catch {} };
+    } catch {
+      // if lock is stale (>60s) reclaim it
+      try {
+        const st = statSync(lockPath);
+        if (Date.now() - st.mtimeMs > 60_000) rmSync(lockPath);
+      } catch {}
+      const wait = new Int32Array(new SharedArrayBuffer(4));
+      Atomics.wait(wait, 0, 0, 100);
+    }
+  }
+  return null;
+}
+
+// ---------- glob helpers ----------
 function globToRegex(g: string): RegExp {
   // minimal glob: **/ -> (?:.*/)?, ** -> .*, * -> [^/]*, {a,b} -> (a|b)
   let s = g.replace(/[.+^$()|\\]/g, "\\$&");
   s = s.replace(/\{([^}]+)\}/g, (_, alts) => "(" + alts.split(",").map((x: string) => x.trim()).join("|") + ")");
-  // **/ matches zero or more directory segments (so **/*.ts matches root-level too)
   s = s.replace(/\*\*\//g, "::DSSLASH::");
   s = s.replace(/\*\*/g, "::DOUBLESTAR::");
   s = s.replace(/\*/g, "[^/]*");
@@ -23,36 +93,39 @@ function globToRegex(g: string): RegExp {
 function matchesAny(path: string, globs: string[]): boolean {
   return globs.some(g => globToRegex(g).test(path) || globToRegex(g).test(path.replace(/\/$/, "")));
 }
-function recoverDeletedContent(projectPath: string, relpath: string, lastHead?: string): string | null {
-  // try HEAD first (file existed in latest commit, just deleted from worktree)
-  // then last_head, then the last commit that touched the path
-  const refs = ["HEAD", lastHead].filter((x): x is string => Boolean(x));
-  for (const ref of refs) {
-    try {
-      const out = execSync(`git -C ${JSON.stringify(projectPath)} show ${ref}:${JSON.stringify(relpath)} 2>/dev/null`).toString();
-      if (out.length > 0 || out === "") return out;
-    } catch {}
-  }
-  try {
-    const lastCommit = execSync(`git -C ${JSON.stringify(projectPath)} log -n 1 --pretty=format:%H -- ${JSON.stringify(relpath)} 2>/dev/null`).toString().trim();
-    if (lastCommit) {
-      const out = execSync(`git -C ${JSON.stringify(projectPath)} show ${lastCommit}:${JSON.stringify(relpath)} 2>/dev/null`).toString();
-      return out;
-    }
-  } catch {}
-  return null;
-}
-
 function filterChanges(p: Project, files: string[]): string[] {
-  // exclude wins; include must match if non-empty
   return files.filter(f => {
-    if (f.endsWith("/")) return false; // bare dir entries from porcelain
+    if (!f || f.endsWith("/")) return false;
     if (p.exclude?.length && matchesAny(f, p.exclude)) return false;
     if (p.include?.length && !matchesAny(f, p.include)) return false;
     return true;
   });
 }
 
+// ---------- git recovery (safe) ----------
+function recoverDeletedContent(projectPath: string, relpath: string, lastHead?: string): string | null {
+  const rel = safeRelpath(relpath);
+  if (!rel) return null;
+  const refs: string[] = [];
+  const head = gitSafeRef("HEAD")!;
+  refs.push(head);
+  const last = gitSafeRef(lastHead);
+  if (last) refs.push(last);
+  for (const ref of refs) {
+    const r = runGit(projectPath, ["show", `${ref}:${rel}`]);
+    if (r.status === 0 && r.stdout != null) return r.stdout;
+  }
+  // last-resort: find last commit that touched the path
+  const logR = runGit(projectPath, ["log", "-n", "1", "--pretty=format:%H", "--", rel]);
+  const lastCommit = gitSafeRef(logR.stdout?.trim());
+  if (lastCommit) {
+    const sh = runGit(projectPath, ["show", `${lastCommit}:${rel}`]);
+    if (sh.status === 0 && sh.stdout != null) return sh.stdout;
+  }
+  return null;
+}
+
+// ---------- types ----------
 type Project = {
   path: string;
   wiki: string;
@@ -62,6 +135,7 @@ type Project = {
   include: string[];
   exclude: string[];
   registered_at: string;
+  trash_retention_days?: number;
 };
 type Registry = { projects: Project[] };
 
@@ -70,20 +144,17 @@ function loadRegistry(): Registry {
     mkdirSync(dirname(REGISTRY), { recursive: true });
     return { projects: [] };
   }
-  return JSON.parse(readFileSync(REGISTRY, "utf-8"));
+  return safeReadJSON<Registry>(REGISTRY, { projects: [] });
 }
 function saveRegistry(r: Registry) {
-  mkdirSync(dirname(REGISTRY), { recursive: true });
-  writeFileSync(REGISTRY, JSON.stringify(r, null, 2));
+  atomicWriteFile(REGISTRY, JSON.stringify(r, null, 2));
 }
 function findProject(pathOrCwd?: string): Project | null {
   const r = loadRegistry();
   const target = resolve(pathOrCwd || process.cwd());
-  // exact match first
   let p = r.projects.find(p => resolve(p.path) === target);
   if (p) return p;
-  // ancestor match
-  p = r.projects.find(p => target.startsWith(resolve(p.path) + "/"));
+  p = r.projects.find(p => target.startsWith(resolve(p.path) + sep));
   return p || null;
 }
 function requireProject(flagPath?: string): Project {
@@ -107,7 +178,6 @@ function detectProjectType(path: string): { type: string; defaultInclude: string
   if (has("pyproject.toml") || has("requirements.txt") || has("setup.py")) return { type: "python-project", defaultInclude: ["**/*.{py,md,toml,yaml,yml}"], defaultExclude: exclude };
   if (has("Cargo.toml")) return { type: "rust-project", defaultInclude: ["**/*.{rs,toml,md}"], defaultExclude: exclude };
   if (has("go.mod")) return { type: "go-project", defaultInclude: ["**/*.{go,md,mod,sum}"], defaultExclude: exclude };
-  // data folder
   try {
     const files = readdirSync(path).slice(0, 50);
     const dataFiles = files.filter(f => /\.(csv|parquet|duckdb|sqlite|jsonl|tsv)$/.test(f));
@@ -118,16 +188,53 @@ function detectProjectType(path: string): { type: string; defaultInclude: string
   return { type: "generic-folder", defaultInclude: ["**/*"], defaultExclude: exclude };
 }
 
+// ---------- queue dedup ----------
+function queueAppend(queueFile: string, entry: any) {
+  const line = JSON.stringify(entry);
+  // Skip if the most recent entry for this file+action is already pending.
+  try {
+    if (existsSync(queueFile)) {
+      const lines = readFileSync(queueFile, "utf-8").split("\n").filter(Boolean);
+      for (let i = lines.length - 1; i >= 0 && i >= lines.length - 100; i--) {
+        try {
+          const prev = JSON.parse(lines[i]);
+          if (prev.file === entry.file && prev.action === entry.action) return;
+        } catch {}
+      }
+    }
+  } catch {}
+  appendFileSync(queueFile, line + "\n");
+}
+
+// ---------- trash retention ----------
+function pruneTrash(p: Project) {
+  const days = p.trash_retention_days ?? DEFAULT_TRASH_RETENTION_DAYS;
+  if (days <= 0) return; // 0 == never prune
+  const trashRoot = join(p.wiki, ".wiki-llm", "trash");
+  if (!existsSync(trashRoot)) return;
+  const cutoff = Date.now() - days * 86_400_000;
+  let pruned = 0;
+  for (const ent of readdirSync(trashRoot, { withFileTypes: true })) {
+    if (!ent.isDirectory()) continue;
+    const full = join(trashRoot, ent.name);
+    try {
+      const st = statSync(full);
+      if (st.mtimeMs < cutoff) { rmSync(full, { recursive: true, force: true }); pruned++; }
+    } catch {}
+  }
+  return pruned;
+}
+
 // ----- init -----
 async function cmdInit(args: string[]) {
   const jsonFlag = args.indexOf("--json");
   if (jsonFlag >= 0) {
     const answersPath = args[jsonFlag + 1];
     if (!answersPath || !existsSync(answersPath)) { console.error("error: --json requires a path to an existing answers file"); process.exit(1); }
-    const a = JSON.parse(readFileSync(answersPath, "utf-8"));
+    const a = safeReadJSON<any>(answersPath, null);
+    if (!a) { console.error("error: invalid JSON in answers file"); process.exit(1); }
     return doInit(a);
   }
-  // interactive
   const proj = resolve(args[0] || process.cwd());
   if (!existsSync(proj)) { console.error(`error: ${proj} does not exist`); process.exit(1); }
   const det = detectProjectType(proj);
@@ -145,9 +252,10 @@ async function cmdInit(args: string[]) {
       { id: "exclude_globs", default: det.defaultExclude },
       { id: "scope", help: "code/docs/runtime/ops/notes/data/all", default: det.type.includes("project") ? "code+ops" : "all" },
       { id: "auto_update", default: "hook" },
-      { id: "backfill", default: "yes" }
+      { id: "backfill", default: "yes" },
+      { id: "trash_retention_days", default: DEFAULT_TRASH_RETENTION_DAYS },
     ],
-    hint: "Run again with --json <answers.json> to actually scaffold."
+    hint: "Run again with --json <answers.json> to actually scaffold.",
   }, null, 2));
 }
 function doInit(a: any) {
@@ -159,7 +267,6 @@ function doInit(a: any) {
   mkdirSync(join(wikiPath, "pages", "entities"), { recursive: true });
   mkdirSync(join(wikiPath, "pages", "topics"), { recursive: true });
   mkdirSync(join(wikiPath, ".wiki-llm", "trash"), { recursive: true });
-  // copy template files with substitution
   const subs = {
     PROJECT_NAME: name,
     PROJECT_PATH: projPath,
@@ -173,30 +280,30 @@ function doInit(a: any) {
     for (const [k, v] of Object.entries(subs)) body = body.replaceAll(`{{${k}}}`, v as string);
     writeFileSync(join(wikiPath, f), body);
   }
-  // state
   let head = "";
-  try { head = execSync(`git -C ${JSON.stringify(projPath)} rev-parse HEAD 2>/dev/null`).toString().trim(); } catch {}
-  writeFileSync(join(wikiPath, ".wiki-llm", "state.json"), JSON.stringify({ last_head: head, last_check: nowISO() }, null, 2));
+  const headR = runGit(projPath, ["rev-parse", "HEAD"]);
+  if (headR.status === 0) head = (headR.stdout || "").trim();
+  atomicWriteFile(join(wikiPath, ".wiki-llm", "state.json"), JSON.stringify({ last_head: gitSafeRef(head) || "", last_check: nowISO() }, null, 2));
   writeFileSync(join(wikiPath, ".wiki-llm", "queue.jsonl"), "");
   writeFileSync(join(wikiPath, ".wiki-llm", "trash", "manifest.jsonl"), "");
-  writeFileSync(join(wikiPath, ".wiki-llm", "config.json"), JSON.stringify({
+  atomicWriteFile(join(wikiPath, ".wiki-llm", "config.json"), JSON.stringify({
     project: projPath, name, type, scope: a.scope || "all",
     include: a.include_globs, exclude: a.exclude_globs,
     auto_update: a.auto_update || "hook", backfill: a.backfill || "yes",
+    trash_retention_days: typeof a.trash_retention_days === "number" ? a.trash_retention_days : DEFAULT_TRASH_RETENTION_DAYS,
   }, null, 2));
-  // register qmd collection (best-effort; non-fatal if qmd not installed)
   try {
-    if (spawnSync("which", ["qmd"]).status === 0) {
+    if (which("qmd")) {
       spawnSync("qmd", ["collection", "add", wikiPath, "--name", slugify(name)], { stdio: "ignore" });
       spawnSync("qmd", ["context", "add", `qmd://${slugify(name)}`, `${name} — wiki maintained by wiki-llm`], { stdio: "ignore" });
     }
   } catch {}
-  // register
   const r = loadRegistry();
   r.projects = r.projects.filter(p => resolve(p.path) !== projPath);
   r.projects.push({
     path: projPath, wiki: wikiPath, name, type, scope: a.scope || "all",
     include: a.include_globs, exclude: a.exclude_globs, registered_at: nowISO(),
+    trash_retention_days: typeof a.trash_retention_days === "number" ? a.trash_retention_days : DEFAULT_TRASH_RETENTION_DAYS,
   });
   saveRegistry(r);
   console.log(JSON.stringify({ ok: true, project: projPath, wiki: wikiPath }, null, 2));
@@ -219,13 +326,13 @@ function cmdStatus() {
 function cmdRegister(args: string[]) {
   const proj = resolve(args[0] || process.cwd());
   if (!existsSync(join(proj, ".wiki-llm")) && !findProject(proj)) {
-    // attempt to find wiki via convention
     const guess = join("/home/workspace/wiki", slugify(basename(proj)));
     if (!existsSync(guess)) { console.error(`error: no wiki found for ${proj}. Run \`wiki init\` first.`); process.exit(1); }
-    const cfg = JSON.parse(readFileSync(join(guess, ".wiki-llm", "config.json"), "utf-8"));
+    const cfg = safeReadJSON<any>(join(guess, ".wiki-llm", "config.json"), null);
+    if (!cfg) { console.error(`error: corrupt config at ${guess}`); process.exit(1); }
     const r = loadRegistry();
     r.projects = r.projects.filter(p => resolve(p.path) !== proj);
-    r.projects.push({ path: proj, wiki: guess, name: cfg.name, type: cfg.type, scope: cfg.scope, include: cfg.include, exclude: cfg.exclude, registered_at: nowISO() });
+    r.projects.push({ path: proj, wiki: guess, name: cfg.name, type: cfg.type, scope: cfg.scope, include: cfg.include, exclude: cfg.exclude, registered_at: nowISO(), trash_retention_days: cfg.trash_retention_days });
     saveRegistry(r);
   }
   console.log(`registered: ${proj}`);
@@ -246,13 +353,20 @@ function cmdIngest(args: string[]) {
   const file = args.find((a, i) => !a.startsWith("--") && (i === 0 || !args[i - 1].startsWith("--"))) || args[0];
   if (!file) { console.error("usage: wiki ingest <file> [--project <path>]"); process.exit(1); }
   const p = requireProject(projArg);
-  const fullPath = resolve(p.path, file);
+  const safeRel = safeRelpath(file);
+  if (!safeRel && !isAbsolute(file)) { console.error(`error: invalid relative path: ${file}`); process.exit(1); }
+  const fullPath = isAbsolute(file) ? resolve(file) : resolve(p.path, safeRel!);
+  if (!isUnder(p.path, fullPath)) { console.error(`error: ${fullPath} escapes project root`); process.exit(1); }
   if (!existsSync(fullPath)) { console.error(`error: ${fullPath} not found`); process.exit(1); }
+  const st = statSync(fullPath);
+  if (st.size > MAX_INGEST_BYTES) {
+    console.error(`error: ${fullPath} is ${st.size} bytes; exceeds MAX_INGEST_BYTES=${MAX_INGEST_BYTES}. Split or chunk before ingesting.`);
+    process.exit(1);
+  }
   const rel = relative(p.path, fullPath);
   const content = readFileSync(fullPath, "utf-8");
   const sourcePage = `pages/sources/${slugify(rel)}.md`;
   const existing = existsSync(join(p.wiki, sourcePage)) ? readFileSync(join(p.wiki, sourcePage), "utf-8") : null;
-  // emit an instruction block for the agent
   console.log(JSON.stringify({
     action: "ingest",
     project: p.name,
@@ -272,37 +386,33 @@ function cmdIngest(args: string[]) {
       `6. Append a log entry to ${join(p.wiki, "log.md")}: \`## [${nowISO()}] ingest | ${rel}\`.`,
     ],
   }, null, 2));
-  // append to queue
-  appendFileSync(join(p.wiki, ".wiki-llm", "queue.jsonl"), JSON.stringify({ ts: nowISO(), action: "ingest", file: rel }) + "\n");
+  queueAppend(join(p.wiki, ".wiki-llm", "queue.jsonl"), { ts: nowISO(), action: "ingest", file: rel });
 }
 
-// ----- update (process queue + git diff) -----
-function cmdUpdate(args: string[]) {
-  const projFlag = args.indexOf("--project");
-  const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
-  const stateFile = join(p.wiki, ".wiki-llm", "state.json");
-  const state = existsSync(stateFile) ? JSON.parse(readFileSync(stateFile, "utf-8")) : { last_head: "" };
+// ----- update -----
+function collectChanges(p: Project, lastHead: string | undefined): { added: string[]; modified: string[]; deleted: string[]; curHead: string } {
   let curHead = "";
-  try { curHead = execSync(`git -C ${JSON.stringify(p.path)} rev-parse HEAD 2>/dev/null`).toString().trim(); } catch {}
+  const headR = runGit(p.path, ["rev-parse", "HEAD"]);
+  if (headR.status === 0) curHead = (headR.stdout || "").trim();
+  curHead = gitSafeRef(curHead) || "";
+  const safeLast = gitSafeRef(lastHead);
   let added: string[] = [], modified: string[] = [], deleted: string[] = [];
-  if (curHead && state.last_head && curHead !== state.last_head) {
-    try {
-      const diff = execSync(`git -C ${JSON.stringify(p.path)} diff --name-status ${state.last_head} ${curHead}`).toString();
-      for (const line of diff.split("\n")) {
+  if (curHead && safeLast && curHead !== safeLast) {
+    const diff = runGit(p.path, ["diff", "--name-status", safeLast, curHead]);
+    if (diff.status === 0) {
+      for (const line of (diff.stdout || "").split("\n")) {
         const m = line.match(/^([AMDR])\s+(.+)$/);
         if (!m) continue;
         const [, kind, path] = m;
         if (kind === "A") added.push(path);
-        else if (kind === "M") modified.push(path);
+        else if (kind === "M" || kind === "R") modified.push(path);
         else if (kind === "D") deleted.push(path);
-        else if (kind === "R") { modified.push(path); }
       }
-    } catch {}
+    }
   }
-  // also unstaged changes
-  try {
-    const dirty = execSync(`git -C ${JSON.stringify(p.path)} status --porcelain`).toString();
-    for (const line of dirty.split("\n")) {
+  const dirty = runGit(p.path, ["status", "--porcelain"]);
+  if (dirty.status === 0) {
+    for (const line of (dirty.stdout || "").split("\n")) {
       const m = line.match(/^(.{2})\s+(.+)$/);
       if (!m) continue;
       const [, flags, path] = m;
@@ -310,34 +420,46 @@ function cmdUpdate(args: string[]) {
       else if (flags.includes("M") && !modified.includes(path)) modified.push(path);
       else if ((flags.includes("A") || flags.includes("?")) && !added.includes(path)) added.push(path);
     }
-  } catch {}
-  // also queue
+  }
+  return { added, modified, deleted, curHead };
+}
+function cmdUpdate(args: string[]) {
+  const projFlag = args.indexOf("--project");
+  const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
+  const stateFile = join(p.wiki, ".wiki-llm", "state.json");
+  const state = safeReadJSON<{ last_head?: string }>(stateFile, { last_head: "" });
+  let { added, modified, deleted, curHead } = collectChanges(p, state.last_head);
   const queueFile = join(p.wiki, ".wiki-llm", "queue.jsonl");
-  const queued = existsSync(queueFile) ? readFileSync(queueFile, "utf-8").split("\n").filter(l => l.trim()).map(l => JSON.parse(l)) : [];
-  // apply include/exclude filter from project config
+  const queued = existsSync(queueFile)
+    ? readFileSync(queueFile, "utf-8").split("\n").filter(l => l.trim()).map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean)
+    : [];
   added = filterChanges(p, added);
   modified = filterChanges(p, modified);
   deleted = filterChanges(p, deleted);
-  // archive deletions to trash
+  // archive deletions
   const trashed: string[] = [];
   for (const d of deleted) {
-    const lastContent = recoverDeletedContent(p.path, d, state.last_head);
+    const safeD = safeRelpath(d);
+    if (!safeD) continue;
+    const lastContent = recoverDeletedContent(p.path, safeD, state.last_head);
     if (lastContent !== null) {
       const stamp = nowFile();
-      const dest = join(p.wiki, ".wiki-llm", "trash", stamp, d);
+      const dest = join(p.wiki, ".wiki-llm", "trash", stamp, safeD);
+      if (!isUnder(join(p.wiki, ".wiki-llm", "trash"), dest)) continue;
       mkdirSync(dirname(dest), { recursive: true });
       writeFileSync(dest, lastContent);
       appendFileSync(join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl"),
-        JSON.stringify({ ts: nowISO(), stamp, relpath: d, dest, bytes: lastContent.length }) + "\n");
-      trashed.push(d);
+        JSON.stringify({ ts: nowISO(), stamp, relpath: safeD, dest, bytes: lastContent.length }) + "\n");
+      trashed.push(safeD);
     }
   }
+  const pruned = pruneTrash(p);
   console.log(JSON.stringify({
     action: "update",
     project: p.name,
     wiki: p.wiki,
     last_head: state.last_head, current_head: curHead,
-    added, modified, deleted, archived_to_trash: trashed, queued,
+    added, modified, deleted, archived_to_trash: trashed, trash_pruned: pruned, queued,
     instructions: (added.length + modified.length + deleted.length + queued.length === 0)
       ? ["Nothing to update."]
       : [
@@ -347,7 +469,7 @@ function cmdUpdate(args: string[]) {
         ],
   }, null, 2));
   if (args.includes("--commit")) {
-    writeFileSync(stateFile, JSON.stringify({ last_head: curHead, last_check: nowISO() }, null, 2));
+    atomicWriteFile(stateFile, JSON.stringify({ last_head: curHead, last_check: nowISO() }, null, 2));
     writeFileSync(queueFile, "");
     console.log(`state advanced to ${curHead || "(no git)"}`);
   }
@@ -359,14 +481,11 @@ function cmdQuery(args: string[]) {
   const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
   const q = args.filter(a => !a.startsWith("--") && a !== (projFlag >= 0 ? args[projFlag + 1] : "")).join(" ");
   if (!q.trim()) { console.error("usage: wiki query \"...\""); process.exit(1); }
-  // prefer qmd if installed
-  const qmd = spawnSync("which", ["qmd"]);
-  if (qmd.status === 0) {
+  if (which("qmd")) {
     const r = spawnSync("qmd", ["search", q, "-c", slugify(p.name), "-l", "10"], { encoding: "utf-8" });
     console.log(r.stdout || r.stderr);
     return;
   }
-  // fallback to ripgrep over wiki
   const r = spawnSync("rg", ["-l", "-i", "--max-count", "5", q, p.wiki], { encoding: "utf-8" });
   console.log(JSON.stringify({
     backend: "ripgrep-fallback",
@@ -382,31 +501,43 @@ function cmdLint(args: string[]) {
   const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
   const wikiPages = listMd(join(p.wiki, "pages"));
   const indexBody = existsSync(join(p.wiki, "index.md")) ? readFileSync(join(p.wiki, "index.md"), "utf-8") : "";
-  const allBodies: Record<string, string> = {};
-  for (const f of wikiPages) allBodies[f] = readFileSync(f, "utf-8");
-  // orphans: pages not referenced from index or any other page
+  // Build a single concatenated view of all bodies, avoiding O(N²) memory per-pair.
+  const refSet = new Set<string>();
+  for (const f of wikiPages) {
+    try {
+      const body = readFileSync(f, "utf-8");
+      for (const m of body.matchAll(/\]\(([^)]+\.md)\)/g)) refSet.add(m[1]);
+    } catch {}
+  }
   const orphans: string[] = [];
   for (const f of wikiPages) {
     const rel = relative(p.wiki, f);
-    const referenced = indexBody.includes(rel) || Object.entries(allBodies).some(([other, b]) => other !== f && (b.includes(rel) || b.includes(basename(f, ".md"))));
-    if (!referenced) orphans.push(rel);
+    const slug = basename(f, ".md");
+    if (indexBody.includes(rel) || refSet.has(rel) || refSet.has(slug)) continue;
+    orphans.push(rel);
   }
-  // stale: page updated < a source it cites
   const stale: { page: string; reason: string }[] = [];
   for (const f of wikiPages) {
-    const body = allBodies[f];
+    let body: string;
+    try { body = readFileSync(f, "utf-8"); } catch { continue; }
     const fm = body.match(/^---\n([\s\S]*?)\n---/);
     if (!fm) continue;
     const updMatch = fm[1].match(/updated:\s*(\S+)/);
     const srcMatch = fm[1].match(/sources:\s*\[(.*?)\]/);
     if (!updMatch || !srcMatch) continue;
     const upd = new Date(updMatch[1]);
+    if (isNaN(upd.getTime())) continue;
     for (const s of srcMatch[1].split(",").map(x => x.trim().replace(/['"]/g, ""))) {
-      const sPath = resolve(p.path, s);
-      if (existsSync(sPath)) {
-        const mt = statSync(sPath).mtime;
-        if (mt > upd) stale.push({ page: relative(p.wiki, f), reason: `source ${s} modified ${mt.toISOString()} > page updated ${upd.toISOString()}` });
-      }
+      const safe = safeRelpath(s);
+      if (!safe) continue;
+      const sPath = resolve(p.path, safe);
+      if (!isUnder(p.path, sPath)) continue;
+      try {
+        if (existsSync(sPath)) {
+          const mt = statSync(sPath).mtime;
+          if (mt > upd) stale.push({ page: relative(p.wiki, f), reason: `source ${safe} modified ${mt.toISOString()} > page updated ${upd.toISOString()}` });
+        }
+      } catch {}
     }
   }
   console.log(JSON.stringify({
@@ -437,7 +568,7 @@ function cmdListDeleted(args: string[]) {
   const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
   const m = join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl");
   if (!existsSync(m)) { console.log("(no trash)"); return; }
-  const entries = readFileSync(m, "utf-8").split("\n").filter(l => l.trim()).map(l => JSON.parse(l));
+  const entries = readFileSync(m, "utf-8").split("\n").filter(l => l.trim()).map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
   console.log(JSON.stringify({ project: p.name, count: entries.length, entries }, null, 2));
 }
 function cmdRecover(args: string[]) {
@@ -445,12 +576,19 @@ function cmdRecover(args: string[]) {
   const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
   const rel = args.find((a, i) => !a.startsWith("--") && (i === 0 || !args[i - 1].startsWith("--")));
   if (!rel) { console.error("usage: wiki recover <relpath> [--project <path>]"); process.exit(1); }
+  const safe = safeRelpath(rel);
+  if (!safe) { console.error(`error: invalid relpath: ${rel}`); process.exit(1); }
   const m = join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl");
   if (!existsSync(m)) { console.error("error: no trash"); process.exit(1); }
-  const entries = readFileSync(m, "utf-8").split("\n").filter(l => l.trim()).map(l => JSON.parse(l)).filter((e: any) => e.relpath === rel);
-  if (entries.length === 0) { console.error(`error: no trash entry for ${rel}`); process.exit(1); }
+  const entries = readFileSync(m, "utf-8").split("\n").filter(l => l.trim())
+    .map(l => { try { return JSON.parse(l); } catch { return null; } })
+    .filter((e: any) => e && e.relpath === safe);
+  if (entries.length === 0) { console.error(`error: no trash entry for ${safe}`); process.exit(1); }
   const newest = entries[entries.length - 1];
-  const dest = resolve(p.path, rel);
+  const dest = resolve(p.path, safe);
+  if (!isUnder(p.path, dest)) { console.error(`error: restore destination ${dest} escapes project root`); process.exit(1); }
+  // Source path must live under the wiki trash root (defence-in-depth against a tampered manifest).
+  if (!isUnder(join(p.wiki, ".wiki-llm", "trash"), newest.dest)) { console.error(`error: corrupt trash manifest`); process.exit(1); }
   mkdirSync(dirname(dest), { recursive: true });
   copyFileSync(newest.dest, dest);
   console.log(JSON.stringify({ ok: true, restored: dest, from: newest.dest, ts: newest.ts }, null, 2));
@@ -458,86 +596,62 @@ function cmdRecover(args: string[]) {
 
 // ----- hook -----
 function cmdHook() {
-  // called by Claude Code Stop hook. Cheap, non-LLM. For each registered project,
-  // detect git changes, archive deletions to trash, append to queue.
-  const r = loadRegistry();
-  const summary: any[] = [];
-  for (const p of r.projects) {
-    if (!existsSync(p.path)) continue;
-    const stateFile = join(p.wiki, ".wiki-llm", "state.json");
-    if (!existsSync(stateFile)) continue;
-    const state = JSON.parse(readFileSync(stateFile, "utf-8"));
-    let curHead = "";
-    try { curHead = execSync(`git -C ${JSON.stringify(p.path)} rev-parse HEAD 2>/dev/null`).toString().trim(); } catch {}
-    let changes = { added: [] as string[], modified: [] as string[], deleted: [] as string[] };
-    if (curHead && state.last_head && curHead !== state.last_head) {
-      try {
-        const diff = execSync(`git -C ${JSON.stringify(p.path)} diff --name-status ${state.last_head} ${curHead}`).toString();
-        for (const line of diff.split("\n")) {
-          const m = line.match(/^([AMDR])\s+(.+)$/);
-          if (!m) continue;
-          if (m[1] === "A") changes.added.push(m[2]);
-          else if (m[1] === "M" || m[1] === "R") changes.modified.push(m[2]);
-          else if (m[1] === "D") changes.deleted.push(m[2]);
+  // single-flight: avoid two concurrent Stop-hook fires corrupting the queue.
+  const lock = acquireLock(join(homedir(), ".wiki-llm", "hook.lock"), 2000);
+  if (!lock) return; // another hook is running; let it handle this turn
+  try {
+    const r = loadRegistry();
+    const summary: any[] = [];
+    for (const p of r.projects) {
+      if (!existsSync(p.path)) continue;
+      const stateFile = join(p.wiki, ".wiki-llm", "state.json");
+      if (!existsSync(stateFile)) continue;
+      const state = safeReadJSON<{ last_head?: string }>(stateFile, { last_head: "" });
+      let changes = collectChanges(p, state.last_head);
+      const filteredAdded = filterChanges(p, changes.added);
+      const filteredMod   = filterChanges(p, changes.modified);
+      const filteredDel   = filterChanges(p, changes.deleted);
+      for (const d of filteredDel) {
+        const safeD = safeRelpath(d);
+        if (!safeD) continue;
+        const lastContent = recoverDeletedContent(p.path, safeD, state.last_head);
+        if (lastContent !== null) {
+          const stamp = nowFile();
+          const dest = join(p.wiki, ".wiki-llm", "trash", stamp, safeD);
+          if (!isUnder(join(p.wiki, ".wiki-llm", "trash"), dest)) continue;
+          mkdirSync(dirname(dest), { recursive: true });
+          writeFileSync(dest, lastContent);
+          appendFileSync(join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl"),
+            JSON.stringify({ ts: nowISO(), stamp, relpath: safeD, dest, bytes: lastContent.length, source: "stop-hook" }) + "\n");
         }
-      } catch {}
-    }
-    try {
-      const dirty = execSync(`git -C ${JSON.stringify(p.path)} status --porcelain`).toString();
-      for (const line of dirty.split("\n")) {
-        const m = line.match(/^(.{2})\s+(.+)$/);
-        if (!m) continue;
-        const [, flags, path] = m;
-        if (flags.includes("D") && !changes.deleted.includes(path)) changes.deleted.push(path);
-        else if (flags.includes("M") && !changes.modified.includes(path)) changes.modified.push(path);
-        else if ((flags.includes("A") || flags.includes("?")) && !changes.added.includes(path)) changes.added.push(path);
       }
-    } catch {}
-    // apply include/exclude filter from project config
-    changes.added = filterChanges(p, changes.added);
-    changes.modified = filterChanges(p, changes.modified);
-    changes.deleted = filterChanges(p, changes.deleted);
-    // archive deletions
-    for (const d of changes.deleted) {
-      const lastContent = recoverDeletedContent(p.path, d, state.last_head);
-      if (lastContent !== null) {
-        const stamp = nowFile();
-        const dest = join(p.wiki, ".wiki-llm", "trash", stamp, d);
-        mkdirSync(dirname(dest), { recursive: true });
-        writeFileSync(dest, lastContent);
-        appendFileSync(join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl"),
-          JSON.stringify({ ts: nowISO(), stamp, relpath: d, dest, bytes: lastContent.length, source: "stop-hook" }) + "\n");
+      const queueFile = join(p.wiki, ".wiki-llm", "queue.jsonl");
+      for (const f of filteredAdded) queueAppend(queueFile, { ts: nowISO(), action: "ingest",   file: f, source: "hook" });
+      for (const f of filteredMod)   queueAppend(queueFile, { ts: nowISO(), action: "reingest", file: f, source: "hook" });
+      for (const f of filteredDel)   queueAppend(queueFile, { ts: nowISO(), action: "deleted",  file: f, source: "hook" });
+      if (filteredAdded.length + filteredMod.length + filteredDel.length > 0) {
+        summary.push({ project: p.name, added: filteredAdded, modified: filteredMod, deleted: filteredDel });
       }
     }
-    // append to queue (one entry per change)
-    const queueFile = join(p.wiki, ".wiki-llm", "queue.jsonl");
-    for (const f of changes.added) appendFileSync(queueFile, JSON.stringify({ ts: nowISO(), action: "ingest", file: f, source: "hook" }) + "\n");
-    for (const f of changes.modified) appendFileSync(queueFile, JSON.stringify({ ts: nowISO(), action: "reingest", file: f, source: "hook" }) + "\n");
-    for (const f of changes.deleted) appendFileSync(queueFile, JSON.stringify({ ts: nowISO(), action: "deleted", file: f, source: "hook" }) + "\n");
-    if (changes.added.length + changes.modified.length + changes.deleted.length > 0) {
-      summary.push({ project: p.name, ...changes });
-    }
-  }
-  if (summary.length > 0) {
-    console.error(`[wiki-llm] pending updates: ${JSON.stringify(summary)}`);
+    if (summary.length > 0) console.error(`[wiki-llm] pending updates: ${JSON.stringify(summary)}`);
+  } finally {
+    lock();
   }
 }
 
 // ----- install-hook -----
 function cmdInstallHook() {
   const settingsPath = join(homedir(), ".claude", "settings.json");
-  const settings = existsSync(settingsPath) ? JSON.parse(readFileSync(settingsPath, "utf-8") || "{}") : {};
+  const settings = safeReadJSON<any>(settingsPath, {});
   settings.hooks = settings.hooks || {};
   settings.hooks.Stop = settings.hooks.Stop || [];
   const wikiBin = resolve(import.meta.dir, "wiki");
   const cmd = `${wikiBin} hook`;
-  // dedupe
   const existing = settings.hooks.Stop.find((h: any) =>
     (h.hooks || []).some((x: any) => x.command === cmd));
   if (!existing) {
     settings.hooks.Stop.push({ matcher: "", hooks: [{ type: "command", command: cmd }] });
-    mkdirSync(dirname(settingsPath), { recursive: true });
-    writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
+    atomicWriteFile(settingsPath, JSON.stringify(settings, null, 2));
     console.log(`installed Stop hook -> ${cmd}`);
   } else {
     console.log(`Stop hook already installed`);
@@ -546,61 +660,64 @@ function cmdInstallHook() {
 function cmdUninstallHook() {
   const settingsPath = join(homedir(), ".claude", "settings.json");
   if (!existsSync(settingsPath)) return;
-  const settings = JSON.parse(readFileSync(settingsPath, "utf-8") || "{}");
+  const settings = safeReadJSON<any>(settingsPath, {});
   const wikiBin = resolve(import.meta.dir, "wiki");
   const cmd = `${wikiBin} hook`;
   if (settings.hooks?.Stop) {
     settings.hooks.Stop = settings.hooks.Stop
       .map((h: any) => ({ ...h, hooks: (h.hooks || []).filter((x: any) => x.command !== cmd) }))
       .filter((h: any) => (h.hooks || []).length > 0);
-    writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
+    atomicWriteFile(settingsPath, JSON.stringify(settings, null, 2));
   }
   console.log(`uninstalled Stop hook`);
 }
 
-// ----- install-qmd -----
+// ----- dep / install helpers -----
+const _whichCache = new Map<string, string | null>();
 function which(bin: string): string | null {
+  if (_whichCache.has(bin)) return _whichCache.get(bin)!;
   const r = spawnSync("which", [bin]);
   if (r.status === 0) {
     const out = r.stdout.toString().trim();
-    if (out) return out;
+    if (out) { _whichCache.set(bin, out); return out; }
   }
-  // Probe well-known install locations not always on PATH
   for (const dir of [join(homedir(), ".cargo", "bin"), join(homedir(), ".bun", "bin"), "/usr/local/bin"]) {
     const cand = join(dir, bin);
     if (existsSync(cand)) {
       if (!process.env.PATH?.split(":").includes(dir)) process.env.PATH = `${dir}:${process.env.PATH}`;
+      _whichCache.set(bin, cand);
       return cand;
     }
   }
+  _whichCache.set(bin, null);
   return null;
 }
+function clearWhich(bin: string) { _whichCache.delete(bin); }
 function tryInstallQmd(): boolean {
   if (which("qmd")) return true;
-  // Prefer npm/bun (qmd is published as @tobi/qmd; tobi/qmd also publishes prebuilt binaries)
   if (which("bun")) {
     console.log("→ trying `bun add -g qmd`...");
-    if (spawnSync("bun", ["add", "-g", "qmd"], { stdio: "inherit" }).status === 0 && which("qmd")) return true;
+    if (spawnSync("bun", ["add", "-g", "qmd"], { stdio: "inherit" }).status === 0) { clearWhich("qmd"); if (which("qmd")) return true; }
   }
   if (which("npm")) {
     console.log("→ trying `npm i -g qmd`...");
-    if (spawnSync("npm", ["i", "-g", "qmd"], { stdio: "inherit" }).status === 0 && which("qmd")) return true;
+    if (spawnSync("npm", ["i", "-g", "qmd"], { stdio: "inherit" }).status === 0) { clearWhich("qmd"); if (which("qmd")) return true; }
   }
-  // Cargo fallback (requires rustup/cargo on PATH)
   if (which("cargo")) {
     console.log("→ trying `cargo install qmd`...");
-    if (spawnSync("cargo", ["install", "qmd"], { stdio: "inherit" }).status === 0 && which("qmd")) return true;
+    if (spawnSync("cargo", ["install", "qmd"], { stdio: "inherit" }).status === 0) { clearWhich("qmd"); if (which("qmd")) return true; }
   }
   return false;
 }
 function tryInstallRustup(): boolean {
   if (which("rustup") && which("cargo")) return true;
   console.log("→ installing rustup (non-interactive, default profile)...");
+  // Use spawnSync directly with explicit args; no shell interpolation of user data.
   const r = spawnSync("bash", ["-lc", "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile minimal"], { stdio: "inherit" });
   if (r.status !== 0) return false;
-  // Make cargo available in current process for downstream installs
   const cargoBin = join(homedir(), ".cargo", "bin");
   process.env.PATH = `${cargoBin}:${process.env.PATH}`;
+  clearWhich("cargo"); clearWhich("rustup");
   return Boolean(which("cargo"));
 }
 function aptInstall(pkg: string): boolean {
@@ -608,7 +725,7 @@ function aptInstall(pkg: string): boolean {
   if (which("apt-get") && process.getuid?.() === 0) {
     console.log(`→ apt-get install -y ${pkg}...`);
     spawnSync("apt-get", ["update", "-y"], { stdio: "ignore" });
-    if (spawnSync("apt-get", ["install", "-y", pkg], { stdio: "inherit" }).status === 0) return Boolean(which(pkg));
+    if (spawnSync("apt-get", ["install", "-y", pkg], { stdio: "inherit" }).status === 0) { clearWhich(pkg); return Boolean(which(pkg)); }
   }
   return false;
 }
@@ -616,7 +733,7 @@ type DepStatus = { name: string; ok: boolean; required: boolean; version?: strin
 function checkDeps(): DepStatus[] {
   const out: DepStatus[] = [];
   const ver = (bin: string, arg = "--version") => {
-    try { return execSync(`${bin} ${arg} 2>/dev/null`).toString().trim().split("\n")[0]; } catch { return undefined; }
+    try { return execSync(`${bin} ${arg} 2>/dev/null`, { maxBuffer: 1024 * 1024 }).toString().trim().split("\n")[0]; } catch { return undefined; }
   };
   out.push({ name: "bun",   required: true,  ok: !!which("bun"),   version: ver("bun") });
   out.push({ name: "git",   required: true,  ok: !!which("git"),   version: ver("git") });
@@ -636,7 +753,6 @@ function cmdDoctor(args: string[]) {
     if (!deps.find(d => d.name === "rg")?.ok)  aptInstall("ripgrep");
     if (!deps.find(d => d.name === "qmd")?.ok) {
       if (!tryInstallQmd()) {
-        // Last resort: install rustup so cargo path works
         if (tryInstallRustup()) tryInstallQmd();
       }
     }
@@ -660,7 +776,6 @@ function cmdDoctor(args: string[]) {
   }
 }
 function ensureDepsForFirstRun() {
-  // Auto-preflight on the first ever invocation in a fresh Zo instance: no registry yet.
   if (existsSync(REGISTRY)) return;
   const deps = checkDeps();
   const needFix = deps.some(d => !d.ok);
@@ -696,8 +811,6 @@ const cmds: Record<string, (a: string[]) => any> = {
   "install-qmd": () => cmdInstallQmd(),
   doctor: cmdDoctor,
 };
-// Preflight: on the first ever run (no registry), check + offer to install missing deps.
-// Skip for the doctor command itself (to avoid recursion) and the hook (cheap path).
 if (cmd && cmd !== "doctor" && cmd !== "hook" && cmds[cmd]) ensureDepsForFirstRun();
 if (!cmd || cmd === "--help" || cmd === "-h" || !cmds[cmd]) {
   console.log(`wiki — LLM-maintained wiki for any project folder
