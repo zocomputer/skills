@@ -3082,6 +3082,17 @@
       "slug": "webapp-testing",
       "path": "External/webapp-testing",
       "date_added": "2026-01-26"
+    },
+    {
+      "name": "zo-goal-loop",
+      "description": "Recreates Claude Code's /goal and /loop commands — define a completion condition and let Zo work autonomously until it's achieved. Supports iterative task execution with evaluator model checking for completion.",
+      "metadata": {
+        "author": "jaknyfe.zo.computer",
+        "category": "Utility",
+        "display-name": "Zo Goal Loop"
+      },
+      "slug": "zo-goal-loop",
+      "path": "Community/zo-goal-loop"
     }
   ]
 }
