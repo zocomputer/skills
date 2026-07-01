@@ -1,0 +1,18 @@
+{
+  "specVersion": "0.2.0",
+  "icon": "radio-tower",
+  "tags": [
+    "automation",
+    "data",
+    "social"
+  ],
+  "integrations": [
+    "x"
+  ],
+  "secrets": [
+    {
+      "secret_name": "XQUIK_API_KEY",
+      "description": "Create an API key in your Xquik account settings."
+    }
+  ]
+}
