@@ -1,0 +1,15 @@
+{
+  "icon": "trello",
+  "tags": ["automation", "productivity"],
+  "integrations": ["trello"],
+  "secrets": [
+    {
+      "secret_name": "TRELLO_API_KEY",
+      "description": "Get one at trello.com/app-key."
+    },
+    {
+      "secret_name": "TRELLO_TOKEN",
+      "description": "Click the \"Token\" link on trello.com/app-key after creating the API key."
+    }
+  ]
+}

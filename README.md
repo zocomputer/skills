@@ -9,8 +9,9 @@ Inside Zo, you can browse all the skills in this registry and install them for y
 If it's your own skill
 
 1. Add a new skill to the `Community` folder
-2. Run `bun validate` 
-3. Make a pull request
+2. Add a `DISPLAY.json` alongside your `SKILL.md` for UI presentation metadata (icon, tags, integrations, etc.) — see the [DISPLAY.json spec](DISPLAY.md)
+3. Run `bun validate` 
+4. Make a pull request
 
 If it's a skill you found, look it up in the [Agent Skills Registry](https://skills.sh)
 
@@ -35,6 +36,7 @@ slug="bird"; dest="Skills"; manifest_url="https://raw.githubusercontent.com/zoco
 - Skills live under `Zo/`, `External/`, or `Community/`, each containing a required `SKILL.md`.
 - Allowed subdirectories: `assets/`, `references/`, `scripts/`.
 - `SKILL.md` frontmatter must include `name`, `description`, and `metadata.author`.
+- `DISPLAY.json` alongside `SKILL.md` provides presentation metadata (icon, image, video, tags, integrations). See the [spec](DISPLAY.md) for the full schema.
 
 ## External Skills
 
@@ -72,12 +74,11 @@ slug="bird"; dest="Skills"; manifest_url="https://raw.githubusercontent.com/zoco
 | [lastfm](https://github.com/zocomputer/skills/blob/main/External/lastfm/SKILL.md) | Clawdbot | Access Last.fm listening history, music stats, and discovery. Query recent tracks, top artists/albums/tracks, loved tracks, similar artists, and global charts. |
 | [shorten](https://github.com/zocomputer/skills/blob/main/External/shorten/SKILL.md) | Clawdbot | Shorten URLs using is.gd (no auth required). Returns a permanent short link. |
 | [just-fucking-cancel](https://github.com/zocomputer/skills/blob/main/External/just-fucking-cancel/SKILL.md) | Clawdbot | Analyze bank transaction CSVs to find recurring charges, categorize subscriptions, and cancel what you don't need. Use when user says "cancel subscriptions", "audit subscriptions", "find recurring charges", or "what am I paying for". Supports Apple Card, Chase, Mint, and generic CSV formats. Outputs interactive HTML audit with copy-to-cancel workflow. |
-| [snow-report](https://github.com/zocomputer/skills/blob/main/External/snow-report/SKILL.md) | Clawdbot | Get snow conditions, forecasts, and ski reports for any mountain resort worldwide. Use when asked about snow, powder, ski conditions, or mountain weather. Supports 1000+ resorts via OpenSnow. Users can set favorite mountains for quick access. Supports SnowTick 4-letter codes (JHMR, TARG, MMTH) for quick lookups. |
-| [yahoo-finance](https://github.com/zocomputer/skills/blob/main/External/yahoo-finance/SKILL.md) | Clawdbot | Get stock prices, quotes, fundamentals, earnings, options, dividends, and analyst ratings using Yahoo Finance. Uses yfinance library - no API key required. |
 | [manim-composer](https://github.com/zocomputer/skills/blob/main/External/manim-composer/SKILL.md) | Adithya-s-k | Trigger when: (1) User wants to create an educational/explainer video, (2) User has a vague concept they want visualized, (3) User mentions "3b1b style" or "explain like 3Blue1Brown", (4) User wants to plan a Manim video or animation sequence, (5) User asks to "compose" or "plan" a math/science visualization. Transforms vague video ideas into detailed scene-by-scene plans (scenes.md). Conducts research, asks clarifying questions about audience/scope/focus, and outputs comprehensive scene specifications ready for implementation with ManimCE or ManimGL. Use this BEFORE writing any Manim code. This skill plans the video; use manimce-best-practices or manimgl-best-practices for implementation. |
+| [sec-edgar](https://github.com/zocomputer/skills/blob/main/External/sec-edgar/SKILL.md) |  | Natural-language SEC filing intelligence — fetch, index, search, and analyze SEC EDGAR filings for any public company via conversation. Built on the PageIndex vectorless RAG methodology. |
+| [moltbook](https://github.com/zocomputer/skills/blob/main/External/moltbook/SKILL.md) | Moltbot | Post, reply, and engage on Moltbook, a social network for AI agents. |
 | [brainstorming](https://github.com/zocomputer/skills/blob/main/External/brainstorming/SKILL.md) | Obra | You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation. |
 | [remotion-best-practices](https://github.com/zocomputer/skills/blob/main/External/remotion-best-practices/SKILL.md) | Remotion-dev | Best practices for Remotion - Video creation in React |
-| [reddit](https://github.com/zocomputer/skills/blob/main/External/reddit/SKILL.md) | Resciencelab | Search and retrieve content from Reddit. Get posts, comments, subreddit info, and user profiles via the public JSON API. |
 | [meme-factory](https://github.com/zocomputer/skills/blob/main/External/meme-factory/SKILL.md) | Softaworks | Generate memes using the memegen.link API. Use when users request memes, want to add humor to content, or need visual aids for social media. Supports 100+ popular templates with custom text and styling. |
 | [stripe-best-practices](https://github.com/zocomputer/skills/blob/main/External/stripe-best-practices/SKILL.md) | Stripe | Best practices for building a Stripe integrations |
 | [threejs-animation](https://github.com/zocomputer/skills/blob/main/External/threejs-animation/SKILL.md) | Cloudai-x | Three.js animation - keyframe animation, skeletal animation, morph targets, animation mixing. Use when animating objects, playing GLTF animations, creating procedural motion, or blending animations. |

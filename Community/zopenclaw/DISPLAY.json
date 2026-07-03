@@ -1,0 +1,14 @@
+{
+  "icon": "bot",
+  "tags": ["ai", "developer-tools"],
+  "secrets": [
+    {
+      "secret_name": "TAILSCALE_AUTHKEY",
+      "description": "Create a reusable auth key at login.tailscale.com/admin/settings/keys (starts with `tskey-auth-`). Required — Tailscale won't reconnect after Zo restarts without a reusable key."
+    },
+    {
+      "secret_name": "ZO_ACCESS_TOKEN",
+      "description": "Generate from your Zo workspace and paste here so the skill can call your gateway."
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 name: dating-profile
 description: Creates an ideal dating profile by writing your bio and choosing the best photos in the right order
 metadata:
-  author: tiff.zo.computer
+  author: ray.zo.computer
   category: Community
   display-name: Create ideal dating profile
   emoji: 💌
@@ -32,4 +32,3 @@ metadata:
 3. Use the information you have gathered to create an ideal bio for the user's dating profile, prioritizing the vibe the user has requested.
 4. Still considering the information, select the top 5 images the user should use for their bio and in the best ordering.
 5. Present to the user your proposed bio and images in their order, and explain your reasoning.
-

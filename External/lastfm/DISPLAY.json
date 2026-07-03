@@ -1,0 +1,15 @@
+{
+  "icon": "lastfm",
+  "tags": ["entertainment", "data"],
+  "integrations": ["lastfm"],
+  "secrets": [
+    {
+      "secret_name": "LASTFM_API_KEY",
+      "description": "Create at last.fm/api/account/create."
+    },
+    {
+      "secret_name": "LASTFM_USER",
+      "description": "Your Last.fm username — the queries pull listening history for this user."
+    }
+  ]
+}

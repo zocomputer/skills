@@ -1,0 +1,10 @@
+{
+  "icon": "github",
+  "tags": [
+    "automation",
+    "developer-tools"
+  ],
+  "integrations": [
+    "github"
+  ]
+}

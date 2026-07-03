@@ -1,0 +1,19 @@
+{
+  "icon": "briefcase",
+  "tags": ["finance"],
+  "integrations": ["okx"],
+  "secrets": [
+    {
+      "secret_name": "OKX_API_KEY",
+      "description": "Create one in OKX › Account › API Management with read permissions."
+    },
+    {
+      "secret_name": "OKX_SECRET_KEY",
+      "description": "Shown once when you create the OKX API key. Save it before closing the dialog."
+    },
+    {
+      "secret_name": "OKX_PASSPHRASE",
+      "description": "The passphrase you set when creating the OKX API key."
+    }
+  ]
+}

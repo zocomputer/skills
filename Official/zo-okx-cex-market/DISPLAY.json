@@ -1,0 +1,5 @@
+{
+  "icon": "chart-candlestick",
+  "tags": ["finance", "data"],
+  "integrations": ["okx"]
+}

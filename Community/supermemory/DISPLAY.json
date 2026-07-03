@@ -1,0 +1,11 @@
+{
+  "icon": "brain",
+  "image": "assets/supermemory.png",
+  "tags": ["ai", "data"],
+  "secrets": [
+    {
+      "secret_name": "SUPERMEMORY_API_KEY",
+      "description": "Create one at supermemory.ai › API keys."
+    }
+  ]
+}

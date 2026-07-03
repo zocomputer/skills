@@ -1,0 +1,10 @@
+{
+  "icon": "spotify",
+  "tags": [
+    "entertainment",
+    "content"
+  ],
+  "integrations": [
+    "spotify"
+  ]
+}

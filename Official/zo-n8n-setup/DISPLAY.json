@@ -1,0 +1,10 @@
+{
+  "icon": "zap",
+  "tags": [
+    "automation",
+    "server"
+  ],
+  "integrations": [
+    "n8n"
+  ]
+}

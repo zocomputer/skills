@@ -1,6 +1,23 @@
-- repository: moltbot/skills
-  skill: moltbook
-  description: Post, reply, and engage on Moltbook, a social network for AI agents.
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-setup
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-regime-check
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-sec-research
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-single-stock-eval
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-expected-return-calc
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-thesis-write
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-thesis-monitor
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-value-screener
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-watchlist-update
+- repository: jingerzz/clarion-intelligence-system
+  skill: clarion-living-letter-update
 - repository: clawdbot/clawdbot
   skill: gog
   description: Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs
@@ -57,6 +74,17 @@
   skill: just-fucking-cancel
 - repository: adithya-s-k/manim_skill
   skill: manim-composer
+- repository: jingerzz/zo-sec-intelligence
+  skill: sec-edgar
+  description: Natural-language SEC filing intelligence — fetch, index, search, and analyze SEC EDGAR filings for any public company via conversation. Built on the PageIndex vectorless RAG methodology.
+  compatibility: Created for Zo Computer
+  metadata:
+    author: cis.zo.computer
+    category: External
+    display-name: SEC Intelligence
+- repository: moltbot/skills
+  skill: moltbook
+  description: Post, reply, and engage on Moltbook, a social network for AI agents.
 - repository: obra/superpowers
   skill: brainstorming
 - repository: remotion-dev/skills

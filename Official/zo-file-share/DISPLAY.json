@@ -1,0 +1,10 @@
+{
+  "icon": "share",
+  "tags": [
+    "automation",
+    "utility"
+  ],
+  "integrations": [
+    "gmail"
+  ]
+}

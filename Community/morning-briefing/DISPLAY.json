@@ -1,0 +1,12 @@
+{
+  "icon": "sun",
+  "tags": [
+    "productivity",
+    "automation"
+  ],
+  "integrations": [
+    "gmail",
+    "google_calendar",
+    "google_tasks"
+  ]
+}

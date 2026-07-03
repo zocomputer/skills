@@ -1,0 +1,10 @@
+{
+  "icon": "image",
+  "tags": [
+    "communication",
+    "media"
+  ],
+  "integrations": [
+    "slack"
+  ]
+}

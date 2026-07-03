@@ -1,0 +1,10 @@
+{
+  "icon": "stripe",
+  "tags": [
+    "finance",
+    "developer-tools"
+  ],
+  "integrations": [
+    "stripe"
+  ]
+}

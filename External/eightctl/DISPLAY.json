@@ -1,0 +1,11 @@
+{
+  "icon": "bed",
+  "tags": [
+    "automation",
+    "developer-tools",
+    "server"
+  ],
+  "integrations": [
+    "eightsleep"
+  ]
+}

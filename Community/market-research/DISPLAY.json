@@ -1,0 +1,18 @@
+{
+  "icon": "bar-chart-3",
+  "tags": ["data", "marketing", "research"],
+  "secrets": [
+    {
+      "secret_name": "BLS_API_KEY",
+      "description": "Register at data.bls.gov/registrationEngine for U.S. Bureau of Labor Statistics data."
+    },
+    {
+      "secret_name": "FRED_API_KEY",
+      "description": "Register at fred.stlouisfed.org/docs/api/api_key.html for Federal Reserve economic data."
+    },
+    {
+      "secret_name": "CENSUS_API_KEY",
+      "description": "Sign up at api.census.gov/data/key_signup.html for U.S. Census data."
+    }
+  ]
+}

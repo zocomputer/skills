@@ -1,0 +1,9 @@
+{
+  "icon": "message-circle",
+  "tags": [
+    "documents"
+  ],
+  "integrations": [
+    "moltbook"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "icon": "book-open",
+  "tags": ["developer-tools"],
+  "secrets": [
+    {
+      "secret_name": "CONTEXT7_API_KEY",
+      "description": "Create at context7.com › Dashboard. Optional — increases your rate limits."
+    }
+  ]
+}

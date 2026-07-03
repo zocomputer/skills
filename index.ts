@@ -928,6 +928,7 @@ const validateSkill = async (skillDir: string): Promise<Issue[]> => {
 type SkillInfo = {
   slug: string;
   path: string;
+  date_added?: string;
 } & Record<string, unknown>;
 
 type SkillManifest = {
@@ -1058,6 +1059,18 @@ const loadSkillInfo = async (skillDir: string) => {
         compatibility: appendCompatibilityNote(normalized.compatibility, note),
       };
     }
+    // Read DISPLAY.json if present and merge display metadata
+    const displayFile = path.join(skillDir, "DISPLAY.json");
+    try {
+      const displayRaw = await readFile(displayFile, "utf-8");
+      const display = JSON.parse(displayRaw);
+      if (display && typeof display === "object") {
+        normalized.display = display;
+      }
+    } catch {
+      // No DISPLAY.json or invalid — skip
+    }
+
     return normalized;
   } catch {
     return null;
@@ -1312,6 +1325,61 @@ const validateAllSkills = async () => {
   return 0;
 };
 
+const getFirstCommitDate = async (targetPath: string): Promise<string | null> => {
+  const relPath = path.relative(ROOT_DIR, targetPath);
+  const proc = Bun.spawn(
+    ["git", "log", "--reverse", "--format=%aI", "--", relPath],
+    { cwd: ROOT_DIR, stdout: "pipe", stderr: "ignore" },
+  );
+  const output = await new Response(proc.stdout).text();
+  if ((await proc.exited) !== 0) {
+    return null;
+  }
+  const firstLine = output.trim().split("\n")[0];
+  return firstLine ? firstLine.slice(0, 10) : null;
+};
+
+const loadExistingDateAdded = async (): Promise<Map<string, string>> => {
+  const manifestPath = path.join(ROOT_DIR, "manifest.json");
+  let raw: string;
+  try {
+    raw = await readFile(manifestPath, "utf8");
+  } catch {
+    return new Map();
+  }
+  try {
+    const parsed = JSON.parse(raw) as SkillManifest;
+    const dates = new Map<string, string>();
+    for (const skill of parsed.skills ?? []) {
+      if (typeof skill.slug === "string" && typeof skill.date_added === "string") {
+        dates.set(skill.slug, skill.date_added);
+      }
+    }
+    return dates;
+  } catch {
+    return new Map();
+  }
+};
+
+const mapWithConcurrency = async <T, R>(
+  items: T[],
+  concurrency: number,
+  fn: (item: T) => Promise<R>,
+): Promise<R[]> => {
+  const results: R[] = new Array(items.length);
+  let nextIndex = 0;
+  const run = async () => {
+    while (nextIndex < items.length) {
+      const i = nextIndex++;
+      results[i] = await fn(items[i]);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, () => run()));
+  return results;
+};
+
+const MAX_GIT_CONCURRENCY = 10;
+
 const writeManifest = async () => {
   const skillDirs = await loadSkillDirectories();
   if (skillDirs.length === 0) {
@@ -1320,21 +1388,33 @@ const writeManifest = async () => {
   }
 
   const { tarball_url, archive_root } = resolveGitHubArchive();
-  const skills: SkillInfo[] = [];
+  const existingDates = await loadExistingDateAdded();
 
-  for (const skillDir of skillDirs) {
-    const info = await loadSkillInfo(skillDir);
-    if (!info) {
-      continue;
-    }
-    const relPath = toDisplayPath(skillDir);
-    const slug = path.basename(skillDir);
-    skills.push({
-      ...info,
-      slug,
-      path: relPath,
-    });
-  }
+  const skills = (
+    await mapWithConcurrency(skillDirs, MAX_GIT_CONCURRENCY, async (skillDir) => {
+      const info = await loadSkillInfo(skillDir);
+      if (!info) return null;
+      const { date_added: _, ...rest } = info;
+      const slug = path.basename(skillDir);
+      const dateAdded =
+        existingDates.get(slug) ??
+        (await getFirstCommitDate(skillDir)) ??
+        undefined;
+      return {
+        ...rest,
+        slug,
+        path: toDisplayPath(skillDir),
+        date_added: dateAdded,
+      } as SkillInfo;
+    })
+  ).filter((s): s is SkillInfo => s !== null);
+
+  skills.sort((a, b) => {
+    const da = a.date_added ?? "";
+    const db = b.date_added ?? "";
+    if (da !== db) return db.localeCompare(da);
+    return a.slug.localeCompare(b.slug);
+  });
 
   const manifest: SkillManifest = {
     tarball_url,

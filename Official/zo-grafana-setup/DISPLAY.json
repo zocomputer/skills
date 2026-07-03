@@ -1,0 +1,10 @@
+{
+  "icon": "chart-bar",
+  "tags": [
+    "server",
+    "data"
+  ],
+  "integrations": [
+    "grafana"
+  ]
+}

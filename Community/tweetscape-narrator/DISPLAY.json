@@ -1,0 +1,10 @@
+{
+  "icon": "film",
+  "tags": ["automation", "media", "social"],
+  "secrets": [
+    {
+      "secret_name": "ELEVENLABS_API_KEY",
+      "description": "Create at elevenlabs.io › Profile › API key. Used for voice synthesis."
+    }
+  ]
+}

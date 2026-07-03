@@ -1,0 +1,11 @@
+{
+  "icon": "bell",
+  "tags": [
+    "wellness",
+    "automation"
+  ],
+  "integrations": [
+    "google_calendar",
+    "google_tasks"
+  ]
+}

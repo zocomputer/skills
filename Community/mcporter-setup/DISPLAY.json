@@ -1,0 +1,18 @@
+{
+  "icon": "plug",
+  "tags": ["automation", "developer-tools"],
+  "secrets": [
+    {
+      "secret_name": "LINEAR_API_KEY",
+      "description": "Create at linear.app › Settings › API. Used for the Linear MCP integration."
+    },
+    {
+      "secret_name": "GITHUB_TOKEN",
+      "description": "A GitHub personal access token. Used for the GitHub MCP integration."
+    },
+    {
+      "secret_name": "FIRECRAWL_API_KEY",
+      "description": "Get one at firecrawl.dev. Used for the Firecrawl MCP integration."
+    }
+  ]
+}

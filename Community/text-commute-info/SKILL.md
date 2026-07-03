@@ -2,7 +2,7 @@
 name: text-commute-info
 description: Gets your commute time and route options, then texts you the details
 metadata:
-  author: ian.zo.computer
+  author: ray.zo.computer
   category: Community
   display-name: Text commute travel time and route
   emoji: 🚏
@@ -39,4 +39,3 @@ and an `Agent Task` could be set to run daily in the morning so that the user ca
 ```markdown
 Run `prompt Prompts/text-commute-info.prompt.md` with origin <ORIGIN>, destination <DESTINATION>, and travel mode <TRAVELMODE>, but IGNORE step 4
 ```
-

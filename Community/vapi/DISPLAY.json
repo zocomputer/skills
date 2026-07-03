@@ -1,0 +1,11 @@
+{
+  "icon": "phone",
+  "tags": ["ai", "automation", "productivity"],
+  "integrations": ["google_calendar"],
+  "secrets": [
+    {
+      "secret_name": "VAPI_PRIVATE_KEY",
+      "description": "Find at dashboard.vapi.ai › API Keys (Private Key)."
+    }
+  ]
+}
