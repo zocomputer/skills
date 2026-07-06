@@ -1,3 +1,9 @@
+- repository: zenlee123/routerbase-agent-skills
+  skill: routerbase-api-integration
+- repository: zenlee123/routerbase-agent-skills
+  skill: routerbase-model-routing
+- repository: zenlee123/routerbase-agent-skills
+  skill: routerbase-media-generation
 - repository: jingerzz/clarion-intelligence-system
   skill: clarion-setup
 - repository: jingerzz/clarion-intelligence-system
