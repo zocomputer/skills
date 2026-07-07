@@ -1,0 +1,6 @@
+{
+  "specVersion": "0.2.0",
+  "icon": "brain",
+  "image": "https://terminallylazy.github.io/Tree-Ring-Memory/assets/tree-ring-memory-og.png",
+  "tags": ["ai", "agents", "memory", "local-first", "cli"]
+}
