@@ -1,5 +1,6 @@
 {
   "specVersion": "0.2.0",
   "icon": "spell-check",
+  "image": "assets/cover.png",
   "tags": ["writing", "editing", "ai-detection", "humanization"]
 }
