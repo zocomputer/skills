@@ -1,3 +1,5 @@
+- repository: justhandledlabs/skills
+  skill: robots-sitemap-validator
 - repository: jingerzz/clarion-intelligence-system
   skill: clarion-setup
 - repository: jingerzz/clarion-intelligence-system
