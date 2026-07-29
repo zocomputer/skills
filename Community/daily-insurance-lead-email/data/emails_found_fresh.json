@@ -1,0 +1,3536 @@
+[
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kh-tam-49a423130",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/peter-yuan-%E8%A2%81%E6%96%B9-4074bb28",
+    "found": true,
+    "email": "peter.yuan@zurich.com",
+    "name": "Peter Yuan",
+    "domain": "zurich.com",
+    "company": "Zurich Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/bonnie-yu-4a35a943",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/josephine-cheng-575709154",
+    "found": true,
+    "email": "josephine.cheng@libertyglobalgroup.com",
+    "name": "Josephine Cheng",
+    "domain": "libertyglobalgroup.com",
+    "company": "Liberty Specialty Markets"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/johnny-lau-5ab473167",
+    "found": true,
+    "email": "johnny.lau@generali.com.hk",
+    "name": "Johnny Lau",
+    "domain": "generali.com.hk",
+    "company": "Generali Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/bobby-jia-55b45b268",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/annie-pong-173810115",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/benjamin-sin-3585b469",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ali-fakih-8720bb44",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/safong",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/becky-cheung-71a9ba248",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sunny-kong-7b37501b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/angela-yang-3a99699a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/danielaadaggi",
+    "found": true,
+    "email": "daniela.adaggi@ageas.com.hk",
+    "name": "Daniela Adaggi",
+    "domain": "ageas.com.hk",
+    "company": "Ageas Group"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joy-shen-7a50193a5",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/indrajitconsultant23",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kelly-hao-9b88b2105",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/queenie-chiu-5b505610a",
+    "found": true,
+    "email": "queenie.chiu@pru.co.uk",
+    "name": "Queenie Chiu",
+    "domain": "pru.co.uk",
+    "company": "\u82f1\u570b\u4fdd\u8aa0\u4fdd\u96aa\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/bosco-ho-72380b173",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/christie-ng-b270066a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/beng-gin-arthur-l-732907b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/dr-lawrence-lau-75562b1b",
+    "found": true,
+    "email": "lawrence.lau@talent-point.com",
+    "name": "Lawrence Lau",
+    "domain": "talent-point.com",
+    "company": "Talent Point International Ltd"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/giacomo-germano-ba754840",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/acky-yau-232b3668",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/michellecylaw",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/pency-ng-663590199",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alvin-chan-3a8a17125",
+    "found": true,
+    "email": "alvin.chan@ctflife.com.hk",
+    "name": "Alvin Chan",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cecilia-viet-mei-chang",
+    "found": true,
+    "email": "cecilia.chang@generali.com",
+    "name": "Cecilia Viet Chang",
+    "domain": "generali.com",
+    "company": "Generali"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/hellen-li-40535b193",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wilton-kee-99257016",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kenny-tai-570a6ba4",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/dora-huang-b62862156",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/siu-dickens-a06680224",
+    "found": true,
+    "email": "dickenssiu@hangseng.com",
+    "name": "Siu Dickens",
+    "domain": "hangseng.com",
+    "company": "\u6052\u751f\u9280\u884c"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/miguel-law-2096a8103",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/stephanie-kwok-884336280",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/nicole-yip-a6698525a",
+    "found": true,
+    "email": "nicole.yip@ctflife.com.hk",
+    "name": "Nicole Yip",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wilfred-tam-51828049",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/winnie-yip-266a7a192",
+    "found": true,
+    "email": "winnie.yip@generali.com.hk",
+    "name": "Winnie Yip",
+    "domain": "generali.com.hk",
+    "company": "Generali Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cary-chan-cfa-83843211",
+    "found": true,
+    "email": "cchan@jhancock.com",
+    "name": "Cary Chan",
+    "domain": "jhancock.com",
+    "company": "Manulife"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/william-kung-aia",
+    "found": true,
+    "email": "will.lin@aia.com",
+    "name": "William Kung Gong Wei Lin",
+    "domain": "aia.com",
+    "company": "AIA International Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/venice-lee-83ab74124",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/adrianyuwh",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kyle-l-516252b2",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/mike-lee-5650a12b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sherona-lau-9090a1105",
+    "found": true,
+    "email": "sherona.lau@qbe.com",
+    "name": "Sherona Lau",
+    "domain": "qbe.com",
+    "company": "QBE Hongkong & Shanghai Insurance Ltd"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/candace-chan-5a41234a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/keith-cheung-618095a4",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chung-edward-29b11758",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cortina-sin-3bba462a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/casperchan",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/brian-chiu-16358417b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E6%BE%A4%E9%9C%96-%E7%BE%85-2407591a7",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/stephanie-ho-bb494649",
+    "found": true,
+    "email": "stephanie.ho@ctflife.com.hk",
+    "name": "Stephanie Ho",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/matthew-kam-shing-wong-9b7b61a1",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/paddy-au",
+    "found": true,
+    "email": "paddy.au@bolttech.io",
+    "name": "Paddy Au",
+    "domain": "bolttech.io",
+    "company": "Bolttech"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/paul-ng-239737163",
+    "found": true,
+    "email": "paul.ng@aia.com",
+    "name": "Paul Ng",
+    "domain": "aia.com",
+    "company": "AIA"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chanshiuhei",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/glenn-williams-647250a7",
+    "found": true,
+    "email": "glenn.williams@ageas.com.hk",
+    "name": "Glenn Williams",
+    "domain": "ageas.com.hk",
+    "company": "Ageas Insurance Company (Asia) Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/elvis-wu-50a6b080",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/adrian-lee-b4875a70",
+    "found": true,
+    "email": "adrian.lee@aia.com.hk",
+    "name": "Adrian Lee",
+    "domain": "aia.com.hk",
+    "company": "AIA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ronaldlamfsacera",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/carmen-chan-398b18a3",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ted-wai-a3472825",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/benny-tsoi-01813767",
+    "found": true,
+    "email": "benny_tsoi@boclife.com.hk",
+    "name": "Benny Tsoi",
+    "domain": "boclife.com.hk",
+    "company": "BOC Group Life Assurance Company Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/anson-lai-14b63b94",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sanita-wong-8074241b2",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E7%87%95-%E6%B5%B7-783624172",
+    "found": true,
+    "email": "yan.hai@pru.co.uk",
+    "name": "Yan Hai",
+    "domain": "pru.co.uk",
+    "company": "\u82f1\u570b\u4fdd\u8aa0\u4fdd\u96aa\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/florence-c-311631a0",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/michael-lyu-a580b4226",
+    "found": true,
+    "email": "michael.lyu@chubb.com",
+    "name": "Michael Lyu",
+    "domain": "chubb.com",
+    "company": "Chubb Life Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/james-ng-2340175",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/andrew-eden-wills-insurance-pensions-mpf-sipps-qrops-property-tax-trusts-35157b",
+    "found": true,
+    "email": "andreweden@ernestmaude.com",
+    "name": "Andrew Eden Wills Insurance Pensions Mpf Sipps Qrops Property Tax Trusts",
+    "domain": "ernestmaude.com",
+    "company": "Ernest Maude"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jenny-meyers-wong-121023206",
+    "found": true,
+    "email": "jenny_wong@manulife.com",
+    "name": "Jenny Meyers Wong",
+    "domain": "manulife.com",
+    "company": "Manulife Investment Management"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/caesar-lau-810a81233",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ricky-chan-b9110712",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/danny-siu-09660658",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jaime-lam-b656b0163",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/faye-tang-252b331b0",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chapman-law-b5707840",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wing-sze-lam-590ab7212",
+    "found": true,
+    "email": "wing.sze@sunlife.com",
+    "name": "Wing Sze Lam",
+    "domain": "sunlife.com",
+    "company": "\u9999\u6e2f\u6c38\u660e\u91d1\u878d\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/simon-wong-818361186",
+    "found": true,
+    "email": "simon.wong@generali.com.hk",
+    "name": "Simon Wong",
+    "domain": "generali.com.hk",
+    "company": "Generali Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/brent-hung-cfp-97928a4",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ann-wang-6197a1243",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cynthia-cy-l-ab4945347",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/lucy-white-6b090283",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/petersun87",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/arthur-lee-26b269b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/betty-lee-87a348128",
+    "found": true,
+    "email": "betty.lee@ctflife.com.hk",
+    "name": "Betty Lee",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/anthony-yip-a37bb098",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/emily-i-12682592",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/debby-li-6a531a20",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/raymond-lee-04a9301a8",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/edmund-cheng-%E9%84%AD%E7%9D%BF%E7%95%A5-2245a8b2",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/craig-merdian",
+    "found": true,
+    "email": "craig.merdian@bolttech.io",
+    "name": "Craig Merdian",
+    "domain": "bolttech.io",
+    "company": "Bolttech"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sam-n-33a764217",
+    "found": true,
+    "email": "sam.ng@fwd.com",
+    "name": "Sam N",
+    "domain": "fwd.com",
+    "company": "\u5bcc\u885b\u4fdd\u96aa"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/phoebe-chan-981b7155",
+    "found": true,
+    "email": "phoebe.chan@qbe.com",
+    "name": "Phoebe Chan",
+    "domain": "qbe.com",
+    "company": "QBE Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kevin-keung-a6ab3b1a1",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/connie-wong-b5b70a154",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/raymond-tang-12a1692a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kita-cheung-4a74b832",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/billy-chow-k-chee-6a49a239",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/janet-mok-67554820",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/yul-chan-bba00099",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/fanny-chan-5a391b25a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ka-shing-tung-7510a0270",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E5%BF%97%E7%BE%8E-%E9%99%B3-7a0765a5",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/law0306",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chin-feng-938733169",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/coco-ma-aa8a5a163",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/charles-lau-383564114",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chui-ngan-anita-tong-69926316b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tk-tang-9b584945",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/andre-chan-667991198",
+    "found": true,
+    "email": "chana@accenture.com",
+    "name": "Andre Chan",
+    "domain": "accenture.com",
+    "company": "My Own"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/michael-lai-6749b42b",
+    "found": true,
+    "email": "michael.lai@bolttech.io",
+    "name": "Michael Lai",
+    "domain": "bolttech.io",
+    "company": "Bolttech"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/dick-wan-996b355a",
+    "found": true,
+    "email": "dickwan@yflife.com",
+    "name": "Dick Wan",
+    "domain": "yflife.com",
+    "company": "YF Life Insurance International Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ning-espiritu-48a00a72",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jennifer-so-17aa2318",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alger-fung-11531210b",
+    "found": true,
+    "email": "alger.fung@aia.com",
+    "name": "Alger Fung",
+    "domain": "aia.com",
+    "company": "AIA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/david-varley-7376571b",
+    "found": true,
+    "email": "david.varley@sunlife.com",
+    "name": "David Varley",
+    "domain": "sunlife.com",
+    "company": "Sun Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/masyn-nip-9a7578157",
+    "found": true,
+    "email": "masynnip@bluecross.com.hk",
+    "name": "Masyn Nip",
+    "domain": "bluecross.com.hk",
+    "company": "Blue Cross Insurance HK"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E5%A9%B7-%E7%9D%A2-410028ab",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tim-law-5067191b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/karen-ng-32b891208",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E7%A7%80%E5%A8%9C-%E9%BB%83-157001129",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/zhaoxin-jin-399a632a9",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/saranya-nilthap-47004a13a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/vanus-wong-34877698",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/michael-fong-6704051a",
+    "found": true,
+    "email": "michael.fong@aia.com",
+    "name": "Michael Fong",
+    "domain": "aia.com",
+    "company": "AIA International Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joey-cheng-b87b331b0",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E8%81%96%E6%A8%BA-%E5%90%B3-4b7004b0",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/nong-liyuan-910890141",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/peter-ho-aa94b679",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/yuki-li-53200611b",
+    "found": true,
+    "email": "yuki.li@ctflife.com.hk",
+    "name": "Yuki Li",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/teresa-lam-54462960",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/terenceyu1110",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/steve-hui-b343037",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/vivian-wong-27290749",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jacques-lee-39b91243",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/nora-chau-310674150",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/miki-wu-6420221aa",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/anna-cheuk-6589b6150",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/virginia-lui-a3b40026",
+    "found": true,
+    "email": "virginia.lui@axa.com.hk",
+    "name": "Virginia Lui",
+    "domain": "axa.com.hk",
+    "company": "AXA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/henry-chow-62a39977",
+    "found": true,
+    "email": "henry.chow@ctflife.com.hk",
+    "name": "Henry Chow",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/richard-ho-8b174872",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/grace-wong-19a37549",
+    "found": true,
+    "email": "grace.wong@fwd.com",
+    "name": "Grace Wong",
+    "domain": "fwd.com",
+    "company": "FWD Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/gautam-shah-7a2a884",
+    "found": true,
+    "email": "gautam.r.shah@sunlife.com",
+    "name": "Gautam Shah",
+    "domain": "sunlife.com",
+    "company": "Sun Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/laura-liu-78707b141",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/may-wong-7ab4175",
+    "found": true,
+    "email": "may.wong@bolttech.io",
+    "name": "May Wong",
+    "domain": "bolttech.io",
+    "company": "Bolttech"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ryan-tian-96704926",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jerry-ho-05a864b3",
+    "found": true,
+    "email": "jerryho@yflife.com",
+    "name": "Jerry Ho",
+    "domain": "yflife.com",
+    "company": "YF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/noelcommins",
+    "found": true,
+    "email": "noel.commins@bolttech.io",
+    "name": "Noel Commins",
+    "domain": "bolttech.io",
+    "company": "Bolttech"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/desmond-yu-28183b152",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jan-zen-jim-2b862730",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/nicole-wong-926a25213",
+    "found": true,
+    "email": "nicole.wong@meliora.group",
+    "name": "Nicole Wong",
+    "domain": "meliora.group",
+    "company": "Meliora"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joey-ho-78845077",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/manjit-singh-sl",
+    "found": true,
+    "email": "manjit.singh@sunlife.com",
+    "name": "Manjit Singh",
+    "domain": "sunlife.com",
+    "company": "Sun Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ammis-chan-58637b154",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alex-lau-7232b5a",
+    "found": true,
+    "email": "alex.lau@qbe.com",
+    "name": "Alex Lau",
+    "domain": "qbe.com",
+    "company": "QBE Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jennifer-chan-cfa-6abbb178",
+    "found": true,
+    "email": "j.chan@sunlife.com",
+    "name": "Jennifer Chan",
+    "domain": "sunlife.com",
+    "company": "Sun Life Financial"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/linda-chung-0b671334",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E6%99%93%E5%A8%9C-%E7%94%B0-329142216",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/amy-yk-lo-91236ab1",
+    "found": true,
+    "email": "loa@sunlife.com",
+    "name": "Amy-yk Lo",
+    "domain": "sunlife.com",
+    "company": "Sun Life Hong Kong Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/justin-wong-1856b0106",
+    "found": true,
+    "email": "justin.wong@ctflife.com.hk",
+    "name": "Justin Wong",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tako-wong-502b3610b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ruoqi-w-77b98916",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/lan-lee-25860823",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/carol-wang-a71776168",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sarah-tam-01b44b37",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/bennet-li-69692b22",
+    "found": true,
+    "email": "bennet.li@sunlife.com",
+    "name": "Bennet Li",
+    "domain": "sunlife.com",
+    "company": "Sun Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jessica-lai-11b558233",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tinchu-or-412864122",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E5%A6%8D-%E8%A3%98-561845158",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jimmy-poon-mh-406941144",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/clement-wu-4665241a5",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E7%8E%89-%E8%B4%BE-ba9ab7106",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ziv-au-a76166a1",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/brian-cheung-69159821",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jasmine-l-b32994126",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tiffany-cheung-694377102",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jiacheng-lu-120965204",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/rita-yuewingsum",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ross-matthews-79a74057",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kitty-wang-0149619",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/michelle-liu-850786a4",
+    "found": true,
+    "email": "michelle.liu@hfgasia.hk",
+    "name": "Michelle Liu",
+    "domain": "hfgasia.hk",
+    "company": "HFG Insurance Recruitment"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/karen-bin-960224166",
+    "found": true,
+    "email": "karen.bin@fwd.com",
+    "name": "Karen Bin",
+    "domain": "fwd.com",
+    "company": "FWD Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kiranlee",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jacqueline-chiu-36b0447b",
+    "found": true,
+    "email": "jacqueline.chiu@ctflife.com.hk",
+    "name": "Jacqueline Chiu",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/patrick-tsang-2552a65b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/candy-tam-cm-1028",
+    "found": true,
+    "email": "candy.tam@fwd.com",
+    "name": "Candy Tam",
+    "domain": "fwd.com",
+    "company": "FWD Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kiki-yuen-422628207",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/mark-mak-a8814640",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kenny-lau-34170413a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ada-chan-bba9453b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tin-wong-4b767968",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/charlotte-so-764962126",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tommy-tam-7a60a9b8",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/eden-kwan-ting-wong-319922151",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/scottaustinhk",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/erik-choi-64151964",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sunny-kong-06a27a143",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/philippa-lo-a1b4719",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/anujjaithalia",
+    "found": true,
+    "email": "anuj.jaithalia@prudential.com.hk",
+    "name": "Anuj Jaithalia",
+    "domain": "prudential.com.hk",
+    "company": "Prudential Plc"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E6%99%93%E6%B4%81-%E4%BF%9E-a4345a18a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/gary-tsang-6a87b828",
+    "found": true,
+    "email": "gary.tsang@libertymutual.com",
+    "name": "Gary Tsang",
+    "domain": "libertymutual.com",
+    "company": "Liberty Mutual Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/carla-yip-b02412b3",
+    "found": true,
+    "email": "carla_yip@boclife.com.hk",
+    "name": "Carla Yip",
+    "domain": "boclife.com.hk",
+    "company": "BOC Group Life Assurance Company Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/simon-lam-49754837",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/billy-lau-b9427717b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/janewong01",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/eric-yip-mba-cesga%C2%AE-426a6217",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/des-cheung-76442a214",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kwok-joey-2a3518125",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wingkwok89",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/philip-finley-1214055",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/samkasum",
+    "found": true,
+    "email": "sam.ng@fwd.com",
+    "name": "Sam Ng",
+    "domain": "fwd.com",
+    "company": "\u5bcc\u885b\u4fdd\u96aa"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sandy-wong-537034130",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/fan-ng-47453413a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/teresa-lai-8b3b665b",
+    "found": true,
+    "email": "teresa_lai@mediconcen.com",
+    "name": "Teresa Lai",
+    "domain": "mediconcen.com",
+    "company": "MediConCen"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alan-lang-a3775313",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/trevor-mok-4443162a8",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/david-lam-198098145",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alex-ma-488756116",
+    "found": true,
+    "email": "alexma@yflife.com",
+    "name": "Alex Ma",
+    "domain": "yflife.com",
+    "company": "YF Life Insurance International Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/vida-l-273a45145",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joe-wong-31764243",
+    "found": true,
+    "email": "joe.wong@sunlife.com",
+    "name": "Joe Wong",
+    "domain": "sunlife.com",
+    "company": "\u6c38\u660e\u91d1\u878d"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ron-lin-6a44025a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/pako-or-6038b1273",
+    "found": true,
+    "email": "pako.or@aia.com",
+    "name": "Pako Or",
+    "domain": "aia.com",
+    "company": "AIA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/clemence-leung-5a38597",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/celia-wong-4473821a5",
+    "found": true,
+    "email": "celia.wong@starrcompanies.com",
+    "name": "Celia Wong",
+    "domain": "starrcompanies.com",
+    "company": "Starr"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/william-man-97763aa7",
+    "found": true,
+    "email": "william.man@chubb.com",
+    "name": "William Man",
+    "domain": "chubb.com",
+    "company": "Chubb Life Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/shing-pok-tang-398468153",
+    "found": true,
+    "email": "stang@sompo-intl.com",
+    "name": "Shing Pok Tang",
+    "domain": "sompo-intl.com",
+    "company": "Sompo"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ming-lo-17b986b8",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cedric-wong",
+    "found": true,
+    "email": "cedric.wong@qbe.com",
+    "name": "Cedric Wong",
+    "domain": "qbe.com",
+    "company": "QBE Asia"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jecky-lui-94b88756",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/hoi-yan-ng-122157160",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joyce-lui-865985145",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tian-gu-cfa-852198aa",
+    "found": true,
+    "email": "tian.gu@libertyglobalgroup.com",
+    "name": "Tian Gu",
+    "domain": "libertyglobalgroup.com",
+    "company": "Liberty Specialty Markets"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/elliotsteen",
+    "found": true,
+    "email": "elliot.steen@phildongroup.com",
+    "name": "Elliot Steen",
+    "domain": "phildongroup.com",
+    "company": "Phildon"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/po-wing-lai",
+    "found": true,
+    "email": "po.lai@aia.com",
+    "name": "Po Wing Lai",
+    "domain": "aia.com",
+    "company": "AIA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/stephanie-lee-9049aa20",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/carmen-choy-99a01925",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chaoyu-guo-64b91126",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/eric-ho-16409360",
+    "found": true,
+    "email": "ericho@dahsing.com",
+    "name": "Eric Ho",
+    "domain": "dahsing.com",
+    "company": "Dah Sing Bank (China) Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/raymond-lam-ba329751",
+    "found": true,
+    "email": "raymond.lam@libertymutual.com",
+    "name": "Raymond Lam",
+    "domain": "libertymutual.com",
+    "company": "Liberty Mutual Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/angel-chan-213a88208",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sky-kong-7354ab137",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/natalie-yu-b1297b224",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ada-ada-ng-aba18115b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kent-lau-60104136",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/s-k-li-45238a91",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/elainekylau",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/warren-lai",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/helen-lee-hk",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kp-lee-9616b549",
+    "found": true,
+    "email": "kp.lee@chubb.com",
+    "name": "Kp Lee",
+    "domain": "chubb.com",
+    "company": "Chubb Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/vanessa-chan-a891b439",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/flora-chan-916ba34",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/linda-yukaling",
+    "found": true,
+    "email": "linda.yu@ctflife.com.hk",
+    "name": "Linda Yu",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jessica-ng-760b05b3",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ka-wai-kwok-904650132",
+    "found": true,
+    "email": "ka.waikwok@aia.com",
+    "name": "Ka Wai Kwok",
+    "domain": "aia.com",
+    "company": "AIA"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/justin-cheung-1b031665",
+    "found": true,
+    "email": "justincheung@bluecross.com.hk",
+    "name": "Justin Cheung",
+    "domain": "bluecross.com.hk",
+    "company": "Blue Cross Insurance HK"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ruby-shek-96081088",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jenny-kong-55615a2a",
+    "found": true,
+    "email": "jenny.kong@chubb.com",
+    "name": "Jenny Kong",
+    "domain": "chubb.com",
+    "company": "Chubb"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/time-yeung",
+    "found": true,
+    "email": "time.yeung@sunlife.com",
+    "name": "Time Yeung",
+    "domain": "sunlife.com",
+    "company": "\u9999\u6e2f\u6c38\u660e\u91d1\u878d\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/elizabeth-au-182a53156",
+    "found": true,
+    "email": "elizabeth.au@generali.com.hk",
+    "name": "Elizabeth Au",
+    "domain": "generali.com.hk",
+    "company": "Generali Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/elaine-ng-3556004",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jane-tung-b31b68108",
+    "found": true,
+    "email": "jane.tung@starr.com",
+    "name": "Jane Tung",
+    "domain": "starr.com",
+    "company": "Starr"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/flora-leung-0459a873",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/zoe-fok-23549153",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sunny-lo-777690196",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sindylaipy",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ray-kwan-387113169",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E8%8C%B9-%E4%BD%95-870275135",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/veronica-yuen-60905a47",
+    "found": true,
+    "email": "veronica.yuen@chubb.com",
+    "name": "Veronica Yuen",
+    "domain": "chubb.com",
+    "company": "Chubb Insurance Hong Kong Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joe-wong-a15a57241",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/crystal-auty",
+    "found": true,
+    "email": "crystal.au@starrcompanies.com",
+    "name": "Crystal Au",
+    "domain": "starrcompanies.com",
+    "company": "Starr"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sam-lai-yiu-sum-468a81100",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kim-chung-mdrt-manager-agency-manager-4b135bb1",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kelly-chan-18bb0996",
+    "found": true,
+    "email": "kelly_chan@boclife.com.hk",
+    "name": "Kelly Chan",
+    "domain": "boclife.com.hk",
+    "company": "BOC Group Life Assurance Company Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E5%B8%8C%E6%80%A1-%E6%9E%97-897370142",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cesar-kwok-323b7939",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/selwyn-lau-8bb84b160",
+    "found": true,
+    "email": "selwyn.lau@chubb.com",
+    "name": "Selwyn Lau",
+    "domain": "chubb.com",
+    "company": "Chubb Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/albert-chan-17182b224",
+    "found": true,
+    "email": "albert_chan@boclife.com.hk",
+    "name": "Albert Chan",
+    "domain": "boclife.com.hk",
+    "company": "BOC Group Life Assurance Company Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/robweatherston",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sean-tsang-5b038311b",
+    "found": true,
+    "email": "seantsang@yflife.com",
+    "name": "Sean Tsang",
+    "domain": "yflife.com",
+    "company": "YF Life Insurance International Limited "
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/miranda-au-fung",
+    "found": true,
+    "email": "miranda.au@fwd.com",
+    "name": "Miranda Au",
+    "domain": "fwd.com",
+    "company": "FWD Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/raymond-yu-ab902415b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/paula-choi-04261017",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/thomas-leung-6573a730",
+    "found": true,
+    "email": "thomas.leung@bhspecialty.com",
+    "name": "Thomas Leung",
+    "domain": "bhspecialty.com",
+    "company": "Berkshire Hathaway Specialty Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/elaine-wong-a0565b136",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/stanley-ko-a2408a59",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cindy-ngan-6395255a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/irene-leung-8565ab110",
+    "found": true,
+    "email": "ireneleung@hangseng.com",
+    "name": "Irene Leung",
+    "domain": "hangseng.com",
+    "company": "Hang Seng Insurance Company Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/benjamin-chiu-dba-cfa-8320396",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/daniellau",
+    "found": true,
+    "email": "dan.lau@sunlife.com",
+    "name": "Daniel Lau",
+    "domain": "sunlife.com",
+    "company": "Sun Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/janet-fong-b9a18a96",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jasonkmchou",
+    "found": true,
+    "email": "jason.chou@chubb.com",
+    "name": "Jason Chou",
+    "domain": "chubb.com",
+    "company": "Chubb Life Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/suki-so-79a945140",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/eva-cheung-80239625",
+    "found": true,
+    "email": "eva_cheung@boclife.com.hk",
+    "name": "Eva Cheung",
+    "domain": "boclife.com.hk",
+    "company": "BOC Group Life Assurance Company Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/daisy-leung-339173237",
+    "found": true,
+    "email": "daisyleung@bluecross.com.hk",
+    "name": "Daisy Leung",
+    "domain": "bluecross.com.hk",
+    "company": "Blue Cross Insurance HK"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ralph-lau-615634a1",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sachingoelprofile",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/eveleung",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sarah-chung-356998274",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/dennis-wong-a94b7779",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ray-li-28171893",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/louis-chong-80862690",
+    "found": true,
+    "email": "louis.chong@ctflife.com.hk",
+    "name": "Louis Chong",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alvin-chong-15811a50",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/freddy-tse-8314a6148",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/johnny-lau-12387b95",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jack-lee-cheuk-fai-8563ba107",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sidsankaran",
+    "found": true,
+    "email": "sid.sankaran@fwd.com",
+    "name": "Sid Sankaran",
+    "domain": "fwd.com",
+    "company": "FWD Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/gerard-yang-348315189",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/leo-fan-7a1a3372",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/florence-tam-a751621aa",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/raphael-wong-082402ba",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cloris-lam",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/albert-lee-104a3437",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wendy-hung-b04173152",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ericwenrocks",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alexwong6446",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E7%86%99%E5%A9%95-%E7%8E%8B-a83389a7",
+    "found": true,
+    "email": "xi.jiewang@pru.co.uk",
+    "name": "Xi Jie Wang",
+    "domain": "pru.co.uk",
+    "company": "\u82f1\u570b\u4fdd\u8aa0\u4fdd\u96aa\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/hkericb",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/william-chan-20a001102",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kenchanfwdlifeinsurance",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sherman-yeung-18744296",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/dickens-lum-00212334",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/thomas-kwok-b22028232",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/victoria-cheung-bb0523122",
+    "found": true,
+    "email": "victoria.cheung@axa.com.hk",
+    "name": "Victoria Cheung",
+    "domain": "axa.com.hk",
+    "company": "AXA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/man-chau-168226117",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/vincent-choy-5184914b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/maggie-kung-7a6ab941",
+    "found": true,
+    "email": "maggie.kung@chubb.com",
+    "name": "Maggie Kung",
+    "domain": "chubb.com",
+    "company": "Chubb Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E7%BB%A7%E6%96%87-%E7%8E%8B-6724a01a7",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/george-lai-11908b23",
+    "found": true,
+    "email": "george.lai@chubb.com",
+    "name": "George Lai",
+    "domain": "chubb.com",
+    "company": "Chubb"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ka-wo-882a41236",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/marcy-chan-57245198",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/natalie-mo-14082052",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/you-ping-tung-362b691a5",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/mendy-chung-94809346",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jolin-zheng-786372b7",
+    "found": true,
+    "email": "jzheng@munichre.com",
+    "name": "Jolin Zheng",
+    "domain": "munichre.com",
+    "company": "Munich Re"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/lily-wan-a0495115a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alex-ho-148373159",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/florence-lee-aia",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/euny-hung-0a7447112",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/carol-mo-4b502a67",
+    "found": true,
+    "email": "carol.mo@ctflife.com.hk",
+    "name": "Carol Mo",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/rachel-ng-5a2449139",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E8%87%BB-%E5%88%98-3b7689145",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joanne-leung-6910241b2",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ada-so-069b5715",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chu-on-ivan-wong",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/shirley-lausy",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/christina-chen-48a948145",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tim-chau-b3b06482",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sherry-wei-fu-33256755",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E5%8A%8D%E9%BA%97-%E9%84%AD-5140b8187",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/enoch-sun-99b9111a9",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chloe-lau-615676141",
+    "found": true,
+    "email": "c.lau@sunlife.com",
+    "name": "Chloe Lau",
+    "domain": "sunlife.com",
+    "company": "Sun Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kelvin-luk-980a3924b",
+    "found": true,
+    "email": "kelvin.luk@cpic.com.hk",
+    "name": "Kelvin Luk",
+    "domain": "cpic.com.hk",
+    "company": "China Pacific Insurance Company"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sze-chung-louis-lai-080282131",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/anna-mak-362a9876",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/fiona-lui-515886198",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jacky-chu-673ba3146",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/danny-chong-590761252",
+    "found": true,
+    "email": "danny_chong@hengansl.com.hk",
+    "name": "Danny Chong",
+    "domain": "hengansl.com.hk",
+    "company": "Heng An Standard Life (Asia) Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/dennis-leong-b3b6a27a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jofi-chan-215214b7",
+    "found": true,
+    "email": "jofi.a.chan@hsbcpb.com",
+    "name": "Jofi Chan",
+    "domain": "hsbcpb.com",
+    "company": "\u6c47\u4e30"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/andyyang0530",
+    "found": true,
+    "email": "andy.yang@libertymutual.com",
+    "name": "Andy Yang",
+    "domain": "libertymutual.com",
+    "company": "Liberty Mutual Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/lucy-chou-9b3ab627",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/moses-lai-8686a7b0",
+    "found": true,
+    "email": "moseslai@bluecross.com.hk",
+    "name": "Moses Lai",
+    "domain": "bluecross.com.hk",
+    "company": "Blue Cross Insurance HK"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/daven-c-44895192",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alfred-chan-67b0b418b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ivy-yiu-5a10b4125",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/daniel-yeung-6a927b36",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jacer-leui-b4322626",
+    "found": true,
+    "email": "jacer.leui@aia.com.hk",
+    "name": "Jacer Leui",
+    "domain": "aia.com.hk",
+    "company": "AIA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kallioniemi-rebecca-84b88a13",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/david-hui-7428b770",
+    "found": true,
+    "email": "david.hui@starr.com",
+    "name": "David Hui",
+    "domain": "starr.com",
+    "company": "Starr International Insurance (Asia) Ltd"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/hiupun-lam-7125665",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/stanley-cheng-04a69910b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/hoi-chun-tang-39b035181",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kent-fong-0196b126a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/francis-ng-a0a71b56",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/vickie-lee-4533a58",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/peggy-au-a8037450",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/melody-ng-485989220",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/lisa-chu-b72968103",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/terence-w-s-leung-161717306",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E5%A8%81-john-low-%E7%BE%85-54a77916a",
+    "found": true,
+    "email": "wei.luo@pru.co.uk",
+    "name": "Wei John Low Luo",
+    "domain": "pru.co.uk",
+    "company": "\u82f1\u570b\u4fdd\u8aa0\u4fdd\u96aa\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jeffrey-so-js91249997",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/nicci-hung-a4459062",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/christopher-yang-5a3a73176",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/man-kit-ip-37637924b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/keefecheung",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/thibaut-ferret-fia-cfa-a8a46a40",
+    "found": true,
+    "email": "thibaut.ferret@hsbc.com.hk",
+    "name": "Thibaut Ferret",
+    "domain": "hsbc.com.hk",
+    "company": "HSBC Global Asset Management "
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wade-cheung-193b59143",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jenny-luk-6a5b68231",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chriskkpang",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/karensuen",
+    "found": true,
+    "email": "karen.suen@hangseng.com",
+    "name": "Karen Suen",
+    "domain": "hangseng.com",
+    "company": "Hang Seng Bank"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/yam-angela-725a3b31",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/mandy-on-7a57126b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/charles-ng-327325188",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E6%BD%98%E6%B7%91%E8%8A%AC%E5%B0%8F%E5%A7%90-%E8%8B%B1%E5%9C%8B%E4%BF%9D%E8%AA%A0%E4%BF%9D%E9%9A%AA-4635524a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/queenie-wong-96252b20a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/simon-tang-b315a415b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/benjamin-sin-30309816a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E6%AF%85%E7%BF%80-%E6%B2%88-b285b7189",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sandy-leung-734633236",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/briantang0093",
+    "found": true,
+    "email": "brian.tang@axa.com.hk",
+    "name": "Brian Tang",
+    "domain": "axa.com.hk",
+    "company": "AXA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/shirley-li-94034672",
+    "found": true,
+    "email": "shirley.li@ctflife.com.hk",
+    "name": "Shirley Li",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E4%BC%9F%E5%A8%9C-%E8%B0%A2-0a2602188",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E6%9B%89%E5%AC%8C-%E5%AF%A7-330561b1",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/terryyung",
+    "found": true,
+    "email": "terry_yung@boclife.com.hk",
+    "name": "Terry Yung",
+    "domain": "boclife.com.hk",
+    "company": "BOC Group Life Assurance Company Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ken-tsang-8b15b064",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/catherine-leung-520579114",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/charmaine-cheuk-023aa821",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chris-ko-62a29333",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jimmy-wong-2177781b3",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/michael-tsang-85042112",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/daniel-lui-992060131",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/catherine-tsang-2a2414316",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/terrence-chan-54b61320b",
+    "found": true,
+    "email": "terrence.chan@aia.com.hk",
+    "name": "Terrence Chan",
+    "domain": "aia.com.hk",
+    "company": "AIA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jazz-tang-289a3b160",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kowin-lee-50244435a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/may-chan-b6650244",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ivan-lee-19586bb4",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/icengws",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/siyan-chen-37026420",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sumso",
+    "found": true,
+    "email": "sum.so@bolttech.io",
+    "name": "Sum So",
+    "domain": "bolttech.io",
+    "company": "Bolttech"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/irene-chang-45226135",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/terence-toman-17158a181",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ivanjofreg",
+    "found": true,
+    "email": "ivan.jofre@zurich.com",
+    "name": "Ivan Jofre",
+    "domain": "zurich.com",
+    "company": "Zurich Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/shirley-yau-29b0792b1",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/monny-wong-46a96a178",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/karim-gilani-54440063",
+    "found": true,
+    "email": "karim.gilani@sunlife.com",
+    "name": "Karim Gilani",
+    "domain": "sunlife.com",
+    "company": "Sun Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/clive-au-043039143",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/christophorus-nicholas-chandra-b8525a2a2",
+    "found": true,
+    "email": "nicholas.chandra@ageas.com.hk",
+    "name": "Christophorus Nicholas Chandra",
+    "domain": "ageas.com.hk",
+    "company": "Ageas Insurance Company (Asia) Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sing-luen-ho-054440105",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ronald-tang-765b7aba",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/elaine-chan-a5ba7451",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/hahlk",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/lam-chi-shing-35b036215",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/fiona-toa-6bb54a203",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/edwin-ng-757207165",
+    "found": true,
+    "email": "edwin.ng@axa.com.hk",
+    "name": "Edwin Ng",
+    "domain": "axa.com.hk",
+    "company": "AXA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jenny-tao-931b4614a",
+    "found": true,
+    "email": "jenny.tao@pru.co.uk",
+    "name": "Jenny Tao",
+    "domain": "pru.co.uk",
+    "company": "\u82f1\u570b\u4fdd\u8aa0\u4fdd\u96aa\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/zeeshan-hussain-b9a8bbb7",
+    "found": true,
+    "email": "zeeshan.hussain@navigator-insurance.com",
+    "name": "Zeeshan Hussain",
+    "domain": "navigator-insurance.com",
+    "company": "Navigator Insurance Brokers Ltd "
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ivan-lo-0b863893",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kathy-ng-909606b8",
+    "found": true,
+    "email": "kathy.ng@chubb.com",
+    "name": "Kathy Ng",
+    "domain": "chubb.com",
+    "company": "Chubb Life Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/april-sun-770995378",
+    "found": true,
+    "email": "aprilsun@yflife.com",
+    "name": "April Sun",
+    "domain": "yflife.com",
+    "company": "YF Life Insurance International Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jan-c%C3%B6lle-288680a",
+    "found": true,
+    "email": "jan@peak-re.com",
+    "name": "Jan Colle",
+    "domain": "peak-re.com",
+    "company": "Peak Re"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/neona-shea-8826b113a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kenneth-pang-a7b88339",
+    "found": true,
+    "email": "kenneth.pang@grandtag.com",
+    "name": "Kenneth Pang",
+    "domain": "grandtag.com",
+    "company": "Grandtag Financial Group"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/eddie-young-b2845912",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/savior-kam-40b5657a",
+    "found": true,
+    "email": "saviorkam@yflife.com",
+    "name": "Savior Kam",
+    "domain": "yflife.com",
+    "company": "YF Life Insurance International Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chris-tse-4b8462258",
+    "found": true,
+    "email": "chris.tse@ctflife.com.hk",
+    "name": "Chris Tse",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tianyi-gu-94481541",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joei-lam-71998452",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kin-wa-pang-ab0105165",
+    "found": true,
+    "email": "kin.pang@pru.co.uk",
+    "name": "Kin Wa Pang",
+    "domain": "pru.co.uk",
+    "company": "\u82f1\u570b\u4fdd\u8aa0\u4fdd\u96aa\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wei-xiong-60922992",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/tony-tse-aaab9b59",
+    "found": true,
+    "email": "tony.tse@fwd.com",
+    "name": "Tony Tse",
+    "domain": "fwd.com",
+    "company": "\u5b89\u6cf0\u4eba\u58fd\u4fdd\u96aa\uff0c\u9999\u6e2f\uff0c\u6fb3\u9580"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/miranda-l-55b6b0246",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joe-wong-98638b107",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ahranyoo",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sunny-mak-653a1b216",
+    "found": true,
+    "email": "sunny.mak@sompo.com.hk",
+    "name": "Sunny Mak",
+    "domain": "sompo.com.hk",
+    "company": "SOMPO Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/leo-leung-90773b87",
+    "found": true,
+    "email": "leo.leung@sunlife.com",
+    "name": "Leo Leung",
+    "domain": "sunlife.com",
+    "company": "\u9999\u6e2f\u6c38\u660e\u91d1\u878d\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wan-shing-lo-a82155212",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/angel-shek-a3746440",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cheung-jackie-649330114",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E5%86%A0%E6%96%87-%E4%BD%99-894863120",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kate-hyeonyoung-baek",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/vivian-mok-072b774a",
+    "found": true,
+    "email": "vivian.mok@sunlife.com",
+    "name": "Vivian Mok",
+    "domain": "sunlife.com",
+    "company": "\u9999\u6e2f\u6c38\u660e\u91d1\u878d\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/margaret-tsang-5b7aa116",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/celiak18",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/janice-cheung-6a15b473",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E6%A5%A0-%E9%83%91-5b64261b2",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ramby-lam-421440190",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/katrina-leung-a7100748",
+    "found": true,
+    "email": "katrina.leung@libertymutual.com",
+    "name": "Katrina Leung",
+    "domain": "libertymutual.com",
+    "company": "Liberty Mutual Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kyth",
+    "found": true,
+    "email": "kyle.herring@libertymutual.com",
+    "name": "Kyle H",
+    "domain": "libertymutual.com",
+    "company": "Liberty Mutual Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/paul-chiu-a73546115",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/george-wan-3427357",
+    "found": true,
+    "email": "georgewan@yflife.com",
+    "name": "George Wan",
+    "domain": "yflife.com",
+    "company": "YF Life Insurance International Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/david-sc-chiu-b2976023",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/dominik-smeets-0761b94",
+    "found": true,
+    "email": "smeetsdominik@ageas.com.hk",
+    "name": "Dominik Smeets",
+    "domain": "ageas.com.hk",
+    "company": "Ageas Group"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chris-ng-00701a101",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/mandy-lau-506b3951",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/susana-pui-59977243",
+    "found": true,
+    "email": "susana.pui@ageas.com.hk",
+    "name": "Susana Pui",
+    "domain": "ageas.com.hk",
+    "company": "Ageas Insurance Company (Asia) Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jason-ng-a3b0181b2",
+    "found": true,
+    "email": "jason.ng@libertymutual.com",
+    "name": "Jason Ng",
+    "domain": "libertymutual.com",
+    "company": "Liberty Mutual Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/eric-lee-794b3744",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/darryl-sing-aa08bb31",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/neilsmascarenhas",
+    "found": true,
+    "email": "neil.mascarenhas@fwd.com",
+    "name": "Neil S Mascarenhas",
+    "domain": "fwd.com",
+    "company": "FWD Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jake-ho-779a5454",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chi-ming-wong-289578252",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/meredith-wong",
+    "found": true,
+    "email": "meredithwong@dbs.com",
+    "name": "Meredith Wong",
+    "domain": "dbs.com",
+    "company": "DBS Bank"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wendy-kan-8774087b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cynthia-sze-0374517a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ryan-chan-842b6858",
+    "found": true,
+    "email": "ryan.chan@ctflife.com.hk",
+    "name": "Ryan Chan",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chan-queenie-03375111",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/robertofigari",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/patricia-chong-19330225",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/eddy-lun-547239166",
+    "found": true,
+    "email": "eddy.lun@ctflife.com.hk",
+    "name": "Eddy Lun",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/vine-chow-79101397",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/steven-ng-855b61bb",
+    "found": true,
+    "email": "steven.ng@sunlife.com",
+    "name": "Steven Ng",
+    "domain": "sunlife.com",
+    "company": "\u6c38\u660e\u91d1\u878d"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/laveniaalessandro",
+    "found": true,
+    "email": "alessandro.lavenia@generali.com.hk",
+    "name": "Alessandro Lavenia",
+    "domain": "generali.com.hk",
+    "company": "Generali Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ellen-mok-69419529",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/natalie-ho",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kathy-wong-1698a160",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kawaii-chan-999131168",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/michael-ng-87b05919",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/loretta-lee-008b08276",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kanneswong",
+    "found": true,
+    "email": "kwong@aia.com.hk",
+    "name": "Kannes Wong",
+    "domain": "aia.com.hk",
+    "company": "AIA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/derek-ip-43771b10",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/long-li-830b1b159",
+    "found": true,
+    "email": "long.li@pru.co.uk",
+    "name": "Long Li",
+    "domain": "pru.co.uk",
+    "company": "\u82f1\u570b\u4fdd\u8aa0\u4fdd\u96aa\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/marco-li-71b491135",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/leon-leung-0bb1b5108",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/sarah-x-42741616a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/mariapywong",
+    "found": true,
+    "email": "maria.wong@sunlife.com",
+    "name": "Maria Wong",
+    "domain": "sunlife.com",
+    "company": "Sun Life Financial"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kristyttlee",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/robert-chen-4128619",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/anthony-choi-3628456",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/samantha-yin-9b008671",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/thomas-ip-28068b3b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/yifu-feng-b89044127",
+    "found": true,
+    "email": "yifu.feng@generali.com",
+    "name": "Yifu Feng",
+    "domain": "generali.com",
+    "company": "Generali Asia"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/annie-leung-9a4207144",
+    "found": true,
+    "email": "annie.leung@pru.co.uk",
+    "name": "Annie Leung",
+    "domain": "pru.co.uk",
+    "company": "\u82f1\u570b\u4fdd\u8aa0\u4fdd\u96aa\u6709\u9650\u516c\u53f8"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alan-pak-69743314",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/duke-ng-7458383b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/fu-joanna-63498993",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/terry-so-53560084",
+    "found": true,
+    "email": "terry.so@hk.zurich.com",
+    "name": "Terry So",
+    "domain": "hk.zurich.com",
+    "company": "Zurich Insurance Company Ltd"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/edward-dai-9a72151b4",
+    "found": true,
+    "email": "edward.dai@prudential.com.hk",
+    "name": "Edward Dai",
+    "domain": "prudential.com.hk",
+    "company": "Prudential Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/gary-lau-0a6236119",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cherrie-chan-58674020",
+    "found": true,
+    "email": "cherrie.chan@generali.com.hk",
+    "name": "Cherrie Chan",
+    "domain": "generali.com.hk",
+    "company": "Generali Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E6%98%8A-%E9%9F%A9-6719bab5",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ivanclchung",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/christy-chau-95b36452",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ho-ho-chung-02347b101",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/stephen-xifan-cheung-zhang-06813328",
+    "found": true,
+    "email": "stephenzhang@yflife.com",
+    "name": "Stephen/xifan Cheung/zhang",
+    "domain": "yflife.com",
+    "company": "YF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/adley-low-1431867",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ruby-fung-b16705251",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ocean-cheung-3b1138107",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/steven-fong-42824716b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/celinachan",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/leung-marcus",
+    "found": true,
+    "email": "marcus.leung@libertymutual.com",
+    "name": "Marcus Leung",
+    "domain": "libertymutual.com",
+    "company": "Liberty Mutual Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/freddie-cheng-709b6722",
+    "found": true,
+    "email": "freddie.cheng@mercer.com",
+    "name": "Freddie Cheng",
+    "domain": "mercer.com",
+    "company": "Mercer (Hong Kong) Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jaime-lee-22a742321",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chan-wai-to-kelvyn-694a10138",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/simon-cheung-hk",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chrystele-hui-72ba46197",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/dr-joe-lam-b3b351",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/john-yeung-05516066",
+    "found": true,
+    "email": "john.yeung@fwd.com",
+    "name": "John Yeung",
+    "domain": "fwd.com",
+    "company": "FWD Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/frank-wan-5ab13140",
+    "found": true,
+    "email": "frank.wan@ageas.com.hk",
+    "name": "Frank Wan",
+    "domain": "ageas.com.hk",
+    "company": "Ageas"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jasmine-wong-allroundmarketer",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/alberthohk",
+    "found": true,
+    "email": "albert.ho@fwd.com",
+    "name": "Albert Ho",
+    "domain": "fwd.com",
+    "company": "FWD Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/fannymnchan",
+    "found": true,
+    "email": "fanny.chan@ctflife.com.hk",
+    "name": "Fanny Chan",
+    "domain": "ctflife.com.hk",
+    "company": "CTF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/oscar-yeung-281124119",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/carol-lau-7576941b6",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/polly-yip-82b00010",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/hiu-hing-chow-bb6679a6",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/mikichan720",
+    "found": true,
+    "email": "mchan@aia.com.hk",
+    "name": "Miki Chan",
+    "domain": "aia.com.hk",
+    "company": "AIA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/vivian-cheung-aa7876126",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/andrew-yuen-9a598539",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/torbenneilson",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E4%B8%BD-%E5%B4%94-3a8869118",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/cheung-fun-wong-b807b7143",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/willis-wong-7479241b0",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/january-lai-70b8a2a1",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jason-ho-482552133",
+    "found": true,
+    "email": "jho@tccfleet.com",
+    "name": "Jason Ho",
+    "domain": "tccfleet.com",
+    "company": "Tai Chong Cheang Steamship Co. (H.K.) Limited"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/betsy-ng-0174551a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wen-song-2b4646126",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/maaike-van-meer-770b231",
+    "found": true,
+    "email": "maaike.vanmeer@fwd.com",
+    "name": "Maaike Van Meer",
+    "domain": "fwd.com",
+    "company": "FWD Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/daniel-li-37293a19",
+    "found": true,
+    "email": "danielli@bochk.com",
+    "name": "Daniel Li",
+    "domain": "bochk.com",
+    "company": "Bank Of China (Hong Kong)"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E5%B1%B1-%E6%9D%A8-427517141",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/june-cheng-48761a2a4",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/scott-gu-562a51163",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/hao-li-86418526",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/yudarren",
+    "found": true,
+    "email": "darren.yu@starr.com",
+    "name": "Darren Yu",
+    "domain": "starr.com",
+    "company": "Starr Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/stanley-yau-3a095213a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/eva-chan-094504aa",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/molly-chung-36586b32",
+    "found": true,
+    "email": "molly.chung@chubb.com",
+    "name": "Molly Chung",
+    "domain": "chubb.com",
+    "company": "Chubb"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ben-ng-4b7332235",
+    "found": true,
+    "email": "ben.ng@generali.com.hk",
+    "name": "Ben Ng",
+    "domain": "generali.com.hk",
+    "company": "Generali Hong Kong"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/irene-au-61975069",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/john-chan-10a8b286",
+    "found": true,
+    "email": "john.chan@chubb.com",
+    "name": "John Chan",
+    "domain": "chubb.com",
+    "company": "Chubb"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/calvin-chiu-4298566",
+    "found": true,
+    "email": "calvin_chiu@manulife.com",
+    "name": "Calvin Chiu",
+    "domain": "manulife.com",
+    "company": "Manulife"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E4%B9%A6%E5%8D%9A-%E7%8E%8B-4a8043103",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/angus-cheung-3100336a",
+    "found": true,
+    "email": "angus.cheung@qbe.com",
+    "name": "Angus Cheung",
+    "domain": "qbe.com",
+    "company": "QBE Hongkong & Shanghai Insurance Ltd"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/candy-yuen-0b075314",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wai-hang-wong-913068143",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/simon-lam-emba-fashk-fsa-acca-17ba71a",
+    "found": true,
+    "email": "simon@cpic.com.hk",
+    "name": "Simon Lam",
+    "domain": "cpic.com.hk",
+    "company": "China Pacific Life Insurance (H.K.) Co. Ltd."
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/winnie-luk-a48615204",
+    "found": true,
+    "email": "winnie.luk@qbe.com",
+    "name": "Winnie Luk",
+    "domain": "qbe.com",
+    "company": "QBE Asia"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/man-yi-fung-542b589b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/timothy-yau-39458a23",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/coco-yan-64742a105",
+    "found": true,
+    "email": "cocoyan@yflife.com",
+    "name": "Coco Yan",
+    "domain": "yflife.com",
+    "company": "YF Life"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/chanyanyee",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joans-ip-992a01139",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/parry-ho-86632030",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/mika-leung-1226b2160",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/candice-law-b2303a77",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/ka-see-lo-215b7418",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/natalie-mak-198b53211",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/kevin-kwan-a857b254",
+    "found": true,
+    "email": "kevin.kwan@qbe.com",
+    "name": "Kevin Kwan",
+    "domain": "qbe.com",
+    "company": "QBE Insurance"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/aaron-lui-6b57b557",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/joanie-ng-2a3a76a2",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/shiqi-he-ab5863295",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jason-fung-7ba11022",
+    "found": true,
+    "email": "jason.fung@wtwco.com",
+    "name": "Jason Fung",
+    "domain": "wtwco.com",
+    "company": "WTW"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/wendy-law-6068b531",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/candyloyy",
+    "found": true,
+    "email": "candy.lo@axa.com.hk",
+    "name": "Candy Lo",
+    "domain": "axa.com.hk",
+    "company": "AXA Hong Kong And Macau"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/raymond-law-02a9351b",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/%E6%BE%A4%E9%9C%96%EF%BC%88%E3%83%AD%E3%82%A4%E3%82%B9%E3%82%BF%E3%83%B3%EF%BC%89-%E7%BE%85%EF%BC%88%E3%83%AD%E3%83%BC%EF%BC%89-58a90b1ab",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/jason-liu-1271253a",
+    "found": false,
+    "error": "No email found in response"
+  },
+  {
+    "linkedin_url": "https://www.linkedin.com/in/stanley-chun-40850843",
+    "found": false,
+    "error": "No email found in response"
+  }
+]

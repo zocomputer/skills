@@ -1,0 +1,62 @@
+{
+  "brevo": {
+    "list_id": 47,
+    "list_name": "Zcomputer lead"
+  },
+  "apify": {
+    "lead_actor_id": "qXMa8kADnUQdmz18G",
+    "lead_actor_name": "LinkedIn Profile Search By Services (No Cookies)",
+    "email_verifier_actor_id": "u0sG3Wiy5pdt9mIfU",
+    "email_verifier_name": "Email Verifier & Validator | Bulk Email Verification",
+    "free_credit_target": 100,
+    "description": "免費方案先行。Apify 每月有 $5 free credit，大約夠 100-200 leads verifications。唔夠先 upgrade。",
+    "email_finder_actor_id": "bfH8Ermocz8oYKQVO",
+    "email_finder_name": "LinkedIn Email Finder (Vulnv)",
+    "email_finder_input": "urls"
+  },
+  "youtube": {
+    "video_url": "https://www.youtube.com/watch?v=msSW3S-FRv0",
+    "video_title": "【廣東話】Manus太貴？接近零成本取代工具，我每日都用緊！#AI #人工智能 #AI創業 #AI一人公司 #AI變現 #AI賺錢 #AI自動化 #自動化工作流  #ChatGPT  #龍蝦",
+    "video_id": "msSW3S-FRv0",
+    "thumbnail_url": "https://i.ytimg.com/vi/msSW3S-FRv0/maxresdefault.jpg",
+    "channel_url": "https://www.youtube.com/@Itsssss-Lion-AI",
+    "channel_name": "AI Lion一人公司",
+    "description": "Manus 係目前唯一發佈咗嘅 Facebook 廣告推廣影片。當有新片想推時，更新 video_url / video_title / video_id / thumbnail_url。"
+  },
+  "contact": {
+    "sender_name": "AI Lion",
+    "sender_email": "info@lion88.ai",
+    "reply_to": "bruce@lion88.ai",
+    "website": "https://lion88.ai",
+    "course_url": "https://planet.lion88.ai/courses/one-person-company-2",
+    "hkai_club": "https://hkai.club"
+  },
+  "schedule": {
+    "send_time_hkt": "15:30",
+    "description": "每日下午 3:30 HKT 執行"
+  },
+  "free_first": {
+    "description": "先用免費方案（如 Google search / manual collection），唔夠先落 Apify paid。目前第一步直接落 Apify free tier（每月 $5 credit）。"
+  },
+  "sender": {
+    "email": "info@lion88.ai",
+    "name": "AI Lion"
+  },
+  "pipeline": {
+    "target_count": 100
+  },
+  "costs": {
+    "apify": {
+      "compute_unit_usd": 0.4,
+      "description": "Apify: ~$0.40/Compute Unit. Monthly free credit: $5.",
+      "lead_cost_per_profile": 0.06,
+      "email_finder_cost_per_found": 0.026,
+      "verifier_cost_per_email": 0.001
+    },
+    "brevo": {
+      "free_daily_limit": 300,
+      "cost_per_email_usd": 0.00125,
+      "description": "Brevo Starter: ~$25/mo for 20k emails. 300 free/day."
+    }
+  }
+}

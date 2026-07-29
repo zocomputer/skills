@@ -1,0 +1,14 @@
+{
+  "daily": [
+    {
+      "date": "2026-07-27",
+      "leads_found": 193,
+      "verified": 157,
+      "sent": 0,
+      "campaign_id": 135,
+      "status": "sent",
+      "profiles_found": 850,
+      "cost_total": "$0.000"
+    }
+  ]
+}

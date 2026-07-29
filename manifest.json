@@ -3,6 +3,43 @@
   "archive_root": "skills-main",
   "skills": [
     {
+      "name": "daily-insurance-lead-email",
+      "description": "每日自動搵 100 個香港保險 Agent 嘅 verified email（LinkedIn + Apify），去重後 import 入 Brevo List，配合 Brevo automation 自動發送 YouTube 推廣電郵。無需人手操作，全程自動化。Use when user wants to: (1) find HK insurance agent leads via LinkedIn + Apify, (2) verify and dedup emails automatically, (3) import verified leads into Brevo for automated YouTube video email outreach, (4) set up a daily lead generation + email pipeline for Hong Kong insurance professionals.",
+      "compatibility": "Created for Zo Computer",
+      "metadata": {
+        "author": "aibunny.zo.computer",
+        "status": "zo-user-ready",
+        "version": "1.0.0",
+        "created": "2026-07-25T00:00:00.000Z",
+        "updated": "2026-07-29T00:00:00.000Z",
+        "language": "zh-HK",
+        "category": "Community",
+        "display-name": "每日保險 Agent 電郵開發",
+        "secrets": [
+          "APIFY_API_KEY",
+          "BREVO_API_KEY"
+        ]
+      },
+      "display": {
+        "specVersion": "0.2.0",
+        "icon": "mail",
+        "tags": [
+          "email",
+          "lead-generation",
+          "marketing",
+          "automation",
+          "apify",
+          "brevo",
+          "linkedin",
+          "hong-kong",
+          "insurance"
+        ]
+      },
+      "slug": "daily-insurance-lead-email",
+      "path": "Community/daily-insurance-lead-email",
+      "date_added": "2026-07-29"
+    },
+    {
       "name": "humation-avatar",
       "description": "A Zo Computer skill for adding Humation avatars to agent products. It covers installing Humation npm packages into target projects, React integration, Core SVG rendering, static SVG generation, browser ESM usage in zo.space page routes, and legacy Humation SVG API compatibility.",
       "compatibility": "Created for Zo Computer",
