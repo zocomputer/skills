@@ -1,0 +1,12 @@
+{
+  "specVersion": "0.2.0",
+  "icon": "send",
+  "tags": [
+    "social",
+    "automation",
+    "data"
+  ],
+  "integrations": [
+    "x"
+  ]
+}
