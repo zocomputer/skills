@@ -1,3 +1,11 @@
+- repository: StarTrail-org/PixelRAG
+  skill: pixelbrowse
+  compatibility: Requires Python 3.12+, internet access, and the pixelshot CLI on PATH.
+  notice: |
+    On Zo Computer, install the renderer as an isolated tool before first use:
+    `uv tool install pixelrag`. This places `pixelshot` on PATH without changing
+    project environments. PixelRAG uses an isolated browser profile for each render;
+    do not attach it to a logged-in browser session unless the user explicitly asks.
 - repository: jingerzz/clarion-intelligence-system
   skill: clarion-setup
 - repository: jingerzz/clarion-intelligence-system
