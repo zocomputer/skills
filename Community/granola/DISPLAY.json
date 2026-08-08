@@ -1,0 +1,13 @@
+{
+  "specVersion": "0.1.0",
+  "icon": "microphone",
+  "tags": [
+    "productivity",
+    "meetings",
+    "notes",
+    "ai"
+  ],
+  "integrations": [
+    "granola"
+  ]
+}
