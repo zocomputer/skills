@@ -1,0 +1,14 @@
+{
+  "specVersion": "0.2.0",
+  "icon": "sparkles",
+  "tags": [
+    "ai",
+    "byok",
+    "multi-model",
+    "oauth",
+    "user-funded"
+  ],
+  "integrations": [
+    "aipass"
+  ]
+}
