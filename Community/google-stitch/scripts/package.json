@@ -1,0 +1,13 @@
+{
+  "name": "google-stitch-skill",
+  "version": "1.0.0",
+  "description": "Google Stitch UI generation skill for Zo Computer",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "bun stitch.ts"
+  },
+  "dependencies": {
+    "@google/stitch-sdk": "^0.3.5"
+  }
+}
