@@ -1,0 +1,11 @@
+{
+  "name": "zo-goal-loop",
+  "displayName": "Zo Goal Loop",
+  "description": "Recreates Claude's /goal and /loop for autonomous task execution",
+  "category": "Utility",
+  "version": "1.0.0",
+  "scripts": {
+    "goal": "bun run /home/workspace/Skills/zo-goal-loop/scripts/goal.ts",
+    "loop": "bun run /home/workspace/Skills/zo-goal-loop/scripts/loop.ts"
+  }
+}
