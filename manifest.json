@@ -3180,6 +3180,24 @@
       "slug": "webapp-testing",
       "path": "External/webapp-testing",
       "date_added": "2026-01-26"
+    },
+    {
+      "name": "zo-postman-api",
+      "description": "Interact with Postman API to create, update, and manage collections. Upload JSON collections, fork existing ones, and sync workspace changes.",
+      "compatibility": "Requires Postman API key from https://web.postman.co/settings/account/",
+      "metadata": {
+        "author": "cashlessconsumer.zo.computer"
+      },
+      "display": {
+        "icon": "layers",
+        "tags": [
+          "api",
+          "developer-tools"
+        ]
+      },
+      "slug": "zo-postman-api",
+      "path": "Community/zo-postman-api",
+      "date_added": "2026-06-20"
     }
   ]
 }
