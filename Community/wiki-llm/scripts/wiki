@@ -1,0 +1,841 @@
+#!/usr/bin/env bun
+// wiki-llm CLI — see ../SKILL.md
+import { readFileSync, writeFileSync, existsSync, mkdirSync, statSync, readdirSync, copyFileSync, rmSync, appendFileSync, renameSync, openSync, closeSync } from "node:fs";
+import { join, dirname, basename, resolve, relative, sep, isAbsolute } from "node:path";
+import { execSync, spawnSync, type SpawnSyncOptions } from "node:child_process";
+import { homedir } from "node:os";
+
+const REGISTRY = join(homedir(), ".wiki-llm", "registry.json");
+const TEMPLATE_DIR = resolve(import.meta.dir, "..", "assets", "wiki-template");
+const MAX_GIT_BUFFER = 50 * 1024 * 1024;   // 50 MB per `git show` / `git diff`
+const MAX_INGEST_BYTES = 5 * 1024 * 1024;  // 5 MB per ingested source
+const DEFAULT_TRASH_RETENTION_DAYS = 30;
+const GIT_REF_RE = /^[A-Za-z0-9._\/\-]{1,255}$/;
+
+// ---------- safety helpers ----------
+function gitSafeRef(ref: string | undefined | null): string | null {
+  if (!ref) return null;
+  return GIT_REF_RE.test(ref) ? ref : null;
+}
+/** Reject "..", absolute paths, or paths that escape `root` once resolved. */
+function safeRelpath(rel: string): string | null {
+  if (!rel || typeof rel !== "string") return null;
+  if (isAbsolute(rel)) return null;
+  const parts = rel.split(/[\\/]/);
+  if (parts.some(p => p === "..")) return null;
+  // strip leading "./" and any null bytes
+  if (rel.includes("\0")) return null;
+  return rel.replace(/^\.\//, "");
+}
+/** Ensure `child` resolves to a path under `root` (defence-in-depth around safeRelpath). */
+function isUnder(root: string, child: string): boolean {
+  const r = resolve(root) + sep;
+  const c = resolve(child);
+  return c === resolve(root) || c.startsWith(r);
+}
+function safeReadJSON<T>(path: string, fallback: T): T {
+  try {
+    if (!existsSync(path)) return fallback;
+    const raw = readFileSync(path, "utf-8");
+    if (!raw.trim()) return fallback;
+    return JSON.parse(raw) as T;
+  } catch {
+    return fallback;
+  }
+}
+function atomicWriteFile(path: string, data: string) {
+  mkdirSync(dirname(path), { recursive: true });
+  const tmp = `${path}.tmp.${process.pid}.${Date.now()}`;
+  writeFileSync(tmp, data);
+  renameSync(tmp, path);
+}
+function runGit(cwd: string, args: string[], opts: SpawnSyncOptions = {}) {
+  return spawnSync("git", ["-C", cwd, ...args], {
+    encoding: "utf-8",
+    maxBuffer: MAX_GIT_BUFFER,
+    ...opts,
+  });
+}
+/** Single-process advisory lock via O_EXCL. Returns release(). */
+function acquireLock(lockPath: string, timeoutMs = 5000): (() => void) | null {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    try {
+      mkdirSync(dirname(lockPath), { recursive: true });
+      const fd = openSync(lockPath, "wx");
+      writeFileSync(lockPath, String(process.pid));
+      return () => { try { closeSync(fd); } catch {}; try { rmSync(lockPath); } catch {} };
+    } catch {
+      // if lock is stale (>60s) reclaim it
+      try {
+        const st = statSync(lockPath);
+        if (Date.now() - st.mtimeMs > 60_000) rmSync(lockPath);
+      } catch {}
+      const wait = new Int32Array(new SharedArrayBuffer(4));
+      Atomics.wait(wait, 0, 0, 100);
+    }
+  }
+  return null;
+}
+
+// ---------- glob helpers ----------
+function globToRegex(g: string): RegExp {
+  // minimal glob: **/ -> (?:.*/)?, ** -> .*, * -> [^/]*, {a,b} -> (a|b)
+  let s = g.replace(/[.+^$()|\\]/g, "\\$&");
+  s = s.replace(/\{([^}]+)\}/g, (_, alts) => "(" + alts.split(",").map((x: string) => x.trim()).join("|") + ")");
+  s = s.replace(/\*\*\//g, "::DSSLASH::");
+  s = s.replace(/\*\*/g, "::DOUBLESTAR::");
+  s = s.replace(/\*/g, "[^/]*");
+  s = s.replaceAll("::DSSLASH::", "(?:.*/)?");
+  s = s.replaceAll("::DOUBLESTAR::", ".*");
+  return new RegExp("^" + s + "$");
+}
+function matchesAny(path: string, globs: string[]): boolean {
+  return globs.some(g => globToRegex(g).test(path) || globToRegex(g).test(path.replace(/\/$/, "")));
+}
+function filterChanges(p: Project, files: string[]): string[] {
+  return files.filter(f => {
+    if (!f || f.endsWith("/")) return false;
+    if (p.exclude?.length && matchesAny(f, p.exclude)) return false;
+    if (p.include?.length && !matchesAny(f, p.include)) return false;
+    return true;
+  });
+}
+
+// ---------- git recovery (safe) ----------
+function recoverDeletedContent(projectPath: string, relpath: string, lastHead?: string): string | null {
+  const rel = safeRelpath(relpath);
+  if (!rel) return null;
+  const refs: string[] = [];
+  const head = gitSafeRef("HEAD")!;
+  refs.push(head);
+  const last = gitSafeRef(lastHead);
+  if (last) refs.push(last);
+  for (const ref of refs) {
+    const r = runGit(projectPath, ["show", `${ref}:${rel}`]);
+    if (r.status === 0 && r.stdout != null) return r.stdout;
+  }
+  // last-resort: find last commit that touched the path
+  const logR = runGit(projectPath, ["log", "-n", "1", "--pretty=format:%H", "--", rel]);
+  const lastCommit = gitSafeRef(logR.stdout?.trim());
+  if (lastCommit) {
+    const sh = runGit(projectPath, ["show", `${lastCommit}:${rel}`]);
+    if (sh.status === 0 && sh.stdout != null) return sh.stdout;
+  }
+  return null;
+}
+
+// ---------- types ----------
+type Project = {
+  path: string;
+  wiki: string;
+  name: string;
+  type: string;
+  scope: string;
+  include: string[];
+  exclude: string[];
+  registered_at: string;
+  trash_retention_days?: number;
+};
+type Registry = { projects: Project[] };
+
+function loadRegistry(): Registry {
+  if (!existsSync(REGISTRY)) {
+    mkdirSync(dirname(REGISTRY), { recursive: true });
+    return { projects: [] };
+  }
+  return safeReadJSON<Registry>(REGISTRY, { projects: [] });
+}
+function saveRegistry(r: Registry) {
+  atomicWriteFile(REGISTRY, JSON.stringify(r, null, 2));
+}
+function findProject(pathOrCwd?: string): Project | null {
+  const r = loadRegistry();
+  const target = resolve(pathOrCwd || process.cwd());
+  let p = r.projects.find(p => resolve(p.path) === target);
+  if (p) return p;
+  p = r.projects.find(p => target.startsWith(resolve(p.path) + sep));
+  return p || null;
+}
+function requireProject(flagPath?: string): Project {
+  const p = findProject(flagPath);
+  if (!p) {
+    console.error(`error: no registered wiki-llm project at or above ${resolve(flagPath || process.cwd())}`);
+    console.error(`hint: run \`wiki init\` first, or pass --project <path>`);
+    process.exit(1);
+  }
+  return p;
+}
+function nowISO() { return new Date().toISOString().replace("T", " ").slice(0, 16); }
+function nowFile() { return new Date().toISOString().replace(/[:T]/g, "-").slice(0, 19); }
+function slugify(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+function detectProjectType(path: string): { type: string; defaultInclude: string[]; defaultExclude: string[] } {
+  const has = (f: string) => existsSync(join(path, f));
+  const exclude = ["node_modules/**", ".git/**", "dist/**", "build/**", "__pycache__/**", ".next/**", ".venv/**", "venv/**", ".wiki-llm/**", "Trash/**"];
+  if (has("package.json")) return { type: "js-ts-project", defaultInclude: ["**/*.{ts,tsx,js,jsx,mjs,cjs,md,json}"], defaultExclude: exclude };
+  if (has("pyproject.toml") || has("requirements.txt") || has("setup.py")) return { type: "python-project", defaultInclude: ["**/*.{py,md,toml,yaml,yml}"], defaultExclude: exclude };
+  if (has("Cargo.toml")) return { type: "rust-project", defaultInclude: ["**/*.{rs,toml,md}"], defaultExclude: exclude };
+  if (has("go.mod")) return { type: "go-project", defaultInclude: ["**/*.{go,md,mod,sum}"], defaultExclude: exclude };
+  try {
+    const files = readdirSync(path).slice(0, 50);
+    const dataFiles = files.filter(f => /\.(csv|parquet|duckdb|sqlite|jsonl|tsv)$/.test(f));
+    if (dataFiles.length >= 2) return { type: "data-folder", defaultInclude: ["**/*.{md,sql,py,yaml,json}", "schema*.yaml", "README*"], defaultExclude: exclude };
+    const mdFiles = files.filter(f => /\.(md|txt|pdf)$/.test(f));
+    if (mdFiles.length >= 2) return { type: "notes-folder", defaultInclude: ["**/*.{md,txt}"], defaultExclude: exclude };
+  } catch {}
+  return { type: "generic-folder", defaultInclude: ["**/*"], defaultExclude: exclude };
+}
+
+// ---------- queue dedup ----------
+function queueAppend(queueFile: string, entry: any) {
+  const line = JSON.stringify(entry);
+  // Skip if the most recent entry for this file+action is already pending.
+  try {
+    if (existsSync(queueFile)) {
+      const lines = readFileSync(queueFile, "utf-8").split("\n").filter(Boolean);
+      for (let i = lines.length - 1; i >= 0 && i >= lines.length - 100; i--) {
+        try {
+          const prev = JSON.parse(lines[i]);
+          if (prev.file === entry.file && prev.action === entry.action) return;
+        } catch {}
+      }
+    }
+  } catch {}
+  appendFileSync(queueFile, line + "\n");
+}
+
+// ---------- trash retention ----------
+function pruneTrash(p: Project) {
+  const days = p.trash_retention_days ?? DEFAULT_TRASH_RETENTION_DAYS;
+  if (days <= 0) return; // 0 == never prune
+  const trashRoot = join(p.wiki, ".wiki-llm", "trash");
+  if (!existsSync(trashRoot)) return;
+  const cutoff = Date.now() - days * 86_400_000;
+  let pruned = 0;
+  for (const ent of readdirSync(trashRoot, { withFileTypes: true })) {
+    if (!ent.isDirectory()) continue;
+    const full = join(trashRoot, ent.name);
+    try {
+      const st = statSync(full);
+      if (st.mtimeMs < cutoff) { rmSync(full, { recursive: true, force: true }); pruned++; }
+    } catch {}
+  }
+  return pruned;
+}
+
+// ----- init -----
+async function cmdInit(args: string[]) {
+  const jsonFlag = args.indexOf("--json");
+  if (jsonFlag >= 0) {
+    const answersPath = args[jsonFlag + 1];
+    if (!answersPath || !existsSync(answersPath)) { console.error("error: --json requires a path to an existing answers file"); process.exit(1); }
+    const a = safeReadJSON<any>(answersPath, null);
+    if (!a) { console.error("error: invalid JSON in answers file"); process.exit(1); }
+    return doInit(a);
+  }
+  const proj = resolve(args[0] || process.cwd());
+  if (!existsSync(proj)) { console.error(`error: ${proj} does not exist`); process.exit(1); }
+  const det = detectProjectType(proj);
+  const name = basename(proj);
+  const wiki = join("/home/workspace/wiki", slugify(name));
+  console.log(JSON.stringify({
+    detected_type: det.type,
+    suggested_wiki: wiki,
+    suggested_include: det.defaultInclude,
+    suggested_exclude: det.defaultExclude,
+    questions: [
+      { id: "project_path", default: proj },
+      { id: "wiki_path", default: wiki },
+      { id: "include_globs", default: det.defaultInclude },
+      { id: "exclude_globs", default: det.defaultExclude },
+      { id: "scope", help: "code/docs/runtime/ops/notes/data/all", default: det.type.includes("project") ? "code+ops" : "all" },
+      { id: "auto_update", default: "hook" },
+      { id: "backfill", default: "yes" },
+      { id: "trash_retention_days", default: DEFAULT_TRASH_RETENTION_DAYS },
+    ],
+    hint: "Run again with --json <answers.json> to actually scaffold.",
+  }, null, 2));
+}
+function doInit(a: any) {
+  const projPath = resolve(a.project_path);
+  const wikiPath = resolve(a.wiki_path);
+  const name = a.name || basename(projPath);
+  const type = a.type || detectProjectType(projPath).type;
+  mkdirSync(join(wikiPath, "pages", "sources"), { recursive: true });
+  mkdirSync(join(wikiPath, "pages", "entities"), { recursive: true });
+  mkdirSync(join(wikiPath, "pages", "topics"), { recursive: true });
+  mkdirSync(join(wikiPath, ".wiki-llm", "trash"), { recursive: true });
+  const subs = {
+    PROJECT_NAME: name,
+    PROJECT_PATH: projPath,
+    PROJECT_TYPE: type,
+    INGEST_SCOPE: a.scope || "all",
+    WIKI_ROOT: wikiPath,
+    INIT_TIMESTAMP: nowISO(),
+  };
+  for (const f of ["AGENTS.md", "index.md", "log.md"]) {
+    let body = readFileSync(join(TEMPLATE_DIR, f), "utf-8");
+    for (const [k, v] of Object.entries(subs)) body = body.replaceAll(`{{${k}}}`, v as string);
+    writeFileSync(join(wikiPath, f), body);
+  }
+  let head = "";
+  const headR = runGit(projPath, ["rev-parse", "HEAD"]);
+  if (headR.status === 0) head = (headR.stdout || "").trim();
+  atomicWriteFile(join(wikiPath, ".wiki-llm", "state.json"), JSON.stringify({ last_head: gitSafeRef(head) || "", last_check: nowISO() }, null, 2));
+  writeFileSync(join(wikiPath, ".wiki-llm", "queue.jsonl"), "");
+  writeFileSync(join(wikiPath, ".wiki-llm", "trash", "manifest.jsonl"), "");
+  atomicWriteFile(join(wikiPath, ".wiki-llm", "config.json"), JSON.stringify({
+    project: projPath, name, type, scope: a.scope || "all",
+    include: a.include_globs, exclude: a.exclude_globs,
+    auto_update: a.auto_update || "hook", backfill: a.backfill || "yes",
+    trash_retention_days: typeof a.trash_retention_days === "number" ? a.trash_retention_days : DEFAULT_TRASH_RETENTION_DAYS,
+  }, null, 2));
+  try {
+    if (which("qmd")) {
+      spawnSync("qmd", ["collection", "add", wikiPath, "--name", slugify(name)], { stdio: "ignore" });
+      spawnSync("qmd", ["context", "add", `qmd://${slugify(name)}`, `${name} — wiki maintained by wiki-llm`], { stdio: "ignore" });
+    }
+  } catch {}
+  const r = loadRegistry();
+  r.projects = r.projects.filter(p => resolve(p.path) !== projPath);
+  r.projects.push({
+    path: projPath, wiki: wikiPath, name, type, scope: a.scope || "all",
+    include: a.include_globs, exclude: a.exclude_globs, registered_at: nowISO(),
+    trash_retention_days: typeof a.trash_retention_days === "number" ? a.trash_retention_days : DEFAULT_TRASH_RETENTION_DAYS,
+  });
+  saveRegistry(r);
+  console.log(JSON.stringify({ ok: true, project: projPath, wiki: wikiPath }, null, 2));
+}
+
+// ----- status -----
+function cmdStatus() {
+  const r = loadRegistry();
+  if (r.projects.length === 0) { console.log("(no projects registered)"); return; }
+  for (const p of r.projects) {
+    const queue = join(p.wiki, ".wiki-llm", "queue.jsonl");
+    const pending = existsSync(queue) ? readFileSync(queue, "utf-8").split("\n").filter(l => l.trim()).length : 0;
+    const trash = join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl");
+    const trashed = existsSync(trash) ? readFileSync(trash, "utf-8").split("\n").filter(l => l.trim()).length : 0;
+    console.log(`${p.name}\n  path:    ${p.path}\n  wiki:    ${p.wiki}\n  type:    ${p.type}\n  pending: ${pending}\n  trashed: ${trashed}`);
+  }
+}
+
+// ----- register / unregister -----
+function cmdRegister(args: string[]) {
+  const proj = resolve(args[0] || process.cwd());
+  if (!existsSync(join(proj, ".wiki-llm")) && !findProject(proj)) {
+    const guess = join("/home/workspace/wiki", slugify(basename(proj)));
+    if (!existsSync(guess)) { console.error(`error: no wiki found for ${proj}. Run \`wiki init\` first.`); process.exit(1); }
+    const cfg = safeReadJSON<any>(join(guess, ".wiki-llm", "config.json"), null);
+    if (!cfg) { console.error(`error: corrupt config at ${guess}`); process.exit(1); }
+    const r = loadRegistry();
+    r.projects = r.projects.filter(p => resolve(p.path) !== proj);
+    r.projects.push({ path: proj, wiki: guess, name: cfg.name, type: cfg.type, scope: cfg.scope, include: cfg.include, exclude: cfg.exclude, registered_at: nowISO(), trash_retention_days: cfg.trash_retention_days });
+    saveRegistry(r);
+  }
+  console.log(`registered: ${proj}`);
+}
+function cmdUnregister(args: string[]) {
+  const proj = resolve(args[0] || process.cwd());
+  const r = loadRegistry();
+  const before = r.projects.length;
+  r.projects = r.projects.filter(p => resolve(p.path) !== proj);
+  saveRegistry(r);
+  console.log(`removed ${before - r.projects.length} entry(ies). Wiki files NOT deleted.`);
+}
+
+// ----- ingest -----
+function cmdIngest(args: string[]) {
+  const projFlag = args.indexOf("--project");
+  const projArg = projFlag >= 0 ? args[projFlag + 1] : undefined;
+  const file = args.find((a, i) => !a.startsWith("--") && (i === 0 || !args[i - 1].startsWith("--"))) || args[0];
+  if (!file) { console.error("usage: wiki ingest <file> [--project <path>]"); process.exit(1); }
+  const p = requireProject(projArg);
+  const safeRel = safeRelpath(file);
+  if (!safeRel && !isAbsolute(file)) { console.error(`error: invalid relative path: ${file}`); process.exit(1); }
+  const fullPath = isAbsolute(file) ? resolve(file) : resolve(p.path, safeRel!);
+  if (!isUnder(p.path, fullPath)) { console.error(`error: ${fullPath} escapes project root`); process.exit(1); }
+  if (!existsSync(fullPath)) { console.error(`error: ${fullPath} not found`); process.exit(1); }
+  const st = statSync(fullPath);
+  if (st.size > MAX_INGEST_BYTES) {
+    console.error(`error: ${fullPath} is ${st.size} bytes; exceeds MAX_INGEST_BYTES=${MAX_INGEST_BYTES}. Split or chunk before ingesting.`);
+    process.exit(1);
+  }
+  const rel = relative(p.path, fullPath);
+  const content = readFileSync(fullPath, "utf-8");
+  const sourcePage = `pages/sources/${slugify(rel)}.md`;
+  const existing = existsSync(join(p.wiki, sourcePage)) ? readFileSync(join(p.wiki, sourcePage), "utf-8") : null;
+  console.log(JSON.stringify({
+    action: "ingest",
+    project: p.name,
+    wiki: p.wiki,
+    source_relpath: rel,
+    source_abspath: fullPath,
+    target_page: sourcePage,
+    existing_page: existing,
+    content_bytes: content.length,
+    content,
+    instructions: [
+      `1. Read the source content above.`,
+      `2. Write or update ${join(p.wiki, sourcePage)} with frontmatter (kind: source, created/updated, sources: [${rel}]) and a concise summary of key facts, entities mentioned, and open questions.`,
+      `3. Identify entities/concepts. For each, create or update a page under ${join(p.wiki, "pages/entities")}/<slug>.md, adding ${rel} to its sources frontmatter.`,
+      `4. If this source changes any synthesis in pages/topics/, update those pages. Flag contradictions with > ⚠️ Contradicts: blockquotes.`,
+      `5. Add new pages to ${join(p.wiki, "index.md")} under the right section.`,
+      `6. Append a log entry to ${join(p.wiki, "log.md")}: \`## [${nowISO()}] ingest | ${rel}\`.`,
+    ],
+  }, null, 2));
+  queueAppend(join(p.wiki, ".wiki-llm", "queue.jsonl"), { ts: nowISO(), action: "ingest", file: rel });
+}
+
+// ----- update -----
+function collectChanges(p: Project, lastHead: string | undefined): { added: string[]; modified: string[]; deleted: string[]; curHead: string } {
+  let curHead = "";
+  const headR = runGit(p.path, ["rev-parse", "HEAD"]);
+  if (headR.status === 0) curHead = (headR.stdout || "").trim();
+  curHead = gitSafeRef(curHead) || "";
+  const safeLast = gitSafeRef(lastHead);
+  let added: string[] = [], modified: string[] = [], deleted: string[] = [];
+  if (curHead && safeLast && curHead !== safeLast) {
+    const diff = runGit(p.path, ["diff", "--name-status", safeLast, curHead]);
+    if (diff.status === 0) {
+      for (const line of (diff.stdout || "").split("\n")) {
+        const m = line.match(/^([AMDR])\s+(.+)$/);
+        if (!m) continue;
+        const [, kind, path] = m;
+        if (kind === "A") added.push(path);
+        else if (kind === "M" || kind === "R") modified.push(path);
+        else if (kind === "D") deleted.push(path);
+      }
+    }
+  }
+  const dirty = runGit(p.path, ["status", "--porcelain"]);
+  if (dirty.status === 0) {
+    for (const line of (dirty.stdout || "").split("\n")) {
+      const m = line.match(/^(.{2})\s+(.+)$/);
+      if (!m) continue;
+      const [, flags, path] = m;
+      if (flags.includes("D") && !deleted.includes(path)) deleted.push(path);
+      else if (flags.includes("M") && !modified.includes(path)) modified.push(path);
+      else if ((flags.includes("A") || flags.includes("?")) && !added.includes(path)) added.push(path);
+    }
+  }
+  return { added, modified, deleted, curHead };
+}
+function cmdUpdate(args: string[]) {
+  const projFlag = args.indexOf("--project");
+  const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
+  const stateFile = join(p.wiki, ".wiki-llm", "state.json");
+  const state = safeReadJSON<{ last_head?: string }>(stateFile, { last_head: "" });
+  let { added, modified, deleted, curHead } = collectChanges(p, state.last_head);
+  const queueFile = join(p.wiki, ".wiki-llm", "queue.jsonl");
+  const queued = existsSync(queueFile)
+    ? readFileSync(queueFile, "utf-8").split("\n").filter(l => l.trim()).map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean)
+    : [];
+  added = filterChanges(p, added);
+  modified = filterChanges(p, modified);
+  deleted = filterChanges(p, deleted);
+  // archive deletions
+  const trashed: string[] = [];
+  for (const d of deleted) {
+    const safeD = safeRelpath(d);
+    if (!safeD) continue;
+    const lastContent = recoverDeletedContent(p.path, safeD, state.last_head);
+    if (lastContent !== null) {
+      const stamp = nowFile();
+      const dest = join(p.wiki, ".wiki-llm", "trash", stamp, safeD);
+      if (!isUnder(join(p.wiki, ".wiki-llm", "trash"), dest)) continue;
+      mkdirSync(dirname(dest), { recursive: true });
+      writeFileSync(dest, lastContent);
+      appendFileSync(join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl"),
+        JSON.stringify({ ts: nowISO(), stamp, relpath: safeD, dest, bytes: lastContent.length }) + "\n");
+      trashed.push(safeD);
+    }
+  }
+  const pruned = pruneTrash(p);
+  console.log(JSON.stringify({
+    action: "update",
+    project: p.name,
+    wiki: p.wiki,
+    last_head: state.last_head, current_head: curHead,
+    added, modified, deleted, archived_to_trash: trashed, trash_pruned: pruned, queued,
+    instructions: (added.length + modified.length + deleted.length + queued.length === 0)
+      ? ["Nothing to update."]
+      : [
+          `For each added/modified file: run \`wiki ingest <file>\` to get the source content + instruction block.`,
+          `For each deleted file: walk pages/sources/ and pages/entities/ that reference it, mark them with \`> ⚠️ Source deleted on ${nowISO()}\` and update synthesis accordingly. Don't delete the wiki pages — they're the historical record. The source has been archived to ${join(p.wiki, ".wiki-llm/trash")} and can be restored via \`wiki recover <relpath>\`.`,
+          `After processing, advance state: re-run \`wiki update --commit\` to mark this batch processed.`,
+        ],
+  }, null, 2));
+  if (args.includes("--commit")) {
+    atomicWriteFile(stateFile, JSON.stringify({ last_head: curHead, last_check: nowISO() }, null, 2));
+    writeFileSync(queueFile, "");
+    console.log(`state advanced to ${curHead || "(no git)"}`);
+  }
+}
+
+// ----- query -----
+function cmdQuery(args: string[]) {
+  const projFlag = args.indexOf("--project");
+  const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
+  const q = args.filter(a => !a.startsWith("--") && a !== (projFlag >= 0 ? args[projFlag + 1] : "")).join(" ");
+  if (!q.trim()) { console.error("usage: wiki query \"...\""); process.exit(1); }
+  if (which("qmd")) {
+    const r = spawnSync("qmd", ["search", q, "-c", slugify(p.name), "-l", "10"], { encoding: "utf-8" });
+    console.log(r.stdout || r.stderr);
+    return;
+  }
+  const r = spawnSync("rg", ["-l", "-i", "--max-count", "5", q, p.wiki], { encoding: "utf-8" });
+  console.log(JSON.stringify({
+    backend: "ripgrep-fallback",
+    note: "Install qmd for hybrid BM25+vector search: see `wiki install-qmd`",
+    matches: (r.stdout || "").split("\n").filter(Boolean),
+    instructions: ["Read each matched file, then synthesize an answer with citations as `[title](relpath.md)`."],
+  }, null, 2));
+}
+
+// ----- lint -----
+function cmdLint(args: string[]) {
+  const projFlag = args.indexOf("--project");
+  const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
+  const wikiPages = listMd(join(p.wiki, "pages"));
+  const indexBody = existsSync(join(p.wiki, "index.md")) ? readFileSync(join(p.wiki, "index.md"), "utf-8") : "";
+  // Build a single concatenated view of all bodies, avoiding O(N²) memory per-pair.
+  const refSet = new Set<string>();
+  for (const f of wikiPages) {
+    try {
+      const body = readFileSync(f, "utf-8");
+      for (const m of body.matchAll(/\]\(([^)]+\.md)\)/g)) refSet.add(m[1]);
+    } catch {}
+  }
+  const orphans: string[] = [];
+  for (const f of wikiPages) {
+    const rel = relative(p.wiki, f);
+    const slug = basename(f, ".md");
+    if (indexBody.includes(rel) || refSet.has(rel) || refSet.has(slug)) continue;
+    orphans.push(rel);
+  }
+  const stale: { page: string; reason: string }[] = [];
+  for (const f of wikiPages) {
+    let body: string;
+    try { body = readFileSync(f, "utf-8"); } catch { continue; }
+    const fm = body.match(/^---\n([\s\S]*?)\n---/);
+    if (!fm) continue;
+    const updMatch = fm[1].match(/updated:\s*(\S+)/);
+    const srcMatch = fm[1].match(/sources:\s*\[(.*?)\]/);
+    if (!updMatch || !srcMatch) continue;
+    const upd = new Date(updMatch[1]);
+    if (isNaN(upd.getTime())) continue;
+    for (const s of srcMatch[1].split(",").map(x => x.trim().replace(/['"]/g, ""))) {
+      const safe = safeRelpath(s);
+      if (!safe) continue;
+      const sPath = resolve(p.path, safe);
+      if (!isUnder(p.path, sPath)) continue;
+      try {
+        if (existsSync(sPath)) {
+          const mt = statSync(sPath).mtime;
+          if (mt > upd) stale.push({ page: relative(p.wiki, f), reason: `source ${safe} modified ${mt.toISOString()} > page updated ${upd.toISOString()}` });
+        }
+      } catch {}
+    }
+  }
+  console.log(JSON.stringify({
+    action: "lint", project: p.name,
+    page_count: wikiPages.length,
+    orphans, stale,
+    instructions: [
+      `Resolve orphans by linking them from index.md or related pages, or delete if obsolete.`,
+      `Resolve stale pages by re-ingesting their source: \`wiki ingest <source>\`.`,
+    ],
+  }, null, 2));
+  appendFileSync(join(p.wiki, "log.md"), `\n## [${nowISO()}] lint | ${orphans.length} orphans, ${stale.length} stale\n`);
+}
+function listMd(dir: string): string[] {
+  if (!existsSync(dir)) return [];
+  const out: string[] = [];
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, e.name);
+    if (e.isDirectory()) out.push(...listMd(full));
+    else if (e.name.endsWith(".md")) out.push(full);
+  }
+  return out;
+}
+
+// ----- trash list / recover -----
+function cmdListDeleted(args: string[]) {
+  const projFlag = args.indexOf("--project");
+  const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
+  const m = join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl");
+  if (!existsSync(m)) { console.log("(no trash)"); return; }
+  const entries = readFileSync(m, "utf-8").split("\n").filter(l => l.trim()).map(l => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
+  console.log(JSON.stringify({ project: p.name, count: entries.length, entries }, null, 2));
+}
+function cmdRecover(args: string[]) {
+  const projFlag = args.indexOf("--project");
+  const p = requireProject(projFlag >= 0 ? args[projFlag + 1] : undefined);
+  const rel = args.find((a, i) => !a.startsWith("--") && (i === 0 || !args[i - 1].startsWith("--")));
+  if (!rel) { console.error("usage: wiki recover <relpath> [--project <path>]"); process.exit(1); }
+  const safe = safeRelpath(rel);
+  if (!safe) { console.error(`error: invalid relpath: ${rel}`); process.exit(1); }
+  const m = join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl");
+  if (!existsSync(m)) { console.error("error: no trash"); process.exit(1); }
+  const entries = readFileSync(m, "utf-8").split("\n").filter(l => l.trim())
+    .map(l => { try { return JSON.parse(l); } catch { return null; } })
+    .filter((e: any) => e && e.relpath === safe);
+  if (entries.length === 0) { console.error(`error: no trash entry for ${safe}`); process.exit(1); }
+  const newest = entries[entries.length - 1];
+  const dest = resolve(p.path, safe);
+  if (!isUnder(p.path, dest)) { console.error(`error: restore destination ${dest} escapes project root`); process.exit(1); }
+  // Source path must live under the wiki trash root (defence-in-depth against a tampered manifest).
+  if (!isUnder(join(p.wiki, ".wiki-llm", "trash"), newest.dest)) { console.error(`error: corrupt trash manifest`); process.exit(1); }
+  mkdirSync(dirname(dest), { recursive: true });
+  copyFileSync(newest.dest, dest);
+  console.log(JSON.stringify({ ok: true, restored: dest, from: newest.dest, ts: newest.ts }, null, 2));
+}
+
+// ----- hook -----
+function cmdHook() {
+  // single-flight: avoid two concurrent Stop-hook fires corrupting the queue.
+  const lock = acquireLock(join(homedir(), ".wiki-llm", "hook.lock"), 2000);
+  if (!lock) return; // another hook is running; let it handle this turn
+  try {
+    const r = loadRegistry();
+    const summary: any[] = [];
+    for (const p of r.projects) {
+      if (!existsSync(p.path)) continue;
+      const stateFile = join(p.wiki, ".wiki-llm", "state.json");
+      if (!existsSync(stateFile)) continue;
+      const state = safeReadJSON<{ last_head?: string }>(stateFile, { last_head: "" });
+      let changes = collectChanges(p, state.last_head);
+      const filteredAdded = filterChanges(p, changes.added);
+      const filteredMod   = filterChanges(p, changes.modified);
+      const filteredDel   = filterChanges(p, changes.deleted);
+      for (const d of filteredDel) {
+        const safeD = safeRelpath(d);
+        if (!safeD) continue;
+        const lastContent = recoverDeletedContent(p.path, safeD, state.last_head);
+        if (lastContent !== null) {
+          const stamp = nowFile();
+          const dest = join(p.wiki, ".wiki-llm", "trash", stamp, safeD);
+          if (!isUnder(join(p.wiki, ".wiki-llm", "trash"), dest)) continue;
+          mkdirSync(dirname(dest), { recursive: true });
+          writeFileSync(dest, lastContent);
+          appendFileSync(join(p.wiki, ".wiki-llm", "trash", "manifest.jsonl"),
+            JSON.stringify({ ts: nowISO(), stamp, relpath: safeD, dest, bytes: lastContent.length, source: "stop-hook" }) + "\n");
+        }
+      }
+      const queueFile = join(p.wiki, ".wiki-llm", "queue.jsonl");
+      for (const f of filteredAdded) queueAppend(queueFile, { ts: nowISO(), action: "ingest",   file: f, source: "hook" });
+      for (const f of filteredMod)   queueAppend(queueFile, { ts: nowISO(), action: "reingest", file: f, source: "hook" });
+      for (const f of filteredDel)   queueAppend(queueFile, { ts: nowISO(), action: "deleted",  file: f, source: "hook" });
+      if (filteredAdded.length + filteredMod.length + filteredDel.length > 0) {
+        summary.push({ project: p.name, added: filteredAdded, modified: filteredMod, deleted: filteredDel });
+      }
+    }
+    if (summary.length > 0) console.error(`[wiki-llm] pending updates: ${JSON.stringify(summary)}`);
+  } finally {
+    lock();
+  }
+}
+
+// ----- install-hook -----
+function cmdInstallHook() {
+  const settingsPath = join(homedir(), ".claude", "settings.json");
+  const settings = safeReadJSON<any>(settingsPath, {});
+  settings.hooks = settings.hooks || {};
+  settings.hooks.Stop = settings.hooks.Stop || [];
+  const wikiBin = resolve(import.meta.dir, "wiki");
+  const cmd = `${wikiBin} hook`;
+  const existing = settings.hooks.Stop.find((h: any) =>
+    (h.hooks || []).some((x: any) => x.command === cmd));
+  if (!existing) {
+    settings.hooks.Stop.push({ matcher: "", hooks: [{ type: "command", command: cmd }] });
+    atomicWriteFile(settingsPath, JSON.stringify(settings, null, 2));
+    console.log(`installed Stop hook -> ${cmd}`);
+  } else {
+    console.log(`Stop hook already installed`);
+  }
+}
+function cmdUninstallHook() {
+  const settingsPath = join(homedir(), ".claude", "settings.json");
+  if (!existsSync(settingsPath)) return;
+  const settings = safeReadJSON<any>(settingsPath, {});
+  const wikiBin = resolve(import.meta.dir, "wiki");
+  const cmd = `${wikiBin} hook`;
+  if (settings.hooks?.Stop) {
+    settings.hooks.Stop = settings.hooks.Stop
+      .map((h: any) => ({ ...h, hooks: (h.hooks || []).filter((x: any) => x.command !== cmd) }))
+      .filter((h: any) => (h.hooks || []).length > 0);
+    atomicWriteFile(settingsPath, JSON.stringify(settings, null, 2));
+  }
+  console.log(`uninstalled Stop hook`);
+}
+
+// ----- dep / install helpers -----
+const _whichCache = new Map<string, string | null>();
+function which(bin: string): string | null {
+  if (_whichCache.has(bin)) return _whichCache.get(bin)!;
+  const r = spawnSync("which", [bin]);
+  if (r.status === 0) {
+    const out = r.stdout.toString().trim();
+    if (out) { _whichCache.set(bin, out); return out; }
+  }
+  for (const dir of [join(homedir(), ".cargo", "bin"), join(homedir(), ".bun", "bin"), "/usr/local/bin"]) {
+    const cand = join(dir, bin);
+    if (existsSync(cand)) {
+      if (!process.env.PATH?.split(":").includes(dir)) process.env.PATH = `${dir}:${process.env.PATH}`;
+      _whichCache.set(bin, cand);
+      return cand;
+    }
+  }
+  _whichCache.set(bin, null);
+  return null;
+}
+function clearWhich(bin: string) { _whichCache.delete(bin); }
+function tryInstallQmd(): boolean {
+  if (which("qmd")) return true;
+  if (which("bun")) {
+    console.log("→ trying `bun add -g qmd`...");
+    if (spawnSync("bun", ["add", "-g", "qmd"], { stdio: "inherit" }).status === 0) { clearWhich("qmd"); if (which("qmd")) return true; }
+  }
+  if (which("npm")) {
+    console.log("→ trying `npm i -g qmd`...");
+    if (spawnSync("npm", ["i", "-g", "qmd"], { stdio: "inherit" }).status === 0) { clearWhich("qmd"); if (which("qmd")) return true; }
+  }
+  if (which("cargo")) {
+    console.log("→ trying `cargo install qmd`...");
+    if (spawnSync("cargo", ["install", "qmd"], { stdio: "inherit" }).status === 0) { clearWhich("qmd"); if (which("qmd")) return true; }
+  }
+  return false;
+}
+function tryInstallRustup(): boolean {
+  if (which("rustup") && which("cargo")) return true;
+  console.log("→ installing rustup (non-interactive, default profile)...");
+  // Use spawnSync directly with explicit args; no shell interpolation of user data.
+  const r = spawnSync("bash", ["-lc", "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile minimal"], { stdio: "inherit" });
+  if (r.status !== 0) return false;
+  const cargoBin = join(homedir(), ".cargo", "bin");
+  process.env.PATH = `${cargoBin}:${process.env.PATH}`;
+  clearWhich("cargo"); clearWhich("rustup");
+  return Boolean(which("cargo"));
+}
+function aptInstall(pkg: string): boolean {
+  if (which(pkg)) return true;
+  if (which("apt-get") && process.getuid?.() === 0) {
+    console.log(`→ apt-get install -y ${pkg}...`);
+    spawnSync("apt-get", ["update", "-y"], { stdio: "ignore" });
+    if (spawnSync("apt-get", ["install", "-y", pkg], { stdio: "inherit" }).status === 0) { clearWhich(pkg); return Boolean(which(pkg)); }
+  }
+  return false;
+}
+type DepStatus = { name: string; ok: boolean; required: boolean; version?: string; note?: string };
+function checkDeps(): DepStatus[] {
+  const out: DepStatus[] = [];
+  const ver = (bin: string, arg = "--version") => {
+    try { return execSync(`${bin} ${arg} 2>/dev/null`, { maxBuffer: 1024 * 1024 }).toString().trim().split("\n")[0]; } catch { return undefined; }
+  };
+  out.push({ name: "bun",   required: true,  ok: !!which("bun"),   version: ver("bun") });
+  out.push({ name: "git",   required: true,  ok: !!which("git"),   version: ver("git") });
+  out.push({ name: "qmd",   required: false, ok: !!which("qmd"),   version: ver("qmd"), note: "search backend (hybrid BM25+vector); ripgrep fallback if missing" });
+  out.push({ name: "rg",    required: false, ok: !!which("rg"),    version: ver("rg"),  note: "fallback search if qmd missing" });
+  out.push({ name: "rustup",required: false, ok: !!which("rustup"),version: ver("rustup"), note: "only needed if qmd can't install via npm/bun" });
+  out.push({ name: "cargo", required: false, ok: !!which("cargo"), version: ver("cargo"), note: "only needed if qmd can't install via npm/bun" });
+  return out;
+}
+function cmdDoctor(args: string[]) {
+  const fix = args.includes("--fix") || args.includes("--install");
+  const quiet = args.includes("--quiet");
+  let deps = checkDeps();
+  if (fix) {
+    if (!deps.find(d => d.name === "bun")?.ok) console.error("bun is required and must be installed manually (https://bun.sh)");
+    if (!deps.find(d => d.name === "git")?.ok) aptInstall("git");
+    if (!deps.find(d => d.name === "rg")?.ok)  aptInstall("ripgrep");
+    if (!deps.find(d => d.name === "qmd")?.ok) {
+      if (!tryInstallQmd()) {
+        if (tryInstallRustup()) tryInstallQmd();
+      }
+    }
+    deps = checkDeps();
+  }
+  if (quiet) {
+    const missingReq = deps.filter(d => d.required && !d.ok);
+    if (missingReq.length) { console.error(`missing required: ${missingReq.map(d => d.name).join(", ")}`); process.exit(1); }
+    return;
+  }
+  const lines = deps.map(d => `  ${d.ok ? "✓" : (d.required ? "✗" : "·")} ${d.name.padEnd(7)} ${d.ok ? (d.version || "") : (d.required ? "MISSING (required)" : "missing (optional)")}${d.note && !d.ok ? `  — ${d.note}` : ""}`);
+  console.log("wiki-llm dependency check:\n" + lines.join("\n"));
+  const missingReq = deps.filter(d => d.required && !d.ok);
+  if (missingReq.length) {
+    console.error(`\nmissing required dependency: ${missingReq.map(d => d.name).join(", ")}. Re-run \`wiki doctor --fix\` to attempt install.`);
+    process.exit(1);
+  }
+  const missingOpt = deps.filter(d => !d.required && !d.ok);
+  if (missingOpt.length && !fix) {
+    console.log(`\nhint: run \`wiki doctor --fix\` to install optional deps (${missingOpt.map(d => d.name).join(", ")}).`);
+  }
+}
+function ensureDepsForFirstRun() {
+  if (existsSync(REGISTRY)) return;
+  const deps = checkDeps();
+  const needFix = deps.some(d => !d.ok);
+  if (!needFix) return;
+  console.error("first run detected — checking dependencies (run `wiki doctor` anytime to re-check)...");
+  cmdDoctor(["--fix"]);
+}
+function cmdInstallQmd() {
+  if (which("qmd")) { console.log("qmd already installed"); return; }
+  if (tryInstallQmd()) { console.log(`qmd installed at ${which("qmd")}`); return; }
+  console.log("qmd install via npm/bun/cargo failed; bootstrapping rustup then retrying...");
+  if (tryInstallRustup() && tryInstallQmd()) { console.log(`qmd installed at ${which("qmd")}`); return; }
+  console.error("qmd install failed. Manual install: https://github.com/tobi/qmd. Skill will fall back to ripgrep search.");
+  process.exit(1);
+}
+
+// ----- dispatch -----
+const [, , cmd, ...rest] = process.argv;
+const cmds: Record<string, (a: string[]) => any> = {
+  init: cmdInit,
+  status: () => cmdStatus(),
+  register: cmdRegister,
+  unregister: cmdUnregister,
+  ingest: cmdIngest,
+  update: cmdUpdate,
+  query: cmdQuery,
+  lint: cmdLint,
+  "list-deleted": cmdListDeleted,
+  recover: cmdRecover,
+  hook: () => cmdHook(),
+  "install-hook": () => cmdInstallHook(),
+  "uninstall-hook": () => cmdUninstallHook(),
+  "install-qmd": () => cmdInstallQmd(),
+  doctor: cmdDoctor,
+};
+if (cmd && cmd !== "doctor" && cmd !== "hook" && cmds[cmd]) ensureDepsForFirstRun();
+if (!cmd || cmd === "--help" || cmd === "-h" || !cmds[cmd]) {
+  console.log(`wiki — LLM-maintained wiki for any project folder
+
+Usage: wiki <command> [args]
+
+Commands:
+  init [path]            Interactive setup (prints questions JSON; re-run with --json <answers> to scaffold)
+  status                 List registered projects + pending counts
+  register [path]        Add an existing wiki to the registry
+  unregister [path]      Remove from registry (wiki files preserved)
+  ingest <file>          Mark a source for ingestion; emits agent instruction block
+  update                 Diff vs last snapshot, archive deletions, list pending
+  query "..."            Search the wiki (qmd if installed, else ripgrep)
+  lint                   Health check: orphans, stale pages, etc.
+  list-deleted           Show files in wiki trash
+  recover <relpath>      Restore a deleted source from wiki trash
+  hook                   Stop-hook entrypoint (cheap, non-LLM, called by Claude Code)
+  install-hook           Add Stop hook to ~/.claude/settings.json
+  uninstall-hook         Remove Stop hook
+  install-qmd            Best-effort install of qmd search backend (tries npm/bun → cargo → rustup+cargo)
+  doctor [--fix]         Check (and optionally install) deps: bun, git, qmd, ripgrep, rustup/cargo
+
+Common flags: --project <path>  --json <answers.json>  --commit
+`);
+  process.exit(cmd && !cmds[cmd] ? 1 : 0);
+}
+cmds[cmd](rest);
