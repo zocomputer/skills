@@ -3180,6 +3180,36 @@
       "slug": "webapp-testing",
       "path": "External/webapp-testing",
       "date_added": "2026-01-26"
+    },
+    {
+      "name": "routerbase-api-integration",
+      "description": "Integrate applications with RouterBase, the OpenAI-compatible model gateway at https://routerbase.com/v1. Use when migrating OpenAI SDK calls to RouterBase, configuring RouterBase API keys, implementing chat completions, streaming, tool calling, JSON mode, vision inputs, request validation, error handling, or documenting RouterBase setup for Python, JavaScript, curl, LangChain, LlamaIndex, Vercel AI SDK, Cursor, Continue, or other OpenAI-compatible clients.",
+      "metadata": {
+        "author": "zenlee123",
+        "category": "External"
+      },
+      "slug": "routerbase-api-integration",
+      "path": "External/routerbase-api-integration"
+    },
+    {
+      "name": "routerbase-media-generation",
+      "description": "Build image, video, and audio generation workflows on RouterBase. Use when calling RouterBase image, video, audio, speech, or media APIs; selecting media model IDs; handling synchronous image responses; polling asynchronous video or audio tasks; using callback URLs; storing generated media before retention expiry; or migrating OpenAI-compatible image generation calls to RouterBase.",
+      "metadata": {
+        "author": "zenlee123",
+        "category": "External"
+      },
+      "slug": "routerbase-media-generation",
+      "path": "External/routerbase-media-generation"
+    },
+    {
+      "name": "routerbase-model-routing",
+      "description": "Choose RouterBase model IDs and routing strategies for chat, image, video, audio, and embeddings workloads. Use when comparing providers, selecting GPT, Claude, Gemini, image, video, or audio models on RouterBase, designing fallback paths, checking pricing or availability, planning cost/latency/quality tradeoffs, querying the RouterBase Models API, or documenting how an app should route model requests through RouterBase.",
+      "metadata": {
+        "author": "zenlee123",
+        "category": "External"
+      },
+      "slug": "routerbase-model-routing",
+      "path": "External/routerbase-model-routing"
     }
   ]
 }
