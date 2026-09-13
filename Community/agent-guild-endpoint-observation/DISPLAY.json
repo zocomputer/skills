@@ -1,0 +1,7 @@
+{
+  "specVersion": "0.2.0",
+  "icon": "search",
+  "tags": ["agents", "mcp", "observability"],
+  "integrations": ["agent-guild"],
+  "secrets": []
+}
