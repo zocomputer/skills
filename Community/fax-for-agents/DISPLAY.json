@@ -1,0 +1,19 @@
+{
+  "specVersion": "0.2.0",
+  "icon": "printer",
+  "image": "https://faxforagents.com/brand/logo-512.png",
+  "tags": [
+    "fax",
+    "communication",
+    "documents"
+  ],
+  "integrations": [
+    "faxforagents"
+  ],
+  "secrets": [
+    {
+      "secret_name": "FAXFORAGENTS_API_KEY",
+      "description": "Create a key at https://app.faxforagents.com/. Use an ffa_test_ key for the free sandbox."
+    }
+  ]
+}
