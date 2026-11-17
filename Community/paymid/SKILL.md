@@ -101,6 +101,7 @@ Pix, Zelle, Wise, wire/SWIFT, ACH, SEPA, card, PayPal, Bitcoin, or a custom
 rail, and each rail records its own confirmation reference.
 
 ## References
+
 - Site and docs: https://paymid.com.br
 - Terms: https://paymid.com.br/terms
 - Privacy: https://paymid.com.br/privacy
