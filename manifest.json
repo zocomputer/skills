@@ -3,6 +3,28 @@
   "archive_root": "skills-main",
   "skills": [
     {
+      "name": "build-in-zo",
+      "description": "Designs and builds applications, multi-agent systems, and automations in a Zo workspace through the System API using MCP, the TypeScript SDK, HTTP, or the Zo CLI. Resolves the workspace and effective principal, surveys existing workspace conventions and live platform limits, fetches current documentation, and applies opinionated distributed-system and agent-delegation patterns to compose Zo resources cleanly. Use when a user wants to design, build, or change something in their Zo workspace. Does not cover developing Zo itself.",
+      "metadata": {
+        "author": "Zo",
+        "category": "Official",
+        "display-name": "Build in Zo"
+      },
+      "display": {
+        "specVersion": "0.2.0",
+        "icon": "blocks",
+        "tags": [
+          "zo",
+          "automation",
+          "workflows",
+          "agents"
+        ]
+      },
+      "slug": "zo-build-in-zo",
+      "path": "Official/zo-build-in-zo",
+      "date_added": "2026-11-27"
+    },
+    {
       "name": "clarion-portfolio-monitor",
       "description": "Fetch live portfolio positions, balances, and daily transactions from TastyTrade. Outputs a structured JSON snapshot and a human-readable summary to ~/clarion/portfolio/. Use when the user asks for portfolio status, net liquidation value (NLV), position P/L, daily fills, or needs current holdings for the investor letter or thesis monitoring. Requires TastyTrade OAuth credentials (client secret + refresh token) stored as Zo secrets.",
       "compatibility": "Created for Zo Computer",
