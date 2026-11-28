@@ -1,0 +1,5 @@
+{
+  "specVersion": "0.2.0",
+  "icon": "banknote",
+  "tags": ["usdc", "offramp", "base", "payments"]
+}
